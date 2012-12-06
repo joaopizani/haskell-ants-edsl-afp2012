@@ -32,9 +32,20 @@ data Dexterity = L | R
     deriving Enum
 
 data Condition = Friend | Foe | FriendWithFood | FoeWithFood 
-            | Food | Rock | Marker Pheromone | FoeMarker | Home | FoeHome
-    deriving Show
+               | Food | Rock | Marker Pheromone | FoeMarker | Home | FoeHome
 
+instance Show Condition where
+    show Friend         = "Friend"
+    show Foe            = "Foe"
+    show FriendWithFood = "FriendWithFood"
+    show FoeWithFood    = "FoeWithFood"
+    show Food           = "Food"
+    show Rock           = "Rock"
+    show (Marker p)     = "Marker " ++ show p
+    show FoeMarker      = "FoeMarker"
+    show Home           = "Home"
+    show FoeHome        = "FoeHome"
+    
 instance Show Pheromone where
     show = show . fromEnum
 

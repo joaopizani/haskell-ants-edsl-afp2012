@@ -8,6 +8,9 @@ main = undefined --print randomAntAssembly
 
 newtype AntState = AntState Int
 
+incStateBy :: Int -> AntState -> AntState
+incStateBy i (AntState a) = (AntState (a+i))
+
 instance Show AntState where
     show (AntState s) = show s
 

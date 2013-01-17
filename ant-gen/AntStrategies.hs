@@ -8,27 +8,62 @@ type AntStrategy = State StateID [AntInstruction]
 
 type StateID = Int
 
-drop :: AntStrategy 
-drop = do 
-    s <- get
+aDrop_turn :: AntStrategy
+aDrop_turn = aDrop >>- aTurn R
+
+aDrop :: AntStrategy 
+aDrop = do 
     modify (+1)
+    s <- get
     return $ singleton $ Drop (AntState s)
 
-turn :: Dexterity -> AntStrategy
-turn d = do
-    s <- get
+aTurn :: Dexterity -> AntStrategy
+aTurn d = do
     modify (+1)
+    s <- get
     return $ singleton $ Turn d (AntState s)
+
+aTurnL :: AntStrategy
+aTurnL = aTurn L
+
+aTurnR :: AntStrategy
+aTurnR = aTurn R
+
+aSense :: Direction -> Condition -> AntStrategy
+aSense d c = do
+    modify (+1)
+    s <- get
+    return $ singleton $ Sense d (AntState s) (AntState s) c
+
+aMove :: AntStrategy
+aMove = do
+    modify (+1)
+    s <- get
+    return $ singleton $ Move (AntState s) (AntState s)
 
 singleton = (:[])
 
-sequence :: AntStrategy -> AntStrategy -> AntStrategy
-sequence s1 s2 =
+infixr 6 >>-
+
+(>>-) :: AntStrategy -> AntStrategy -> AntStrategy
+s1 >>- s2 =
     do
        l1 <- s1
        l2 <- s2
-       return $ (init l1 ++ [replaceState (AntState 42) --TODO instruction must have an ID
-                                          (last l1)]) ++ l2
+       return $ l1 --((init l1)
+                    -- ++ [replaceState (AntState $ length l1) (last l1)]) 
+                    ++ l2 
+
+sqC :: AntStrategy -> AntStrategy -> AntStrategy -> AntStrategy
+sqC s1 s2 s3 =
+    do
+        l1 <- s1
+        l2 <- s2
+        l3 <- s3
+        return $ (init l1
+                    ++ [modifyState (incStateBy (length l2)) (last l1)])
+                    ++ l2
+                    ++ l3
 
 modifyState f (Sense a b s c) = (Sense a b (f s) c)
 modifyState f (Mark a s)      = (Mark a (f s))                   

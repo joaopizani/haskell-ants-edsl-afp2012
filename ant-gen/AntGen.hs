@@ -1,4 +1,4 @@
-
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 module AntGen where
 
 import Test.QuickCheck
@@ -7,6 +7,7 @@ import Control.Monad
 main = undefined --print randomAntAssembly
 
 newtype AntState = AntState Int
+    deriving (Eq, Ord, Enum)
 
 incStateBy :: Int -> AntState -> AntState
 incStateBy i (AntState a) = (AntState (a+i))

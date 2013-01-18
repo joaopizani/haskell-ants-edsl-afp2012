@@ -16,66 +16,36 @@ data AntStrategy' = AntStrategy'
 type AntStrategy = Supply AntState AntStrategy'
 
 
-aDrop :: AntStrategy
-aDrop = do
+-- Basic instructions, one function per assembly instruction
+aMkSingletonStrategy :: (AntState -> AntInstruction) -> AntStrategy
+aMkSingletonStrategy instr = do
     idx <- supply
-    return $ AntStrategy' (M.fromList [(idx, Drop idx)]) idx idx
+    return $ AntStrategy' (M.fromList [(idx, instr idx)]) idx idx
 
+
+aMark :: Pheromone -> AntStrategy
+aMark p = aMkSingletonStrategy (Mark p)
+
+aUnMark :: Pheromone -> AntStrategy
+aUnMark p = aMkSingletonStrategy (UnMark p)
+
+aDrop :: AntStrategy
+aDrop = aMkSingletonStrategy Drop
 
 aTurn :: Dexterity -> AntStrategy
-aTurn d = do
-    idx <- supply
-    return $ AntStrategy' (M.fromList [(idx, Turn d idx)]) idx idx
+aTurn d = aMkSingletonStrategy (Turn d)
 
+
+
+{- TODO remove this, only way of creating conditional instructions is by using while or if
 aSense :: Direction -> Condition -> AntStrategy -> AntStrategy
 aSense d c exception = do
     idx <- supply
     e <- exception
     return $ AntStrategy' (M.insert idx (Sense d idx (initial e) c) (instructions e)) 
-                          idx 
                           idx
-
-{-
--- No infinite loops, for now
-aLoop :: AntStrategy -> AntStrategy
-aLoop as = do
-    as' <- as
-    let asFinalInstr = fromJust $ M.lookup (final as') (instructions as') 
-        newInstrs    = M.insert (final as') 
-                                (replaceDefaultState (initial as') asFinalInstr) 
-                                (instructions as')
-    return $ AntStrategy' newInstrs (initial as') (final as')
+                          idx
 -}
-
-data AntTest = TryForward
-             | TryPickup
-             | TrySense Direction Condition
-
--- TODO: finish all patterns
-aWhile :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
-aWhile TryForward s1 s2 = do
-    s1' <- s1
-    s2' <- s2
-    idx <- supply
-    let testInstr = Move t f
-        (t,f)     = (initial s1',initial s2')
-        s1''      = replaceFinal idx s1'
-    return $ AntStrategy' (M.insert idx testInstr ((instructions s1'') `M.union` 
-                                                   (instructions s2')))
-                          idx
-                          (final s2')
-aWhile _ _ _ = undefined
-
-replaceFinal :: AntState -> AntStrategy' -> AntStrategy'
-replaceFinal idx as = 
-    let asFinalInstr = fromJust $ M.lookup (final as) (instructions as) 
-        newInstrs    = M.insert (final as) 
-                                (replaceDefaultState idx asFinalInstr) 
-                                (instructions as)
-     in AntStrategy' newInstrs (initial as) (final as) 
-    
-
-runAnt p = fst $ runSupply p [AntState 0..]    
 
 replaceDefaultState :: AntState -> AntInstruction -> AntInstruction
 replaceDefaultState ns (Sense d _ s c) = (Sense d ns s c)
@@ -98,3 +68,48 @@ s1 >>- s2 = do
                      (replaceDefaultState (initial s2') s1'FinalInstruction)
                      (instructions s1')
     return $ AntStrategy' (s1'NewInstructions `M.union` (instructions s2')) (initial s1') (final s2')
+
+
+replaceFinal :: AntState -> AntStrategy' -> AntStrategy'
+replaceFinal idx as = 
+    let asFinalInstr = fromJust $ M.lookup (final as) (instructions as) 
+        newInstrs    = M.insert (final as) 
+                                (replaceDefaultState idx asFinalInstr) 
+                                (instructions as)
+     in AntStrategy' newInstrs (initial as) (final as) 
+
+
+data AntTest
+    = TryForward
+    | TryPickup
+    | TrySense Direction Condition
+    | TryRandomEqZero Int
+
+aWhile :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
+aWhile TryForward           = aMkWhileBlk Move
+aWhile TryPickup            = aMkWhileBlk PickUp
+aWhile (TrySense d c)       = aMkWhileBlk $ \t f -> Sense d t f c
+aWhile (TryRandomEqZero p)  = aMkWhileBlk $ flip (Flip p)
+
+
+aMkWhileBlk :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy
+aMkWhileBlk conditional trueBlk falseBlk = do
+    trueBlk'  <- trueBlk
+    falseBlk' <- falseBlk
+    idx <- supply
+    let testInstr = conditional true false
+        (true, false)     = (initial trueBlk',initial falseBlk')
+        trueBlk''      = replaceFinal idx trueBlk'
+    return $ AntStrategy' (M.insert idx testInstr ((instructions trueBlk'') `M.union` 
+                                                   (instructions falseBlk')))
+                          idx
+                          (final falseBlk')
+
+
+
+-- TODO write if-then-else in a similar style to aWhile, then if-without-else using if-then-else
+
+
+runAnt p = fst $ runSupply p [AntState 0..]    
+
+

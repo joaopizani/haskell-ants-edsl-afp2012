@@ -1,6 +1,6 @@
-module AntMap where
+module Game.UUAntGen.AntMap where
 
-import AntGen
+import Game.UUAntGen.AntAssembly
 import qualified Data.Map as M
 import Control.Monad.Supply
 import Data.Maybe (fromJust)

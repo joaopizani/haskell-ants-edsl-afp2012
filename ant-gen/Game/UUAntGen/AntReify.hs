@@ -1,7 +1,8 @@
-module AntReify where
+module Game.UUAntGen.AntReify where
 
 import GHC.Vacuum
 import Data.IntMap as M
+
 
 program :: AntInstruction
 program = Drop (Flip 25 program program)

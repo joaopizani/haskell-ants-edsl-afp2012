@@ -1,5 +1,5 @@
 
-module AntGenES where
+module Game.UUAntGen.ES.AntGenES where
 
 import Test.QuickCheck
 import Control.Monad

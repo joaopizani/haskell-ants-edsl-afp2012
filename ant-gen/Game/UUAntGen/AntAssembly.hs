@@ -1,5 +1,4 @@
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-module Simulation.Ants.AntAssembly where
+module Game.UUAntGen.AntAssembly where
 
 import Test.QuickCheck
 import Control.Monad

@@ -1,8 +1,8 @@
-module AntStrategies where
+module Game.UUAntGen.AntStrategies where
 
-import AntGen
-
+import Game.UUAntGen.AntAssembly
 import Control.Monad.State
+
 
 type AntStrategy = State StateID [AntInstruction] 
 

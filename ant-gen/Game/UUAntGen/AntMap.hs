@@ -85,6 +85,7 @@ data AntTest
     | TrySense Direction Condition
     | TryRandomEqZero Int
 
+
 aWhile :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
 aWhile TryForward           = aMkWhileBlk Move
 aWhile TryPickup            = aMkWhileBlk PickUp
@@ -96,20 +97,18 @@ aMkWhileBlk :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStr
 aMkWhileBlk conditional trueBlk falseBlk = do
     trueBlk'  <- trueBlk
     falseBlk' <- falseBlk
-    idx <- supply
-    let testInstr = conditional true false
-        (true, false)     = (initial trueBlk',initial falseBlk')
-        trueBlk''      = replaceFinal idx trueBlk'
-    return $ AntStrategy' (M.insert idx testInstr ((instructions trueBlk'') `M.union` 
-                                                   (instructions falseBlk')))
-                          idx
-                          (final falseBlk')
+    idx       <- supply
+    let
+        testInstr     = conditional true false
+        (true, false) = (initial trueBlk',initial falseBlk')
+        trueBlk''     = replaceFinal idx trueBlk'
+    return $ AntStrategy'
+        (M.insert idx testInstr ((instructions trueBlk'') `M.union` (instructions falseBlk')))
+        idx
+        (final falseBlk')
 
 
 
 -- TODO write if-then-else in a similar style to aWhile, then if-without-else using if-then-else
-
-
-runAnt p = fst $ runSupply p [AntState 0..]    
-
+runAnt p = fst $ runSupply p [AntState 0..]
 

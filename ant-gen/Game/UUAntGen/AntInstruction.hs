@@ -1,4 +1,4 @@
-module Game.UUAntGen.AntAssembly where
+module Game.UUAntGen.AntInstruction where
 
 import Test.QuickCheck
 import Control.Monad
@@ -44,5 +44,5 @@ data AntInstruction
     | Turn Dexterity AntState
     | Move AntState AntState
     | Flip Int AntState AntState
-    deriving Show
+    deriving (Eq, Show)
 

@@ -1,16 +1,19 @@
 module Game.UUAntGen.AntMap where
 
-import Game.UUAntGen.AntAssembly
 import qualified Data.Map as M
-import Control.Monad.Supply
 import Data.Maybe (fromJust)
+import Control.Monad.Supply
+import Game.UUAntGen.AntInstruction
 
 
 data AntStrategy' = AntStrategy'
     { instructions :: M.Map AntState AntInstruction
     , initial :: AntState
     , final :: AntState }
-    deriving Show
+    deriving Eq
+
+instance Show AntStrategy' where
+    show (AntStrategy' i s0 sf) = unlines ["initial = " ++ show s0, "final = " ++ show sf, show i]
 
 
 type AntStrategy = Supply AntState AntStrategy'
@@ -35,7 +38,11 @@ aDrop = aMkSingletonStrategy Drop
 aTurn :: Dexterity -> AntStrategy
 aTurn d = aMkSingletonStrategy (Turn d)
 
+aTurnL :: AntStrategy
+aTurnL = aTurn L
 
+aTurnR :: AntStrategy
+aTurnR = aTurn R
 
 {- TODO remove this, only way of creating conditional instructions is by using while or if
 aSense :: Direction -> Condition -> AntStrategy -> AntStrategy
@@ -47,6 +54,11 @@ aSense d c exception = do
                           idx
 -}
 
+
+
+-- Composing AntStrategies. Sequencing, loop, conditionals, etc.
+
+-- | Helper function, replaces the default (next) state of an instruction
 replaceDefaultState :: AntState -> AntInstruction -> AntInstruction
 replaceDefaultState ns (Sense d _ s c) = (Sense d ns s c)
 replaceDefaultState ns (Mark p _)      = (Mark p ns)
@@ -58,27 +70,24 @@ replaceDefaultState ns (Move _ s)      = (Move ns s)
 replaceDefaultState ns (Flip i s _)    = (Flip i s ns)
 
 
+-- | Replaces the default (next) state in the final instruction of a strategy
+replaceFinal :: AntState -> AntStrategy' -> AntStrategy'
+replaceFinal idx s = AntStrategy' newis (initial s) (final s) where
+    finali = fromJust $ M.lookup (final s) (instructions s)
+    newis  = M.insert (final s) (replaceDefaultState idx finali) (instructions s)
+
+
+-- | Sequencing two AntStrategies. Means that s2 will be executed after s1
 (>>-) :: AntStrategy -> AntStrategy -> AntStrategy
 s1 >>- s2 = do
-    s1' <- s1
+    s1' <- s1  -- extracting instruction blocks from within the Supply monad
     s2' <- s2
-    let s1'FinalInstruction = fromJust $ M.lookup (final s1') (instructions s1')
-        s1'NewInstructions  =
-            M.insert (final s1')
-                     (replaceDefaultState (initial s2') s1'FinalInstruction)
-                     (instructions s1')
-    return $ AntStrategy' (s1'NewInstructions `M.union` (instructions s2')) (initial s1') (final s2')
+    let s1final = fromJust $ M.lookup (final s1') (instructions s1')
+        s1new   = M.insert (final s1') (replaceDefaultState (initial s2') s1final) (instructions s1')
+    return $ AntStrategy' (s1new `M.union` (instructions s2')) (initial s1') (final s2')
 
 
-replaceFinal :: AntState -> AntStrategy' -> AntStrategy'
-replaceFinal idx as = 
-    let asFinalInstr = fromJust $ M.lookup (final as) (instructions as) 
-        newInstrs    = M.insert (final as) 
-                                (replaceDefaultState idx asFinalInstr) 
-                                (instructions as)
-     in AntStrategy' newInstrs (initial as) (final as) 
-
-
+-- | Datatype representing all the possible tests to be performed in a conditional AntStrategy
 data AntTest
     = TryForward
     | TryPickup
@@ -86,29 +95,30 @@ data AntTest
     | TryRandomEqZero Int
 
 
+-- | While block, is given a test, a strategy for while true and a strategy for outside the loop
 aWhile :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
-aWhile TryForward           = aMkWhileBlk Move
-aWhile TryPickup            = aMkWhileBlk PickUp
-aWhile (TrySense d c)       = aMkWhileBlk $ \t f -> Sense d t f c
-aWhile (TryRandomEqZero p)  = aMkWhileBlk $ flip (Flip p)
+aWhile TryForward           = aMkWhile Move
+aWhile TryPickup            = aMkWhile PickUp
+aWhile (TrySense d c)       = aMkWhile $ \t f -> Sense d t f c
+aWhile (TryRandomEqZero p)  = aMkWhile $ flip (Flip p)
 
-
-aMkWhileBlk :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy
-aMkWhileBlk conditional trueBlk falseBlk = do
-    trueBlk'  <- trueBlk
-    falseBlk' <- falseBlk
-    idx       <- supply
-    let
-        testInstr     = conditional true false
-        (true, false) = (initial trueBlk',initial falseBlk')
-        trueBlk''     = replaceFinal idx trueBlk'
-    return $ AntStrategy'
-        (M.insert idx testInstr ((instructions trueBlk'') `M.union` (instructions falseBlk')))
-        idx
-        (final falseBlk')
-
+-- Helper function to aWhile
+aMkWhile :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy
+aMkWhile condi ts fs = do
+    idx <- supply  -- getting the unique id for the conditional instruction
+    ts' <- ts  -- extracting the instruction blocks from the Supply monad
+    fs' <- fs
+    let (tidx, fidx) = (initial ts', initial fs')
+        testi        = condi tidx fidx
+        fPlusT       = (instructions $ replaceFinal idx ts') `M.union` (instructions fs')
+    return $ AntStrategy' (M.insert idx testi fPlusT) idx (final fs')
 
 
 -- TODO write if-then-else in a similar style to aWhile, then if-without-else using if-then-else
-runAnt p = fst $ runSupply p [AntState 0..]
+
+
+-- | Given a AntStrategy inside the Supply monad, runs the monad with a convenient
+-- default supply of AntStates
+getAntStrategy :: AntStrategy -> AntStrategy'
+getAntStrategy s = fst $ runSupply s [AntState 0..]
 

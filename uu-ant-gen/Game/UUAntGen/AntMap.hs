@@ -1,20 +1,21 @@
 module Game.UUAntGen.AntMap where
 
 import qualified Data.Map as M
-import Data.Maybe (fromJust)
 import Control.Monad.Supply
 import Game.UUAntGen.AntInstruction
 
 
+-- Just for the case when we want to change the map implementation to something else
+type IMap = M.Map AntState AntInstruction
+
 data AntStrategy' = AntStrategy'
-    { instructions :: M.Map AntState AntInstruction
+    { instructions :: IMap
     , initial :: AntState
     , final :: AntState }
     deriving Eq
 
 instance Show AntStrategy' where
     show (AntStrategy' i s0 sf) = unlines ["initial = " ++ show s0, "final = " ++ show sf, show i]
-
 
 type AntStrategy = Supply AntState AntStrategy'
 
@@ -47,16 +48,6 @@ aTurnL = aTurn L
 aTurnR :: AntStrategy
 aTurnR = aTurn R
 
-{- TODO remove this, only way of creating conditional instructions is by using while or if
-aSense :: Direction -> Condition -> AntStrategy -> AntStrategy
-aSense d c exception = do
-    idx <- supply
-    e <- exception
-    return $ AntStrategy' (M.insert idx (Sense d idx (initial e) c) (instructions e)) 
-                          idx
-                          idx
--}
-
 
 
 -- Composing AntStrategies. Sequencing, loop, conditionals, etc.
@@ -76,7 +67,7 @@ replaceDefaultState ns (Ghost _ a b)   = (Ghost ns a b)
 -- | Replaces the default (next) state in the final instruction of a strategy
 replaceFinal :: AntState -> AntStrategy' -> AntStrategy'
 replaceFinal idx s = AntStrategy' newis (initial s) (final s) where
-    finali = fromJust $ M.lookup (final s) (instructions s)
+    finali = instructions s  M.! final s
     newis  = M.insert (final s) (replaceDefaultState idx finali) (instructions s)
 
 
@@ -85,7 +76,7 @@ replaceFinal idx s = AntStrategy' newis (initial s) (final s) where
 s1 >>- s2 = do
     s1' <- s1  -- extracting instruction blocks from within the Supply monad
     s2' <- s2
-    let s1final = fromJust $ M.lookup (final s1') (instructions s1')
+    let s1final = instructions s1'  M.!  final s1'
         s1new   = M.insert (final s1') (replaceDefaultState (initial s2') s1final) (instructions s1')
     return $ AntStrategy' (s1new `M.union` (instructions s2')) (initial s1') (final s2')
 
@@ -98,7 +89,8 @@ data AntTest
     | TryRandomEqZero Int
 
 
--- | While block, is given a test, a strategy for while true and a strategy for outside the loop
+-- Helper function to make conditional strategies. Performs "translation" between a user-accessible
+-- boolean test (AntTest) and a ant assembly instruction to perform that test.
 aCond :: ((AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy)
         -> AntTest -> AntStrategy -> AntStrategy -> AntStrategy
 aCond f TryForward           = f Move
@@ -106,9 +98,13 @@ aCond f TryPickup            = f PickUp
 aCond f (TrySense d c)       = f $ \t f' -> Sense d t f' c
 aCond f (TryRandomEqZero p)  = f $ flip (Flip p)
 
+
+-- | While block, is given a test, a strategy for while true and a strategy for outside the loop
+aWhile :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
 aWhile = aCond aMkWhile
 
--- Helper function to aWhile
+-- Helper function to aWhile. Produces a conditional loop block, given a conditional assembly
+-- instruction and two strategies, one for the true and one for the false branch
 aMkWhile :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy
 aMkWhile condi ts fs = do
     idx <- supply  -- getting the unique id for the conditional instruction
@@ -120,10 +116,12 @@ aMkWhile condi ts fs = do
     return $ AntStrategy' (M.insert idx testi fPlusT) idx (final fs')
 
 
--- if-then-else in a similar style to aWhile, then if-without-else using if-then-else
+-- | IfThenElse, given a test and two strategies: one for the true branch and one for the false
 aIfThenElse :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
 aIfThenElse = aCond aMkIfThenElse
 
+-- Helper function to aIfThenElse. Produces a conditional strategy given an assembly instruction
+-- and two strategies. Introduces a "Ghost" instruction to serve as return point from both branches
 aMkIfThenElse :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy
 aMkIfThenElse condi ts fs = do
     idx <- supply  -- getting the unique id for the mutual end instruction
@@ -142,29 +140,31 @@ aMkIfThenElse condi ts fs = do
 getAntStrategy :: AntStrategy -> AntStrategy'
 getAntStrategy s = fst $ runSupply s [AntState 0..]
 
+
 ghostBuster :: AntStrategy -> AntStrategy
 ghostBuster is = do
     is' <- is
-    let imap = instructions $ is'
-        (ghosts, noGhosts) = M.partition isGhost imap
-        newPredsMap = M.unions $ M.elems $ M.map (M.fromList . (redirectGhostPred imap)) ghosts
-    return $ AntStrategy' (M.union newPredsMap noGhosts) (initial is') (final is')  -- left-biased, prefers new instructions
-    where isGhost (Ghost _ _ _ ) = True
-          isGhost _              = False
+    let isGhost (Ghost _ _ _) = True
+        isGhost _             = False
+        imap = instructions is'
+        gs   = M.keys (M.filter isGhost imap)
+    return $ AntStrategy' (bypassGhosts imap gs) (initial is') (final is') -- replaces old instrs
 
-redirectGhostPred :: M.Map AntState AntInstruction -> AntInstruction
-                        -> [(AntState, AntInstruction)]  --TODO THIS IS UGLY
-redirectGhostPred map (Ghost n p1 p2) = let pi1 = fromJust $ M.lookup p1 map  -- UHHHHH
-                                            pi2 = fromJust $ M.lookup p2 map  -- UUHHHH fromJust
-                                            pi1' = replaceDefaultState n pi1
-                                            pi2' = replaceDefaultState n pi2
-                                            in [(p1, pi1'), (p2, pi2')]
-redirectGhostPred _ _ = undefined 
+
+bypassGhosts :: IMap -> [AntState] -> IMap
+bypassGhosts m gs = foldl bypassGhost m gs
+
+bypassGhost :: IMap -> AntState -> IMap
+bypassGhost m ghost = M.adjust bypassP p2 $ M.adjust bypassP p1 $ M.delete ghost m
+    where
+        (Ghost n p1 p2) = m M.! ghost
+        bypassP         = replaceDefaultState n
+
 
 printStrategy :: AntStrategy -> String
-printStrategy s = unlines $ map printAntLine [(AntState 0)..(AntState (max-1))] 
+printStrategy s = unlines $ map printAntLine [(AntState 0)..(AntState (smax - 1))] 
     where
-        (AntStrategy' imap init final) = getAntStrategy s
-        printAntLine i                 = maybe "Drop 4" show $ M.lookup i imap
-        ((AntState max), _)            = M.findMax imap
-        
+        (AntStrategy' imap _ _)  = getAntStrategy s
+        printAntLine i           = maybe "Drop 4" show $ M.lookup i imap
+        ((AntState smax), _)     = M.findMax imap
+

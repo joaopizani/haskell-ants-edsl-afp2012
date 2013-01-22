@@ -1,8 +1,5 @@
 module Game.UUAntGen.AntInstruction where
 
-import Test.QuickCheck
-import Control.Monad
-
 
 newtype AntState = AntState Int
     deriving (Eq, Ord)

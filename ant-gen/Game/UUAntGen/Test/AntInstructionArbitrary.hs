@@ -1,6 +1,8 @@
-module Simulation.Ants.Test.AssemblyArbitrary where
+module Game.UUAntGen.Test.AntInstructionArbitrary where
 
-import Simulation.Ants.AntAssembly
+import Test.QuickCheck
+import Control.Monad (liftM, liftM2, liftM3, liftM4)
+import Game.UUAntGen.AntInstruction
 
 
 instance Arbitrary Pheromone where

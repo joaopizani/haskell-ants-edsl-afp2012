@@ -71,7 +71,7 @@ replaceDefaultState ns (Drop _)        = (Drop ns)
 replaceDefaultState ns (Turn d _)      = (Turn d ns)
 replaceDefaultState ns (Move _ s)      = (Move ns s)
 replaceDefaultState ns (Flip i s _)    = (Flip i s ns)
-replaceDefaultState ns (Ghost _)       = (Ghost ns)
+replaceDefaultState ns (Ghost _ a b)   = (Ghost ns a b)
 
 -- | Replaces the default (next) state in the final instruction of a strategy
 replaceFinal :: AntState -> AntStrategy' -> AntStrategy'
@@ -120,7 +120,7 @@ aMkWhile condi ts fs = do
     return $ AntStrategy' (M.insert idx testi fPlusT) idx (final fs')
 
 
--- TODO write if-then-else in a similar style to aWhile, then if-without-else using if-then-else
+-- if-then-else in a similar style to aWhile, then if-without-else using if-then-else
 aIfThenElse :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
 aIfThenElse = aCond aMkIfThenElse
 
@@ -131,7 +131,7 @@ aMkIfThenElse condi ts fs = do
     ts' <- ts  -- extracting the instruction blocks from the Supply monad
     fs' <- fs
     let (tidx, fidx) = (initial ts', initial fs')
-        ghosti       = Ghost idx'
+        ghosti       = Ghost idx' (final ts') (final fs')
         testi        = condi tidx fidx
         fPlusT       = (instructions $ replaceFinal idx' ts') `M.union` (instructions $ replaceFinal idx' fs')
     return $ AntStrategy' (M.insert idx testi (M.insert idx' ghosti fPlusT)) idx idx' 
@@ -142,3 +142,29 @@ aMkIfThenElse condi ts fs = do
 getAntStrategy :: AntStrategy -> AntStrategy'
 getAntStrategy s = fst $ runSupply s [AntState 0..]
 
+ghostBuster :: AntStrategy -> AntStrategy
+ghostBuster is = do
+    is' <- is
+    let imap = instructions $ is'
+        (ghosts, noGhosts) = M.partition isGhost imap
+        newPredsMap = M.unions $ M.elems $ M.map (M.fromList . (redirectGhostPred imap)) ghosts
+    return $ AntStrategy' (M.union newPredsMap noGhosts) (initial is') (final is')  -- left-biased, prefers new instructions
+    where isGhost (Ghost _ _ _ ) = True
+          isGhost _              = False
+
+redirectGhostPred :: M.Map AntState AntInstruction -> AntInstruction
+                        -> [(AntState, AntInstruction)]  --TODO THIS IS UGLY
+redirectGhostPred map (Ghost n p1 p2) = let pi1 = fromJust $ M.lookup p1 map  -- UHHHHH
+                                            pi2 = fromJust $ M.lookup p2 map  -- UUHHHH fromJust
+                                            pi1' = replaceDefaultState n pi1
+                                            pi2' = replaceDefaultState n pi2
+                                            in [(p1, pi1'), (p2, pi2')]
+redirectGhostPred _ _ = undefined 
+
+printStrategy :: AntStrategy -> String
+printStrategy s = unlines $ map printAntLine [(AntState 0)..(AntState (max-1))] 
+    where
+        (AntStrategy' imap init final) = getAntStrategy s
+        printAntLine i                 = maybe "Drop 4" show $ M.lookup i imap
+        ((AntState max), _)            = M.findMax imap
+        

@@ -52,8 +52,7 @@ while body rest = let while = Move (body >>- while) rest
 aDrop = Drop Hole
 aTurnL = Turn L Hole
 
-exWhile = aWhile TryForward (aWhile TryPickup (Drop Hole) (Mark P0 Hole))
-                            (Turn L Hole)
+exWhile = aWhile TryForward Hole aTurnL
 
 data AntTest
     = TryForward

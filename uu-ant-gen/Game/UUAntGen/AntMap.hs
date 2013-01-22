@@ -96,11 +96,14 @@ data AntTest
 
 
 -- | While block, is given a test, a strategy for while true and a strategy for outside the loop
-aWhile :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
-aWhile TryForward           = aMkWhile Move
-aWhile TryPickup            = aMkWhile PickUp
-aWhile (TrySense d c)       = aMkWhile $ \t f -> Sense d t f c
-aWhile (TryRandomEqZero p)  = aMkWhile $ flip (Flip p)
+aCond :: ((AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy)
+        -> AntTest -> AntStrategy -> AntStrategy -> AntStrategy
+aCond f TryForward           = f Move
+aCond f TryPickup            = f PickUp
+aCond f (TrySense d c)       = f $ \t f' -> Sense d t f' c
+aCond f (TryRandomEqZero p)  = f $ flip (Flip p)
+
+aWhile = aCond aMkWhile
 
 -- Helper function to aWhile
 aMkWhile :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy
@@ -115,6 +118,20 @@ aMkWhile condi ts fs = do
 
 
 -- TODO write if-then-else in a similar style to aWhile, then if-without-else using if-then-else
+aIfThenElse :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
+aIfThenElse = aCond aMkIfThenElse
+
+aMkIfThenElse :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy
+aMkIfThenElse condi ts fs = do
+    idx <- supply  -- getting the unique id for the mutual end instruction
+    idx' <- supply -- getting the unique id for conditional instruction
+    ts' <- ts  -- extracting the instruction blocks from the Supply monad
+    fs' <- fs
+    let (tidx, fidx) = (initial ts', initial fs')
+        ghosti       = Ghost idx'
+        testi        = condi tidx fidx
+        fPlusT       = (instructions $ replaceFinal idx' ts') `M.union` (instructions $ replaceFinal idx' fs')
+    return $ AntStrategy' (M.insert idx testi (M.insert idx' ghosti fPlusT)) idx (final fs')
 
 
 -- | Given a AntStrategy inside the Supply monad, runs the monad with a convenient

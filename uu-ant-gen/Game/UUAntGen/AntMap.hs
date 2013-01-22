@@ -19,11 +19,14 @@ instance Show AntStrategy' where
 type AntStrategy = Supply AntState AntStrategy'
 
 
+aMkSingletonStrategy' :: (AntState -> AntInstruction) -> AntState -> AntStrategy'
+aMkSingletonStrategy' instr idx = AntStrategy' (M.fromList [(idx, instr idx)]) idx idx
+
 -- Basic instructions, one function per assembly instruction
 aMkSingletonStrategy :: (AntState -> AntInstruction) -> AntStrategy
 aMkSingletonStrategy instr = do
     idx <- supply
-    return $ AntStrategy' (M.fromList [(idx, instr idx)]) idx idx
+    return $ aMkSingletonStrategy' instr idx
 
 
 aMark :: Pheromone -> AntStrategy

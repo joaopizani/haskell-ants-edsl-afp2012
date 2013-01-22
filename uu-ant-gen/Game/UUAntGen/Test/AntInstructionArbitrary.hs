@@ -26,7 +26,7 @@ instance Arbitrary AntState where
 instance Arbitrary AntInstruction where
     arbitrary =
         oneof $
-            [liftM4 $ Sense arbitrary arbitrary arbitrary arbitrary
+            [ liftM4 Sense arbitrary arbitrary arbitrary arbitrary
             , liftM2 Mark arbitrary arbitrary
             , liftM2 UnMark arbitrary arbitrary
             , liftM2 PickUp arbitrary arbitrary

@@ -56,4 +56,4 @@ executable uu-ant-gen
                  Game.UUAntGen.Test.AntInstructionArbitrary, Game.UUAntGen.Test.AntInstructionHUnit
 
   -- Other library packages from which modules are imported.
-  build-depends: QuickCheck, base==4.*, containers, monad-supply
+  build-depends: QuickCheck, base==4.*, containers, unordered-containers, hashable, monad-supply

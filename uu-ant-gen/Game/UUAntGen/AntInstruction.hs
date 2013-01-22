@@ -1,8 +1,14 @@
+{-# LANGUAGE DeriveGeneric #-}
 module Game.UUAntGen.AntInstruction where
+
+import GHC.Generics (Generic)
+import Data.Hashable (Hashable)
 
 
 newtype AntState = AntState Int
-    deriving (Eq, Ord)
+    deriving (Eq, Ord, Generic)  -- have to derive Generic to make auto-instance of Hashable work
+
+instance Hashable AntState where  -- empty instance decl, GHC Generics will derive it
 
 instance Show AntState where
     show (AntState i) = show i
@@ -28,7 +34,7 @@ instance Show Dexterity where
     show R = "Right"
 
 data Condition
-    = Friend | Foe | FriendWithFood | FoeWithFood 
+    = Friend | Foe | FriendWithFood | FoeWithFood
     | Food | Rock | Marker Pheromone | FoeMarker | Home | FoeHome
     deriving (Eq, Show)
 

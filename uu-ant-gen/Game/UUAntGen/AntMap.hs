@@ -1,13 +1,13 @@
 module Game.UUAntGen.AntMap where
 
-import qualified Data.Map as M
+import qualified Data.HashMap.Lazy as M
 import Data.Maybe (fromJust)
 import Control.Monad.Supply
 import Game.UUAntGen.AntInstruction
 
 
 data AntStrategy' = AntStrategy'
-    { instructions :: M.Map AntState AntInstruction
+    { instructions :: M.HashMap AntState AntInstruction
     , initial :: AntState
     , final :: AntState }
     deriving Eq

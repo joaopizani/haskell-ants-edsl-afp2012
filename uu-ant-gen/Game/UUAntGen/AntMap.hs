@@ -1,13 +1,13 @@
 module Game.UUAntGen.AntMap where
 
-import qualified Data.HashMap.Lazy as M
+import qualified Data.Map as M
 import Data.Maybe (fromJust)
 import Control.Monad.Supply
 import Game.UUAntGen.AntInstruction
 
 
 data AntStrategy' = AntStrategy'
-    { instructions :: M.HashMap AntState AntInstruction
+    { instructions :: M.Map AntState AntInstruction
     , initial :: AntState
     , final :: AntState }
     deriving Eq
@@ -71,7 +71,7 @@ replaceDefaultState ns (Drop _)        = (Drop ns)
 replaceDefaultState ns (Turn d _)      = (Turn d ns)
 replaceDefaultState ns (Move _ s)      = (Move ns s)
 replaceDefaultState ns (Flip i s _)    = (Flip i s ns)
-
+replaceDefaultState ns (Ghost _)       = (Ghost ns)
 
 -- | Replaces the default (next) state in the final instruction of a strategy
 replaceFinal :: AntState -> AntStrategy' -> AntStrategy'
@@ -134,7 +134,7 @@ aMkIfThenElse condi ts fs = do
         ghosti       = Ghost idx'
         testi        = condi tidx fidx
         fPlusT       = (instructions $ replaceFinal idx' ts') `M.union` (instructions $ replaceFinal idx' fs')
-    return $ AntStrategy' (M.insert idx testi (M.insert idx' ghosti fPlusT)) idx (final fs')
+    return $ AntStrategy' (M.insert idx testi (M.insert idx' ghosti fPlusT)) idx idx' 
 
 
 -- | Given a AntStrategy inside the Supply monad, runs the monad with a convenient

@@ -5,19 +5,22 @@ import Test.QuickCheck.Monadic
 import Test.QuickCheck   (Gen(..),Arbitrary(..),arbitrary,Property,oneof,forAll
                          ,listOf,choose,sized,frequency,vectorOf)
 import Control.Monad     (liftM,liftM2,liftM3)
-import Data.Map          ((!))
+import Data.Map          ((!),elems,size)
+import Data.Set          (fromList,isSubsetOf)
+
 
 import Control.Monad.Supply
 
 import Game.UUAntGen.Test.AntInstructionArbitrary
-import Game.UUAntGen.AntMap
+import Game.UUAntGen.AntMap 
 import Game.UUAntGen.AntInstruction
 
+import Debug.Trace
 
 data Action 
     = Single Command
     | If AntTest [Action] [Action] 
-    | While AntTest [Action] Action
+    | While AntTest [Action] 
     deriving Show
 
 data Command 
@@ -36,8 +39,9 @@ semantics as (a:tl) =
       Single (CUnMark p) -> as >>- semantics (aUnMark p) tl 
       Single CDrop       -> as >>- semantics aDrop tl
       Single (CTurn d)   -> as >>- semantics (aTurn d) tl
-      If c t e           -> as >>- aIfThenElse c (perform t) (perform e) 
-      While c b a'       -> as >>- aWhile c (perform b) (perform (a':tl)) 
+      If c t e           -> as >>- semantics (aIfThenElse c (perform t) (perform e)) 
+                                             tl 
+      While c b          -> as >>- semantics (aWhile c (perform b)) tl  
 
 perform :: [Action] -> AntStrategy
 perform []     = aDrop -- this should be working on non-empty lists...
@@ -48,7 +52,7 @@ perform (a:tl) =
       Single CDrop       -> semantics aDrop tl
       Single (CTurn d)   -> semantics (aTurn d) tl
       If c t e           -> aIfThenElse c (perform t) (perform e) 
-      While c b a'       -> aWhile c (perform b) (perform (a':tl)) 
+      While c b          -> aWhile c (perform b) 
 
 
 -- Generators
@@ -66,8 +70,7 @@ instance Arbitrary Action where
               genAction n = frequency $ 
                                 [ (5, liftM  Single arbitrary)
                                 , (1, liftM3 If arbitrary (genActs n) (genActs n))
-                                , (1, liftM3 While arbitrary (genActs n) 
-                                                             (genAction 1)) ]
+                                , (1, liftM2 While arbitrary (genActs n)) ]
               genActs n = choose (1,4) >>= \l -> vectorOf l (genAction (n `div` 2))
 
 instance Arbitrary Command where
@@ -89,21 +92,27 @@ supplyProp p = monadic f p
     where f :: Supply AntState Property -> Property
           f s = fst $ runSupply s [AntState 0..]
 
-finalRefsItselfProp :: Property
-finalRefsItselfProp = supplyProp finalRefsItselfPropM
+-- | Given a predicate on AntStrategy' and a generator for a list of actions,
+--   test the predicate AFTER running the computation in the supply monad and 
+--   applying the function to it
+mkSupplyEndProp :: (AntStrategy' -> Bool) -> Gen [Action] -> Property
+mkSupplyEndProp p gen = supplyProp p'
+    where p' = forAllM gen $ \as -> do
+                   b <- run (perform as) 
+                   assert (p b)
 
-finalRefsItselfPropM :: PropertyM (Supply AntState) ()
-finalRefsItselfPropM = forAllM actions $ \as -> do
-    b <- run (perform as)
-    assert (lastRefsItself b)
+
+finalRefsItselfProp :: Property
+finalRefsItselfProp = mkSupplyEndProp lastRefsItself actions 
 
 singleInstructionProp :: Property
-singleInstructionProp = supplyProp singleInstructionPropM 
+singleInstructionProp = mkSupplyEndProp refsItself singleAction 
 
-singleInstructionPropM :: PropertyM (Supply AntState) () 
-singleInstructionPropM = forAllM singleAction $ \a -> do
-    b <- run (perform a) 
-    assert (refsItself b)
+noBrokenRefsProp :: Property 
+noBrokenRefsProp = mkSupplyEndProp noBrokenRefs actions 
+
+
+-- AntStrategy' predicates
 
 refsItself :: AntStrategy' -> Bool
 refsItself as = let ins  = instructions as
@@ -116,5 +125,16 @@ lastRefsItself :: AntStrategy' -> Bool
 lastRefsItself as = let ins  = instructions as
                         fin  = final as
                      in getDefaultState (ins ! fin) == fin
+
+-- FIXME: last ref may be broken 
+noBrokenRefs :: AntStrategy' -> Bool
+noBrokenRefs as = 
+    let (AntStrategy' m i f) = fromKeysToLineNumbers $ ghostBuster as
+        k    = size m 
+        setM = fromList $ map toInt $ concatMap getAntStates $ elems m
+        set  = fromList $ [0..(k-1)]
+     in trace ("Original map"
+               ++ show m ++ " ") $ setM `isSubsetOf` set 
+    where toInt (AntState s) = s
 
 

@@ -54,16 +54,21 @@ aTurnR = aTurn R
 
 
 -- Composing AntStrategies. Sequencing, loop, conditionals, etc.
-getDefaultState :: AntInstruction -> AntState
-getDefaultState (Sense _ _ s _) = s
-getDefaultState (Mark _ s)      = s
-getDefaultState (UnMark _ s)    = s
-getDefaultState (PickUp _ s)    = s
-getDefaultState (Drop s)        = s
-getDefaultState (Turn _ s)      = s
-getDefaultState (Move _ s)      = s
-getDefaultState (Flip _ s _)    = s
 
+
+getAntStates :: AntInstruction -> [AntState] 
+getAntStates (Sense _ s1 s2 _) = [s2,s1]
+getAntStates (Mark _ s1)       = [s1]
+getAntStates (UnMark _ s1)     = [s1]
+getAntStates (PickUp s1 s2)    = [s2,s1]
+getAntStates (Drop s1)         = [s1]
+getAntStates (Turn _ s1)       = [s1]
+getAntStates (Move s1 s2)      = [s2,s1]
+getAntStates (Flip _   s1 s2)  = [s1,s2]
+getAntStates (Ghost s1 s2 s3)  = [s1,s2,s3]
+
+getDefaultState :: AntInstruction -> AntState
+getDefaultState = head . getAntStates
 
 -- | Helper function, replaces the default (next) state of an instruction
 replaceDefaultState :: AntState -> AntInstruction -> AntInstruction

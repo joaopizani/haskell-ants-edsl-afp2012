@@ -1,9 +1,10 @@
+{-# LANGUAGE FlexibleInstances #-}
 module Game.UUAntGen.Test.AntInstructionQuickCheck where
 
 import Test.QuickCheck.Monadic
 import Test.QuickCheck   (Gen(..),Arbitrary(..),arbitrary,elements,Property
-                         ,oneof,forAll,listOf)
-import Control.Monad     (liftM,liftM2)
+                         ,oneof,forAll,listOf,choose,sized,frequency,vectorOf)
+import Control.Monad     (liftM,liftM2,liftM3)
 import Data.Map          ((!))
 
 import Control.Monad.Supply
@@ -14,10 +15,16 @@ import Game.UUAntGen.AntInstruction
 
 --PropertyM (Supply AntState) AntStrategy' 
 
-data Action  = Single Command
+data Action 
+    = Single Command
+    | If AntTest [Action] [Action] 
+    | While AntTest [Action] Action
     deriving Show
-data Command = CDrop
-             | CTurn Dexterity 
+
+data Command 
+    = CDrop
+    | CTurn Dexterity 
+    -- and so on..
     deriving Show
 
 
@@ -27,6 +34,8 @@ semantics as (a:tl) =
     case a of
       Single CDrop     -> as >>- (semantics aDrop tl)
       Single (CTurn d) -> as >>- (semantics (aTurn d) tl)
+      If c t e         -> as >>- aIfThenElse c (perform t) (perform e) 
+      While c b a'     -> as >>- aWhile c (perform b) (perform (a':tl)) 
 
 perform :: [Action] -> AntStrategy
 perform []     = aDrop -- this should be working on non-empty lists...
@@ -34,15 +43,34 @@ perform (a:tl) =
     case a of
       Single CDrop     -> semantics aDrop tl
       Single (CTurn d) -> semantics (aTurn d) tl
+      If c t e         -> aIfThenElse c (perform t) (perform e) 
+      While c b a'     -> aWhile c (perform b) (perform (a':tl)) 
 
 actions :: Gen [Action]
 actions = liftM2 (:) arbitrary (listOf arbitrary)
 
+singleAction :: Gen [Action]
+singleAction = liftM (\x -> [Single x]) arbitrary
+
 instance Arbitrary Action where
-    arbitrary = liftM Single arbitrary
+    arbitrary = sized genAction 
+        where 
+              genAction 0 = liftM Single arbitrary 
+              genAction n = frequency $ 
+                                [ (5, liftM  Single arbitrary)
+                                , (1, liftM3 If arbitrary (genActs n) (genActs n))
+                                , (1, liftM3 While arbitrary (genActs n) 
+                                                             (genAction 1)) ]
+              genActs n = choose (1,4) >>= \l -> vectorOf l (genAction (n `div` 2))
 
 instance Arbitrary Command where
     arbitrary = elements [CDrop,CTurn L,CTurn R]
+
+instance Arbitrary AntTest where
+    arbitrary = oneof [ return TryForward
+                      , return TryPickup
+                      , liftM2 TrySense arbitrary arbitrary
+                      , liftM  TryRandomEqZero (choose (0,maxBound)) ]
 
 supplyProp :: PropertyM (Supply AntState) a -> Property
 supplyProp p = monadic f p
@@ -56,14 +84,13 @@ finalRefsItselfPropM :: PropertyM (Supply AntState) ()
 finalRefsItselfPropM = forAllM actions $ \as -> do
     b <- run (perform as)
     assert (lastRefsItself b)
-    return ()
 
 singleInstructionProp :: Property
 singleInstructionProp = supplyProp singleInstructionPropM 
 
 singleInstructionPropM :: PropertyM (Supply AntState) () 
-singleInstructionPropM = do
-    b <- run aDrop -- FIXME: add more actions
+singleInstructionPropM = forAllM singleAction $ \a -> do
+    b <- run (perform a) 
     assert (refsItself b)
 
 
@@ -111,6 +138,7 @@ lastRefsItself as = let ins  = instructions as
                         fin  = final as
                      in getDefaultState (ins ! fin) == fin
 
+getDefaultState :: AntInstruction -> AntState
 getDefaultState (Sense d _ s c) = s 
 getDefaultState (Mark _ s)      = s
 getDefaultState (UnMark _ s)    = s
@@ -119,5 +147,6 @@ getDefaultState (Drop s)        = s
 getDefaultState (Turn _ s)      = s
 getDefaultState (Move _ s)      = s
 getDefaultState (Flip i s _)    = s
+getDefaultState (Ghost s _ _)   = s
 
 

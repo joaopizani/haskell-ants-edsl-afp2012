@@ -87,6 +87,7 @@ data AntTest
     | TryPickup
     | TrySense Direction Condition
     | TryRandomEqZero Int
+    deriving Show
 
 
 -- Helper function to make conditional strategies. Performs "translation" between a user-accessible

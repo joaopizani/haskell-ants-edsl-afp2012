@@ -2,8 +2,8 @@
 module Game.UUAntGen.Test.AntInstructionQuickCheck where
 
 import Test.QuickCheck.Monadic
-import Test.QuickCheck   (Gen(..),Arbitrary(..),arbitrary,elements,Property
-                         ,oneof,forAll,listOf,choose,sized,frequency,vectorOf)
+import Test.QuickCheck   (Gen(..),Arbitrary(..),arbitrary,Property,oneof,forAll
+                         ,listOf,choose,sized,frequency,vectorOf)
 import Control.Monad     (liftM,liftM2,liftM3)
 import Data.Map          ((!))
 
@@ -22,9 +22,10 @@ data Action
     deriving Show
 
 data Command 
-    = CDrop
+    = CMark Pheromone
+    | CUnMark Pheromone
+    | CDrop
     | CTurn Dexterity 
-    -- and so on..
     deriving Show
 
 
@@ -32,19 +33,23 @@ semantics :: AntStrategy -> [Action] -> AntStrategy
 semantics as []     = as
 semantics as (a:tl) =
     case a of
-      Single CDrop     -> as >>- (semantics aDrop tl)
-      Single (CTurn d) -> as >>- (semantics (aTurn d) tl)
-      If c t e         -> as >>- aIfThenElse c (perform t) (perform e) 
-      While c b a'     -> as >>- aWhile c (perform b) (perform (a':tl)) 
+      Single (CMark p)   -> as >>- semantics (aMark p) tl 
+      Single (CUnMark p) -> as >>- semantics (aUnMark p) tl 
+      Single CDrop       -> as >>- semantics aDrop tl
+      Single (CTurn d)   -> as >>- semantics (aTurn d) tl
+      If c t e           -> as >>- aIfThenElse c (perform t) (perform e) 
+      While c b a'       -> as >>- aWhile c (perform b) (perform (a':tl)) 
 
 perform :: [Action] -> AntStrategy
 perform []     = aDrop -- this should be working on non-empty lists...
 perform (a:tl) = 
     case a of
-      Single CDrop     -> semantics aDrop tl
-      Single (CTurn d) -> semantics (aTurn d) tl
-      If c t e         -> aIfThenElse c (perform t) (perform e) 
-      While c b a'     -> aWhile c (perform b) (perform (a':tl)) 
+      Single (CMark p)   -> semantics (aMark p) tl 
+      Single (CUnMark p) -> semantics (aUnMark p) tl 
+      Single CDrop       -> semantics aDrop tl
+      Single (CTurn d)   -> semantics (aTurn d) tl
+      If c t e           -> aIfThenElse c (perform t) (perform e) 
+      While c b a'       -> aWhile c (perform b) (perform (a':tl)) 
 
 actions :: Gen [Action]
 actions = liftM2 (:) arbitrary (listOf arbitrary)
@@ -64,8 +69,11 @@ instance Arbitrary Action where
               genActs n = choose (1,4) >>= \l -> vectorOf l (genAction (n `div` 2))
 
 instance Arbitrary Command where
-    arbitrary = elements [CDrop,CTurn L,CTurn R]
-
+    arbitrary = oneof [ liftM CMark arbitrary 
+                      , liftM CUnMark arbitrary 
+                      , return CDrop
+                      , liftM CTurn arbitrary ]
+ 
 instance Arbitrary AntTest where
     arbitrary = oneof [ return TryForward
                       , return TryPickup

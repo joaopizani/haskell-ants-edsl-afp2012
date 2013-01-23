@@ -1,6 +1,9 @@
 module Game.UUAntGen.AntMap where
 
 import qualified Data.Map as M
+import Data.Map ((!))
+import Data.Maybe (fromJust)
+import Data.List (delete)
 import Control.Monad.Supply
 import Game.UUAntGen.AntInstruction
 
@@ -51,23 +54,34 @@ aTurnR = aTurn R
 
 
 -- Composing AntStrategies. Sequencing, loop, conditionals, etc.
+getDefaultState :: AntInstruction -> AntState
+getDefaultState (Sense _ _ s _) = s
+getDefaultState (Mark _ s)      = s
+getDefaultState (UnMark _ s)    = s
+getDefaultState (PickUp _ s)    = s
+getDefaultState (Drop s)        = s
+getDefaultState (Turn _ s)      = s
+getDefaultState (Move _ s)      = s
+getDefaultState (Flip _ s _)    = s
+
 
 -- | Helper function, replaces the default (next) state of an instruction
 replaceDefaultState :: AntState -> AntInstruction -> AntInstruction
 replaceDefaultState ns (Sense d _ s c) = (Sense d ns s c)
+replaceDefaultState ns (Flip i s _)    = (Flip i s ns)
+replaceDefaultState ns (Move _ s)      = (Move ns s)
+replaceDefaultState ns (PickUp _ s)    = (PickUp ns s)
+replaceDefaultState ns (Ghost _ a b)   = (Ghost ns a b)
+
 replaceDefaultState ns (Mark p _)      = (Mark p ns)
 replaceDefaultState ns (UnMark p _)    = (UnMark p ns)
-replaceDefaultState ns (PickUp _ s)    = (PickUp ns s)
 replaceDefaultState ns (Drop _)        = (Drop ns)
 replaceDefaultState ns (Turn d _)      = (Turn d ns)
-replaceDefaultState ns (Move _ s)      = (Move ns s)
-replaceDefaultState ns (Flip i s _)    = (Flip i s ns)
-replaceDefaultState ns (Ghost _ a b)   = (Ghost ns a b)
 
 -- | Replaces the default (next) state in the final instruction of a strategy
 replaceFinal :: AntState -> AntStrategy' -> AntStrategy'
 replaceFinal idx s = AntStrategy' newis (initial s) (final s) where
-    finali = instructions s  M.! final s
+    finali = instructions s ! final s
     newis  = M.insert (final s) (replaceDefaultState idx finali) (instructions s)
 
 
@@ -76,7 +90,7 @@ replaceFinal idx s = AntStrategy' newis (initial s) (final s) where
 s1 >>- s2 = do
     s1' <- s1  -- extracting instruction blocks from within the Supply monad
     s2' <- s2
-    let s1final = instructions s1'  M.!  final s1'
+    let s1final = instructions s1' ! final s1'
         s1new   = M.insert (final s1') (replaceDefaultState (initial s2') s1final) (instructions s1')
     return $ AntStrategy' (s1new `M.union` (instructions s2')) (initial s1') (final s2')
 
@@ -94,10 +108,10 @@ data AntTest
 -- boolean test (AntTest) and a ant assembly instruction to perform that test.
 aCond :: ((AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy)
         -> AntTest -> AntStrategy -> AntStrategy -> AntStrategy
-aCond f TryForward           = f Move
-aCond f TryPickup            = f PickUp
-aCond f (TrySense d c)       = f $ \t f' -> Sense d t f' c
-aCond f (TryRandomEqZero p)  = f $ flip (Flip p)
+aCond blkBuilder TryForward           = blkBuilder Move
+aCond blkBuilder TryPickup            = blkBuilder PickUp
+aCond blkBuilder (TrySense d c)       = blkBuilder $ \t f' -> Sense d t f' c
+aCond blkBuilder (TryRandomEqZero p)  = blkBuilder $ flip (Flip p)
 
 
 -- | While block, is given a test, a strategy for while true and a strategy for outside the loop
@@ -136,21 +150,25 @@ aMkIfThenElse condi ts fs = do
     return $ AntStrategy' (M.insert idx testi (M.insert idx' ghosti fPlusT)) idx idx' 
 
 
+
 -- | Given a AntStrategy inside the Supply monad, runs the monad with a convenient
 -- default supply of AntStates
 getAntStrategy :: AntStrategy -> AntStrategy'
 getAntStrategy s = fst $ runSupply s [AntState 0..]
 
 
-ghostBuster :: AntStrategy -> AntStrategy
-ghostBuster is = do
-    is' <- is
-    let isGhost (Ghost _ _ _) = True
-        isGhost _             = False
-        imap = instructions is'
-        gs   = M.keys (M.filter isGhost imap)
-    return $ AntStrategy' (bypassGhosts imap gs) (initial is') (final is') -- replaces old instrs
 
+
+-- | Given a AntStrategy with possibly ghost AntInstructions (resulting from IfThenElse and IfThen
+-- constructs), remove the Ghost instructions and make its parents bypass the ghost
+-- POST-CONDITIONS:
+--     * There are no (Ghost _ _ _) instructions in the instruction map
+ghostBuster :: AntStrategy' -> AntStrategy'
+ghostBuster (AntStrategy' m i f) = AntStrategy' (bypassGhosts m gs) i f -- replaces old instrs
+    where
+        gs = M.keys $ M.filter isGhost m
+        isGhost (Ghost _ _ _) = True
+        isGhost _             = False
 
 bypassGhosts :: IMap -> [AntState] -> IMap
 bypassGhosts m gs = foldl bypassGhost m gs
@@ -158,14 +176,52 @@ bypassGhosts m gs = foldl bypassGhost m gs
 bypassGhost :: IMap -> AntState -> IMap
 bypassGhost m ghost = M.adjust bypassP p2 $ M.adjust bypassP p1 $ M.delete ghost m
     where
-        (Ghost n p1 p2) = m M.! ghost
+        (Ghost n p1 p2) = m ! ghost
         bypassP         = replaceDefaultState n
 
 
-printStrategy :: AntStrategy -> String
-printStrategy s = unlines $ map printAntLine [(AntState 0)..(AntState (smax - 1))] 
+
+-- | The keyspace of an instruction map might be arbitrary. This function translates the key space
+-- to range from 0 to (size - 1). This resulting space can be considered as "line numbers".
+-- POST-CONDITIONS:
+--     * The keyspace of the instruction map is in the range [0, (size-1)]
+--     * The key of the initial instruction is 0
+fromKeysToLineNumbers :: AntStrategy' -> AntStrategy'
+fromKeysToLineNumbers (AntStrategy' m i f) = AntStrategy' (translateKeySpaceIMap m from0) newi newf
     where
-        (AntStrategy' imap _ _)  = getAntStrategy s
-        printAntLine i           = maybe "Drop 4" show $ M.lookup i imap
-        ((AntState smax), _)     = M.findMax imap
+        from0        = (i, AntState 0) : zip (delete i $ M.keys m) [(AntState 1)..]
+        (newi, newf) = (fromJust $ lookup i from0, fromJust $ lookup f from0)
+
+translateKeySpaceIMap :: IMap -> [(AntState, AntState)] -> IMap
+translateKeySpaceIMap orig translations = foldl translateOneKey orig translations
+
+translateOneKey :: IMap -> (AntState, AntState) -> IMap
+translateOneKey m (k, nk) = M.map (replaceMatchingStates k nk) changedInst
+    where
+        ins = m ! k
+        changedInst = M.insert nk ins $ M.delete k m
+
+-- TODO UGLY NAME Replace a state by a new if it matches the wanted one
+h :: AntState -> AntState -> AntState -> AntState
+h wanted existing new = if wanted == existing then new else existing
+
+replaceMatchingStates :: AntState -> AntState -> AntInstruction -> AntInstruction
+replaceMatchingStates o n (Sense d s0 s1 c) = (Sense  d (h o s0 n) (h o s1 n) c          )
+replaceMatchingStates o n (Flip i s0 s1)    = (Flip   i (h o s0 n) (h o s1 n)            )
+replaceMatchingStates o n (Move s0 s1)      = (Move     (h o s0 n) (h o s1 n)            )
+replaceMatchingStates o n (PickUp s0 s1)    = (PickUp   (h o s0 n) (h o s1 n)            )
+replaceMatchingStates o n (Ghost s0 s1 s2)  = (Ghost    (h o s0 n) (h o s1 n) (h o s2 n) )
+replaceMatchingStates o n (Mark p s0)       = (Mark   p (h o s0 n)                       )
+replaceMatchingStates o n (UnMark p s0)     = (UnMark p (h o s0 n)                       )
+replaceMatchingStates o n (Drop s0)         = (Drop     (h o s0 n)                       )
+replaceMatchingStates o n (Turn d s0)       = (Turn   d (h o s0 n)                       )
+
+
+
+-- | Pretty-printing an AntStrategy' to a String.
+-- PRE-CONDITIONS:
+--     * The instruction map has keys in the range [0, (size-1)]
+--     * The key of the initial instruction is 0
+printAntStrategy' :: AntStrategy' -> String
+printAntStrategy' (AntStrategy' m _ _) = unlines $ map show (M.elems m)
 

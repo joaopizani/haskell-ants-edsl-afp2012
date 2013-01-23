@@ -67,12 +67,11 @@ getDefaultState (Flip _ s _)    = s
 
 -- | Helper function, replaces the default (next) state of an instruction
 replaceDefaultState :: AntState -> AntInstruction -> AntInstruction
-replaceDefaultState ns (Sense d _ s c) = (Sense d ns s c)
-replaceDefaultState ns (Flip i s _)    = (Flip i s ns)
-replaceDefaultState ns (Move _ s)      = (Move ns s)
-replaceDefaultState ns (PickUp _ s)    = (PickUp ns s)
+replaceDefaultState ns (Sense d s _ c) = (Sense d s ns c)
+replaceDefaultState ns (Flip i _ s)    = (Flip i ns s)
+replaceDefaultState ns (Move s _)      = (Move s ns)
+replaceDefaultState ns (PickUp s _)    = (PickUp s ns)
 replaceDefaultState ns (Ghost _ a b)   = (Ghost ns a b)
-
 replaceDefaultState ns (Mark p _)      = (Mark p ns)
 replaceDefaultState ns (UnMark p _)    = (UnMark p ns)
 replaceDefaultState ns (Drop _)        = (Drop ns)
@@ -104,50 +103,47 @@ data AntTest
     deriving Show
 
 
--- Helper function to make conditional strategies. Performs "translation" between a user-accessible
--- boolean test (AntTest) and a ant assembly instruction to perform that test.
-aCond :: ((AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy)
-        -> AntTest -> AntStrategy -> AntStrategy -> AntStrategy
-aCond blkBuilder TryForward           = blkBuilder Move
-aCond blkBuilder TryPickup            = blkBuilder PickUp
-aCond blkBuilder (TrySense d c)       = blkBuilder $ \t f' -> Sense d t f' c
-aCond blkBuilder (TryRandomEqZero p)  = blkBuilder $ flip (Flip p)
+-- | While block, is given a test and a strategy for the body
+aWhile :: AntTest -> AntStrategy -> AntStrategy
+aWhile TryForward          = aMkWhile Move
+aWhile TryPickup           = aMkWhile PickUp
+aWhile (TrySense d c)      = aMkWhile $ \t f -> Sense d t f c
+aWhile (TryRandomEqZero p) = aMkWhile $ flip (Flip p)
 
-
--- | While block, is given a test, a strategy for while true and a strategy for outside the loop
-aWhile :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
-aWhile = aCond aMkWhile
-
--- Helper function to aWhile. Produces a conditional loop block, given a conditional assembly
--- instruction and two strategies, one for the true and one for the false branch
-aMkWhile :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy
-aMkWhile condi ts fs = do
-    idx <- supply  -- getting the unique id for the conditional instruction
-    ts' <- ts  -- extracting the instruction blocks from the Supply monad
-    fs' <- fs
-    let (tidx, fidx) = (initial ts', initial fs')
-        testi        = condi tidx fidx
-        fPlusT       = (instructions $ replaceFinal idx ts') `M.union` (instructions fs')
-    return $ AntStrategy' (M.insert idx testi fPlusT) idx (final fs')
+-- Helper function to aWhile. Produces a conditional loop block, given a conditional
+-- assembly instruction and a strategies for the loop body
+aMkWhile :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy
+aMkWhile condi b = do
+    idx   <- supply  -- getting the unique id for the conditional instruction
+    gidx  <- supply  -- getting the unique id for the ghost instruction
+    b'    <- b  -- extracting the instruction blocks from the Supply monad
+    let bidx         = initial b'
+        testi        = condi bidx gidx
+        ghosti       = Ghost gidx idx idx
+        bPlusG       = M.insert gidx ghosti (instructions $ replaceFinal idx b')
+    return $ AntStrategy' (M.insert idx testi bPlusG) idx gidx
 
 
 -- | IfThenElse, given a test and two strategies: one for the true branch and one for the false
 aIfThenElse :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
-aIfThenElse = aCond aMkIfThenElse
+aIfThenElse TryForward          = aMkIfThenElse Move
+aIfThenElse TryPickup           = aMkIfThenElse PickUp
+aIfThenElse (TrySense d c)      = aMkIfThenElse $ \t f -> Sense d t f c
+aIfThenElse (TryRandomEqZero p) = aMkIfThenElse $ flip (Flip p)
 
 -- Helper function to aIfThenElse. Produces a conditional strategy given an assembly instruction
 -- and two strategies. Introduces a "Ghost" instruction to serve as return point from both branches
 aMkIfThenElse :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy
 aMkIfThenElse condi ts fs = do
-    idx <- supply  -- getting the unique id for the mutual end instruction
-    idx' <- supply -- getting the unique id for conditional instruction
+    idx <- supply  -- getting the unique id for the testing instruction
+    gidx <- supply -- getting the unique id for the ghost instruction
     ts' <- ts  -- extracting the instruction blocks from the Supply monad
     fs' <- fs
     let (tidx, fidx) = (initial ts', initial fs')
-        ghosti       = Ghost idx' (final ts') (final fs')
+        ghosti       = Ghost gidx (final ts') (final fs')
         testi        = condi tidx fidx
-        fPlusT       = (instructions $ replaceFinal idx' ts') `M.union` (instructions $ replaceFinal idx' fs')
-    return $ AntStrategy' (M.insert idx testi (M.insert idx' ghosti fPlusT)) idx idx' 
+        fPlusT       = (instructions $ replaceFinal gidx ts') `M.union` (instructions $ replaceFinal gidx fs')
+    return $ AntStrategy' (M.insert idx testi (M.insert gidx ghosti fPlusT)) idx gidx
 
 
 
@@ -173,6 +169,8 @@ ghostBuster (AntStrategy' m i f) = AntStrategy' (bypassGhosts m gs) i f -- repla
 bypassGhosts :: IMap -> [AntState] -> IMap
 bypassGhosts m gs = foldl bypassGhost m gs
 
+
+-- TODO not bypassing correctly the ghosts in aWhile
 bypassGhost :: IMap -> AntState -> IMap
 bypassGhost m ghost = M.adjust bypassP p2 $ M.adjust bypassP p1 $ M.delete ghost m
     where

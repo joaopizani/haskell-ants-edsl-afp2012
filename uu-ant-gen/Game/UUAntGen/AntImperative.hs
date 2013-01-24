@@ -23,18 +23,19 @@ s1 >>- s2 = do
 
 
 -- | Datatype representing all the possible tests to be performed in a conditional AntStrategy
+-- | TODO we want to join conditions
 data AntTest
     = TrySense Direction Condition
     | TryRandomEqZero Int
-    | Negation AntTest
+    | Not AntTest
     deriving Show
 
 
 -- | While block, is given a test and a strategy for the body
 aWhile :: AntTest -> AntStrategy -> AntStrategy
-aWhile (Negation (TrySense d c))        = aMkWhile $ \t f -> Sense d f t c
+aWhile (Not (TrySense d c))        = aMkWhile $ \t f -> Sense d f t c
 aWhile (TrySense d c)                   = aMkWhile $ \t f -> Sense d t f c
-aWhile (Negation (TryRandomEqZero p))   = aMkWhile $ \t f -> Flip p f t
+aWhile (Not (TryRandomEqZero p))   = aMkWhile $ \t f -> Flip p f t
 aWhile (TryRandomEqZero p)              = aMkWhile $ \t f -> Flip p t f
 
 -- Helper function to aWhile. Produces a conditional loop block, given a conditional
@@ -53,9 +54,9 @@ aMkWhile condi b = do
 
 -- | IfThenElse, given a test and two strategies: one for the true branch and one for the false
 aIfThenElse :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
-aIfThenElse (Negation (TrySense d c))       = aMkIfThenElse $ \t f -> Sense d f t c
+aIfThenElse (Not (TrySense d c))       = aMkIfThenElse $ \t f -> Sense d f t c
 aIfThenElse (TrySense d c)                  = aMkIfThenElse $ \t f -> Sense d t f c
-aIfThenElse (Negation (TryRandomEqZero p))  = aMkIfThenElse $ \t f -> Flip p f t
+aIfThenElse (Not (TryRandomEqZero p))  = aMkIfThenElse $ \t f -> Flip p f t
 aIfThenElse (TryRandomEqZero p)             = aMkIfThenElse $ \t f -> Flip p t f
 
 -- Helper function to aIfThenElse. Produces a conditional strategy given an assembly instruction

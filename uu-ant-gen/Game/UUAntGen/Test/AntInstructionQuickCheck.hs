@@ -37,10 +37,13 @@ genImperative :: Int -> Gen Imperative
 genImperative 0 = liftM Single arbitrary 
 genImperative n = frequency $ 
                   [ (5, liftM  Single arbitrary)
+                  , (5, liftM  SideEffect arbitrary)
                   , (1, liftM3 IfThenElse arbitrary (genImperative (n `div` 2)) 
                                                     (genImperative (n `div` 2)))
-                  , (1, liftM2 While arbitrary (genImperative (n `div` 2))) ]
-    where genActs n = choose (1,4) >>= 
+                  , (1, liftM2 IfThen arbitrary (genImperative (n `div` 2))) 
+                  , (1, liftM2 While arbitrary (genImperative (n `div` 2))) 
+                  , (4, liftM  IList (genImps n)) ]
+    where genImps n = choose (1,4) >>= 
                       \l -> vectorOf l (genImperative (n `div` 2))
  
 instance Arbitrary Basic where
@@ -60,7 +63,7 @@ instance Arbitrary AntTest where
 mkAntStrategyProp :: (AntStrategy' -> Bool) -> Gen Imperative -> Property
 mkAntStrategyProp p actions = forAll actions $ \as ->
         let as' = semanticsImperative as 
-         in p $ fst $ runSupply as' [AntState 0..]
+         in p $ aForever $ fst $ runSupply as' [AntState 0..]
 
 finalRefsItselfProp :: Property
 finalRefsItselfProp = mkAntStrategyProp finalRefsItself actions 
@@ -69,16 +72,16 @@ singleInstructionProp :: Property
 singleInstructionProp = mkAntStrategyProp refsItself singleAction 
 
 noBrokenRefsProp :: Property 
-noBrokenRefsProp = mkAntStrategyProp noBrokenRefs actionsGhost -- FIXME: ghost gen 
+noBrokenRefsProp = mkAntStrategyProp noBrokenRefs actions
 
 noGhostsAfterBustingProp :: Property
-noGhostsAfterBustingProp = mkAntStrategyProp noGhostsAfterBusting actionsGhost
+noGhostsAfterBustingProp = mkAntStrategyProp noGhostsAfterBusting actions
 
 initialKeyIsZeroProp :: Property
-initialKeyIsZeroProp = mkAntStrategyProp initialKeyIsZero actionsGhost
+initialKeyIsZeroProp = mkAntStrategyProp initialKeyIsZero actions
 
 keySpaceTransformProp :: Property
-keySpaceTransformProp = mkAntStrategyProp keySpaceTransform actionsGhost
+keySpaceTransformProp = mkAntStrategyProp keySpaceTransform actions
 
 propList = [ ("Final references itself..."             , finalRefsItselfProp)
            , ("Single instructions point themselves...", singleInstructionProp)

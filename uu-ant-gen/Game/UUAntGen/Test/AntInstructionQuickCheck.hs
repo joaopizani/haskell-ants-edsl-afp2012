@@ -1,4 +1,3 @@
-{-# LANGUAGE FlexibleInstances #-}
 module Game.UUAntGen.Test.AntInstructionQuickCheck where
 
 import Test.QuickCheck      (Gen(..),Arbitrary(..),arbitrary,Property,oneof,forAll
@@ -10,72 +9,41 @@ import Data.List            (nub)
 import Control.Monad.Supply
 
 import Game.UUAntGen.Test.AntInstructionArbitrary
-import Game.UUAntGen.AntMap 
+import Game.UUAntGen.AntDeepEmbedded
 import Game.UUAntGen.AntInstruction
-
-data Action 
-    = Single Command
-    | If AntTest [Action] [Action] 
-    | While AntTest [Action] 
-    deriving Show
-
-data Command 
-    = CMark Pheromone
-    | CUnMark Pheromone
-    | CDrop
-    | CTurn Dexterity 
-    deriving Show
-
-
-semantics :: AntStrategy -> [Action] -> AntStrategy
-semantics as []     = as
-semantics as (a:tl) =
-    case a of
-      Single (CMark p)   -> as >>- semantics (aMark p) tl 
-      Single (CUnMark p) -> as >>- semantics (aUnMark p) tl 
-      Single CDrop       -> as >>- semantics aDrop tl
-      Single (CTurn d)   -> as >>- semantics (aTurn d) tl
-      If c t e           -> as >>- semantics (aIfThenElse c (perform t) (perform e)) 
-                                             tl 
-      While c b          -> as >>- semantics (aWhile c (perform b)) tl  
-
-perform :: [Action] -> AntStrategy
-perform []     = aDrop -- this should be working on non-empty lists...
-perform (a:tl) = 
-    case a of
-      Single (CMark p)   -> semantics (aMark p) tl 
-      Single (CUnMark p) -> semantics (aUnMark p) tl 
-      Single CDrop       -> semantics aDrop tl
-      Single (CTurn d)   -> semantics (aTurn d) tl
-      If c t e           -> aIfThenElse c (perform t) (perform e) 
-      While c b          -> aWhile c (perform b) 
-
+import Game.UUAntGen.AntTransformation
+import Game.UUAntGen.AntBasic
+import Game.UUAntGen.AntImperative
 
 -- Generators
 
-actions :: Gen [Action]
-actions = liftM2 (:) arbitrary (listOf arbitrary)
+actions :: Gen Imperative
+actions = liftM IList $ liftM2 (:) arbitrary (listOf arbitrary)
 
 -- FIXME: this should be modified
-actionsGhost :: Gen [Action]
-actionsGhost = (listOf arbitrary) `catM` (singlM (liftM Single arbitrary))
+actionsGhost :: Gen Imperative 
+actionsGhost = liftM IList $ (listOf arbitrary) `catM` 
+                             (singlM (liftM Single arbitrary))
     where catM   = liftM2 (++)
           singlM = liftM  (:[])
 
-singleAction :: Gen [Action]
-singleAction = liftM (\x -> [Single x]) arbitrary
+singleAction :: Gen Imperative 
+singleAction = liftM Single arbitrary
 
-instance Arbitrary Action where
-    arbitrary = sized genAction 
-        where 
-              genAction 0 = liftM Single arbitrary 
-              genAction n = frequency $ 
-                                [ (5, liftM  Single arbitrary)
-                                , (1, liftM3 If arbitrary (genActs n) (genActs n))
-                                , (1, liftM2 While arbitrary (genActs n)) ]
-              genActs n = choose (1,4) >>= \l -> vectorOf l (genAction (n `div` 2))
+instance Arbitrary Imperative where
+    arbitrary = sized genImperative 
 
-instance Arbitrary Command where
+genImperative :: Int -> Gen Imperative
+genImperative 0 = liftM Single arbitrary 
+genImperative n = frequency $ 
+                  [ (5, liftM  Single arbitrary)
+                  , (1, liftM3 IfThenElse arbitrary (genImperative (n `div` 2)) 
+                                                    (genImperative (n `div` 2)))
+                  , (1, liftM2 While arbitrary (genImperative (n `div` 2))) ]
+    where genActs n = choose (1,4) >>= 
+                      \l -> vectorOf l (genImperative (n `div` 2))
+ 
+instance Arbitrary Basic where
     arbitrary = oneof [ liftM CMark arbitrary 
                       , liftM CUnMark arbitrary 
                       , return CDrop
@@ -83,15 +51,15 @@ instance Arbitrary Command where
  
 instance Arbitrary AntTest where
     arbitrary = oneof [ return TryForward
-                      , return TryPickup
+                      , return TryPickUp
                       , liftM2 TrySense arbitrary arbitrary
                       , liftM  TryRandomEqZero (choose (0,maxBound)) ]
 
 -- The actual properties
 
-mkAntStrategyProp :: (AntStrategy' -> Bool) -> Gen [Action] -> Property
+mkAntStrategyProp :: (AntStrategy' -> Bool) -> Gen Imperative -> Property
 mkAntStrategyProp p actions = forAll actions $ \as ->
-        let as' = perform as 
+        let as' = semanticsImperative as 
          in p $ fst $ runSupply as' [AntState 0..]
 
 finalRefsItselfProp :: Property
@@ -133,7 +101,7 @@ finalRefsItself (AntStrategy' m i f) = getDefaultState (m ! f) == f
 -- | There are no broken references (right after creating the AntStrategy') 
 noBrokenRefs :: AntStrategy' -> Bool
 noBrokenRefs as = 
-    let (AntStrategy' m i f) = fromKeysToLineNumbers $ ghostBuster $ as
+    let m    = fromKeysToLineNumbers $ ghostBuster $ as
         k    = size m 
         setM = fromList $ map toInt $ concatMap getAntStates $ elems m
         set  = fromList $ map toInt $ keys m 
@@ -150,14 +118,14 @@ noGhostsAfterBusting as = null $ filter isGhost $ elems $ instructions $
 -- | Ensures the initial key is zero after running fromKeysToLineNumbers 
 initialKeyIsZero :: AntStrategy' -> Bool
 initialKeyIsZero as = 
-    let (AntStrategy' m (AntState i) f) = fromKeysToLineNumbers $ ghostBuster as 
-     in i == 0
+    let m = fromKeysToLineNumbers $ ghostBuster as 
+     in head (keys m) == (AntState 0)
 
 -- | Check whether fromKeysToLineNumbers transforms keys from a range 0..n-1
 keySpaceTransform :: AntStrategy' -> Bool
 keySpaceTransform as =
-    let (AntStrategy' m i f) = fromKeysToLineNumbers $ ghostBuster $ as
-        ks                   = nub $ map toInt $ keys m
+    let m  = fromKeysToLineNumbers $ ghostBuster $ as
+        ks = nub $ map toInt $ keys m
      in length ks == (maximum ks) + 1 && minimum ks == 0 
     where toInt (AntState s) = s 
 

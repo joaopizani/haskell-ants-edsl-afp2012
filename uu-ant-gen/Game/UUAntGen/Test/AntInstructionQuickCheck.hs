@@ -60,6 +60,12 @@ perform (a:tl) =
 actions :: Gen [Action]
 actions = liftM2 (:) arbitrary (listOf arbitrary)
 
+-- FIXME: this should be modified
+actionsGhost :: Gen [Action]
+actionsGhost = (listOf arbitrary) `catM` (singlM (liftM Single arbitrary))
+    where catM   = liftM2 (++)
+          singlM = liftM  (:[])
+
 singleAction :: Gen [Action]
 singleAction = liftM (\x -> [Single x]) arbitrary
 
@@ -87,29 +93,19 @@ instance Arbitrary AntTest where
 
 -- The actual properties
 
-supplyProp :: PropertyM (Supply AntState) a -> Property
-supplyProp p = monadic f p
-    where f :: Supply AntState Property -> Property
-          f s = fst $ runSupply s [AntState 0..]
-
--- | Given a predicate on AntStrategy' and a generator for a list of actions,
---   test the predicate AFTER running the computation in the supply monad and 
---   applying the function to it
-mkSupplyEndProp :: (AntStrategy' -> Bool) -> Gen [Action] -> Property
-mkSupplyEndProp p gen = supplyProp p'
-    where p' = forAllM gen $ \as -> do
-                   b <- run (perform as) 
-                   assert (p b)
-
+mkAntStrategyProp :: (AntStrategy' -> Bool) -> Gen [Action] -> Property
+mkAntStrategyProp p actions = forAll actions $ \as ->
+        let as' = perform as 
+         in p $ fst $ runSupply as' [AntState 0..]
 
 finalRefsItselfProp :: Property
-finalRefsItselfProp = mkSupplyEndProp lastRefsItself actions 
+finalRefsItselfProp = mkAntStrategyProp finalRefsItself actions 
 
 singleInstructionProp :: Property
-singleInstructionProp = mkSupplyEndProp refsItself singleAction 
+singleInstructionProp = mkAntStrategyProp refsItself singleAction 
 
 noBrokenRefsProp :: Property 
-noBrokenRefsProp = mkSupplyEndProp noBrokenRefs actions 
+noBrokenRefsProp = mkAntStrategyProp noBrokenRefs actionsGhost -- FIXME: ghost gen 
 
 
 -- AntStrategy' predicates
@@ -119,18 +115,16 @@ refsItself :: AntStrategy' -> Bool
 refsItself (AntStrategy' m i f) = i == f && getDefaultState (m ! i) == i
 
 -- | The last instruction should reference itself
-lastRefsItself :: AntStrategy' -> Bool
-lastRefsItself (AntStrategy' m i f) = getDefaultState (m ! f) == f
+finalRefsItself :: AntStrategy' -> Bool
+finalRefsItself (AntStrategy' m i f) = getDefaultState (m ! f) == f
 
 -- | There are no broken references (right after creating the AntStrategy') 
 noBrokenRefs :: AntStrategy' -> Bool
 noBrokenRefs as = 
-    let (AntStrategy' m i f) = as
+    let (AntStrategy' m i f) = fromKeysToLineNumbers $ ghostBuster $ as
         k    = size m 
-        setM = delete (toInt f) $ fromList $ map toInt $ 
-               concatMap getAntStates $ elems m
+        setM = fromList $ map toInt $ concatMap getAntStates $ elems m
         set  = fromList $ map toInt $ keys m 
      in setM `isSubsetOf` set 
     where toInt (AntState s) = s
-
 

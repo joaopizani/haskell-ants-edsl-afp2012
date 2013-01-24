@@ -109,6 +109,9 @@ translateOneKey m (k, nk) = M.map (replaceMatchingStates k nk) changedInst
         changedInst = M.insert nk ins $ M.delete k m
 
 
+aForever :: AntStrategy' -> AntStrategy'
+aForever as@(AntStrategy' m i f) = replaceFinal i as
+
 
 
 -- | Pretty-printing an AntStrategy' to a String.

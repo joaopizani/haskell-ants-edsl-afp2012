@@ -44,10 +44,8 @@ replaceFinal idx s = AntStrategy' newis (initial s) (final s) where
 
 -- | Given a AntStrategy inside the Supply monad, runs the monad with a convenient
 -- default supply of AntStates
-getAntStrategy :: AntStrategy -> AntStrategy'
-getAntStrategy s = fst $ runSupply s [AntState 0..]
-
-
+runAntStrategy :: AntStrategy -> AntStrategy'
+runAntStrategy s = fst $ runSupply s [AntState 0..]
 
 
 -- | Given a AntStrategy with possibly ghost AntInstructions (resulting from IfThenElse and IfThen
@@ -93,11 +91,10 @@ replaceMatchingStates o n (Turn d s0)       = (Turn   d (h o s0 n)              
 -- POST-CONDITIONS:
 --     * The keyspace of the instruction map is in the range [0, (size-1)]
 --     * The key of the initial instruction is 0
-fromKeysToLineNumbers :: AntStrategy' -> AntStrategy'
-fromKeysToLineNumbers (AntStrategy' m i f) = AntStrategy' (translateKeySpaceIMap m from0) newi newf
+fromKeysToLineNumbers :: AntStrategy' -> IMap 
+fromKeysToLineNumbers (AntStrategy' m i f) = translateKeySpaceIMap m from0 
     where
         from0        = (i, AntState 0) : zip (delete i $ M.keys m) [(AntState 1)..]
-        (newi, newf) = (fromJust $ lookup i from0, fromJust $ lookup f from0)
 
 translateKeySpaceIMap :: IMap -> [(AntState, AntState)] -> IMap
 translateKeySpaceIMap orig translations = foldl translateOneKey orig translations
@@ -118,6 +115,12 @@ aForever as@(AntStrategy' m i f) = replaceFinal i as
 -- PRE-CONDITIONS:
 --     * The instruction map has keys in the range [0, (size-1)]
 --     * The key of the initial instruction is 0
-printAntStrategy' :: AntStrategy' -> String
-printAntStrategy' (AntStrategy' m _ _) = unlines $ map show (M.elems m)
+printInstructionMap :: IMap -> String
+printInstructionMap m = unlines $ map show (M.elems m)
+
+
+compile :: AntStrategy -> String
+compile = printInstructionMap . fromKeysToLineNumbers . ghostBuster . aForever .
+          runAntStrategy
+
 

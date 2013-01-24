@@ -51,7 +51,32 @@ aTurnL = aTurn L
 aTurnR :: AntStrategy
 aTurnR = aTurn R
 
+aMoveOrWall :: AntStrategy -> AntStrategy
+aMoveOrWall ws = do
+    ws' <- ws
+    idx <- supply
+    gidx <- supply
+    let ghost = (gidx, Ghost gidx idx idx)
+        allInstrs = M.fromList [ghost, (idx, Move gidx (initial ws'))] `M.union` (instructions ws')
+    return $ AntStrategy' allInstrs idx gidx 
 
+aMove :: AntStrategy
+aMove = do 
+    idx <- supply
+    gidx <- supply
+    let ghost = (gidx, Ghost gidx idx idx)
+        allInstrs = M.fromList [ghost, (idx, Move gidx gidx)]
+    return $ AntStrategy' allInstrs idx gidx 
+
+
+aPickup :: AntStrategy -> AntStrategy
+aPickup ws = do
+    idx <- supply
+    ws' <- ws
+    gidx <- supply
+    let ghost = (gidx, Ghost gidx idx idx)
+        allInstrs = M.fromList [ghost, (idx, PickUp gidx (initial ws'))] `M.union` (instructions ws')
+    return $ AntStrategy' allInstrs idx gidx 
 
 -- Composing AntStrategies. Sequencing, loop, conditionals, etc.
 
@@ -101,19 +126,27 @@ s1 >>- s2 = do
 
 -- | Datatype representing all the possible tests to be performed in a conditional AntStrategy
 data AntTest
-    = TryForward
-    | TryPickup
-    | TrySense Direction Condition
+    = TrySense Direction Condition
     | TryRandomEqZero Int
+    | Negation AntTest
     deriving Show
 
 
 -- | While block, is given a test and a strategy for the body
 aWhile :: AntTest -> AntStrategy -> AntStrategy
-aWhile TryForward          = aMkWhile Move
-aWhile TryPickup           = aMkWhile PickUp
-aWhile (TrySense d c)      = aMkWhile $ \t f -> Sense d t f c
-aWhile (TryRandomEqZero p) = aMkWhile $ flip (Flip p)
+aWhile (Negation (TrySense d c))        = aMkWhile $ \t f -> Sense d f t c
+aWhile (TrySense d c)                   = aMkWhile $ \t f -> Sense d t f c
+aWhile (Negation (TryRandomEqZero p))   = aMkWhile $ \t f -> Flip p f t
+aWhile (TryRandomEqZero p)              = aMkWhile $ \t f -> Flip p t f
+
+goFFUntilOrRock :: AntTest -> AntStrategy -> AntStrategy
+goFFUntilOrRock t sw = aWhile (Negation t) (aMoveOrWall sw) 
+
+goFFUntil :: AntTest-> AntStrategy
+goFFUntil t = aWhile (Negation t) aMove
+
+goForwardNSteps :: Int -> AntStrategy
+goForwardNSteps n = foldr (>>-) aMove $ replicate (n-1) aMove
 
 -- Helper function to aWhile. Produces a conditional loop block, given a conditional
 -- assembly instruction and a strategies for the loop body
@@ -131,10 +164,10 @@ aMkWhile condi b = do
 
 -- | IfThenElse, given a test and two strategies: one for the true branch and one for the false
 aIfThenElse :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
-aIfThenElse TryForward          = aMkIfThenElse Move
-aIfThenElse TryPickup           = aMkIfThenElse PickUp
-aIfThenElse (TrySense d c)      = aMkIfThenElse $ \t f -> Sense d t f c
-aIfThenElse (TryRandomEqZero p) = aMkIfThenElse $ flip (Flip p)
+aIfThenElse (Negation (TrySense d c))       = aMkIfThenElse $ \t f -> Sense d f t c
+aIfThenElse (TrySense d c)                  = aMkIfThenElse $ \t f -> Sense d t f c
+aIfThenElse (Negation (TryRandomEqZero p))  = aMkIfThenElse $ \t f -> Flip p f t
+aIfThenElse (TryRandomEqZero p)             = aMkIfThenElse $ \t f -> Flip p t f
 
 -- Helper function to aIfThenElse. Produces a conditional strategy given an assembly instruction
 -- and two strategies. Introduces a "Ghost" instruction to serve as return point from both branches
@@ -177,11 +210,25 @@ bypassGhosts m gs = foldl bypassGhost m gs
 
 -- TODO not bypassing correctly the ghosts in aWhile
 bypassGhost :: IMap -> AntState -> IMap
-bypassGhost m ghost = M.adjust bypassP p2 $ M.adjust bypassP p1 $ M.delete ghost m
+bypassGhost m gidx = M.adjust bypassP p2 $ M.adjust bypassP p1 $ M.delete gidx m
     where
-        (Ghost n p1 p2) = m ! ghost
-        bypassP         = replaceDefaultState n
+        (Ghost n p1 p2) = m ! gidx
+        bypassP         = replaceMatchingStates gidx n
 
+-- TODO UGLY NAME Replace a state by a new if it matches the wanted one
+h :: AntState -> AntState -> AntState -> AntState
+h wanted existing new = if wanted == existing then new else existing
+
+replaceMatchingStates :: AntState -> AntState -> AntInstruction -> AntInstruction
+replaceMatchingStates o n (Sense d s0 s1 c) = (Sense  d (h o s0 n) (h o s1 n) c          )
+replaceMatchingStates o n (Flip i s0 s1)    = (Flip   i (h o s0 n) (h o s1 n)            )
+replaceMatchingStates o n (Move s0 s1)      = (Move     (h o s0 n) (h o s1 n)            )
+replaceMatchingStates o n (PickUp s0 s1)    = (PickUp   (h o s0 n) (h o s1 n)            )
+replaceMatchingStates o n (Ghost s0 s1 s2)  = (Ghost    (h o s0 n) (h o s1 n) (h o s2 n) )
+replaceMatchingStates o n (Mark p s0)       = (Mark   p (h o s0 n)                       )
+replaceMatchingStates o n (UnMark p s0)     = (UnMark p (h o s0 n)                       )
+replaceMatchingStates o n (Drop s0)         = (Drop     (h o s0 n)                       )
+replaceMatchingStates o n (Turn d s0)       = (Turn   d (h o s0 n)                       )
 
 
 -- | The keyspace of an instruction map might be arbitrary. This function translates the key space
@@ -204,20 +251,6 @@ translateOneKey m (k, nk) = M.map (replaceMatchingStates k nk) changedInst
         ins = m ! k
         changedInst = M.insert nk ins $ M.delete k m
 
--- TODO UGLY NAME Replace a state by a new if it matches the wanted one
-h :: AntState -> AntState -> AntState -> AntState
-h wanted existing new = if wanted == existing then new else existing
-
-replaceMatchingStates :: AntState -> AntState -> AntInstruction -> AntInstruction
-replaceMatchingStates o n (Sense d s0 s1 c) = (Sense  d (h o s0 n) (h o s1 n) c          )
-replaceMatchingStates o n (Flip i s0 s1)    = (Flip   i (h o s0 n) (h o s1 n)            )
-replaceMatchingStates o n (Move s0 s1)      = (Move     (h o s0 n) (h o s1 n)            )
-replaceMatchingStates o n (PickUp s0 s1)    = (PickUp   (h o s0 n) (h o s1 n)            )
-replaceMatchingStates o n (Ghost s0 s1 s2)  = (Ghost    (h o s0 n) (h o s1 n) (h o s2 n) )
-replaceMatchingStates o n (Mark p s0)       = (Mark   p (h o s0 n)                       )
-replaceMatchingStates o n (UnMark p s0)     = (UnMark p (h o s0 n)                       )
-replaceMatchingStates o n (Drop s0)         = (Drop     (h o s0 n)                       )
-replaceMatchingStates o n (Turn d s0)       = (Turn   d (h o s0 n)                       )
 
 
 

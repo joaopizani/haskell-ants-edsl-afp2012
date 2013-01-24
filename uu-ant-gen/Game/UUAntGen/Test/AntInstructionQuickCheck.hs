@@ -5,8 +5,8 @@ import Test.QuickCheck.Monadic
 import Test.QuickCheck   (Gen(..),Arbitrary(..),arbitrary,Property,oneof,forAll
                          ,listOf,choose,sized,frequency,vectorOf)
 import Control.Monad     (liftM,liftM2,liftM3)
-import Data.Map          ((!),elems,size)
-import Data.Set          (fromList,isSubsetOf)
+import Data.Map          ((!),elems,size,keys)
+import Data.Set          (fromList,isSubsetOf,delete)
 
 
 import Control.Monad.Supply
@@ -114,27 +114,23 @@ noBrokenRefsProp = mkSupplyEndProp noBrokenRefs actions
 
 -- AntStrategy' predicates
 
+-- | A single instruction should reference itself
 refsItself :: AntStrategy' -> Bool
-refsItself as = let ins  = instructions as
-                    init = initial as
-                    fin  = final as
-                 in init == fin &&
-                    getDefaultState (ins ! init) == init
+refsItself (AntStrategy' m i f) = i == f && getDefaultState (m ! i) == i
 
+-- | The last instruction should reference itself
 lastRefsItself :: AntStrategy' -> Bool
-lastRefsItself as = let ins  = instructions as
-                        fin  = final as
-                     in getDefaultState (ins ! fin) == fin
+lastRefsItself (AntStrategy' m i f) = getDefaultState (m ! f) == f
 
--- FIXME: last ref may be broken 
+-- | There are no broken references (right after creating the AntStrategy') 
 noBrokenRefs :: AntStrategy' -> Bool
 noBrokenRefs as = 
-    let (AntStrategy' m i f) = fromKeysToLineNumbers $ ghostBuster as
+    let (AntStrategy' m i f) = as
         k    = size m 
-        setM = fromList $ map toInt $ concatMap getAntStates $ elems m
-        set  = fromList $ [0..(k-1)]
-     in trace ("Original map"
-               ++ show m ++ " ") $ setM `isSubsetOf` set 
+        setM = delete (toInt f) $ fromList $ map toInt $ 
+               concatMap getAntStates $ elems m
+        set  = fromList $ map toInt $ keys m 
+     in setM `isSubsetOf` set 
     where toInt (AntState s) = s
 
 

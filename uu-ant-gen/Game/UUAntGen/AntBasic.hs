@@ -48,5 +48,3 @@ aTurnL = aTurn L
 aTurnR :: AntStrategy
 aTurnR = aTurn R
 
---aMoveOrWall :: AntStrategy -> AntStrategy
---aMoveOrWall ws = aIfThen (Not  

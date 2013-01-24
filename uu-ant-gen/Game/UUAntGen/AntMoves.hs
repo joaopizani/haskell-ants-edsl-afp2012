@@ -7,14 +7,11 @@ import Game.UUAntGen.AntInstruction
 import qualified Data.Map as M
 import Control.Monad.Supply (supply)
 
-aMove :: AntStrategy
-aMove = do 
-    idx <- supply
-    gidx <- supply
-    let ghost = (gidx, Ghost gidx idx idx)
-        allInstrs = M.fromList [ghost, (idx, Move gidx gidx)]
-    return $ AntStrategy' allInstrs idx gidx 
+aMoveOrWall :: AntStrategy -> AntStrategy
+aMoveOrWall ws = aIfThen (Not TryForward) ws 
 
+aMove :: AntStrategy 
+aMove = aTest TryForward
 
 goFFUntilOrRock :: AntTest -> AntStrategy -> AntStrategy
 goFFUntilOrRock t sw = aWhile (Not t) (aMoveOrWall sw) 

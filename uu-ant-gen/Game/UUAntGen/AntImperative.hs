@@ -28,15 +28,22 @@ data AntTest
     = TrySense Direction Condition
     | TryRandomEqZero Int
     | Not AntTest
+    | TryForward
+    | TryPickUp
     deriving Show
 
 
 -- | While block, is given a test and a strategy for the body
 aWhile :: AntTest -> AntStrategy -> AntStrategy
 aWhile (Not (TrySense d c))        = aMkWhile $ \t f -> Sense d f t c
-aWhile (TrySense d c)                   = aMkWhile $ \t f -> Sense d t f c
+aWhile (TrySense d c)              = aMkWhile $ \t f -> Sense d t f c
 aWhile (Not (TryRandomEqZero p))   = aMkWhile $ \t f -> Flip p f t
-aWhile (TryRandomEqZero p)              = aMkWhile $ \t f -> Flip p t f
+aWhile (TryRandomEqZero p)         = aMkWhile $ \t f -> Flip p t f
+aWhile (Not TryForward)            = aMkWhile $ \t f -> Move f t
+aWhile TryForward                  = aMkWhile $ \t f -> Move t f
+aWhile (Not TryPickUp)             = aMkWhile $ \t f -> PickUp f t 
+aWhile TryPickUp                   = aMkWhile $ \t f -> PickUp t f 
+
 
 -- Helper function to aWhile. Produces a conditional loop block, given a conditional
 -- assembly instruction and a strategies for the loop body
@@ -54,10 +61,15 @@ aMkWhile condi b = do
 
 -- | IfThenElse, given a test and two strategies: one for the true branch and one for the false
 aIfThenElse :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
-aIfThenElse (Not (TrySense d c))       = aMkIfThenElse $ \t f -> Sense d f t c
-aIfThenElse (TrySense d c)                  = aMkIfThenElse $ \t f -> Sense d t f c
-aIfThenElse (Negation (TryRandomEqZero p))  = aMkIfThenElse $ \t f -> Flip p t f
-aIfThenElse (TryRandomEqZero p)             = aMkIfThenElse $ \t f -> Flip p f t
+aIfThenElse (Not (TrySense d c))      = aMkIfThenElse $ \t f -> Sense d f t c
+aIfThenElse (TrySense d c)            = aMkIfThenElse $ \t f -> Sense d t f c
+aIfThenElse (Not (TryRandomEqZero p)) = aMkIfThenElse $ \t f -> Flip p t f
+aIfThenElse (TryRandomEqZero p)       = aMkIfThenElse $ \t f -> Flip p f t
+aIfThenElse (Not TryForward)          = aMkIfThenElse $ \t f -> Move f t
+aIfThenElse TryForward                = aMkIfThenElse $ \t f -> Move t f
+aIfThenElse (Not TryPickUp)           = aMkIfThenElse $ \t f -> PickUp f t 
+aIfThenElse TryPickUp                 = aMkIfThenElse $ \t f -> PickUp t f 
+
 
 
 -- Helper function to aIfThenElse. Produces a conditional strategy given an assembly instruction
@@ -76,10 +88,15 @@ aMkIfThenElse condi ts fs = do
 
 
 aIfThen :: AntTest -> AntStrategy -> AntStrategy 
-aIfThen (Negation (TrySense d c))      = aMkIfThen $ \t f -> Sense d f t c 
-aIfThen (TrySense d c)                 = aMkIfThen $ \t f -> Sense d t f c
-aIfThen (Negation (TryRandomEqZero p)) = aMkIfThen $ \t f -> Flip p t f 
-aIfThen (TryRandomEqZero p)            = aMkIfThen $ \t f -> Flip p f t 
+aIfThen (Not (TrySense d c))      = aMkIfThen $ \t f -> Sense d f t c 
+aIfThen (TrySense d c)            = aMkIfThen $ \t f -> Sense d t f c
+aIfThen (Not (TryRandomEqZero p)) = aMkIfThen $ \t f -> Flip p t f 
+aIfThen (TryRandomEqZero p)       = aMkIfThen $ \t f -> Flip p f t 
+aIfThen (Not TryForward)          = aMkIfThen $ \t f -> Move f t
+aIfThen TryForward                = aMkIfThen $ \t f -> Move t f
+aIfThen (Not TryPickUp)           = aMkIfThen $ \t f -> PickUp f t 
+aIfThen TryPickUp                 = aMkIfThen $ \t f -> PickUp t f 
+
 
 aMkIfThen :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy
 aMkIfThen condi body = do
@@ -92,5 +109,23 @@ aMkIfThen condi body = do
     return $ AntStrategy' (M.insert idx testi (M.insert gidx ghosti instrs))
                           idx
                           gidx
+
+aTest :: AntTest -> AntStrategy 
+aTest (Not (TrySense d c))      = aMkTest $ \t f -> Sense d f t c 
+aTest (TrySense d c)            = aMkTest $ \t f -> Sense d t f c
+aTest (Not (TryRandomEqZero p)) = aMkTest $ \t f -> Flip p t f 
+aTest (TryRandomEqZero p)       = aMkTest $ \t f -> Flip p f t 
+aTest (Not TryForward)          = aMkTest $ \t f -> Move f t
+aTest TryForward                = aMkTest $ \t f -> Move t f
+aTest (Not TryPickUp)           = aMkTest $ \t f -> PickUp f t 
+aTest TryPickUp                 = aMkTest $ \t f -> PickUp t f 
+
+aMkTest :: (AntState -> AntState -> AntInstruction) -> AntStrategy
+aMkTest condi = do 
+    idx <- supply
+    gidx <- supply
+    let ghost = (gidx, Ghost gidx idx idx)
+        allInstrs = M.fromList [ghost, (idx, condi gidx gidx)]
+    return $ AntStrategy' allInstrs idx gidx 
 
 

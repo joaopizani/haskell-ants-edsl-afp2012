@@ -9,6 +9,6 @@ import System.Environment;
 
 main = do 
     [path] <- getArgs
-    writeFile path $ printInstructionMap $ fromKeysToLineNumbers $ ghostBuster $ runAntStrategy $ strategy
+    writeFile path $ compile $ strategy
 
 strategy = goForwardNSteps 10

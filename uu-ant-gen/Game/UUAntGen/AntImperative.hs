@@ -56,8 +56,9 @@ aMkWhile condi b = do
 aIfThenElse :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
 aIfThenElse (Not (TrySense d c))       = aMkIfThenElse $ \t f -> Sense d f t c
 aIfThenElse (TrySense d c)                  = aMkIfThenElse $ \t f -> Sense d t f c
-aIfThenElse (Not (TryRandomEqZero p))  = aMkIfThenElse $ \t f -> Flip p f t
-aIfThenElse (TryRandomEqZero p)             = aMkIfThenElse $ \t f -> Flip p t f
+aIfThenElse (Negation (TryRandomEqZero p))  = aMkIfThenElse $ \t f -> Flip p t f
+aIfThenElse (TryRandomEqZero p)             = aMkIfThenElse $ \t f -> Flip p f t
+
 
 -- Helper function to aIfThenElse. Produces a conditional strategy given an assembly instruction
 -- and two strategies. Introduces a "Ghost" instruction to serve as return point from both branches
@@ -72,5 +73,24 @@ aMkIfThenElse condi ts fs = do
         testi        = condi tidx fidx
         fPlusT       = (instructions $ replaceFinal gidx ts') `M.union` (instructions $ replaceFinal gidx fs')
     return $ AntStrategy' (M.insert idx testi (M.insert gidx ghosti fPlusT)) idx gidx
+
+
+aIfThen :: AntTest -> AntStrategy -> AntStrategy 
+aIfThen (Negation (TrySense d c))      = aMkIfThen $ \t f -> Sense d f t c 
+aIfThen (TrySense d c)                 = aMkIfThen $ \t f -> Sense d t f c
+aIfThen (Negation (TryRandomEqZero p)) = aMkIfThen $ \t f -> Flip p t f 
+aIfThen (TryRandomEqZero p)            = aMkIfThen $ \t f -> Flip p f t 
+
+aMkIfThen :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy
+aMkIfThen condi body = do
+    idx <- supply
+    gidx <- supply
+    body' <- body 
+    let testi  = condi (initial body') gidx
+        ghosti = Ghost gidx (final body') idx   
+        instrs = (instructions $ replaceFinal gidx body') -- body instr.
+    return $ AntStrategy' (M.insert idx testi (M.insert gidx ghosti instrs))
+                          idx
+                          gidx
 
 

@@ -48,22 +48,5 @@ aTurnL = aTurn L
 aTurnR :: AntStrategy
 aTurnR = aTurn R
 
-aMoveOrWall :: AntStrategy -> AntStrategy
-aMoveOrWall ws = do
-    ws' <- ws
-    idx <- supply
-    gidx <- supply
-    let ghost = (gidx, Ghost gidx idx idx)
-        allInstrs = M.fromList [ghost, (idx, Move gidx (initial ws'))] `M.union` (instructions ws')
-    return $ AntStrategy' allInstrs idx gidx 
-
-aPickup :: AntStrategy -> AntStrategy
-aPickup ws = do
-    idx <- supply
-    ws' <- ws
-    gidx <- supply
-    let ghost = (gidx, Ghost gidx idx idx)
-        allInstrs = M.fromList [ghost, (idx, PickUp gidx (initial ws'))] `M.union` (instructions ws')
-    return $ AntStrategy' allInstrs idx gidx 
-
-
+--aMoveOrWall :: AntStrategy -> AntStrategy
+--aMoveOrWall ws = aIfThen (Not  

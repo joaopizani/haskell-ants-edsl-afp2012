@@ -1,21 +1,17 @@
 {-# LANGUAGE FlexibleInstances #-}
 module Game.UUAntGen.Test.AntInstructionQuickCheck where
 
-import Test.QuickCheck.Monadic
-import Test.QuickCheck   (Gen(..),Arbitrary(..),arbitrary,Property,oneof,forAll
-                         ,listOf,choose,sized,frequency,vectorOf)
-import Control.Monad     (liftM,liftM2,liftM3)
-import Data.Map          ((!),elems,size,keys)
-import Data.Set          (fromList,isSubsetOf,delete)
-
-
+import Test.QuickCheck      (Gen(..),Arbitrary(..),arbitrary,Property,oneof,forAll
+                            ,listOf,choose,sized,frequency,vectorOf,quickCheck)
+import Control.Monad        (liftM,liftM2,liftM3)
+import Data.Map             ((!),elems,size,keys)
+import Data.Set             (fromList,isSubsetOf,delete)
+import Data.List            (nub)
 import Control.Monad.Supply
 
 import Game.UUAntGen.Test.AntInstructionArbitrary
 import Game.UUAntGen.AntMap 
 import Game.UUAntGen.AntInstruction
-
-import Debug.Trace
 
 data Action 
     = Single Command
@@ -107,6 +103,22 @@ singleInstructionProp = mkAntStrategyProp refsItself singleAction
 noBrokenRefsProp :: Property 
 noBrokenRefsProp = mkAntStrategyProp noBrokenRefs actionsGhost -- FIXME: ghost gen 
 
+noGhostsAfterBustingProp :: Property
+noGhostsAfterBustingProp = mkAntStrategyProp noGhostsAfterBusting actionsGhost
+
+initialKeyIsZeroProp :: Property
+initialKeyIsZeroProp = mkAntStrategyProp initialKeyIsZero actionsGhost
+
+keySpaceTransformProp :: Property
+keySpaceTransformProp = mkAntStrategyProp keySpaceTransform actionsGhost
+
+propList = [ ("Final references itself..."             , finalRefsItselfProp)
+           , ("Single instructions point themselves...", singleInstructionProp)
+           , ("No broken references..."                , noBrokenRefsProp)
+           , ("No ghosts after busting..."             , noGhostsAfterBustingProp)
+           , ("Initial key is zero..."                 , initialKeyIsZeroProp)
+           , ("Continuous key space transform..."      , keySpaceTransformProp) ]
+
 
 -- AntStrategy' predicates
 
@@ -127,4 +139,32 @@ noBrokenRefs as =
         set  = fromList $ map toInt $ keys m 
      in setM `isSubsetOf` set 
     where toInt (AntState s) = s
+
+-- | There are no ghosts left after they were busted
+noGhostsAfterBusting :: AntStrategy' -> Bool
+noGhostsAfterBusting as = null $ filter isGhost $ elems $ instructions $ 
+                          ghostBuster $ as
+    where isGhost (Ghost _ _ _) = True 
+          isGhost _             = False
+       
+-- | Ensures the initial key is zero after running fromKeysToLineNumbers 
+initialKeyIsZero :: AntStrategy' -> Bool
+initialKeyIsZero as = 
+    let (AntStrategy' m (AntState i) f) = fromKeysToLineNumbers $ ghostBuster as 
+     in i == 0
+
+-- | Check whether fromKeysToLineNumbers transforms keys from a range 0..n-1
+keySpaceTransform :: AntStrategy' -> Bool
+keySpaceTransform as =
+    let (AntStrategy' m i f) = fromKeysToLineNumbers $ ghostBuster $ as
+        ks                   = nub $ map toInt $ keys m
+     in length ks == (maximum ks) + 1 && minimum ks == 0 
+    where toInt (AntState s) = s 
+
+
+-- QuickCheck helper functions
+
+-- | QuickCheck all properties!
+quickCheckAll = sequence_ $ map process propList 
+    where process (x,y) = putStrLn x >> quickCheck y
 

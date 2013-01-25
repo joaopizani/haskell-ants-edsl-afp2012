@@ -1,18 +1,27 @@
 module Game.UUAntGen.AntImperative where
 
-import qualified Data.Map as M
-import Data.Map ((!))
-import Data.Maybe (fromJust)
-import Data.List (delete)
-import Control.Monad.Supply
+import           Control.Monad.Supply (supply)
+import           Data.Map             ((!))
+import qualified Data.Map             as M
 
+import Game.UUAntGen.AntAssembly
+import Game.UUAntGen.AntDeepEmbedded
 import Game.UUAntGen.AntInstruction
 import Game.UUAntGen.AntTransformation
-import Game.UUAntGen.AntBasic
 
--- Composing AntStrategies. Sequencing, loop, conditionals, etc.
 
--- | Sequencing two AntStrategies. Means that s2 will be executed after s1
+-- Iterative programming-like constructs for building ant strategies. Sequencing, loop,
+-- conditionals, etc. Every constructs has two corresponding functions. One (prefixed with "a")
+-- which builds the ant assembly itself (of type AntStrategy), and one (prefixed with "i")
+-- which builds the deep-embedded EDSL (of type AntImperative).
+
+-- Sequencing AntStrategies. Means that s2 will be executed after s1
+iSeq :: AntImperative -> AntImperative -> AntImperative
+iSeq s1 s2 = IList [s1, s2]
+
+iList :: [AntImperative] -> AntImperative
+iList = IList
+
 (>>-) :: AntStrategy -> AntStrategy -> AntStrategy
 s1 >>- s2 = do
     s1' <- s1  -- extracting instruction blocks from within the Supply monad
@@ -21,21 +30,12 @@ s1 >>- s2 = do
         s1new   = M.insert (final s1') (replaceDefaultState (initial s2') s1final) (instructions s1')
     return $ AntStrategy' (s1new `M.union` (instructions s2')) (initial s1') (final s2')
 
-replicateStrat :: Int -> AntStrategy -> AntStrategy
-replicateStrat n f = foldr (>>-) f $ replicate (n-1) f
-
--- | Datatype representing all the possible tests to be performed in a conditional AntStrategy
--- | TODO we want to join conditions
-data AntTest
-    = TrySense Direction Condition
-    | TryRandomEqZero Int
-    | Not AntTest
-    | TryForward
-    | TryPickUp
-    deriving Show
 
 
--- | While block, is given a test and a strategy for the body
+-- While block, is given a test and a strategy for the body
+iWhile :: AntTest -> AntImperative -> AntImperative
+iWhile t body = While t body
+
 aWhile :: AntTest -> AntStrategy -> AntStrategy
 aWhile (Not (TrySense d c))        = aMkWhile $ \t f -> Sense d f t c
 aWhile (TrySense d c)              = aMkWhile $ \t f -> Sense d t f c
@@ -43,9 +43,8 @@ aWhile (Not (TryRandomEqZero p))   = aMkWhile $ \t f -> Flip p f t
 aWhile (TryRandomEqZero p)         = aMkWhile $ \t f -> Flip p t f
 aWhile (Not TryForward)            = aMkWhile $ \t f -> Move f t
 aWhile TryForward                  = aMkWhile $ \t f -> Move t f
-aWhile (Not TryPickUp)             = aMkWhile $ \t f -> PickUp f t 
-aWhile TryPickUp                   = aMkWhile $ \t f -> PickUp t f 
-
+aWhile (Not TryPickUp)             = aMkWhile $ \t f -> PickUp f t
+aWhile TryPickUp                   = aMkWhile $ \t f -> PickUp t f
 
 -- Helper function to aWhile. Produces a conditional loop block, given a conditional
 -- assembly instruction and a strategies for the loop body
@@ -61,7 +60,11 @@ aMkWhile condi b = do
     return $ AntStrategy' (M.insert idx testi bPlusG) idx gidx
 
 
--- | IfThenElse, given a test and two strategies: one for the true branch and one for the false
+
+-- IfThenElse, given a test and two strategies: one for the true branch and one for the false
+iIfThenElse :: AntTest -> AntImperative -> AntImperative -> AntImperative
+iIfThenElse c t f = IfThenElse c t f
+
 aIfThenElse :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
 aIfThenElse (Not (TrySense d c))      = aMkIfThenElse $ \t f -> Sense d f t c
 aIfThenElse (TrySense d c)            = aMkIfThenElse $ \t f -> Sense d t f c
@@ -69,10 +72,8 @@ aIfThenElse (Not (TryRandomEqZero p)) = aMkIfThenElse $ \t f -> Flip p t f
 aIfThenElse (TryRandomEqZero p)       = aMkIfThenElse $ \t f -> Flip p f t
 aIfThenElse (Not TryForward)          = aMkIfThenElse $ \t f -> Move f t
 aIfThenElse TryForward                = aMkIfThenElse $ \t f -> Move t f
-aIfThenElse (Not TryPickUp)           = aMkIfThenElse $ \t f -> PickUp f t 
-aIfThenElse TryPickUp                 = aMkIfThenElse $ \t f -> PickUp t f 
-
-
+aIfThenElse (Not TryPickUp)           = aMkIfThenElse $ \t f -> PickUp f t
+aIfThenElse TryPickUp                 = aMkIfThenElse $ \t f -> PickUp t f
 
 -- Helper function to aIfThenElse. Produces a conditional strategy given an assembly instruction
 -- and two strategies. Introduces a "Ghost" instruction to serve as return point from both branches
@@ -89,45 +90,69 @@ aMkIfThenElse condi ts fs = do
     return $ AntStrategy' (M.insert idx testi (M.insert gidx ghosti fPlusT)) idx gidx
 
 
-aIfThen :: AntTest -> AntStrategy -> AntStrategy 
-aIfThen (Not (TrySense d c))      = aMkIfThen $ \t f -> Sense d f t c 
+
+-- IfThen, given a test and a strategy for the body
+iIfThen :: AntTest -> AntImperative -> AntImperative
+iIfThen t body = IfThen t body
+
+aIfThen :: AntTest -> AntStrategy -> AntStrategy
+aIfThen (Not (TrySense d c))      = aMkIfThen $ \t f -> Sense d f t c
 aIfThen (TrySense d c)            = aMkIfThen $ \t f -> Sense d t f c
-aIfThen (Not (TryRandomEqZero p)) = aMkIfThen $ \t f -> Flip p t f 
-aIfThen (TryRandomEqZero p)       = aMkIfThen $ \t f -> Flip p f t 
+aIfThen (Not (TryRandomEqZero p)) = aMkIfThen $ \t f -> Flip p t f
+aIfThen (TryRandomEqZero p)       = aMkIfThen $ \t f -> Flip p f t
 aIfThen (Not TryForward)          = aMkIfThen $ \t f -> Move f t
 aIfThen TryForward                = aMkIfThen $ \t f -> Move t f
-aIfThen (Not TryPickUp)           = aMkIfThen $ \t f -> PickUp f t 
-aIfThen TryPickUp                 = aMkIfThen $ \t f -> PickUp t f 
+aIfThen (Not TryPickUp)           = aMkIfThen $ \t f -> PickUp f t
+aIfThen TryPickUp                 = aMkIfThen $ \t f -> PickUp t f
 
-
+-- Helper function to make a IfThen block.
 aMkIfThen :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy
 aMkIfThen condi body = do
     idx <- supply
     gidx <- supply
-    body' <- body 
+    body' <- body
     let testi  = condi (initial body') gidx
-        ghosti = Ghost gidx (final body') idx   
-        instrs = (instructions $ replaceFinal gidx body') -- body instr.
-    return $ AntStrategy' (M.insert idx testi (M.insert gidx ghosti instrs))
-                          idx
-                          gidx
+        ghosti = Ghost gidx (final body') idx
+        instrs = (instructions $ replaceFinal gidx body') -- body instr
+    return $ AntStrategy' (M.insert idx testi $ M.insert gidx ghosti instrs) idx gidx
 
-aTest :: AntTest -> AntStrategy 
-aTest (Not (TrySense d c))      = aMkTest $ \t f -> Sense d f t c 
+
+
+-- Produces a block containing a side-effecting test instruction, but with no body
+iTest :: AntTest -> AntImperative
+iTest t = SideEffect t
+
+aTest :: AntTest -> AntStrategy
+aTest (Not (TrySense d c))      = aMkTest $ \t f -> Sense d f t c
 aTest (TrySense d c)            = aMkTest $ \t f -> Sense d t f c
-aTest (Not (TryRandomEqZero p)) = aMkTest $ \t f -> Flip p t f 
-aTest (TryRandomEqZero p)       = aMkTest $ \t f -> Flip p f t 
+aTest (Not (TryRandomEqZero p)) = aMkTest $ \t f -> Flip p t f
+aTest (TryRandomEqZero p)       = aMkTest $ \t f -> Flip p f t
 aTest (Not TryForward)          = aMkTest $ \t f -> Move f t
 aTest TryForward                = aMkTest $ \t f -> Move t f
-aTest (Not TryPickUp)           = aMkTest $ \t f -> PickUp f t 
-aTest TryPickUp                 = aMkTest $ \t f -> PickUp t f 
+aTest (Not TryPickUp)           = aMkTest $ \t f -> PickUp f t
+aTest TryPickUp                 = aMkTest $ \t f -> PickUp t f
 
+-- Helper function to build a aTest block
 aMkTest :: (AntState -> AntState -> AntInstruction) -> AntStrategy
-aMkTest condi = do 
+aMkTest condi = do
     idx <- supply
     gidx <- supply
     let ghost = (gidx, Ghost gidx idx idx)
         allInstrs = M.fromList [ghost, (idx, condi gidx gidx)]
-    return $ AntStrategy' allInstrs idx gidx 
+    return $ AntStrategy' allInstrs idx gidx
 
+
+
+-- | This functions gives the semantics of the AntImperative deep-embedded EDSL,
+-- in terms of the assembly-building functions aWhile, aIfThenElse, etc.
+semanticsImp :: AntImperative -> AntStrategy
+semanticsImp (Single b)         = semanticsBasic b
+semanticsImp (IfThenElse c t e) = aIfThenElse c (semanticsImp t) (semanticsImp e)
+semanticsImp (IfThen c b)       = aIfThen c (semanticsImp b)
+semanticsImp (While c b)        = aWhile c (semanticsImp b)
+semanticsImp (SideEffect t)     = aTest t
+semanticsImp (IList l)          = semanticsImpList l
+    where
+        semanticsImpList (x:[]) = semanticsImp x
+        semanticsImpList (x:xs) = semanticsImp x >>- semanticsImpList xs
 

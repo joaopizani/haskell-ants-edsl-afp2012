@@ -1,52 +1,85 @@
-{-# LANGUAGE DeriveGeneric #-}
 module Game.UUAntGen.AntInstruction where
 
-import GHC.Generics (Generic)
-import Data.Hashable (Hashable)
+import           Control.Monad.Supply (Supply, supply)
+import qualified Data.Map             as M
+
+import Game.UUAntGen.AntAssembly
+import Game.UUAntGen.AntDeepEmbedded
 
 
-newtype AntState = AntState Int
-    deriving (Eq, Ord, Generic)  -- have to derive Generic to make auto-instance of Hashable work
+type IMap = M.Map AntState AntInstruction
 
-instance Hashable AntState where  -- empty instance decl, GHC Generics will derive it
+data AntStrategy' = AntStrategy'
+    { instructions :: IMap
+    , initial      :: AntState
+    , final        :: AntState }
+    deriving Eq
 
-instance Show AntState where
-    show (AntState i) = show i
+instance Show AntStrategy' where
+    show (AntStrategy' i s0 sf) = unlines ["initial = " ++ show s0, "final = " ++ show sf, show i]
 
-instance Enum AntState where
-    fromEnum (AntState i) = i
-    toEnum i              = (AntState i)
 
-data Pheromone = P0 | P1 | P2 | P3 | P4 | P5
-    deriving (Eq, Enum)
+-- | The AntStrategy' type, wrapped in the Supply monad for obtaining unique instruction ids
+type AntStrategy = Supply AntState AntStrategy'
 
-instance Show Pheromone where
-    show = show . fromEnum
 
-data Direction = Here | Ahead | LeftAhead | RightAhead
-    deriving (Eq, Enum, Show)
+-- Basic strategies, one function per assembly word. Each basic strategy has a "real assembly"
+-- version (of type AntStrategy), and a "deep embedded" EDSL version (of type AntImperative).
+-- The conversion AntBasic -> AntStrategy is done by the semanticsBasic function
+aMkSingletonStrategy' :: (AntState -> AntInstruction) -> AntState -> AntStrategy'
+aMkSingletonStrategy' instr idx = AntStrategy' (M.fromList [(idx, instr idx)]) idx idx
 
-data Dexterity = L | R
-    deriving (Eq, Enum)
+aMkSingletonStrategy :: (AntState -> AntInstruction) -> AntStrategy
+aMkSingletonStrategy instr = supply >>= return . aMkSingletonStrategy' instr
 
-instance Show Dexterity where
-    show L = "Left"
-    show R = "Right"
 
-data Condition
-    = Friend | Foe | FriendWithFood | FoeWithFood
-    | Food | Rock | Marker Pheromone | FoeMarker | Home | FoeHome
-    deriving (Eq, Show)
+aMark :: Pheromone -> AntStrategy
+aMark p = aMkSingletonStrategy (Mark p)
 
-data AntInstruction
-    = Sense Direction AntState AntState Condition
-    | Mark Pheromone AntState
-    | UnMark Pheromone AntState
-    | PickUp AntState AntState
-    | Drop AntState
-    | Turn Dexterity AntState
-    | Move AntState AntState
-    | Flip Int AntState AntState
-    | Ghost AntState AntState AntState
-    deriving (Eq, Show)
+iMark :: Pheromone -> AntImperative
+iMark p = Single $ CMark p
+
+
+aUnMark :: Pheromone -> AntStrategy
+aUnMark p = aMkSingletonStrategy (UnMark p)
+
+iUnMark :: Pheromone -> AntImperative
+iUnMark p = Single $ CUnMark p
+
+
+aDrop :: AntStrategy
+aDrop = aMkSingletonStrategy Drop
+
+iDrop :: AntImperative
+iDrop = Single $ CDrop
+
+
+aTurn :: Dexterity -> AntStrategy
+aTurn d = aMkSingletonStrategy (Turn d)
+
+iTurn :: Dexterity -> AntImperative
+iTurn d = Single $ CTurn d
+
+
+aTurnL :: AntStrategy
+aTurnL = aTurn L
+
+iTurnL :: AntImperative
+iTurnL = iTurn L
+
+
+aTurnR :: AntStrategy
+aTurnR = aTurn R
+
+iTurnR :: AntImperative
+iTurnR = iTurn R
+
+
+
+-- | This function defines the semantics of the AntImperative deep-embedded EDSL
+semanticsBasic :: AntBasic -> AntStrategy
+semanticsBasic (CMark p)   = aMark p
+semanticsBasic (CUnMark p) = aUnMark p
+semanticsBasic CDrop       = aDrop
+semanticsBasic (CTurn d)   = aTurn d
 

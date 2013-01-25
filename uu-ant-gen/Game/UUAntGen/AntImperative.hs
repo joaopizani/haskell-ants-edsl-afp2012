@@ -21,6 +21,8 @@ s1 >>- s2 = do
         s1new   = M.insert (final s1') (replaceDefaultState (initial s2') s1final) (instructions s1')
     return $ AntStrategy' (s1new `M.union` (instructions s2')) (initial s1') (final s2')
 
+replicateStrat :: Int -> AntStrategy -> AntStrategy
+replicateStrat n f = foldr (>>-) f $ replicate (n-1) f
 
 -- | Datatype representing all the possible tests to be performed in a conditional AntStrategy
 -- | TODO we want to join conditions

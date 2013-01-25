@@ -7,8 +7,7 @@ import Game.UUAntGen.AntMoves;
 import Game.UUAntGen.AntTransformation;
 import System.Environment;
 
-main = do 
-    [path] <- getArgs
-    writeFile path $ compile $ strategy
+main = do  
+    writeFile "../ants-sample/uu.ant" $ compile $ strategy
 
-strategy = goForwardNSteps 10
+strategy = randomTurn >>- doFFandBack aDrop 

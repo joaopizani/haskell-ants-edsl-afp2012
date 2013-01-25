@@ -19,6 +19,8 @@ instance Show AntStrategy' where
 
 type AntStrategy = Supply AntState AntStrategy'
 
+-- using aMove
+type AntWalk = AntStrategy -> AntStrategy
 
 aMkSingletonStrategy' :: (AntState -> AntInstruction) -> AntState -> AntStrategy'
 aMkSingletonStrategy' instr idx = AntStrategy' (M.fromList [(idx, instr idx)]) idx idx

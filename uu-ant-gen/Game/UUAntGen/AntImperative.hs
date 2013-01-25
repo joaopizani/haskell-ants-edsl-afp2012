@@ -17,7 +17,8 @@ import Game.UUAntGen.AntTransformation
 
 -- Sequencing AntStrategies. Means that s2 will be executed after s1
 iSeq :: AntImperative -> AntImperative -> AntImperative
-iSeq s1 s2 = IList [s1, s2]
+iSeq (IList s1) (IList s2) = IList (s1 ++ s2)
+iSeq s1         s2         = IList [s1, s2]
 
 iList :: [AntImperative] -> AntImperative
 iList = IList
@@ -27,7 +28,9 @@ s1 >>- s2 = do
     s1' <- s1  -- extracting instruction blocks from within the Supply monad
     s2' <- s2
     let s1final = instructions s1' ! final s1'
-        s1new   = M.insert (final s1') (replaceDefaultState (initial s2') s1final) (instructions s1')
+        s1new   = M.insert (final s1') 
+                           (replaceDefaultState (initial s2') s1final) 
+                           (instructions s1')
     return $ AntStrategy' (s1new `M.union` (instructions s2')) (initial s1') (final s2')
 
 
@@ -86,7 +89,8 @@ aMkIfThenElse condi ts fs = do
     let (tidx, fidx) = (initial ts', initial fs')
         ghosti       = Ghost gidx (final ts') (final fs')
         testi        = condi tidx fidx
-        fPlusT       = (instructions $ replaceFinal gidx ts') `M.union` (instructions $ replaceFinal gidx fs')
+        fPlusT       = (instructions $ replaceFinal gidx ts') `M.union` 
+                       (instructions $ replaceFinal gidx fs')
     return $ AntStrategy' (M.insert idx testi (M.insert gidx ghosti fPlusT)) idx gidx
 
 

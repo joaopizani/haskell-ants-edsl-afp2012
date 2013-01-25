@@ -20,13 +20,6 @@ import Game.UUAntGen.AntImperative
 actions :: Gen Imperative
 actions = liftM IList $ liftM2 (:) arbitrary (listOf arbitrary)
 
--- FIXME: this should be modified
-actionsGhost :: Gen Imperative 
-actionsGhost = liftM IList $ (listOf arbitrary) `catM` 
-                             (singlM (liftM Single arbitrary))
-    where catM   = liftM2 (++)
-          singlM = liftM  (:[])
-
 singleAction :: Gen Imperative 
 singleAction = liftM Single arbitrary
 
@@ -36,21 +29,21 @@ instance Arbitrary Imperative where
 genImperative :: Int -> Gen Imperative
 genImperative 0 = liftM Single arbitrary 
 genImperative n = frequency $ 
-                  [ (5, liftM  Single arbitrary)
+                  [ (5, liftM  Single     arbitrary)
                   , (5, liftM  SideEffect arbitrary)
                   , (1, liftM3 IfThenElse arbitrary (genImperative (n `div` 2)) 
                                                     (genImperative (n `div` 2)))
-                  , (1, liftM2 IfThen arbitrary (genImperative (n `div` 2))) 
-                  , (1, liftM2 While arbitrary (genImperative (n `div` 2))) 
-                  , (4, liftM  IList (genImps n)) ]
+                  , (1, liftM2 IfThen     arbitrary (genImperative (n `div` 2))) 
+                  , (1, liftM2 While      arbitrary (genImperative (n `div` 2))) 
+                  , (4, liftM  IList      (genImps n)) ]
     where genImps n = choose (1,4) >>= 
                       \l -> vectorOf l (genImperative (n `div` 2))
  
 instance Arbitrary Basic where
-    arbitrary = oneof [ liftM CMark arbitrary 
-                      , liftM CUnMark arbitrary 
+    arbitrary = oneof [ liftM  CMark   arbitrary 
+                      , liftM  CUnMark arbitrary 
                       , return CDrop
-                      , liftM CTurn arbitrary ]
+                      , liftM  CTurn   arbitrary ]
  
 instance Arbitrary AntTest where
     arbitrary = oneof [ return TryForward

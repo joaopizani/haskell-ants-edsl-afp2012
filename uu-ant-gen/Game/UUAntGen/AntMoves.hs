@@ -24,7 +24,8 @@ doUntil f t = iWhile (Not t) f
 
 
 -- | Tries to move forward in a straight line until a condition is met. Has a "recovery"
--- strategy passed for when a wall is met midway through. Does the recovery and goes forward again
+--   strategy passed for when a wall is met midway through. Does the recovery and goes 
+--   forward again
 goFFUntilOrWall :: AntTest -> AntImperative -> AntImperative
 goFFUntilOrWall t w = doUntil (moveOrWall w) t
 
@@ -68,7 +69,8 @@ randomTurn :: AntImperative
 randomTurn = doUntil iTurnR (TryRandomEqZero 4)
 
 
--- | Opening spiral, not covering all squares. A closed spiral is complicated. Ends with a turn
+-- | Opening spiral, not covering all squares. A closed spiral is complicated. 
+--   Ends with a turn
 goSpiralL = goSpiralD L
 goSpiralR = goSpiralD R
 goSpiral = goSpiralR
@@ -78,13 +80,17 @@ goSpiral = goSpiralR
 goSpiralD :: Dexterity -> Int -> AntImperative
 goSpiralD d = goSpiral' 1
     where                             -- Might be improved by using goForwardUntil
-        goSpiral' i n | i < n       = goMoveNTurn d i `iSeq` goMoveNTurn d i `iSeq` goSpiral' (i+1) n
+        goSpiral' i n | i < n       = goMoveNTurn d i `iSeq` 
+                                      goMoveNTurn d i `iSeq` 
+                                      goSpiral' (i+1) n
                       | otherwise   = goMoveNTurn d n `iSeq` goMoveNTurn d n
 
 doSpiralD :: Dexterity -> Int -> AntImperative -> AntImperative
 doSpiralD d n s = doSpiral' 1 n
     where                             -- Might be improved by using goForwardUntil
-        doSpiral' i n | i < n       = doMoveNTurn d i s `iSeq` doMoveNTurn d i s `iSeq` doSpiral' (i+1) n
+        doSpiral' i n | i < n       = doMoveNTurn d i s `iSeq` 
+                                      doMoveNTurn d i s `iSeq` 
+                                      doSpiral' (i+1) n
                       | otherwise   = doMoveNTurn d n s `iSeq` doMoveNTurn d n s
 
 

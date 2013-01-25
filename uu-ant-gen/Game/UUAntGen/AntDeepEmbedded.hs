@@ -8,7 +8,7 @@ data AntBasic
     | CUnMark Pheromone
     | CDrop
     | CTurn Dexterity 
-    deriving Show
+    deriving (Eq, Show)
 
 
 -- Datatype representing all the possible tests to be performed in a conditional AntStrategy
@@ -19,7 +19,7 @@ data AntTest
     | Not AntTest
     | TryForward
     | TryPickUp
-    deriving Show
+    deriving (Eq, Show)
 
 
 data AntImperative
@@ -29,4 +29,5 @@ data AntImperative
     | While AntTest AntImperative
     | SideEffect AntTest
     | IList [AntImperative]
+    deriving (Eq, Show)
 

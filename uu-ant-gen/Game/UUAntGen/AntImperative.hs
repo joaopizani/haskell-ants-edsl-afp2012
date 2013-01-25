@@ -10,6 +10,12 @@ import Game.UUAntGen.AntInstruction
 import Game.UUAntGen.AntTransformation
 
 
+
+-- | Empty strategy, will be eliminated when sequeced (iSeq) with another one
+iEmpty :: AntImperative
+iEmpty = iList []
+
+
 -- Iterative programming-like constructs for building ant strategies. Sequencing, loop,
 -- conditionals, etc. Every constructs has two corresponding functions. One (prefixed with "a")
 -- which builds the ant assembly itself (of type AntStrategy), and one (prefixed with "i")
@@ -17,7 +23,9 @@ import Game.UUAntGen.AntTransformation
 
 -- Sequencing AntStrategies. Means that s2 will be executed after s1
 iSeq :: AntImperative -> AntImperative -> AntImperative
-iSeq (IList s1) (IList s2) = IList (s1 ++ s2)
+iSeq (IList s1) (IList s2) = IList (s1 ++ s2)  -- first 3 patterns eliminate empty strategies
+iSeq (IList s1) s2         = IList $ s1 ++ [s2]
+iSeq s1         (IList s2) = IList $ s1 : s2
 iSeq s1         s2         = IList [s1, s2]
 
 iList :: [AntImperative] -> AntImperative
@@ -145,6 +153,19 @@ aMkTest condi = do
         allInstrs = M.fromList [ghost, (idx, condi gidx gidx)]
     return $ AntStrategy' allInstrs idx gidx
 
+
+
+-- Chooses a random strategy, among the ones in the given list, with uniform distribution
+chooseUniformly :: [AntImperative] -> AntImperative
+chooseUniformly (s:[])   = s
+chooseUniformly l@(s:ss) = iIfThenElse (TryRandomEqZero (sz-1)) s (chooseUniformly ss)
+    where sz = length l
+
+doWithChance :: Int -> AntImperative -> AntImperative
+doWithChance p = iIfThen (Not $ TryRandomEqZero p)
+
+oneOfOrNothing :: [AntImperative] -> AntImperative
+oneOfOrNothing ss = doWithChance (length ss) $ chooseUniformly ss
 
 
 -- | This functions gives the semantics of the AntImperative deep-embedded EDSL,

@@ -41,13 +41,17 @@ goForwardNSteps n = iList (replicate n move)
 
 
 -- | Makes an ant leave pheromone behind while performing any task
+interleaveStrategy :: AntImperative -> AntImperative -> AntImperative
+interleaveStrategy _ (Single r)         = Single r
+interleaveStrategy s (IfThenElse c t f) = IfThenElse c (interleaveStrategy s t) (interleaveStrategy s f)
+interleaveStrategy s (IfThen c b)       = IfThen c (interleaveStrategy s b)
+interleaveStrategy s (While c b)        = While c (interleaveStrategy s b)
+interleaveStrategy _ (SideEffect i)     = SideEffect i
+interleaveStrategy s (IList l)          = iList $ intersperse s l
+
+
 withPheromone :: Pheromone -> AntImperative -> AntImperative
-withPheromone _ (Single r)         = Single r
-withPheromone p (IfThenElse c t f) = IfThenElse c (withPheromone p t) (withPheromone p f)
-withPheromone p (IfThen c b)       = IfThen c (withPheromone p b)
-withPheromone p (While c b)        = While c (withPheromone p b)
-withPheromone _ (SideEffect i)     = SideEffect i
-withPheromone p (IList l)          = iList $ intersperse (iMark p) l
+withPheromone = interleaveStrategy . iMark
 
 
 
@@ -56,7 +60,7 @@ type AntWalk = AntImperative -> AntImperative
 
 -- | Moves forward n steps, performing some other strategy meanwhile
 doForwardNStepsWith :: Int -> AntImperative -> AntImperative
-doForwardNStepsWith n other = iList $ replicate n (move `iSeq` other)
+doForwardNStepsWith n other = interleaveStrategy other (goForwardNSteps n)
 
 
 -- | Turns 180 degrees
@@ -66,13 +70,23 @@ turnAround = iList $ replicate 3 iTurnR
 
 -- | Performs a random turn (loop to the right with 20% chance of stopping)
 randomTurn :: AntImperative
-randomTurn = doUntil iTurnR (TryRandomEqZero 4)
+randomTurn = oneOfOrNothing [turn60L, turn120L, turn180L, turn60R, turn120R]
+    where
+        turn60L  = iTurnL
+        turn120L = iTurnL `iSeq` iTurnL
+        turn180L = iTurnL `iSeq` iTurnL `iSeq` iTurnL
+        turn60R  = iTurnR
+        turn120R = iTurnR `iSeq` iTurnR
 
 
--- | Opening spiral, not covering all squares. A closed spiral is complicated. 
---   Ends with a turn
+-- | Opening spiral, not covering all squares. A closed spiral is complicated. Ends with a turn
+goSpiralL :: Int -> AntImperative
 goSpiralL = goSpiralD L
+
+goSpiralR :: Int -> AntImperative
 goSpiralR = goSpiralD R
+
+goSpiral :: Int -> AntImperative
 goSpiral = goSpiralR
 
 
@@ -88,10 +102,10 @@ goSpiralD d = goSpiral' 1
 doSpiralD :: Dexterity -> Int -> AntImperative -> AntImperative
 doSpiralD d n s = doSpiral' 1 n
     where                             -- Might be improved by using goForwardUntil
-        doSpiral' i n | i < n       = doMoveNTurn d i s `iSeq` 
+        doSpiral' i k | i < k       = doMoveNTurn d i s `iSeq` 
                                       doMoveNTurn d i s `iSeq` 
-                                      doSpiral' (i+1) n
-                      | otherwise   = doMoveNTurn d n s `iSeq` doMoveNTurn d n s
+                                      doSpiral' (i+1) k
+                      | otherwise   = doMoveNTurn d k s `iSeq` doMoveNTurn d k s
 
 
 goMoveNTurn :: Dexterity -> Int -> AntImperative
@@ -110,6 +124,7 @@ doSearch :: AntImperative -> Condition -> AntImperative -> AntImperative
 doSearch s c a = doUntil (s `iSeq` a) (TrySense Ahead c)
 
 
+goSearchSpiral :: Condition -> AntImperative
 goSearchSpiral = goSearch (goSpiral 2)
 
 goFFandBack :: AntImperative

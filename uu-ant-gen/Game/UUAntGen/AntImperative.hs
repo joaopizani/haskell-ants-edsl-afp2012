@@ -48,33 +48,12 @@ iWhile :: AntTest -> AntImperative -> AntImperative
 iWhile t body = While t body
 
 aWhile :: AntTest -> AntStrategy -> AntStrategy
-aWhile (Not (TrySense d c))        = aMkWhile $ \t f -> Sense d f t c
-aWhile (TrySense d c)              = aMkWhile $ \t f -> Sense d t f c
-aWhile (Not (TryRandomEqZero p))   = aMkWhile $ \t f -> Flip p f t
-aWhile (TryRandomEqZero p)         = aMkWhile $ \t f -> Flip p t f
-aWhile (Not TryForward)            = aMkWhile $ \t f -> Move f t
-aWhile TryForward                  = aMkWhile $ \t f -> Move t f
-aWhile (Not TryPickUp)             = aMkWhile $ \t f -> PickUp f t
-aWhile TryPickUp                   = aMkWhile $ \t f -> PickUp t f
+aWhile = aMkWhile . processAntTest
 
 -- Helper function to aWhile. Produces a conditional loop block, given a conditional
 -- assembly instruction and a strategies for the loop body
-aMkWhile :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy
-aMkWhile condi b = do
-    idx   <- supply  -- getting the unique id for the conditional instruction
-    gidx  <- supply  -- getting the unique id for the ghost instruction
-    b'    <- b  -- extracting the instruction blocks from the Supply monad
-    let bidx         = initial b'
-        testi        = condi bidx gidx
-        ghosti       = Ghost gidx [idx]
-        bPlusG       = M.insert gidx ghosti (instructions $ replaceFinal idx b')
-    return $ AntStrategy' (M.insert idx testi bPlusG) idx gidx
-
-aWhile' :: AntTest -> AntStrategy -> AntStrategy
-aWhile' = aMkWhile' . processAntTest
-
-aMkWhile' :: (AntState -> AntState -> AntStrategy) -> AntStrategy -> AntStrategy
-aMkWhile' cond b = do
+aMkWhile :: (AntState -> AntState -> AntStrategy) -> AntStrategy -> AntStrategy
+aMkWhile cond b = do
     gidx  <- supply  -- getting the unique id for the ghost instruction
     b'    <- b  -- extracting the instruction blocks from the Supply monad
     let bidx         = initial b'
@@ -90,37 +69,12 @@ iIfThenElse :: AntTest -> AntImperative -> AntImperative -> AntImperative
 iIfThenElse c t f = IfThenElse c t f
 
 aIfThenElse :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
-aIfThenElse (Not (TrySense d c))      = aMkIfThenElse $ \t f -> Sense d f t c
-aIfThenElse (TrySense d c)            = aMkIfThenElse $ \t f -> Sense d t f c
-aIfThenElse (Not (TryRandomEqZero p)) = aMkIfThenElse $ \t f -> Flip p t f
-aIfThenElse (TryRandomEqZero p)       = aMkIfThenElse $ \t f -> Flip p f t
-aIfThenElse (Not TryForward)          = aMkIfThenElse $ \t f -> Move f t
-aIfThenElse TryForward                = aMkIfThenElse $ \t f -> Move t f
-aIfThenElse (Not TryPickUp)           = aMkIfThenElse $ \t f -> PickUp f t
-aIfThenElse TryPickUp                 = aMkIfThenElse $ \t f -> PickUp t f
+aIfThenElse = aMkIfThenElse . processAntTest
 
 -- Helper function to aIfThenElse. Produces a conditional strategy given an assembly instruction
 -- and two strategies. Introduces a "Ghost" instruction to serve as return point from both branches
-aMkIfThenElse :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy -> AntStrategy
-aMkIfThenElse condi ts fs = do
-    idx <- supply  -- getting the unique id for the testing instruction
-    gidx <- supply -- getting the unique id for the ghost instruction
-    ts' <- ts  -- extracting the instruction blocks from the Supply monad
-    fs' <- fs
-    let (tidx, fidx) = (initial ts', initial fs')
-        ghosti       = Ghost gidx [(final ts'),(final fs')]
-        testi        = condi tidx fidx
-        fPlusT       = (instructions $ replaceFinal gidx ts') `M.union` 
-                       (instructions $ replaceFinal gidx fs')
-    return $ AntStrategy' (M.insert idx testi (M.insert gidx ghosti fPlusT)) idx gidx
-
-
-aIfThenElse' :: AntTest -> AntStrategy -> AntStrategy -> AntStrategy
-aIfThenElse' = aMkIfThenElse' . processAntTest
-
-aMkIfThenElse' :: (AntState -> AntState -> AntStrategy) -> AntStrategy -> AntStrategy 
-               -> AntStrategy
-aMkIfThenElse' cond ts fs = do
+aMkIfThenElse :: (AntState -> AntState -> AntStrategy) -> AntStrategy -> AntStrategy -> AntStrategy
+aMkIfThenElse cond ts fs = do
     gidx <- supply -- getting the unique id for the ghost instruction
     ts' <- ts  -- extracting the instruction blocks from the Supply monad
     fs' <- fs
@@ -138,32 +92,11 @@ iIfThen :: AntTest -> AntImperative -> AntImperative
 iIfThen t body = IfThen t body
 
 aIfThen :: AntTest -> AntStrategy -> AntStrategy
-aIfThen (Not (TrySense d c))      = aMkIfThen $ \t f -> Sense d f t c
-aIfThen (TrySense d c)            = aMkIfThen $ \t f -> Sense d t f c
-aIfThen (Not (TryRandomEqZero p)) = aMkIfThen $ \t f -> Flip p t f
-aIfThen (TryRandomEqZero p)       = aMkIfThen $ \t f -> Flip p f t
-aIfThen (Not TryForward)          = aMkIfThen $ \t f -> Move f t
-aIfThen TryForward                = aMkIfThen $ \t f -> Move t f
-aIfThen (Not TryPickUp)           = aMkIfThen $ \t f -> PickUp f t
-aIfThen TryPickUp                 = aMkIfThen $ \t f -> PickUp t f
+aIfThen = aMkIfThen . processAntTest
 
 -- Helper function to make a IfThen block.
-aMkIfThen :: (AntState -> AntState -> AntInstruction) -> AntStrategy -> AntStrategy
-aMkIfThen condi body = do
-    idx <- supply
-    gidx <- supply
-    body' <- body
-    let testi  = condi (initial body') gidx
-        ghosti = Ghost gidx [(final body'),idx]
-        instrs = (instructions $ replaceFinal gidx body') -- body instr
-    return $ AntStrategy' (M.insert idx testi $ M.insert gidx ghosti instrs) idx gidx
-
-
-aIfThen' :: AntTest -> AntStrategy -> AntStrategy
-aIfThen' = aMkIfThen' . processAntTest
-
-aMkIfThen' :: (AntState -> AntState -> AntStrategy) -> AntStrategy -> AntStrategy
-aMkIfThen' cond body = do
+aMkIfThen :: (AntState -> AntState -> AntStrategy) -> AntStrategy -> AntStrategy
+aMkIfThen cond body = do
     gidx <- supply
     body' <- body
     AntStrategy' m i f <- cond (initial body') gidx
@@ -178,31 +111,11 @@ iTest :: AntTest -> AntImperative
 iTest t = SideEffect t
 
 aTest :: AntTest -> AntStrategy
-aTest (Not (TrySense d c))      = aMkTest $ \t f -> Sense d f t c
-aTest (TrySense d c)            = aMkTest $ \t f -> Sense d t f c
-aTest (Not (TryRandomEqZero p)) = aMkTest $ \t f -> Flip p t f
-aTest (TryRandomEqZero p)       = aMkTest $ \t f -> Flip p f t
-aTest (Not TryForward)          = aMkTest $ \t f -> Move f t
-aTest TryForward                = aMkTest $ \t f -> Move t f
-aTest (Not TryPickUp)           = aMkTest $ \t f -> PickUp f t
-aTest TryPickUp                 = aMkTest $ \t f -> PickUp t f
+aTest = aMkTest . processAntTest 
 
 -- Helper function to build a aTest block
-aMkTest :: (AntState -> AntState -> AntInstruction) -> AntStrategy
-aMkTest condi = do
-    idx <- supply
-    gidx <- supply
-    let ghost = (gidx, Ghost gidx [idx])
-        allInstrs = M.fromList [ghost, (idx, condi gidx gidx)]
-    return $ AntStrategy' allInstrs idx gidx
-
-
-aTest' :: AntTest -> AntStrategy
-aTest' = aMkTest' . processAntTest 
-
-
-aMkTest' :: (AntState -> AntState -> AntStrategy) -> AntStrategy
-aMkTest' cond = do
+aMkTest :: (AntState -> AntState -> AntStrategy) -> AntStrategy
+aMkTest cond = do
     gidx <- supply
     AntStrategy' m i f <- cond gidx gidx
     let condInstrs = M.keys m
@@ -213,6 +126,9 @@ aMkTest' cond = do
 
 -- | Dealing with boolean operators
 
+-- | Procuces a block of conditional instructions given 
+-- two functions that, given the reference of the true and false branch, produce
+-- blocks corresponding to the inner expressions. 
 aMkAnd :: (AntState -> AntState -> AntStrategy) -- s1
        -> (AntState -> AntState -> AntStrategy) -- s2
        -> AntState                              -- true branch
@@ -224,6 +140,8 @@ aMkAnd mkS1 mkS2 st sf = do
     return $ AntStrategy' (m1 `M.union` m2) i1 f2 
 
 
+-- | Consumes an AntTest and returns a function that produces a block of conditional
+-- code, given two parameters: the locations of the true and else branch, respectively.
 processAntTest :: AntTest -> (AntState -> AntState -> AntStrategy)
 processAntTest = foldAntTest (sense,random,forward,pickup,and,not) 
     where aMkSingletonCondStrategy f id1 id2 = do 
@@ -234,7 +152,7 @@ processAntTest = foldAntTest (sense,random,forward,pickup,and,not)
           forward     = aMkSingletonCondStrategy Move
           pickup      = aMkSingletonCondStrategy PickUp
           and         = aMkAnd 
-          not s ts fs = s fs ts 
+          not s       = flip s 
 
 
 -- | This functions gives the semantics of the AntImperative deep-embedded EDSL,
@@ -249,21 +167,4 @@ semanticsImp (IList l)          = semanticsImpList l
     where
         semanticsImpList (x:[]) = semanticsImp x
         semanticsImpList (x:xs) = semanticsImp x >>- semanticsImpList xs
-
-
--- TODO: The code below should go to another module
-
--- Chooses a random strategy, among the ones in the given list, with uniform distribution
-chooseUniformly :: [AntImperative] -> AntImperative
-chooseUniformly (s:[])   = s
-chooseUniformly l@(s:ss) = iIfThenElse (TryRandomEqZero (sz-1)) s (chooseUniformly ss)
-    where sz = length l
-
-doWithChance :: Int -> AntImperative -> AntImperative
-doWithChance p = iIfThen (Not $ TryRandomEqZero p)
-
-oneOfOrNothing :: [AntImperative] -> AntImperative
-oneOfOrNothing ss = doWithChance (length ss) $ chooseUniformly ss
-
-
 

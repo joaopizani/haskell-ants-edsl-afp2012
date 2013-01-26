@@ -53,6 +53,17 @@ interleaveStrategy s (IList l)          = iList $ intersperse s l
 withPheromone :: Pheromone -> AntImperative -> AntImperative
 withPheromone = interleaveStrategy . iMark
 
+-- Chooses a random strategy, among the ones in the given list, with uniform distribution
+chooseUniformly :: [AntImperative] -> AntImperative
+chooseUniformly (s:[])   = s
+chooseUniformly l@(s:ss) = iIfThenElse (TryRandomEqZero (sz-1)) s (chooseUniformly ss)
+    where sz = length l
+
+doWithChance :: Int -> AntImperative -> AntImperative
+doWithChance p = iIfThen (Not $ TryRandomEqZero p)
+
+oneOfOrNothing :: [AntImperative] -> AntImperative
+oneOfOrNothing ss = doWithChance (length ss) $ chooseUniformly ss
 
 
 -- HIGHER LEVEL

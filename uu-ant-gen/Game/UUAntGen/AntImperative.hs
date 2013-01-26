@@ -66,7 +66,7 @@ aMkWhile condi b = do
     b'    <- b  -- extracting the instruction blocks from the Supply monad
     let bidx         = initial b'
         testi        = condi bidx gidx
-        ghosti       = Ghost gidx idx idx
+        ghosti       = Ghost gidx [idx]
         bPlusG       = M.insert gidx ghosti (instructions $ replaceFinal idx b')
     return $ AntStrategy' (M.insert idx testi bPlusG) idx gidx
 
@@ -79,8 +79,9 @@ aMkWhile' cond b = do
     b'    <- b  -- extracting the instruction blocks from the Supply monad
     let bidx         = initial b'
     AntStrategy' m i f <- cond bidx gidx
-    let ghosti       = Ghost gidx f f
-        bPlusG       = M.insert gidx ghosti (instructions $ replaceFinal i b')
+    let condInstrs = M.keys m
+        ghosti     = Ghost gidx condInstrs
+        bPlusG     = M.insert gidx ghosti (instructions $ replaceFinal i b')
     return $ AntStrategy' (m `M.union` bPlusG) i gidx
 
 
@@ -107,7 +108,7 @@ aMkIfThenElse condi ts fs = do
     ts' <- ts  -- extracting the instruction blocks from the Supply monad
     fs' <- fs
     let (tidx, fidx) = (initial ts', initial fs')
-        ghosti       = Ghost gidx (final ts') (final fs')
+        ghosti       = Ghost gidx [(final ts'),(final fs')]
         testi        = condi tidx fidx
         fPlusT       = (instructions $ replaceFinal gidx ts') `M.union` 
                        (instructions $ replaceFinal gidx fs')
@@ -125,7 +126,7 @@ aMkIfThenElse' cond ts fs = do
     fs' <- fs
     let (tidx, fidx) = (initial ts', initial fs')
     AntStrategy' m i f <- cond tidx fidx
-    let ghosti       = Ghost gidx (final ts') (final fs')
+    let ghosti       = Ghost gidx [(final ts'),(final fs')]
         fPlusT       = (instructions $ replaceFinal gidx ts') `M.union` 
                        (instructions $ replaceFinal gidx fs')
     return $ AntStrategy' (m `M.union` (M.insert gidx ghosti fPlusT)) i gidx
@@ -153,7 +154,7 @@ aMkIfThen condi body = do
     gidx <- supply
     body' <- body
     let testi  = condi (initial body') gidx
-        ghosti = Ghost gidx (final body') idx
+        ghosti = Ghost gidx [(final body'),idx]
         instrs = (instructions $ replaceFinal gidx body') -- body instr
     return $ AntStrategy' (M.insert idx testi $ M.insert gidx ghosti instrs) idx gidx
 
@@ -166,8 +167,9 @@ aMkIfThen' cond body = do
     gidx <- supply
     body' <- body
     AntStrategy' m i f <- cond (initial body') gidx
-    let ghosti = Ghost gidx (final body') i
-        instrs = (instructions $ replaceFinal gidx body') -- body instr
+    let condInstrs = M.keys m
+        ghosti     = Ghost gidx ((final body') : condInstrs)
+        instrs     = (instructions $ replaceFinal gidx body') -- body instr
     return $ AntStrategy' (m `M.union` M.insert gidx ghosti instrs) i gidx
 
 
@@ -190,7 +192,7 @@ aMkTest :: (AntState -> AntState -> AntInstruction) -> AntStrategy
 aMkTest condi = do
     idx <- supply
     gidx <- supply
-    let ghost = (gidx, Ghost gidx idx idx)
+    let ghost = (gidx, Ghost gidx [idx])
         allInstrs = M.fromList [ghost, (idx, condi gidx gidx)]
     return $ AntStrategy' allInstrs idx gidx
 
@@ -203,8 +205,9 @@ aMkTest' :: (AntState -> AntState -> AntStrategy) -> AntStrategy
 aMkTest' cond = do
     gidx <- supply
     AntStrategy' m i f <- cond gidx gidx
-    let ghost = (gidx, Ghost gidx f f)
-        allInstrs = m `M.union` M.fromList [ghost] 
+    let condInstrs = M.keys m
+        ghost      = (gidx, Ghost gidx condInstrs)
+        allInstrs  = m `M.union` M.fromList [ghost] 
     return $ AntStrategy' allInstrs i gidx
 
 

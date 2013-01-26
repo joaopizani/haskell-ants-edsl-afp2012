@@ -17,6 +17,14 @@ moveOrWall wi = iIfThen (Not TryForward) wi
 move :: AntImperative
 move = iTest TryForward
 
+-- TODO should also be save from foes using OR
+safeMove :: AntImperative
+safeMove = (iWhile (TrySense Ahead Friend) (chooseUniformly [iTurnR `iSeq` iTurnL, iTurnR `iSeq` move `iSeq` turnAround `iSeq` move `iSeq` iTurnR `iSeq` iTurnR])) `iSeq` move
+
+pickup :: AntImperative
+pickup = iTest TryPickUp
+
+dropFood = Single CDrop
 
 -- | Performs a given strategy in loop until a certain condition is met
 doUntil :: AntImperative -> AntTest -> AntImperative
@@ -32,12 +40,12 @@ goFFUntilOrWall t w = doUntil (moveOrWall w) t
 
 -- | Goes forward until a condition is met. Doesn't care for walls in the way
 goFFUntil :: AntTest -> AntImperative
-goFFUntil t = doUntil move t
+goFFUntil t = doUntil safeMove t
 
 
 -- | Goes forward n number of steps. Doesn't care for walls in the way
 goForwardNSteps :: Int -> AntImperative
-goForwardNSteps n = iList (replicate n move)
+goForwardNSteps n = iList (replicate n safeMove)
 
 
 -- | Makes an ant leave pheromone behind while performing any task
@@ -126,26 +134,32 @@ doMoveNTurn :: Dexterity -> Int -> AntImperative -> AntImperative
 doMoveNTurn d n s = doForwardNStepsWith n s `iSeq` iTurn d
 
 -- Looks for the condition, and stops when it is found
-goSearch :: AntImperative -> Condition -> AntImperative
-goSearch s c = doUntil s (TrySense Ahead c)
+goSearch :: AntImperative -> Condition -> Direction -> AntImperative
+goSearch s c d = doUntil s (TrySense d c)
 
-doSearch :: AntImperative -> Condition -> AntImperative -> AntImperative
-doSearch s c a = doUntil (s `iSeq` a) (TrySense Ahead c)
+doSearch :: AntImperative -> Condition -> Direction-> AntImperative -> AntImperative
+doSearch s c d a = doUntil (s `iSeq` a) (TrySense d c)
 
 goSearchSpiral :: Condition -> AntImperative
-goSearchSpiral = goSearch (goSpiral 2)
+goSearchSpiral c = goSearch (goSpiral 4) c Here
 
 goFFandBack :: AntImperative
-goFFandBack = goSearch move Rock `iSeq` turnAround `iSeq` goSearch move Home
+goFFandBack = goSearch safeMove Rock Ahead `iSeq` turnAround `iSeq` goSearch move Home Here
 
 doFFandBack :: AntImperative -> AntImperative
-doFFandBack s = doSearch move Rock s `iSeq` turnAround `iSeq` doSearch move Home s
+doFFandBack s = doSearch safeMove Rock Ahead s  `iSeq` turnAround `iSeq` doSearch move Home Here s
 
 markHome :: AntImperative
-markHome = (doSearch move Rock (iMark P1)) `iSeq` (turnAround `iSeq` move `iSeq` iTurnR `iSeq` move `iSeq` iTurnL `iSeq` iWhile (And (Not $ TrySense Here Home) (TrySense LeftAhead (Marker P1))) (iMark P2 `iSeq` move))
+markHome = (doSearch move Rock Ahead (iMark P1)) `iSeq` (turnAround `iSeq` move `iSeq` iTurnR `iSeq` move `iSeq` iTurnL `iSeq` iWhile (And (Not $ TrySense Here Home) (TrySense LeftAhead (Marker P1))) (iMark P2 `iSeq` safeMove))
 
 findTrail :: AntImperative
-findTrail = iWhile (Not $ (TrySense Here (Marker P1))) (goSpiral 2) 
+findTrail = iWhile (Not $ (And (Not $ TrySense Here (Marker P2)) (Not $ TrySense Here Home))) (goSpiral 2) 
 
 findWayHome :: AntImperative
-findWayHome = iIfThenElse (TrySense Here (Marker P1)) ((iWhile (TrySense Ahead (Marker P2)) iTurnR) `iSeq` goSearch move Home) findTrail
+findWayHome = iIfThenElse (TrySense Here (Marker P2)) ((iIfThen (TrySense RightAhead (Marker P1) ) turnAround) `iSeq` goSearch safeMove Home Here) findTrail
+
+gatherFood = findFood `iSeq` bringFoodHome
+bringFoodHome = iIfThenElse (TrySense Here Food) (pickup `iSeq` findWayHome `iSeq` dropFood) findFood
+findFood = goSearchSpiral Food
+
+findFoodSampleMap = iTurnR `iSeq` iTurnR `iSeq` goFFUntil (TrySense Here Food) `iSeq` pickup `iSeq` turnAround `iSeq` goFFUntil (TrySense Here Home) `iSeq` dropFood 

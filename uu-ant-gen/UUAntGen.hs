@@ -11,4 +11,4 @@ import System.Environment;
 main = do  
     writeFile "../ants-sample/uu.ant" $ compile $ semanticsImp $ strategy
 
-strategy = randomTurn `iSeq` goSearch move Rock --chooseUniformly [markHome, findWayHome]
+strategy = chooseUniformly [findFoodSampleMap, gatherFood, randomTurn `iSeq` markHome]

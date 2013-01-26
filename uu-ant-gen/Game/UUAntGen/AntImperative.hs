@@ -154,6 +154,43 @@ aMkTest condi = do
     return $ AntStrategy' allInstrs idx gidx
 
 
+aTest' :: AntTest -> AntStrategy
+aTest' TryPickUp                   = do idx <- supply 
+                                        aMkTest' $ \t f -> M.fromList [(idx,PickUp t f)]
+aTest' (And ts)                    = do ids <- sequence $ replicate (length ts) supply
+                                        aMkTest' $ aAnd undefined ids    
+--aTest' (TrySense d c)            = aMkTest $ \t f -> Sense d t f c
+--aTest' (Not (TryRandomEqZero p)) = aMkTest $ \t f -> Flip p t f
+--aTest' (TryRandomEqZero p)       = aMkTest $ \t f -> Flip p f t
+--aTest' (Not TryForward)          = aMkTest $ \t f -> Move f t
+--aTest' TryForward                = aMkTest $ \t f -> Move t f
+--aTest' (Not TryPickUp)           = aMkTest $ \t f -> PickUp f t
+
+
+-- Helper function to build a aTest block
+aMkTest' :: (AntState -> AntState -> IMap) -> AntStrategy
+aMkTest' conds = do
+    gidx <- supply
+    let condM     = conds gidx gidx
+        (idx,_)   = M.findMax condM
+        ghost     = Ghost gidx idx idx
+        allInstrs = M.insert gidx ghost condM 
+    return $ AntStrategy' allInstrs idx gidx
+
+
+-- | PRE-CONDITION: list with at least 2 elements (otherwise AND doesn't make sense)
+aAnd :: [AntState -> AntState -> AntInstruction] -- Conditionals 
+     -> [AntState]                               -- Labels for each conditional
+     -> AntState                                 -- true label
+     -> AntState                                 -- false label
+     -> IMap                                     -- list of instructions
+aAnd condTrueFalseL ids st sf = do
+    let l          = length condL
+        condFalseL = map (\(f,x) -> f x) $ 
+                     zip condTrueFalseL (tail ids ++ [st]) -- link true
+        condL      = map ($sf) condFalseL -- link false
+     in M.fromList (zip ids condL) 
+    
 
 -- Chooses a random strategy, among the ones in the given list, with uniform distribution
 chooseUniformly :: [AntImperative] -> AntImperative

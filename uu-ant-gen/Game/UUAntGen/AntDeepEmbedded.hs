@@ -32,7 +32,7 @@ type AntTestAlgebra r = ( Direction -> Condition -> r
 foldAntTest :: AntTestAlgebra r -> AntTest -> r
 foldAntTest (sense,random,forward,pickup,and,not) = fold
     where fold (TrySense d c)      = sense d c
-          fold (TryRandomEqZero p) = random p
+          fold (TryRandomEqZero p) = random p 
           fold TryForward          = forward
           fold TryPickUp           = pickup
           fold (And t1 t2)         = and (fold t1) (fold t2)

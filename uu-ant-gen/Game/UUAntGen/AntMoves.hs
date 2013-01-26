@@ -56,14 +56,14 @@ withPheromone = interleaveStrategy . iMark
 -- Chooses a random strategy, among the ones in the given list, with uniform distribution
 chooseUniformly :: [AntImperative] -> AntImperative
 chooseUniformly (s:[])   = s
-chooseUniformly l@(s:ss) = iIfThenElse (TryRandomEqZero (sz-1)) s (chooseUniformly ss)
+chooseUniformly l@(s:ss) = iIfThenElse (TryRandomEqZero (sz)) s (chooseUniformly ss)
     where sz = length l
 
 doWithChance :: Int -> AntImperative -> AntImperative
 doWithChance p = iIfThen (Not $ TryRandomEqZero p)
 
 oneOfOrNothing :: [AntImperative] -> AntImperative
-oneOfOrNothing ss = doWithChance (length ss) $ chooseUniformly ss
+oneOfOrNothing ss = doWithChance ((length ss)+1) $ chooseUniformly ss
 
 
 -- HIGHER LEVEL
@@ -125,15 +125,12 @@ goMoveNTurn d n = goForwardNSteps n `iSeq` iTurn d
 doMoveNTurn :: Dexterity -> Int -> AntImperative -> AntImperative
 doMoveNTurn d n s = doForwardNStepsWith n s `iSeq` iTurn d
 
-
-
 -- Looks for the condition, and stops when it is found
 goSearch :: AntImperative -> Condition -> AntImperative
 goSearch s c = doUntil s (TrySense Ahead c)
 
 doSearch :: AntImperative -> Condition -> AntImperative -> AntImperative
 doSearch s c a = doUntil (s `iSeq` a) (TrySense Ahead c)
-
 
 goSearchSpiral :: Condition -> AntImperative
 goSearchSpiral = goSearch (goSpiral 2)
@@ -144,3 +141,11 @@ goFFandBack = goSearch move Rock `iSeq` turnAround `iSeq` goSearch move Home
 doFFandBack :: AntImperative -> AntImperative
 doFFandBack s = doSearch move Rock s `iSeq` turnAround `iSeq` doSearch move Home s
 
+markHome :: AntImperative
+markHome = (doSearch move Rock (iMark P1)) `iSeq` (turnAround `iSeq` move `iSeq` iTurnR `iSeq` move `iSeq` iTurnL `iSeq` iWhile (And (Not $ TrySense Here Home) (TrySense LeftAhead (Marker P1))) (iMark P2 `iSeq` move))
+
+findTrail :: AntImperative
+findTrail = iWhile (Not $ (TrySense Here (Marker P1))) (goSpiral 2) 
+
+findWayHome :: AntImperative
+findWayHome = iIfThenElse (TrySense Here (Marker P1)) ((iWhile (TrySense Ahead (Marker P2)) iTurnR) `iSeq` goSearch move Home) findTrail

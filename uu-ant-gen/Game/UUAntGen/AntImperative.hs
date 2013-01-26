@@ -15,7 +15,6 @@ import Game.UUAntGen.AntTransformation
 iEmpty :: AntImperative
 iEmpty = iList []
 
-
 -- Iterative programming-like constructs for building ant strategies. Sequencing, loop,
 -- conditionals, etc. Every constructs has two corresponding functions. One (prefixed with "a")
 -- which builds the ant assembly itself (of type AntStrategy), and one (prefixed with "i")
@@ -148,7 +147,7 @@ processAntTest = foldAntTest (sense,random,forward,pickup,and,not)
               idx <- supply
               return $ AntStrategy' (M.singleton idx (f id1 id2)) idx idx 
           sense d c   = aMkSingletonCondStrategy (\t f -> Sense d t f c)
-          random p    = aMkSingletonCondStrategy (\t f -> Flip p f t)
+          random p    = aMkSingletonCondStrategy (\t f -> Flip p t f)
           forward     = aMkSingletonCondStrategy Move
           pickup      = aMkSingletonCondStrategy PickUp
           and         = aMkAnd 

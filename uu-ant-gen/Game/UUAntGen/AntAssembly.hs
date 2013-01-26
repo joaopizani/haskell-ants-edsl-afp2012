@@ -40,8 +40,19 @@ instance Show Dexterity where
 data Condition
     = Friend | Foe | FriendWithFood | FoeWithFood
     | Food | Rock | Marker Pheromone | FoeMarker | Home | FoeHome
-    deriving (Eq, Show)
+    deriving (Eq)
 
+instance Show Condition where
+    show (Marker p) = "Marker " ++ (show p)
+    show Friend = "Friend"
+    show Foe = "Foe"
+    show FriendWithFood = "FriendWithFood"
+    show FoeWithFood = "FoeWithFood"
+    show Food = "Food"
+    show Rock = "Rock"
+    show FoeMarker = "FoeMarker"
+    show Home = "Home"
+    show FoeHome = "FoeHome"
 
 data AntInstruction
     = Sense Direction AntState AntState Condition

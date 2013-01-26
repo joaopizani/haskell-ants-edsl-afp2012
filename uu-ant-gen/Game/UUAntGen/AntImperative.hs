@@ -155,42 +155,33 @@ aMkTest condi = do
 
 
 aTest' :: AntTest -> AntStrategy
-aTest' TryPickUp                   = do idx <- supply 
-                                        aMkTest' $ \t f -> M.fromList [(idx,PickUp t f)]
-aTest' (And ts)                    = do ids <- sequence $ replicate (length ts) supply
-                                        aMkTest' $ aAnd undefined ids    
---aTest' (TrySense d c)            = aMkTest $ \t f -> Sense d t f c
---aTest' (Not (TryRandomEqZero p)) = aMkTest $ \t f -> Flip p t f
---aTest' (TryRandomEqZero p)       = aMkTest $ \t f -> Flip p f t
---aTest' (Not TryForward)          = aMkTest $ \t f -> Move f t
---aTest' TryForward                = aMkTest $ \t f -> Move t f
---aTest' (Not TryPickUp)           = aMkTest $ \t f -> PickUp f t
+aTest' = aMkTest' . test
+
+test :: AntTest -> (AntState -> AntState -> AntStrategy)
+test TryForward  = (\ts fs -> do idx <- supply
+                                 return $ AntStrategy' (M.singleton idx (Move ts fs))
+                                                       idx
+                                                       idx) 
+test (And s1 s2) = (\ts fs -> aMkAnd (test s1) (test s2) ts fs) 
 
 
--- Helper function to build a aTest block
-aMkTest' :: (AntState -> AntState -> IMap) -> AntStrategy
-aMkTest' conds = do
+aMkTest' :: (AntState -> AntState -> AntStrategy) -> AntStrategy
+aMkTest' cond = do
     gidx <- supply
-    let condM     = conds gidx gidx
-        (idx,_)   = M.findMax condM
-        ghost     = Ghost gidx idx idx
-        allInstrs = M.insert gidx ghost condM 
-    return $ AntStrategy' allInstrs idx gidx
+    AntStrategy' m i f <- cond gidx gidx
+    let ghost = (gidx, Ghost gidx f f)
+        allInstrs = m `M.union` M.fromList [ghost] 
+    return $ AntStrategy' allInstrs i gidx
 
-
--- | PRE-CONDITION: list with at least 2 elements (otherwise AND doesn't make sense)
-aAnd :: [AntState -> AntState -> AntInstruction] -- Conditionals 
-     -> [AntState]                               -- Labels for each conditional
-     -> AntState                                 -- true label
-     -> AntState                                 -- false label
-     -> IMap                                     -- list of instructions
-aAnd condTrueFalseL ids st sf = do
-    let l          = length condL
-        condFalseL = map (\(f,x) -> f x) $ 
-                     zip condTrueFalseL (tail ids ++ [st]) -- link true
-        condL      = map ($sf) condFalseL -- link false
-     in M.fromList (zip ids condL) 
-    
+aMkAnd :: (AntState -> AntState -> AntStrategy) -- s1
+       -> (AntState -> AntState -> AntStrategy) -- s2
+       -> AntState                              -- true branch
+       -> AntState                              -- else branch
+       -> AntStrategy
+aMkAnd mkS1 mkS2 st sf = do
+    AntStrategy' m2 i2 f2 <- mkS2 st sf
+    AntStrategy' m1 i1 f1 <- mkS1 i2 sf
+    return $ AntStrategy' (m1 `M.union` m2) i1 f2 
 
 -- Chooses a random strategy, among the ones in the given list, with uniform distribution
 chooseUniformly :: [AntImperative] -> AntImperative

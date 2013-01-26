@@ -19,7 +19,7 @@ data AntTest
     | Not AntTest
     | TryForward
     | TryPickUp
-    | And [AntTest]
+    | And AntTest AntTest
     deriving (Eq, Show)
 
 

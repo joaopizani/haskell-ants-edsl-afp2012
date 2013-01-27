@@ -123,6 +123,48 @@ aMkTest cond = do
     return $ AntStrategy' allInstrs i gidx
 
 
+iCase :: [(AntTest,AntImperative)] -> AntImperative
+iCase = Case
+
+aCase :: [(AntTest,AntStrategy)] -> AntStrategy
+aCase = aMkCase . mapFst processAntTest
+    where mapFst f = map (\(x,y) -> (f x,y))
+
+-- TODO: Finish off case
+aMkCase :: [(AntState -> AntState -> AntStrategy,AntStrategy)] -> AntStrategy
+aMkCase condL = do
+    gidx <- supply
+    let (condsF,ss) = unzip $ reverse $ map (linkTrueAndGhost gidx) condL
+        (last,rest) = (head condsF,tail condsF)
+    let last'  = last gidx -- link to ghost
+        -- linking conditions
+        conds' = foldr (\mkS1 s2 -> do AntStrategy' m2 i2 f2 <- s2 
+                                       AntStrategy' m1 i1 f1 <- mkS1 i2
+                                       return $ AntStrategy' (m1 `M.union` m2) i1 f2)
+                       last' 
+                       (reverse $ rest)
+    AntStrategy' mc ic fc <- conds'
+    ss' <- sequence ss
+    AntStrategy' _ _ l <- last'
+    let mss = foldr M.union M.empty $ map instructions ss'
+        ghosti = Ghost gidx (l : M.keys mss) 
+        allInstrs = M.insert gidx ghosti (mc `M.union` mss) 
+    return $ AntStrategy' allInstrs ic gidx 
+    
+
+-- | Given a ghost id and a pair of 
+linkTrueAndGhost :: AntState
+                 -> (AntState -> AntState -> AntStrategy, AntStrategy) 
+                 -> (AntState -> AntStrategy, AntStrategy)
+linkTrueAndGhost gidx (mkS,s) = ( \fs -> s >>= flip mkS fs . initial
+                                , s >>= return . replaceFinal gidx)
+
+    
+mapFst f = map (\(a,b) -> (a,f b))     
+mapSnd f = map (\(a,b) -> (f a,b))     
+     
+    
+
 -- | Dealing with boolean operators
 
 -- | Procuces a block of conjunction of two conditional instructions given 
@@ -181,4 +223,7 @@ semanticsImp (IList l)          = semanticsImpList l
     where
         semanticsImpList (x:[]) = semanticsImp x
         semanticsImpList (x:xs) = semanticsImp x >>- semanticsImpList xs
+semanticsImp (Case l)           = aCase (mapSnd semanticsImp l)
+    where
+        mapSnd f = map (\(x,y) -> (x,f y))
 

@@ -8,6 +8,39 @@ import Game.UUAntGen.AntImperative
 import Game.UUAntGen.AntInstruction
 
 
+strategy' = iList [ initPositions
+                  , filterCornersL ]
+
+initPositions = iIfThen (TrySense Ahead Home)
+                        turnAround 
+filterCornersL = iIfThenElse (TrySense LeftAhead Home)
+                             (turn120R `iSeq` filterCornersLR)
+                             filterCornersR
+filterCornersLR = iIfThenElse (TrySense RightAhead Home)
+                              (turn60L `iSeq` stupidHome)
+                              (turn60L `iSeq` markLine `iSeq` stupidRock)
+filterCornersR = iIfThenElse (TrySense RightAhead Home)
+                             (turn120L `iSeq` filterCornersRL)
+                             (markLine `iSeq` stupidRock)
+filterCornersRL = iIfThenElse (TrySense LeftAhead Home)
+                              (turn60R `iSeq` stupidHome)
+                              (turn60R `iSeq` markLine `iSeq` stupidRock)
+markLine = markLoop `iSeq` 
+           (iIfThenElse (TrySense LeftAhead Rock)
+                        (iIfThen (Not $ TrySense RightAhead Rock)
+                                 (iTurnR `iSeq` markLoop)) 
+                        (iTurnL `iSeq` markLoop)) 
+markLoop = iWhile (Not $ TrySense Ahead Rock) 
+                  (iList [ move, iMark P5
+                         , iIfThen (Not $ TrySense Ahead Rock)
+                                   (iList [ move, iMark P4
+                                          , iIfThen (Not $ TrySense Ahead Rock)
+                                                    (move `iSeq` iMark P3) ])])
+-- undefined's aka to be expanded 
+stupidHome = iWhile (TrySense Ahead Home) (turn60L `iSeq` turn60R) 
+stupidRock = iWhile (TrySense Ahead Rock) (turn60L `iSeq` turn60R) 
+                                
+
 -- | Tries to move one step forward, uses the strategy passed as parameter if meets a wall
 moveOrWall :: AntImperative -> AntImperative
 moveOrWall wi = iIfThen (Not TryForward) wi
@@ -95,12 +128,12 @@ turnAround = iList $ replicate 3 iTurnR
 -- | Performs a random turn (loop to the right with 20% chance of stopping)
 randomTurn :: AntImperative
 randomTurn = oneOfOrNothing [turn60L, turn120L, turn180L, turn60R, turn120R]
-    where
-        turn60L  = iTurnL
-        turn120L = iTurnL `iSeq` iTurnL
-        turn180L = iTurnL `iSeq` iTurnL `iSeq` iTurnL
-        turn60R  = iTurnR
-        turn120R = iTurnR `iSeq` iTurnR
+
+turn60L  = iTurnL
+turn120L = iTurnL `iSeq` iTurnL
+turn180L = iTurnL `iSeq` iTurnL `iSeq` iTurnL
+turn60R  = iTurnR
+turn120R = iTurnR `iSeq` iTurnR
 
 
 -- | Opening spiral, not covering all squares. A closed spiral is complicated. 

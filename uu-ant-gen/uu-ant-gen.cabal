@@ -50,10 +50,15 @@ executable uu-ant-gen
   main-is: UUAntGen.hs
 
   -- Modules included in this executable, other than Main.
-  other-modules: Game.UUAntGen.AntInstruction, Game.UUAntGen.AntMap, Game.UUAntGen.AntStrategies,
-                 Game.UUAntGen.AntReify, Game.UUAntGen.ES.AntGenES,
-                 Game.UUAntGen.ES.AntStrategiesES,
-                 Game.UUAntGen.Test.AntInstructionArbitrary, Game.UUAntGen.Test.AntInstructionHUnit
+  other-modules: Game.UUAntGen.AntInstruction 
+                 Game.UUAntGen.AntAssembly 
+                 Game.UUAntGen.AntMoves
+                 Game.UUAntGen.AntDeepEmbedded 
+                 Game.UUAntGen.AntImperative
+                 Game.UUAntGen.AntTransformation
+                 Game.UUAntGen.Test.AntInstructionArbitrary 
+                 Game.UUAntGen.Test.AntInstructionHUnit
+                 Game.UUAntGen.Test.AntInstructionQuickCheck
 
   -- Other library packages from which modules are imported.
   build-depends: base==4.*, containers, unordered-containers, hashable, ghc-prim, monad-supply,

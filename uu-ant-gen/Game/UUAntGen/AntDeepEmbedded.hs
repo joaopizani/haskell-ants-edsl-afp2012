@@ -48,6 +48,7 @@ data AntImperative
     | IfThen AntTest AntImperative
     | While AntTest AntImperative
     | SideEffect AntTest
+    | Case [(AntTest,AntImperative)]
     | IList [AntImperative]
     deriving (Eq, Show)
 

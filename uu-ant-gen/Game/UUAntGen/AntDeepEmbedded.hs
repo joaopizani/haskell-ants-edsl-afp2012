@@ -19,6 +19,7 @@ data AntTest
     | TryForward
     | TryPickUp
     | And AntTest AntTest
+    | Or AntTest AntTest
     | Not AntTest
     deriving (Eq, Show)
 
@@ -27,15 +28,17 @@ type AntTestAlgebra r = ( Direction -> Condition -> r
                         , r
                         , r
                         , r -> r -> r
+                        , r -> r -> r
                         , r -> r )
 
 foldAntTest :: AntTestAlgebra r -> AntTest -> r
-foldAntTest (sense,random,forward,pickup,and,not) = fold
+foldAntTest (sense,random,forward,pickup,and,or,not) = fold
     where fold (TrySense d c)      = sense d c
           fold (TryRandomEqZero p) = random p 
           fold TryForward          = forward
           fold TryPickUp           = pickup
           fold (And t1 t2)         = and (fold t1) (fold t2)
+          fold (Or t1 t2)          = or (fold t1) (fold t2)
           fold (Not t)             = not (fold t)
 
 

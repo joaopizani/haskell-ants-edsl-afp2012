@@ -19,7 +19,11 @@ move = iTest TryForward
 
 -- TODO should also be save from foes using OR
 safeMove :: AntImperative
-safeMove = (iWhile (TrySense Ahead Friend) (chooseUniformly [iTurnR `iSeq` iTurnL, iTurnR `iSeq` move `iSeq` turnAround `iSeq` move `iSeq` iTurnR `iSeq` iTurnR])) `iSeq` move
+safeMove = (iWhile (TrySense Ahead Friend) 
+                   (chooseUniformly [ iTurnR `iSeq` iTurnL
+                                    , iList $ [ iTurnR, move  , turnAround
+                                              , move  , iTurnR, iTurnR     ]])) `iSeq` 
+           move
 
 pickup :: AntImperative
 pickup = iTest TryPickUp
@@ -51,7 +55,8 @@ goForwardNSteps n = iList (replicate n safeMove)
 -- | Makes an ant leave pheromone behind while performing any task
 interleaveStrategy :: AntImperative -> AntImperative -> AntImperative
 interleaveStrategy _ (Single r)         = Single r
-interleaveStrategy s (IfThenElse c t f) = IfThenElse c (interleaveStrategy s t) (interleaveStrategy s f)
+interleaveStrategy s (IfThenElse c t f) = IfThenElse c (interleaveStrategy s t) 
+                                                       (interleaveStrategy s f)
 interleaveStrategy s (IfThen c b)       = IfThen c (interleaveStrategy s b)
 interleaveStrategy s (While c b)        = While c (interleaveStrategy s b)
 interleaveStrategy _ (SideEffect i)     = SideEffect i
@@ -98,7 +103,8 @@ randomTurn = oneOfOrNothing [turn60L, turn120L, turn180L, turn60R, turn120R]
         turn120R = iTurnR `iSeq` iTurnR
 
 
--- | Opening spiral, not covering all squares. A closed spiral is complicated. Ends with a turn
+-- | Opening spiral, not covering all squares. A closed spiral is complicated. 
+-- Ends with a turn
 goSpiralL :: Int -> AntImperative
 goSpiralL = goSpiralD L
 
@@ -144,22 +150,37 @@ goSearchSpiral :: Condition -> AntImperative
 goSearchSpiral c = goSearch (goSpiral 4) c Here
 
 goFFandBack :: AntImperative
-goFFandBack = goSearch safeMove Rock Ahead `iSeq` turnAround `iSeq` goSearch move Home Here
+goFFandBack = iList [ goSearch safeMove Rock Ahead 
+                    , turnAround 
+                    , goSearch move Home Here ]
 
 doFFandBack :: AntImperative -> AntImperative
-doFFandBack s = doSearch safeMove Rock Ahead s  `iSeq` turnAround `iSeq` doSearch move Home Here s
+doFFandBack s = iList [ doSearch safeMove Rock Ahead s
+                      , turnAround
+                      , doSearch move Home Here s ]
 
 markHome :: AntImperative
-markHome = (doSearch move Rock Ahead (iMark P1)) `iSeq` (turnAround `iSeq` move `iSeq` iTurnR `iSeq` move `iSeq` iTurnL `iSeq` iWhile (And (Not $ TrySense Here Home) (TrySense LeftAhead (Marker P1))) (iMark P2 `iSeq` safeMove))
+markHome = (doSearch move Rock Ahead (iMark P1)) `iSeq` 
+           iList [turnAround, move, iTurnR, move, iTurnL, 
+                  iWhile (And (Not $ TrySense Here Home) (TrySense LeftAhead (Marker P1)))
+                         (iMark P2 `iSeq` safeMove)]
 
 findTrail :: AntImperative
 findTrail = iWhile (Not $ (And (Not $ TrySense Here (Marker P2)) (Not $ TrySense Here Home))) (goSpiral 2) 
 
 findWayHome :: AntImperative
-findWayHome = iIfThenElse (TrySense Here (Marker P2)) ((iIfThen (TrySense RightAhead (Marker P1) ) turnAround) `iSeq` goSearch safeMove Home Here) findTrail
+findWayHome = iIfThenElse (TrySense Here (Marker P2)) 
+                          ((iIfThen (TrySense RightAhead (Marker P1) ) turnAround) `iSeq` 
+                            goSearch safeMove Home Here) 
+                          findTrail
 
 gatherFood = findFood `iSeq` bringFoodHome
-bringFoodHome = iIfThenElse (TrySense Here Food) (pickup `iSeq` findWayHome `iSeq` dropFood) findFood
+
+bringFoodHome = iIfThenElse (TrySense Here Food) 
+                            (pickup `iSeq` findWayHome `iSeq` dropFood) 
+                            findFood
+
 findFood = goSearchSpiral Food
 
-findFoodSampleMap = iTurnR `iSeq` iTurnR `iSeq` goFFUntil (TrySense Here Food) `iSeq` pickup `iSeq` turnAround `iSeq` goFFUntil (TrySense Here Home) `iSeq` dropFood 
+findFoodSampleMap = iList $ [ iTurnR, iTurnR, goFFUntil (TrySense Here Food), pickup 
+                            , turnAround, goFFUntil (TrySense Here Home), dropFood ]

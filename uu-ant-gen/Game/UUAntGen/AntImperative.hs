@@ -125,7 +125,7 @@ aMkTest cond = do
 
 -- | Dealing with boolean operators
 
--- | Procuces a block of conditional instructions given 
+-- | Procuces a block of conjunction of two conditional instructions given 
 -- two functions that, given the reference of the true and false branch, produce
 -- blocks corresponding to the inner expressions. 
 aMkAnd :: (AntState -> AntState -> AntStrategy) -- s1
@@ -139,10 +139,24 @@ aMkAnd mkS1 mkS2 st sf = do
     return $ AntStrategy' (m1 `M.union` m2) i1 f2 
 
 
+-- | Procuces a block of disjunction of two conditional instructions given 
+-- two functions that, given the reference of the true and false branch, produce
+-- blocks corresponding to the inner expressions. 
+aMkOr :: (AntState -> AntState -> AntStrategy) -- s1
+      -> (AntState -> AntState -> AntStrategy) -- s2
+      -> AntState                              -- true branch
+      -> AntState                              -- else branch
+      -> AntStrategy
+aMkOr mkS1 mkS2 st sf = do
+    AntStrategy' m2 i2 f2 <- mkS2 st sf 
+    AntStrategy' m1 i1 f1 <- mkS1 st i2
+    return $ AntStrategy' (m1 `M.union` m2) i1 f2 
+
+
 -- | Consumes an AntTest and returns a function that produces a block of conditional
 -- code, given two parameters: the locations of the true and else branch, respectively.
 processAntTest :: AntTest -> (AntState -> AntState -> AntStrategy)
-processAntTest = foldAntTest (sense,random,forward,pickup,and,not) 
+processAntTest = foldAntTest (sense,random,forward,pickup,and,or,not) 
     where aMkSingletonCondStrategy f id1 id2 = do 
               idx <- supply
               return $ AntStrategy' (M.singleton idx (f id1 id2)) idx idx 
@@ -151,6 +165,7 @@ processAntTest = foldAntTest (sense,random,forward,pickup,and,not)
           forward     = aMkSingletonCondStrategy Move
           pickup      = aMkSingletonCondStrategy PickUp
           and         = aMkAnd 
+          or          = aMkOr 
           not s       = flip s 
 
 

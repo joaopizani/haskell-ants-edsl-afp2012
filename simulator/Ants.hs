@@ -188,9 +188,10 @@ makeScorePanel w =
 
 paintHandler :: DC () -> GUI ()
 paintHandler dc ref = 
-   do drawWorld dc ref
-      drawFood  dc ref
-      drawAnts  dc ref
+   do drawWorld   dc ref
+      drawMarkers dc ref
+      drawFood    dc ref
+      drawAnts    dc ref
 
 stopHandler ::ControlWidgets -> GUI ()
 stopHandler cws ref = 
@@ -316,7 +317,31 @@ drawFood dc ref =
 foodRadius :: Float -> Int -> Int
 foodRadius scale = 
    round . (/5) . (*scale) . sqrt . min 100 . fromIntegral
-     
+
+drawMarkers :: DC a -> GUI ()
+drawMarkers dc ref =
+   do scale <- readFromIORef ref scaling
+      game  <- readFromIORef ref gameState
+      cells <- getAssocs (world game) 
+      let cellsR = filter (anyMarker . snd) $ map (\(x,y) -> (x,markersRed y)) cells
+          cellsB = filter (anyMarker . snd) $ map (\(x,y) -> (x,markersBlack y)) cells
+          fr (pos,cell) = do middle <- useCache (cellCentre pos) ref
+                             circle dc middle (markerRadius scale cell) 
+                                              [ color      := magenta
+                                              , brushColor := magenta
+                                              , brushKind  := BrushSolid ]
+          fb (pos,cell) = do middle <- useCache (cellCentre pos) ref
+                             circle dc middle (markerRadius scale cell) 
+                                              [ color      := blue 
+                                              , brushColor := blue
+                                              , brushKind  := BrushSolid ]
+      mapM_ fr cellsR
+      mapM_ fb cellsB
+    
+
+markerRadius :: Float -> Markers -> Int
+markerRadius scale = round . (/20) . (*scale) . sqrt . min 100 . fromIntegral  
+
 drawAnts :: DC a -> GUI ()
 drawAnts dc ref =
    do scale <- readFromIORef ref scaling

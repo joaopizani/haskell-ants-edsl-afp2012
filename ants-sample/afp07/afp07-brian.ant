@@ -1,0 +1,223 @@
+Sense Ahead 1 18 Home 		; State 0:
+Sense LeftAhead 2 11 Home 		; State 1:
+Sense RightAhead 3 4 Home 		; State 2:
+Flip 1 31 31 		; State 3:
+Turn Right 5 		; State 4:
+Turn Right 6 		; State 5:
+Sense Ahead 7 8 Home 		; State 6:
+Flip 1 86 86 		; State 7:
+Sense RightAhead 9 10 Home 		; State 8:
+Flip 1 86 86 		; State 9:
+Flip 1 65 65 		; State 10:
+Turn Left 12 		; State 11:
+Turn Left 13 		; State 12:
+Sense Ahead 14 15 Home 		; State 13:
+Flip 1 86 86 		; State 14:
+Sense LeftAhead 16 17 Home 		; State 15:
+Flip 1 86 86 		; State 16:
+Flip 1 65 65 		; State 17:
+Sense LeftAhead 19 25 Home 		; State 18:
+Sense RightAhead 20 21 Home 		; State 19:
+Flip 1 86 86 		; State 20:
+Turn Right 22 		; State 21:
+Sense RightAhead 7 8 Home 		; State 22:
+Flip 1 86 86 		; State 23:
+Flip 1 65 65 		; State 24:
+Sense RightAhead 26 30 Home 		; State 25:
+Turn Left 27 		; State 26:
+Sense LeftAhead 7 8 Home 		; State 27:
+Flip 1 86 86 		; State 28:
+Flip 1 65 65 		; State 29:
+Flip 1 65 65 		; State 30:
+Turn Left 32 		; State 31:
+Turn Left 33 		; State 32:
+Turn Left 34 		; State 33:
+Sense Ahead 35 52 Home 		; State 34:
+Sense LeftAhead 36 45 Home 		; State 35:
+Sense RightAhead 37 38 Home 		; State 36:
+Flip 1 86 86 		; State 37:
+Turn Right 39 		; State 38:
+Turn Right 40 		; State 39:
+Sense Ahead 41 42 Home 		; State 40:
+Flip 1 86 86 		; State 41:
+Sense RightAhead 43 44 Home 		; State 42:
+Flip 1 86 86 		; State 43:
+Flip 1 65 65 		; State 44:
+Turn Left 46 		; State 45:
+Turn Left 47 		; State 46:
+Sense Ahead 48 49 Home 		; State 47:
+Flip 1 86 86 		; State 48:
+Sense LeftAhead 50 51 Home 		; State 49:
+Flip 1 86 86 		; State 50:
+Flip 1 65 65 		; State 51:
+Sense LeftAhead 53 59 Home 		; State 52:
+Sense RightAhead 54 55 Home 		; State 53:
+Flip 1 86 86 		; State 54:
+Turn Right 56 		; State 55:
+Sense RightAhead 41 42 Home 		; State 56:
+Flip 1 86 86 		; State 57:
+Flip 1 65 65 		; State 58:
+Sense RightAhead 60 64 Home 		; State 59:
+Turn Left 61 		; State 60:
+Sense LeftAhead 41 42 Home 		; State 61:
+Flip 1 86 86 		; State 62:
+Flip 1 65 65 		; State 63:
+Flip 1 65 65 		; State 64:
+Sense Ahead 66 67 Rock 		; State 65:
+Flip 1 86 86 		; State 66:
+Move 68 71 		; State 67:
+Mark 0 69 		; State 68:
+Mark 1 70 		; State 69:
+Flip 1 72 72 		; State 70:
+Flip 1 179 179 		; State 71:
+Sense Ahead 73 74 Rock 		; State 72:
+Flip 1 86 86 		; State 73:
+Move 75 78 		; State 74:
+Mark 0 76 		; State 75:
+Mark 2 77 		; State 76:
+Flip 1 79 79 		; State 77:
+Flip 1 179 179 		; State 78:
+Sense Ahead 80 81 Rock 		; State 79:
+Flip 1 86 86 		; State 80:
+Move 82 85 		; State 81:
+Mark 0 83 		; State 82:
+Mark 3 84 		; State 83:
+Flip 1 65 65 		; State 84:
+Flip 1 179 179 		; State 85:
+Sense Ahead 87 88 Home 		; State 86:
+Flip 1 103 103 		; State 87:
+Sense LeftAhead 89 90 Home 		; State 88:
+Flip 1 103 103 		; State 89:
+Sense RightAhead 91 92 Home 		; State 90:
+Flip 1 103 103 		; State 91:
+Sense Ahead 93 96 Food 		; State 92:
+Move 94 95 		; State 93:
+Flip 1 116 116 		; State 94:
+Flip 1 184 184 		; State 95:
+Sense LeftAhead 97 99 Food 		; State 96:
+Turn Left 98 		; State 97:
+Flip 1 116 116 		; State 98:
+Sense RightAhead 100 102 Food 		; State 99:
+Turn Right 101 		; State 100:
+Flip 1 116 116 		; State 101:
+Flip 1 103 103 		; State 102:
+Flip 3 104 107 		; State 103:
+Move 105 106 		; State 104:
+Flip 1 86 86 		; State 105:
+Flip 1 103 103 		; State 106:
+Flip 2 108 112 		; State 107:
+Turn Left 109 		; State 108:
+Move 110 111 		; State 109:
+Flip 1 86 86 		; State 110:
+Flip 1 103 103 		; State 111:
+Turn Right 113 		; State 112:
+Move 114 115 		; State 113:
+Flip 1 86 86 		; State 114:
+Flip 1 103 103 		; State 115:
+Move 117 120 		; State 116:
+PickUp 118 119 		; State 117:
+Flip 1 121 121 		; State 118:
+Flip 1 86 86 		; State 119:
+Flip 1 86 86 		; State 120:
+Turn Left 122 		; State 121:
+Turn Left 123 		; State 122:
+Turn Left 124 		; State 123:
+Move 125 125 		; State 124:
+Sense Here 126 131 Home 		; State 125:
+Drop 127 		; State 126:
+Turn Left 128 		; State 127:
+Turn Left 129 		; State 128:
+Turn Left 130 		; State 129:
+Flip 1 86 86 		; State 130:
+Flip 1 132 132 		; State 131:
+Sense Here 133 134 Marker 0 		; State 132:
+Flip 1 148 148 		; State 133:
+Flip 1 135 135 		; State 134:
+Flip 3 136 139 		; State 135:
+Move 137 138 		; State 136:
+Flip 1 132 132 		; State 137:
+Flip 1 135 135 		; State 138:
+Flip 2 140 144 		; State 139:
+Turn Left 141 		; State 140:
+Move 142 143 		; State 141:
+Flip 1 132 132 		; State 142:
+Flip 1 135 135 		; State 143:
+Turn Right 145 		; State 144:
+Move 146 147 		; State 145:
+Flip 1 132 132 		; State 146:
+Flip 1 135 135 		; State 147:
+Sense Ahead 149 152 Home 		; State 148:
+Move 150 150 		; State 149:
+Drop 151 		; State 150:
+Flip 1 86 86 		; State 151:
+Sense Here 153 158 Marker 1 		; State 152:
+Sense Ahead 154 157 Home 		; State 153:
+Move 146 147 		; State 154:
+Drop 156 		; State 155:
+Flip 1 86 86 		; State 156:
+Flip 1 174 174 		; State 157:
+Sense Here 159 160 Marker 2 		; State 158:
+Flip 1 164 164 		; State 159:
+Sense Here 161 162 Marker 3 		; State 160:
+Flip 1 169 169 		; State 161:
+Move 163 163 		; State 162:
+Flip 1 164 164 		; State 163:
+Sense Ahead 165 167 Marker 1 		; State 164:
+Move 166 166 		; State 165:
+Flip 1 148 148 		; State 166:
+Turn Left 168 		; State 167:
+Flip 1 164 164 		; State 168:
+Sense Ahead 170 172 Marker 2 		; State 169:
+Move 171 171 		; State 170:
+Flip 1 148 148 		; State 171:
+Turn Left 173 		; State 172:
+Flip 1 169 169 		; State 173:
+Sense Ahead 175 177 Marker 3 		; State 174:
+Move 176 176 		; State 175:
+Flip 1 148 148 		; State 176:
+Turn Left 178 		; State 177:
+Flip 1 148 148 		; State 178:
+Move 180 181 		; State 179:
+Flip 1 148 148 		; State 180:
+Move 182 183 		; State 181:
+Flip 1 148 148 		; State 182:
+Flip 1 86 86 		; State 183:
+Move 185 186 		; State 184:
+Flip 1 86 86 		; State 185:
+Move 187 188 		; State 186:
+Flip 1 86 86 		; State 187:
+Flip 1 103 103 		; State 188:
+Turn Right 190 		; State 189:
+Move 191 191 		; State 190:
+Move 192 192 		; State 191:
+Move 193 193 		; State 192:
+Turn Left 194 		; State 193:
+Flip 1 195 195 		; State 194:
+Sense Here 196 198 Home 		; State 195:
+Drop 197 		; State 196:
+Flip 1 86 86 		; State 197:
+Sense Ahead 199 203 Home 		; State 198:
+Move 200 202 		; State 199:
+Drop 201 		; State 200:
+Flip 1 86 86 		; State 201:
+Flip 1 210 210 		; State 202:
+Sense LeftAhead 204 206 Home 		; State 203:
+Turn Left 205 		; State 204:
+Flip 1 195 195 		; State 205:
+Sense RightAhead 207 209 Home 		; State 206:
+Turn Right 208 		; State 207:
+Flip 1 195 195 		; State 208:
+Flip 1 86 86 		; State 209:
+Flip 3 211 214 		; State 210:
+Move 212 213 		; State 211:
+Flip 1 195 195 		; State 212:
+Flip 1 210 210 		; State 213:
+Flip 2 215 219 		; State 214:
+Turn Left 216 		; State 215:
+Move 217 218 		; State 216:
+Flip 1 195 195 		; State 217:
+Flip 1 210 210 		; State 218:
+Turn Right 220 		; State 219:
+Move 221 222 		; State 220:
+Flip 1 195 195 		; State 221:
+Flip 1 210 210 		; State 222:

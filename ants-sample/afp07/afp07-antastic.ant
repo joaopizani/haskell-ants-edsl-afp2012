@@ -1,0 +1,336 @@
+Sense LeftAhead 3 1 Home	; |0|	; Label: "findHomies" checkCornerAndTurn 1 checkCorner
+Sense Ahead 3 2 Home	; |1|
+Sense RightAhead 3 330 Home	; |2|
+Turn Right 4	; |3|	; Label: "findHomieFail1"
+Sense LeftAhead 7 5 Home	; |4|	; checkCornerAndTurn 2 checkCorner
+Sense Ahead 7 6 Home	; |5|
+Sense RightAhead 7 330 Home	; |6|
+Turn Right 8	; |7|	; Label: "findHomieFail2"
+Sense LeftAhead 11 9 Home	; |8|	; checkCornerAndTurn 3 checkCorner
+Sense Ahead 11 10 Home	; |9|
+Sense RightAhead 11 330 Home	; |10|
+Turn Right 12	; |11|	; Label: "findHomieFail3"
+Sense LeftAhead 15 13 Home	; |12|	; checkCornerAndTurn 4 checkCorner
+Sense Ahead 15 14 Home	; |13|
+Sense RightAhead 15 330 Home	; |14|
+Turn Right 16	; |15|	; Label: "findHomieFail4"
+Sense LeftAhead 19 17 Home	; |16|	; checkCornerAndTurn 5 checkCorner
+Sense Ahead 19 18 Home	; |17|
+Sense RightAhead 19 330 Home	; |18|
+Turn Right 20	; |19|	; Label: "findHomieFail5"
+Sense LeftAhead 23 21 Home	; |20|	; checkCornerAndTurn 6 checkCorner
+Sense Ahead 23 22 Home	; |21|
+Sense RightAhead 23 330 Home	; |22|
+Turn Right 24	; |23|	; Label: "findHomieFail6"
+Flip 1 25 25	; |24|	; jump findStartHomieTrail
+Sense Ahead 60 26 Marker 0	; |25|	; Label: "findStartHomieTrail"
+Turn Right 27	; |26|
+Sense Ahead 60 28 Marker 0	; |27|
+Turn Right 29	; |28|
+Sense Ahead 60 30 Marker 0	; |29|
+Turn Right 31	; |30|
+Sense Ahead 60 32 Marker 0	; |31|
+Turn Right 33	; |32|
+Sense Ahead 60 34 Marker 0	; |33|
+Turn Right 35	; |34|
+Sense Ahead 60 36 Marker 0	; |35|
+Turn Right 37	; |36|
+Sense Ahead 60 38 Marker 0	; |37|
+Turn Right 39	; |38|
+Flip 1 40 40	; |39|	; Label: "findAntGuardian"
+Flip 1 41 41	; |40|
+Flip 1 42 42	; |41|
+Flip 1 43 43	; |42|
+Flip 1 44 44	; |43|
+Flip 1 45 45	; |44|
+Sense Ahead 290 46 Marker 5	; |45|
+Turn Right 47	; |46|
+Sense Ahead 290 48 Marker 5	; |47|
+Turn Right 49	; |48|
+Sense Ahead 290 50 Marker 5	; |49|
+Turn Right 51	; |50|
+Sense Ahead 290 52 Marker 5	; |51|
+Turn Right 53	; |52|
+Sense Ahead 290 54 Marker 5	; |53|
+Turn Right 55	; |54|
+Sense Ahead 290 56 Marker 5	; |55|
+Turn Right 57	; |56|
+Sense Ahead 290 58 Marker 5	; |57|
+Turn Right 59	; |58|
+Flip 1 73 73	; |59|
+Sense Ahead 61 72 Home	; |60|	; Label: "findAntBranch"
+Turn Right 62	; |61|	; Label: "commandF7"
+Sense Ahead 63 72 Home	; |62|
+Turn Right 64	; |63|	; Label: "commandF8"
+Sense Ahead 65 72 Home	; |64|
+Turn Right 66	; |65|	; Label: "commandF9"
+Sense Ahead 67 72 Home	; |66|
+Turn Right 68	; |67|	; Label: "commandF10"
+Sense Ahead 69 72 Home	; |68|
+Turn Right 70	; |69|	; Label: "commandF11"
+Sense Ahead 71 72 Home	; |70|
+Turn Right 320	; |71|	; Label: "commandF12"
+Mark 4 39	; |72|	; Label: "drop4"
+Sense Ahead 102 74 Food	; |73|	; Searching for food Label: "antFood"
+Sense LeftAhead 100 75 Food	; |74|
+Sense RightAhead 101 76 Food	; |75|
+Sense Here 103 77 Marker 3	; |76|
+Sense Here 123 78 Marker 4	; |77|
+Sense Here 143 79 Marker 5	; |78|
+Flip 9 80 83	; |79|	; Enter wander function
+Flip 2 81 82	; |80|	; Label: "then_13"
+Turn Left 87	; |81|	; Label: "then_14"
+Turn Right 87	; |82|	; Label: "else_14"
+Move 87 84	; |83|	; Label: "end_14" Label: "else_13"
+Flip 2 85 86	; |84|	; Label: "try_15"
+Turn Left 83	; |85|	; Label: "then_16"
+Turn Right 83	; |86|	; Label: "else_16"
+Flip 1 73 73	; |87|	; Label: "end_16" Label: "end_15" Label: "end_13"
+Sense Ahead 102 89 Food	; |88|	; Label: "antFood_wander"
+Sense LeftAhead 100 90 Food	; |89|
+Sense RightAhead 101 91 Food	; |90|
+Flip 9 92 95	; |91|	; Enter wander function
+Flip 2 93 94	; |92|	; Label: "then_17"
+Turn Left 99	; |93|	; Label: "then_18"
+Turn Right 99	; |94|	; Label: "else_18"
+Move 99 96	; |95|	; Label: "end_18" Label: "else_17"
+Flip 2 97 98	; |96|	; Label: "try_19"
+Turn Left 95	; |97|	; Label: "then_20"
+Turn Right 95	; |98|	; Label: "else_20"
+Flip 1 88 88	; |99|	; Label: "end_20" Label: "end_19" Label: "end_17"
+Turn Left 102	; |100|	; Label: "antFood_found_left"
+Turn Right 102	; |101|	; Label: "antFood_found_right"
+Sense Here 163 171 Home	; |102|	; Label: "antFood_found" Looking for home
+Sense Ahead 156 104 Marker 5	; |103|	; Label: "antFood_firstMarker_3"
+Turn Left 105	; |104|
+Sense Ahead 156 106 Marker 5	; |105|
+Turn Left 107	; |106|
+Sense Ahead 156 108 Marker 5	; |107|
+Turn Left 109	; |108|
+Sense Ahead 156 110 Marker 5	; |109|
+Turn Left 111	; |110|
+Sense Ahead 156 112 Marker 5	; |111|
+Turn Left 113	; |112|
+Sense Ahead 156 114 Marker 5	; |113|
+Turn Left 115	; |114|
+Move 88 88	; |115|
+Sense Ahead 102 117 Food	; |116|	; Label: "antFood_marker_3"
+Sense LeftAhead 100 118 Food	; |117|
+Sense RightAhead 101 119 Food	; |118|
+Move 120 88	; |119|
+Move 121 88	; |120|	; Label: "commandF23"
+Sense Ahead 156 122 Marker 5	; |121|	; Label: "commandF24"
+Move 73 73	; |122|
+Sense Ahead 116 124 Marker 3	; |123|	; Label: "antFood_firstMarker_4"
+Turn Left 125	; |124|
+Sense Ahead 116 126 Marker 3	; |125|
+Turn Left 127	; |126|
+Sense Ahead 116 128 Marker 3	; |127|
+Turn Left 129	; |128|
+Sense Ahead 116 130 Marker 3	; |129|
+Turn Left 131	; |130|
+Sense Ahead 116 132 Marker 3	; |131|
+Turn Left 133	; |132|
+Sense Ahead 116 134 Marker 3	; |133|
+Turn Left 135	; |134|
+Move 88 88	; |135|
+Sense Ahead 102 137 Food	; |136|	; Label: "antFood_marker_4"
+Sense LeftAhead 100 138 Food	; |137|
+Sense RightAhead 101 139 Food	; |138|
+Move 140 88	; |139|
+Move 141 88	; |140|	; Label: "commandF27"
+Sense Ahead 116 142 Marker 3	; |141|	; Label: "commandF28"
+Move 73 73	; |142|
+Sense Ahead 136 144 Marker 4	; |143|	; Label: "antFood_firstMarker_5"
+Turn Left 145	; |144|
+Sense Ahead 136 146 Marker 4	; |145|
+Turn Left 147	; |146|
+Sense Ahead 136 148 Marker 4	; |147|
+Turn Left 149	; |148|
+Sense Ahead 136 150 Marker 4	; |149|
+Turn Left 151	; |150|
+Sense Ahead 136 152 Marker 4	; |151|
+Turn Left 153	; |152|
+Sense Ahead 136 154 Marker 4	; |153|
+Turn Left 155	; |154|
+Move 88 88	; |155|
+Sense Ahead 102 157 Food	; |156|	; Label: "antFood_marker_5"
+Sense LeftAhead 100 158 Food	; |157|
+Sense RightAhead 101 159 Food	; |158|
+Move 160 88	; |159|
+Move 161 88	; |160|	; Label: "commandF31"
+Sense Ahead 136 162 Marker 4	; |161|	; Label: "commandF32"
+Move 73 73	; |162|
+Turn Right 164	; |163|	; Label: "antFood_home"
+Turn Right 165	; |164|
+Turn Right 166	; |165|
+Move 167 167	; |166|
+Move 168 168	; |167|
+Move 169 169	; |168|
+Move 170 170	; |169|
+Move 73 73	; |170|
+Move 173 172	; |171|	; Label: "antFood_elsewhere"
+Turn Right 88	; |172|
+PickUp 174 174	; |173|	; Label: "antFood_guard"
+Move 175 175	; |174|	; Label: "antFood_searchTrail"
+Mark 3 176	; |175|	; Label: "marker_foodTrail"
+Move 177 203	; |176|
+Sense Here 203 178 Home	; |177|	; Label: "commandF34"
+Sense Here 215 179 Marker 0	; |178|
+Sense Here 218 180 Marker 1	; |179|
+Sense Here 221 181 Marker 2	; |180|
+Sense Here 203 182 Marker 3	; |181|
+Sense Here 203 183 Marker 4	; |182|
+Sense Here 203 184 Marker 5	; |183|
+Mark 4 185	; |184|
+Move 186 203	; |185|
+Sense Here 203 187 Home	; |186|	; Label: "commandF35"
+Sense Here 215 188 Marker 0	; |187|
+Sense Here 218 189 Marker 1	; |188|
+Sense Here 221 190 Marker 2	; |189|
+Sense Here 203 191 Marker 3	; |190|
+Sense Here 203 192 Marker 4	; |191|
+Sense Here 203 193 Marker 5	; |192|
+Mark 5 194	; |193|
+Move 195 203	; |194|
+Sense Here 203 196 Home	; |195|	; Label: "commandF36"
+Sense Here 215 197 Marker 0	; |196|
+Sense Here 218 198 Marker 1	; |197|
+Sense Here 221 199 Marker 2	; |198|
+Sense Here 203 200 Marker 3	; |199|
+Sense Here 203 201 Marker 4	; |200|
+Sense Here 203 202 Marker 5	; |201|
+Flip 1 175 175	; |202|
+Flip 9 204 207	; |203|	; Label: "marker_wander" Enter wander function
+Flip 2 205 206	; |204|	; Label: "then_37"
+Turn Left 211	; |205|	; Label: "then_38"
+Turn Right 211	; |206|	; Label: "else_38"
+Move 211 208	; |207|	; Label: "end_38" Label: "else_37"
+Flip 2 209 210	; |208|	; Label: "try_39"
+Turn Left 207	; |209|	; Label: "then_40"
+Turn Right 207	; |210|	; Label: "else_40"
+Sense Here 215 212 Marker 0	; |211|	; Label: "end_40" Label: "end_39" Label: "end_37"
+Sense Here 218 213 Marker 1	; |212|
+Sense Here 221 214 Marker 2	; |213|
+Flip 1 203 203	; |214|
+Sense Ahead 226 216 Marker 2	; |215|	; Label: "marker_found_0"
+Sense Here 224 217 Home	; |216|
+Turn Right 215	; |217|
+Sense Ahead 226 219 Marker 0	; |218|	; Label: "marker_found_1"
+Sense Here 224 220 Home	; |219|
+Turn Right 218	; |220|
+Sense Ahead 226 222 Marker 1	; |221|	; Label: "marker_found_2"
+Sense Here 224 223 Home	; |222|
+Turn Right 221	; |223|
+Turn Right 225	; |224|	; Label: "marker_home"
+Sense Ahead 283 224 Marker 5	; |225|
+Sense Ahead 229 227 Marker 0	; |226|	; Label: "marker_found" Moving home... Label: "gohome"
+Sense Ahead 247 228 Marker 1	; |227|
+Sense Ahead 265 229 Marker 2	; |228|
+Move 244 230	; |229|	; Label: "gohome_found_0"
+Move 244 231	; |230|
+Move 244 232	; |231|
+Move 244 233	; |232|
+Move 244 234	; |233|
+Move 244 235	; |234|
+Move 244 236	; |235|
+Move 244 237	; |236|
+Move 244 238	; |237|
+Move 244 239	; |238|
+Move 244 240	; |239|
+Move 244 241	; |240|
+Move 244 242	; |241|
+Move 244 243	; |242|
+Flip 1 203 203	; |243|
+Sense Here 283 245 Home	; |244|	; Label: "gohome_succeed_0"
+Sense Ahead 265 246 Marker 2	; |245|
+Turn Left 265	; |246|
+Move 262 248	; |247|	; Label: "gohome_found_1"
+Move 262 249	; |248|
+Move 262 250	; |249|
+Move 262 251	; |250|
+Move 262 252	; |251|
+Move 262 253	; |252|
+Move 262 254	; |253|
+Move 262 255	; |254|
+Move 262 256	; |255|
+Move 262 257	; |256|
+Move 262 258	; |257|
+Move 262 259	; |258|
+Move 262 260	; |259|
+Move 262 261	; |260|
+Flip 1 203 203	; |261|
+Sense Here 283 263 Home	; |262|	; Label: "gohome_succeed_1"
+Sense Ahead 229 264 Marker 0	; |263|
+Turn Left 229	; |264|
+Move 280 266	; |265|	; Label: "gohome_found_2"
+Move 280 267	; |266|
+Move 280 268	; |267|
+Move 280 269	; |268|
+Move 280 270	; |269|
+Move 280 271	; |270|
+Move 280 272	; |271|
+Move 280 273	; |272|
+Move 280 274	; |273|
+Move 280 275	; |274|
+Move 280 276	; |275|
+Move 280 277	; |276|
+Move 280 278	; |277|
+Move 280 279	; |278|
+Flip 1 203 203	; |279|
+Sense Here 283 281 Home	; |280|	; Label: "gohome_succeed_2"
+Sense Ahead 247 282 Marker 1	; |281|
+Turn Left 247	; |282|
+Move 284 283	; |283|	; Label: "gohome_found"
+Drop 285	; |284|	; Label: "commandF42"
+Move 286 285	; |285|	; Label: "gohome_step"
+Turn Right 287	; |286|	; Label: "commandF43"
+Turn Right 288	; |287|
+Turn Right 289	; |288|
+Flip 1 294 294	; |289|
+Sense Here 293 291 Marker 4	; |290|	; Label: "antGuardian"
+Sense LeftAhead 293 292 Marker 4	; |291|
+Sense RightAhead 293 294 Marker 4	; |292|
+Flip 1 293 294	; |293|	; Label: "commandF44" Label: "antGuardianLoop"
+Sense Ahead 295 294 Friend	; |294|	; Label: "antDoorGuardian"
+Flip 1 296 296	; |295|	; Label: "openDoor"
+Flip 1 297 297	; |296|
+Flip 1 298 298	; |297|
+Flip 1 299 299	; |298|
+Flip 1 300 300	; |299|
+Flip 1 301 301	; |300|
+Flip 1 302 302	; |301|
+Flip 1 303 303	; |302|
+Flip 1 304 304	; |303|
+Flip 1 305 305	; |304|
+Flip 1 306 306	; |305|
+Turn Right 307	; |306|
+Turn Right 308	; |307|
+Turn Right 309	; |308|
+Turn Right 310	; |309|
+Move 311 311	; |310|
+Turn Right 312	; |311|
+Move 313 313	; |312|
+Turn Right 314	; |313|
+Move 315 315	; |314|
+Move 316 316	; |315|
+Move 317 317	; |316|
+Move 318 318	; |317|
+Move 319 319	; |318|
+Move 73 73	; |319|
+Mark 5 321	; |320|	; Label: "antBranch"
+Move 322 322	; |321|
+Move 323 323	; |322|
+Move 324 324	; |323|
+Move 325 325	; |324|
+Move 326 326	; |325|
+Move 327 327	; |326|
+Move 328 328	; |327|
+Turn Right 329	; |328|
+Flip 1 330 330	; |329|
+Mark 0 331	; |330|	; Label: "antHomie" Label: "trail"
+Move 332 73	; |331|
+Mark 1 333	; |332|	; Label: "commandF46"
+Move 334 73	; |333|
+Mark 2 335	; |334|	; Label: "commandF47"
+Move 330 73	; |335|

@@ -1,0 +1,890 @@
+Turn Left 1
+Turn Left 2
+Sense Ahead 603 3 Friend
+Sense LeftAhead 588 4 Friend
+Sense RightAhead 580 5 Friend
+Mark 0 6
+Turn Left 7
+Sense Here 13 8 Marker 3
+Sense Here 13 9 Marker 4
+Sense Here 13 10 Marker 5
+Sense LeftAhead 12 11 Home
+Turn Left 7
+Move 7 7
+Sense Here 579 14 Home
+Sense Here 453 15 Marker 0
+Sense Here 327 16 Marker 1
+Sense Here 201 17 Marker 2
+Mark 0 18
+Mark 1 19
+Unmark 2 20
+Sense Here 104 21 Food
+Sense Here 63 22 Home
+Move 14 23
+Sense Ahead 27 24 FriendWithFood
+Flip 3 26 25
+Turn Right 14
+Turn Left 14
+Sense LeftAhead 54 28 Rock
+Sense LeftAhead 45 29 Friend
+Sense LeftAhead 36 30 Foe
+Turn Left 31
+Move 34 32
+Turn Right 33
+Move 14 14
+Turn Right 35
+Move 14 14
+Sense RightAhead 14 37 Rock
+Sense RightAhead 14 38 Friend
+Sense RightAhead 14 39 Foe
+Turn Right 40
+Move 43 41
+Turn Left 42
+Move 14 14
+Turn Left 44
+Move 14 14
+Sense RightAhead 14 46 Rock
+Sense RightAhead 14 47 Friend
+Sense RightAhead 14 48 Foe
+Turn Right 49
+Move 52 50
+Turn Left 51
+Move 14 14
+Turn Left 53
+Move 14 14
+Sense RightAhead 14 55 Rock
+Sense RightAhead 14 56 Friend
+Sense RightAhead 14 57 Foe
+Turn Right 58
+Move 61 59
+Turn Left 60
+Move 14 14
+Turn Left 62
+Move 14 14
+Move 14 64
+Sense Ahead 68 65 FriendWithFood
+Flip 3 67 66
+Turn Right 14
+Turn Left 14
+Sense LeftAhead 95 69 Rock
+Sense LeftAhead 86 70 Friend
+Sense LeftAhead 77 71 Foe
+Turn Left 72
+Move 75 73
+Turn Right 74
+Move 14 14
+Turn Right 76
+Move 14 14
+Sense RightAhead 14 78 Rock
+Sense RightAhead 14 79 Friend
+Sense RightAhead 14 80 Foe
+Turn Right 81
+Move 84 82
+Turn Left 83
+Move 14 14
+Turn Left 85
+Move 14 14
+Sense RightAhead 14 87 Rock
+Sense RightAhead 14 88 Friend
+Sense RightAhead 14 89 Foe
+Turn Right 90
+Move 93 91
+Turn Left 92
+Move 14 14
+Turn Left 94
+Move 14 14
+Sense RightAhead 14 96 Rock
+Sense RightAhead 14 97 Friend
+Sense RightAhead 14 98 Foe
+Turn Right 99
+Move 102 100
+Turn Left 101
+Move 14 14
+Turn Left 103
+Move 14 14
+Sense Here 160 105 Home
+PickUp 156 106
+Turn Right 107
+Turn Right 108
+Turn Right 109
+Move 110 110
+Sense Here 152 111 Home
+Move 110 112
+Sense Ahead 116 113 FriendWithFood
+Flip 3 115 114
+Turn Right 110
+Turn Left 110
+Sense LeftAhead 143 117 Rock
+Sense LeftAhead 134 118 Friend
+Sense LeftAhead 125 119 Foe
+Turn Left 120
+Move 123 121
+Turn Right 122
+Move 110 110
+Turn Right 124
+Move 110 110
+Sense RightAhead 110 126 Rock
+Sense RightAhead 110 127 Friend
+Sense RightAhead 110 128 Foe
+Turn Right 129
+Move 132 130
+Turn Left 131
+Move 110 110
+Turn Left 133
+Move 110 110
+Sense RightAhead 110 135 Rock
+Sense RightAhead 110 136 Friend
+Sense RightAhead 110 137 Foe
+Turn Right 138
+Move 141 139
+Turn Left 140
+Move 110 110
+Turn Left 142
+Move 110 110
+Sense RightAhead 110 144 Rock
+Sense RightAhead 110 145 Friend
+Sense RightAhead 110 146 Foe
+Turn Right 147
+Move 150 148
+Turn Left 149
+Move 110 110
+Turn Left 151
+Move 110 110
+Drop 153
+Turn Right 154
+Turn Right 155
+Turn Right 13
+Turn Right 157
+Turn Right 158
+Turn Right 159
+Move 110 110
+Move 14 161
+Sense Ahead 165 162 FriendWithFood
+Flip 3 164 163
+Turn Right 14
+Turn Left 14
+Sense LeftAhead 192 166 Rock
+Sense LeftAhead 183 167 Friend
+Sense LeftAhead 174 168 Foe
+Turn Left 169
+Move 172 170
+Turn Right 171
+Move 14 14
+Turn Right 173
+Move 14 14
+Sense RightAhead 14 175 Rock
+Sense RightAhead 14 176 Friend
+Sense RightAhead 14 177 Foe
+Turn Right 178
+Move 181 179
+Turn Left 180
+Move 14 14
+Turn Left 182
+Move 14 14
+Sense RightAhead 14 184 Rock
+Sense RightAhead 14 185 Friend
+Sense RightAhead 14 186 Foe
+Turn Right 187
+Move 190 188
+Turn Left 189
+Move 14 14
+Turn Left 191
+Move 14 14
+Sense RightAhead 14 193 Rock
+Sense RightAhead 14 194 Friend
+Sense RightAhead 14 195 Foe
+Turn Right 196
+Move 199 197
+Turn Left 198
+Move 14 14
+Turn Left 200
+Move 14 14
+Sense Here 285 202 Food
+Sense Here 244 203 Home
+Move 14 204
+Sense Ahead 208 205 FriendWithFood
+Flip 3 207 206
+Turn Right 14
+Turn Left 14
+Sense LeftAhead 235 209 Rock
+Sense LeftAhead 226 210 Friend
+Sense LeftAhead 217 211 Foe
+Turn Left 212
+Move 215 213
+Turn Right 214
+Move 14 14
+Turn Right 216
+Move 14 14
+Sense RightAhead 14 218 Rock
+Sense RightAhead 14 219 Friend
+Sense RightAhead 14 220 Foe
+Turn Right 221
+Move 224 222
+Turn Left 223
+Move 14 14
+Turn Left 225
+Move 14 14
+Sense RightAhead 14 227 Rock
+Sense RightAhead 14 228 Friend
+Sense RightAhead 14 229 Foe
+Turn Right 230
+Move 233 231
+Turn Left 232
+Move 14 14
+Turn Left 234
+Move 14 14
+Sense RightAhead 14 236 Rock
+Sense RightAhead 14 237 Friend
+Sense RightAhead 14 238 Foe
+Turn Right 239
+Move 242 240
+Turn Left 241
+Move 14 14
+Turn Left 243
+Move 14 14
+Move 14 245
+Sense Ahead 249 246 FriendWithFood
+Flip 3 248 247
+Turn Right 14
+Turn Left 14
+Sense LeftAhead 276 250 Rock
+Sense LeftAhead 267 251 Friend
+Sense LeftAhead 258 252 Foe
+Turn Left 253
+Move 256 254
+Turn Right 255
+Move 14 14
+Turn Right 257
+Move 14 14
+Sense RightAhead 14 259 Rock
+Sense RightAhead 14 260 Friend
+Sense RightAhead 14 261 Foe
+Turn Right 262
+Move 265 263
+Turn Left 264
+Move 14 14
+Turn Left 266
+Move 14 14
+Sense RightAhead 14 268 Rock
+Sense RightAhead 14 269 Friend
+Sense RightAhead 14 270 Foe
+Turn Right 271
+Move 274 272
+Turn Left 273
+Move 14 14
+Turn Left 275
+Move 14 14
+Sense RightAhead 14 277 Rock
+Sense RightAhead 14 278 Friend
+Sense RightAhead 14 279 Foe
+Turn Right 280
+Move 283 281
+Turn Left 282
+Move 14 14
+Turn Left 284
+Move 14 14
+Sense Here 286 105 Home
+Move 14 287
+Sense Ahead 291 288 FriendWithFood
+Flip 3 290 289
+Turn Right 14
+Turn Left 14
+Sense LeftAhead 318 292 Rock
+Sense LeftAhead 309 293 Friend
+Sense LeftAhead 300 294 Foe
+Turn Left 295
+Move 298 296
+Turn Right 297
+Move 14 14
+Turn Right 299
+Move 14 14
+Sense RightAhead 14 301 Rock
+Sense RightAhead 14 302 Friend
+Sense RightAhead 14 303 Foe
+Turn Right 304
+Move 307 305
+Turn Left 306
+Move 14 14
+Turn Left 308
+Move 14 14
+Sense RightAhead 14 310 Rock
+Sense RightAhead 14 311 Friend
+Sense RightAhead 14 312 Foe
+Turn Right 313
+Move 316 314
+Turn Left 315
+Move 14 14
+Turn Left 317
+Move 14 14
+Sense RightAhead 14 319 Rock
+Sense RightAhead 14 320 Friend
+Sense RightAhead 14 321 Foe
+Turn Right 322
+Move 325 323
+Turn Left 324
+Move 14 14
+Turn Left 326
+Move 14 14
+Sense Here 411 328 Food
+Sense Here 370 329 Home
+Move 14 330
+Sense Ahead 334 331 FriendWithFood
+Flip 3 333 332
+Turn Right 14
+Turn Left 14
+Sense LeftAhead 361 335 Rock
+Sense LeftAhead 352 336 Friend
+Sense LeftAhead 343 337 Foe
+Turn Left 338
+Move 341 339
+Turn Right 340
+Move 14 14
+Turn Right 342
+Move 14 14
+Sense RightAhead 14 344 Rock
+Sense RightAhead 14 345 Friend
+Sense RightAhead 14 346 Foe
+Turn Right 347
+Move 350 348
+Turn Left 349
+Move 14 14
+Turn Left 351
+Move 14 14
+Sense RightAhead 14 353 Rock
+Sense RightAhead 14 354 Friend
+Sense RightAhead 14 355 Foe
+Turn Right 356
+Move 359 357
+Turn Left 358
+Move 14 14
+Turn Left 360
+Move 14 14
+Sense RightAhead 14 362 Rock
+Sense RightAhead 14 363 Friend
+Sense RightAhead 14 364 Foe
+Turn Right 365
+Move 368 366
+Turn Left 367
+Move 14 14
+Turn Left 369
+Move 14 14
+Move 14 371
+Sense Ahead 375 372 FriendWithFood
+Flip 3 374 373
+Turn Right 14
+Turn Left 14
+Sense LeftAhead 402 376 Rock
+Sense LeftAhead 393 377 Friend
+Sense LeftAhead 384 378 Foe
+Turn Left 379
+Move 382 380
+Turn Right 381
+Move 14 14
+Turn Right 383
+Move 14 14
+Sense RightAhead 14 385 Rock
+Sense RightAhead 14 386 Friend
+Sense RightAhead 14 387 Foe
+Turn Right 388
+Move 391 389
+Turn Left 390
+Move 14 14
+Turn Left 392
+Move 14 14
+Sense RightAhead 14 394 Rock
+Sense RightAhead 14 395 Friend
+Sense RightAhead 14 396 Foe
+Turn Right 397
+Move 400 398
+Turn Left 399
+Move 14 14
+Turn Left 401
+Move 14 14
+Sense RightAhead 14 403 Rock
+Sense RightAhead 14 404 Friend
+Sense RightAhead 14 405 Foe
+Turn Right 406
+Move 409 407
+Turn Left 408
+Move 14 14
+Turn Left 410
+Move 14 14
+Sense Here 412 105 Home
+Move 14 413
+Sense Ahead 417 414 FriendWithFood
+Flip 3 416 415
+Turn Right 14
+Turn Left 14
+Sense LeftAhead 444 418 Rock
+Sense LeftAhead 435 419 Friend
+Sense LeftAhead 426 420 Foe
+Turn Left 421
+Move 424 422
+Turn Right 423
+Move 14 14
+Turn Right 425
+Move 14 14
+Sense RightAhead 14 427 Rock
+Sense RightAhead 14 428 Friend
+Sense RightAhead 14 429 Foe
+Turn Right 430
+Move 433 431
+Turn Left 432
+Move 14 14
+Turn Left 434
+Move 14 14
+Sense RightAhead 14 436 Rock
+Sense RightAhead 14 437 Friend
+Sense RightAhead 14 438 Foe
+Turn Right 439
+Move 442 440
+Turn Left 441
+Move 14 14
+Turn Left 443
+Move 14 14
+Sense RightAhead 14 445 Rock
+Sense RightAhead 14 446 Friend
+Sense RightAhead 14 447 Foe
+Turn Right 448
+Move 451 449
+Turn Left 450
+Move 14 14
+Turn Left 452
+Move 14 14
+Sense Here 537 454 Food
+Sense Here 496 455 Home
+Move 14 456
+Sense Ahead 460 457 FriendWithFood
+Flip 3 459 458
+Turn Right 14
+Turn Left 14
+Sense LeftAhead 487 461 Rock
+Sense LeftAhead 478 462 Friend
+Sense LeftAhead 469 463 Foe
+Turn Left 464
+Move 467 465
+Turn Right 466
+Move 14 14
+Turn Right 468
+Move 14 14
+Sense RightAhead 14 470 Rock
+Sense RightAhead 14 471 Friend
+Sense RightAhead 14 472 Foe
+Turn Right 473
+Move 476 474
+Turn Left 475
+Move 14 14
+Turn Left 477
+Move 14 14
+Sense RightAhead 14 479 Rock
+Sense RightAhead 14 480 Friend
+Sense RightAhead 14 481 Foe
+Turn Right 482
+Move 485 483
+Turn Left 484
+Move 14 14
+Turn Left 486
+Move 14 14
+Sense RightAhead 14 488 Rock
+Sense RightAhead 14 489 Friend
+Sense RightAhead 14 490 Foe
+Turn Right 491
+Move 494 492
+Turn Left 493
+Move 14 14
+Turn Left 495
+Move 14 14
+Move 14 497
+Sense Ahead 501 498 FriendWithFood
+Flip 3 500 499
+Turn Right 14
+Turn Left 14
+Sense LeftAhead 528 502 Rock
+Sense LeftAhead 519 503 Friend
+Sense LeftAhead 510 504 Foe
+Turn Left 505
+Move 508 506
+Turn Right 507
+Move 14 14
+Turn Right 509
+Move 14 14
+Sense RightAhead 14 511 Rock
+Sense RightAhead 14 512 Friend
+Sense RightAhead 14 513 Foe
+Turn Right 514
+Move 517 515
+Turn Left 516
+Move 14 14
+Turn Left 518
+Move 14 14
+Sense RightAhead 14 520 Rock
+Sense RightAhead 14 521 Friend
+Sense RightAhead 14 522 Foe
+Turn Right 523
+Move 526 524
+Turn Left 525
+Move 14 14
+Turn Left 527
+Move 14 14
+Sense RightAhead 14 529 Rock
+Sense RightAhead 14 530 Friend
+Sense RightAhead 14 531 Foe
+Turn Right 532
+Move 535 533
+Turn Left 534
+Move 14 14
+Turn Left 536
+Move 14 14
+Sense Here 538 105 Home
+Move 14 539
+Sense Ahead 543 540 FriendWithFood
+Flip 3 542 541
+Turn Right 14
+Turn Left 14
+Sense LeftAhead 570 544 Rock
+Sense LeftAhead 561 545 Friend
+Sense LeftAhead 552 546 Foe
+Turn Left 547
+Move 550 548
+Turn Right 549
+Move 14 14
+Turn Right 551
+Move 14 14
+Sense RightAhead 14 553 Rock
+Sense RightAhead 14 554 Friend
+Sense RightAhead 14 555 Foe
+Turn Right 556
+Move 559 557
+Turn Left 558
+Move 14 14
+Turn Left 560
+Move 14 14
+Sense RightAhead 14 562 Rock
+Sense RightAhead 14 563 Friend
+Sense RightAhead 14 564 Foe
+Turn Right 565
+Move 568 566
+Turn Left 567
+Move 14 14
+Turn Left 569
+Move 14 14
+Sense RightAhead 14 571 Rock
+Sense RightAhead 14 572 Friend
+Sense RightAhead 14 573 Foe
+Turn Right 574
+Move 577 575
+Turn Left 576
+Move 14 14
+Turn Left 578
+Move 14 14
+Move 13 13
+Sense RightAhead 587 581 Marker 0
+Sense RightAhead 585 582 Marker 1
+Mark 1 583
+Mark 2 584
+Turn Left 13
+Mark 1 586
+Drop 586
+Mark 1 586
+Sense Here 596 589 Friend
+Sense LeftAhead 595 590 Marker 0
+Sense LeftAhead 594 591 Marker 1
+Mark 0 592
+Mark 2 593
+Turn Right 13
+Mark 0 586
+Mark 1 586
+Sense LeftAhead 602 597 Marker 0
+Sense LeftAhead 601 598 Marker 1
+Mark 0 599
+Mark 2 600
+Turn Right 13
+Mark 0 586
+Mark 1 586
+Sense Here 755 604 Friend
+Sense Here 688 605 Friend
+Sense Ahead 674 606 Marker 0
+Sense Ahead 665 607 Marker 0
+Sense LeftAhead 664 608 Marker 0
+Sense RightAhead 663 609 Marker 1
+Sense Ahead 660 610 Marker 1
+Sense Ahead 657 611 Marker 0
+Sense Ahead 654 612 Marker 1
+Sense Ahead 651 613 Marker 0
+Sense Ahead 648 614 Marker 1
+Sense Ahead 645 615 Marker 0
+Sense Ahead 642 616 Marker 1
+Sense Ahead 639 617 Marker 0
+Sense Ahead 636 618 Marker 1
+Sense Ahead 633 619 Marker 0
+Sense Here 629 620 Friend
+Mark 0 621
+Turn Right 622
+Turn Right 623
+Turn Right 624
+Mark 0 625
+Unmark 1 626
+Unmark 2 627
+Move 624 628
+Sense Ahead 624 624 Rock
+Mark 0 630
+Turn Right 631
+Turn Right 632
+Turn Right 624
+Mark 0 634
+Turn Right 635
+Turn Right 13
+Mark 1 637
+Turn Left 638
+Turn Left 13
+Mark 0 640
+Turn Right 641
+Turn Right 13
+Mark 1 643
+Turn Left 644
+Turn Left 13
+Mark 0 646
+Mark 2 647
+Turn Right 13
+Mark 1 649
+Mark 2 650
+Turn Left 13
+Mark 0 652
+Mark 2 653
+Turn Right 13
+Mark 1 655
+Mark 2 656
+Turn Left 13
+Mark 0 658
+Mark 2 659
+Turn Right 13
+Mark 1 661
+Mark 2 662
+Turn Left 13
+Mark 1 586
+Mark 0 586
+Sense Here 670 666 Friend
+Mark 0 667
+Turn Right 668
+Turn Right 669
+Turn Right 624
+Mark 0 671
+Turn Right 672
+Turn Right 673
+Turn Right 624
+Mark 0 675
+Mark 1 676
+Mark 2 677
+Move 678 677
+Turn Right 679
+Turn Right 680
+Turn Right 681
+Sense Ahead 682 681 Friend
+Sense Here 677 683 Marker 3
+Sense Here 677 684 Marker 4
+Sense Here 677 685 Marker 5
+Sense LeftAhead 687 686 Home
+Turn Left 682
+Move 682 682
+Sense Ahead 752 689 Marker 0
+Sense Ahead 743 690 Marker 0
+Sense LeftAhead 742 691 Marker 0
+Sense RightAhead 741 692 Marker 1
+Sense Ahead 738 693 Marker 1
+Sense Ahead 735 694 Marker 0
+Sense Ahead 732 695 Marker 1
+Sense Ahead 729 696 Marker 0
+Sense Ahead 726 697 Marker 1
+Sense Ahead 723 698 Marker 0
+Sense Ahead 720 699 Marker 1
+Sense Ahead 717 700 Marker 0
+Sense Ahead 714 701 Marker 1
+Sense Ahead 711 702 Marker 0
+Sense Here 707 703 Friend
+Mark 0 704
+Turn Right 705
+Turn Right 706
+Turn Right 624
+Mark 0 708
+Turn Right 709
+Turn Right 710
+Turn Right 624
+Mark 0 712
+Turn Right 713
+Turn Right 13
+Mark 1 715
+Turn Left 716
+Turn Left 13
+Mark 0 718
+Turn Right 719
+Turn Right 13
+Mark 1 721
+Turn Left 722
+Turn Left 13
+Mark 0 724
+Mark 2 725
+Turn Right 13
+Mark 1 727
+Mark 2 728
+Turn Left 13
+Mark 0 730
+Mark 2 731
+Turn Right 13
+Mark 1 733
+Mark 2 734
+Turn Left 13
+Mark 0 736
+Mark 2 737
+Turn Right 13
+Mark 1 739
+Mark 2 740
+Turn Left 13
+Mark 1 586
+Mark 0 586
+Sense Here 748 744 Friend
+Mark 0 745
+Turn Right 746
+Turn Right 747
+Turn Right 624
+Mark 0 749
+Turn Right 750
+Turn Right 751
+Turn Right 624
+Mark 0 753
+Mark 1 754
+Mark 2 677
+Sense Here 823 756 Friend
+Sense Ahead 820 757 Marker 0
+Sense Ahead 811 758 Marker 0
+Sense LeftAhead 810 759 Marker 0
+Sense RightAhead 809 760 Marker 1
+Sense Ahead 806 761 Marker 1
+Sense Ahead 803 762 Marker 0
+Sense Ahead 800 763 Marker 1
+Sense Ahead 797 764 Marker 0
+Sense Ahead 794 765 Marker 1
+Sense Ahead 791 766 Marker 0
+Sense Ahead 788 767 Marker 1
+Sense Ahead 785 768 Marker 0
+Sense Ahead 782 769 Marker 1
+Sense Ahead 779 770 Marker 0
+Sense Here 775 771 Friend
+Mark 0 772
+Turn Right 773
+Turn Right 774
+Turn Right 624
+Mark 0 776
+Turn Right 777
+Turn Right 778
+Turn Right 624
+Mark 0 780
+Turn Right 781
+Turn Right 13
+Mark 1 783
+Turn Left 784
+Turn Left 13
+Mark 0 786
+Turn Right 787
+Turn Right 13
+Mark 1 789
+Turn Left 790
+Turn Left 13
+Mark 0 792
+Mark 2 793
+Turn Right 13
+Mark 1 795
+Mark 2 796
+Turn Left 13
+Mark 0 798
+Mark 2 799
+Turn Right 13
+Mark 1 801
+Mark 2 802
+Turn Left 13
+Mark 0 804
+Mark 2 805
+Turn Right 13
+Mark 1 807
+Mark 2 808
+Turn Left 13
+Mark 1 586
+Mark 0 586
+Sense Here 816 812 Friend
+Mark 0 813
+Turn Right 814
+Turn Right 815
+Turn Right 624
+Mark 0 817
+Turn Right 818
+Turn Right 819
+Turn Right 624
+Mark 0 821
+Mark 1 822
+Mark 2 677
+Sense Ahead 887 824 Marker 0
+Sense Ahead 878 825 Marker 0
+Sense LeftAhead 877 826 Marker 0
+Sense RightAhead 876 827 Marker 1
+Sense Ahead 873 828 Marker 1
+Sense Ahead 870 829 Marker 0
+Sense Ahead 867 830 Marker 1
+Sense Ahead 864 831 Marker 0
+Sense Ahead 861 832 Marker 1
+Sense Ahead 858 833 Marker 0
+Sense Ahead 855 834 Marker 1
+Sense Ahead 852 835 Marker 0
+Sense Ahead 849 836 Marker 1
+Sense Ahead 846 837 Marker 0
+Sense Here 842 838 Friend
+Mark 0 839
+Turn Right 840
+Turn Right 841
+Turn Right 624
+Mark 0 843
+Turn Right 844
+Turn Right 845
+Turn Right 624
+Mark 0 847
+Turn Right 848
+Turn Right 13
+Mark 1 850
+Turn Left 851
+Turn Left 13
+Mark 0 853
+Turn Right 854
+Turn Right 13
+Mark 1 856
+Turn Left 857
+Turn Left 13
+Mark 0 859
+Mark 2 860
+Turn Right 13
+Mark 1 862
+Mark 2 863
+Turn Left 13
+Mark 0 865
+Mark 2 866
+Turn Right 13
+Mark 1 868
+Mark 2 869
+Turn Left 13
+Mark 0 871
+Mark 2 872
+Turn Right 13
+Mark 1 874
+Mark 2 875
+Turn Left 13
+Mark 1 586
+Mark 0 586
+Sense Here 883 879 Friend
+Mark 0 880
+Turn Right 881
+Turn Right 882
+Turn Right 624
+Mark 0 884
+Turn Right 885
+Turn Right 886
+Turn Right 624
+Mark 0 888
+Mark 1 889
+Mark 2 677

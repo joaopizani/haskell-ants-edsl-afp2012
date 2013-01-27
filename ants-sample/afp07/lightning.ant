@@ -1,0 +1,1263 @@
+sense ahead 1 14 friend ; start
+sense leftahead 5 2 friend
+turn left 3
+turn left 4
+flip 7 462 21
+sense rightahead 9 6 friend
+turn right 7
+turn right 8
+flip 8 462 21
+flip 10 10 0
+turn right 11
+turn right 12
+turn right 13
+flip 8 462 21
+sense leftahead 15 17 friend
+turn right 16
+flip 8 462 21
+sense rightahead 18 20 friend
+turn left 19
+flip 8 462 21
+flip 8 462 21
+flip 300 22 25 ; straight
+turn left 23
+turn left 24
+turn left 25
+sense here 46 26 friendwithfood
+sense here 46 27 home
+pickup 28 28
+sense ahead 29 30 food
+move 38 38
+sense leftahead 31 34 food
+turn left 32
+move 33 33
+turn right 38
+sense rightahead 35 38 food
+turn right 36
+move 37 37
+turn left 38
+sense leftahead 419 39 marker 3
+sense rightahead 419 40 marker 3
+sense ahead 419 41 marker 3
+pickup 42 46
+turn left 43
+turn left 44
+turn left 45
+flip 2 258 21
+sense here 47 68 friendwithfood
+sense leftahead 48 49 marker 1
+turn left 49
+sense rightahead 50 51 marker 1
+turn right 51
+sense ahead 52 55 marker 1
+sense here 54 53 marker 1
+move 52 52
+drop 243
+sense here 56 58 home
+sense ahead 68 57 home
+drop 243
+sense leftahead 59 60 marker 2
+turn left 60
+sense rightahead 61 62 marker 2
+turn right 62
+sense ahead 63 64 marker 2
+move 1158 64
+sense ahead 65 66 marker 4
+move 1158 66
+sense ahead 67 68 marker 5
+move 1158 68
+sense ahead 69 76 rock
+sense leftahead 71 70 rock
+turn left 82
+sense rightahead 73 72 rock
+turn right 82
+turn left 74
+turn left 75
+turn left 82
+sense ahead 77 82 friend
+sense leftahead 78 81 friend
+turn right 79
+sense ahead 80 82 friend
+turn right 79
+turn left 82
+sense ahead 83 89 foe
+sense leftahead 84 86 foe
+sense ahead 85 21 foe
+turn right 84
+sense rightahead 87 94 foe
+sense ahead 88 21 foe
+turn left 87
+sense leftahead 90 94 foe
+sense rightahead 91 94 foe
+turn left 92
+turn left 93
+turn left 21
+flip 20 95 100
+flip 2 96 98
+turn left 97
+move 172 172
+turn right 99
+move 101 101
+move 21 21
+sense here 121 102 friendwithfood ; right
+sense here 121 103 home
+pickup 104 104
+sense ahead 105 106 food
+move 114 114
+sense leftahead 107 110 food
+turn left 108
+move 109 109
+turn right 114
+sense rightahead 111 114 food
+turn right 112
+move 113 113
+turn left 114
+sense leftahead 419 115 marker 3
+sense rightahead 419 116 marker 3
+sense ahead 419 117 marker 3
+pickup 118 121
+turn right 119
+turn right 120
+flip 2 258 21
+sense here 122 143 friendwithfood
+sense leftahead 123 124 marker 1
+turn left 124
+sense rightahead 125 126 marker 1
+turn right 126
+sense ahead 127 130 marker 1
+sense here 129 128 marker 1
+move 127 127
+drop 243
+sense here 131 133 home
+sense ahead 143 132 home
+drop 243
+sense leftahead 134 135 marker 2
+turn left 135
+sense rightahead 136 137 marker 2
+turn right 137
+sense ahead 138 139 marker 2
+move 1158 139
+sense ahead 140 141 marker 4
+move 1158 141
+sense ahead 142 143 marker 5
+move 1158 143
+sense ahead 144 151 rock
+sense leftahead 146 145 rock
+turn left 157
+sense rightahead 148 147 rock
+turn right 157
+turn left 149
+turn left 150
+turn left 157
+sense ahead 152 157 friend
+sense leftahead 153 156 friend
+turn right 154
+sense ahead 155 157 friend
+turn right 154
+turn left 157
+sense ahead 158 164 foe
+sense leftahead 159 161 foe
+sense ahead 160 21 foe
+turn right 159
+sense rightahead 162 169 foe
+sense ahead 163 21 foe
+turn left 162
+sense leftahead 165 169 foe
+sense rightahead 166 169 foe
+turn left 167
+turn left 168
+turn left 21
+flip 2 170 171
+turn left 21
+move 101 101
+sense here 192 173 friendwithfood ; left
+sense here 192 174 home
+pickup 175 175
+sense ahead 176 177 food
+move 185 185
+sense leftahead 178 181 food
+turn left 179
+move 180 180
+turn right 185
+sense rightahead 182 185 food
+turn right 183
+move 184 184
+turn left 185
+sense leftahead 419 186 marker 3
+sense rightahead 419 187 marker 3
+sense ahead 419 188 marker 3
+pickup 189 192
+turn left 190
+turn left 191
+flip 2 258 21
+sense here 193 214 friendwithfood
+sense leftahead 194 195 marker 1
+turn left 195
+sense rightahead 196 197 marker 1
+turn right 197
+sense ahead 198 201 marker 1
+sense here 200 199 marker 1
+move 198 198
+drop 243
+sense here 202 204 home
+sense ahead 214 203 home
+drop 243
+sense leftahead 205 206 marker 2
+turn left 206
+sense rightahead 207 208 marker 2
+turn right 208
+sense ahead 209 210 marker 2
+move 1158 210
+sense ahead 211 212 marker 4
+move 1158 212
+sense ahead 213 214 marker 5
+move 1158 214
+sense ahead 215 222 rock
+sense leftahead 217 216 rock
+turn left 228
+sense rightahead 219 218 rock
+turn right 228
+turn left 220
+turn left 221
+turn left 228
+sense ahead 223 228 friend
+sense leftahead 224 227 friend
+turn right 225
+sense ahead 226 228 friend
+turn right 225
+turn left 228
+sense ahead 229 235 foe
+sense leftahead 230 232 foe
+sense ahead 231 21 foe
+turn right 230
+sense rightahead 233 240 foe
+sense ahead 234 21 foe
+turn left 233
+sense leftahead 236 240 foe
+sense rightahead 237 240 foe
+turn left 238
+turn left 239
+turn left 21
+flip 2 241 242
+turn right 21
+move 172 172
+mark 1 244 ; squat
+sense ahead 245 257 friendwithfood ; rotate
+sense leftahead 246 250 friend
+sense rightahead 247 248 friend
+turn left 244
+turn right 249
+move 252 244
+turn left 251
+move 252 244
+turn left 253
+turn left 254
+turn left 255
+sense ahead 21 256 friend
+move 243 256
+turn left 243
+flip 10 21 259 ; blaze2
+mark 3 260
+sense here 261 282 friendwithfood
+sense leftahead 262 263 marker 1
+turn left 263
+sense rightahead 264 265 marker 1
+turn right 265
+sense ahead 266 269 marker 1
+sense here 268 267 marker 1
+move 266 266
+drop 243
+sense here 270 272 home
+sense ahead 282 271 home
+drop 243
+sense leftahead 273 274 marker 2
+turn left 274
+sense rightahead 275 276 marker 2
+turn right 276
+sense ahead 277 278 marker 2
+move 1158 278
+sense ahead 279 280 marker 4
+move 1158 280
+sense ahead 281 282 marker 5
+move 1158 282
+sense ahead 283 290 rock
+sense leftahead 285 284 rock
+turn left 296
+sense rightahead 287 286 rock
+turn right 296
+turn left 288
+turn left 289
+turn left 296
+sense ahead 291 296 friend
+sense leftahead 292 295 friend
+turn right 293
+sense ahead 294 296 friend
+turn right 293
+turn left 296
+sense ahead 297 303 foe
+sense leftahead 298 300 foe
+sense ahead 299 21 foe
+turn right 298
+sense rightahead 301 308 foe
+sense ahead 302 21 foe
+turn left 301
+sense leftahead 304 308 foe
+sense rightahead 305 308 foe
+turn left 306
+turn left 307
+turn left 21
+flip 20 309 314
+flip 2 310 312
+turn left 311
+move 367 367
+turn right 313
+move 315 315
+move 258 258
+mark 3 316 ; blaze2right
+sense here 317 338 friendwithfood
+sense leftahead 318 319 marker 1
+turn left 319
+sense rightahead 320 321 marker 1
+turn right 321
+sense ahead 322 325 marker 1
+sense here 324 323 marker 1
+move 322 322
+drop 243
+sense here 326 328 home
+sense ahead 338 327 home
+drop 243
+sense leftahead 329 330 marker 2
+turn left 330
+sense rightahead 331 332 marker 2
+turn right 332
+sense ahead 333 334 marker 2
+move 1158 334
+sense ahead 335 336 marker 4
+move 1158 336
+sense ahead 337 338 marker 5
+move 1158 338
+sense ahead 339 346 rock
+sense leftahead 341 340 rock
+turn left 352
+sense rightahead 343 342 rock
+turn right 352
+turn left 344
+turn left 345
+turn left 352
+sense ahead 347 352 friend
+sense leftahead 348 351 friend
+turn right 349
+sense ahead 350 352 friend
+turn right 349
+turn left 352
+sense ahead 353 359 foe
+sense leftahead 354 356 foe
+sense ahead 355 21 foe
+turn right 354
+sense rightahead 357 364 foe
+sense ahead 358 21 foe
+turn left 357
+sense leftahead 360 364 foe
+sense rightahead 361 364 foe
+turn left 362
+turn left 363
+turn left 21
+flip 2 365 366
+turn left 258
+move 315 315
+mark 3 368 ; blaze2left
+sense here 369 390 friendwithfood
+sense leftahead 370 371 marker 1
+turn left 371
+sense rightahead 372 373 marker 1
+turn right 373
+sense ahead 374 377 marker 1
+sense here 376 375 marker 1
+move 374 374
+drop 243
+sense here 378 380 home
+sense ahead 390 379 home
+drop 243
+sense leftahead 381 382 marker 2
+turn left 382
+sense rightahead 383 384 marker 2
+turn right 384
+sense ahead 385 386 marker 2
+move 1158 386
+sense ahead 387 388 marker 4
+move 1158 388
+sense ahead 389 390 marker 5
+move 1158 390
+sense ahead 391 398 rock
+sense leftahead 393 392 rock
+turn left 404
+sense rightahead 395 394 rock
+turn right 404
+turn left 396
+turn left 397
+turn left 404
+sense ahead 399 404 friend
+sense leftahead 400 403 friend
+turn right 401
+sense ahead 402 404 friend
+turn right 401
+turn left 404
+sense ahead 405 411 foe
+sense leftahead 406 408 foe
+sense ahead 407 21 foe
+turn right 406
+sense rightahead 409 416 foe
+sense ahead 410 21 foe
+turn left 409
+sense leftahead 412 416 foe
+sense rightahead 413 416 foe
+turn left 414
+turn left 415
+turn left 21
+flip 2 417 418
+turn right 258
+move 367 367
+flip 10 21 420 ; follow2
+sense ahead 421 434 marker 3
+move 419 422
+sense ahead 419 423 foe
+sense ahead 424 431 friend
+turn left 425
+move 426 426
+turn right 427
+move 428 428
+turn right 429
+move 430 430
+turn left 419
+turn left 432
+turn left 433
+turn left 419
+sense rightahead 435 436 marker 3
+turn right 419
+sense leftahead 437 452 marker 3
+turn left 419
+pickup 439 442
+turn left 440
+turn left 441
+turn left 21
+move 443 443
+pickup 444 447
+turn left 445
+turn left 446
+turn left 21
+move 448 448
+pickup 449 452
+turn left 450
+turn left 451
+turn left 21
+pickup 453 456 ; random
+turn left 454
+turn left 455
+turn left 21
+flip 20 21 457
+flip 2 458 459
+move 452 452
+flip 3 460 461
+turn left 452
+turn right 452
+sense here 21 463 marker 2 ; blaze
+sense here 21 464 marker 4
+sense here 21 465 marker 5
+mark 2 466
+sense here 487 467 friendwithfood
+sense here 487 468 home
+pickup 469 469
+sense ahead 470 471 food
+move 479 479
+sense leftahead 472 475 food
+turn left 473
+move 474 474
+turn right 479
+sense rightahead 476 479 food
+turn right 477
+move 478 478
+turn left 479
+sense leftahead 419 480 marker 3
+sense rightahead 419 481 marker 3
+sense ahead 419 482 marker 3
+pickup 483 487
+turn left 484
+turn left 485
+turn left 486
+flip 2 258 21
+sense here 488 509 friendwithfood
+sense leftahead 489 490 marker 1
+turn left 490
+sense rightahead 491 492 marker 1
+turn right 492
+sense ahead 493 496 marker 1
+sense here 495 494 marker 1
+move 493 493
+drop 243
+sense here 497 499 home
+sense ahead 509 498 home
+drop 243
+sense leftahead 500 501 marker 2
+turn left 501
+sense rightahead 502 503 marker 2
+turn right 503
+sense ahead 504 505 marker 2
+move 1158 505
+sense ahead 506 507 marker 4
+move 1158 507
+sense ahead 508 509 marker 5
+move 1158 509
+sense ahead 510 517 rock
+sense leftahead 512 511 rock
+turn left 523
+sense rightahead 514 513 rock
+turn right 523
+turn left 515
+turn left 516
+turn left 523
+sense ahead 518 523 friend
+sense leftahead 519 522 friend
+turn right 520
+sense ahead 521 523 friend
+turn right 520
+turn left 523
+sense ahead 524 530 foe
+sense leftahead 525 527 foe
+sense ahead 526 21 foe
+turn right 525
+sense rightahead 528 535 foe
+sense ahead 529 21 foe
+turn left 528
+sense leftahead 531 535 foe
+sense rightahead 532 535 foe
+turn left 533
+turn left 534
+turn left 21
+flip 20 536 541
+flip 2 537 539
+turn left 538
+move 850 850
+turn right 540
+move 774 774
+move 694 694
+sense here 101 543 marker 2 ; blazeright
+sense here 101 544 marker 4
+sense here 101 545 marker 5
+mark 2 546
+sense here 566 547 friendwithfood
+sense here 566 548 home
+pickup 549 549
+sense ahead 550 551 food
+move 559 559
+sense leftahead 552 555 food
+turn left 553
+move 554 554
+turn right 559
+sense rightahead 556 559 food
+turn right 557
+move 558 558
+turn left 559
+sense leftahead 419 560 marker 3
+sense rightahead 419 561 marker 3
+sense ahead 419 562 marker 3
+pickup 563 566
+turn right 564
+turn right 565
+flip 2 258 21
+sense here 567 588 friendwithfood
+sense leftahead 568 569 marker 1
+turn left 569
+sense rightahead 570 571 marker 1
+turn right 571
+sense ahead 572 575 marker 1
+sense here 574 573 marker 1
+move 572 572
+drop 243
+sense here 576 578 home
+sense ahead 588 577 home
+drop 243
+sense leftahead 579 580 marker 2
+turn left 580
+sense rightahead 581 582 marker 2
+turn right 582
+sense ahead 583 584 marker 2
+move 1158 584
+sense ahead 585 586 marker 4
+move 1158 586
+sense ahead 587 588 marker 5
+move 1158 588
+sense ahead 589 596 rock
+sense leftahead 591 590 rock
+turn left 602
+sense rightahead 593 592 rock
+turn right 602
+turn left 594
+turn left 595
+turn left 602
+sense ahead 597 602 friend
+sense leftahead 598 601 friend
+turn right 599
+sense ahead 600 602 friend
+turn right 599
+turn left 602
+sense ahead 603 609 foe
+sense leftahead 604 606 foe
+sense ahead 605 21 foe
+turn right 604
+sense rightahead 607 614 foe
+sense ahead 608 21 foe
+turn left 607
+sense leftahead 610 614 foe
+sense rightahead 611 614 foe
+turn left 612
+turn left 613
+turn left 21
+flip 2 615 617
+turn left 616
+move 694 694
+move 774 774
+sense here 172 619 marker 2 ; blazeleft
+sense here 172 620 marker 4
+sense here 172 621 marker 5
+mark 2 622
+sense here 642 623 friendwithfood
+sense here 642 624 home
+pickup 625 625
+sense ahead 626 627 food
+move 635 635
+sense leftahead 628 631 food
+turn left 629
+move 630 630
+turn right 635
+sense rightahead 632 635 food
+turn right 633
+move 634 634
+turn left 635
+sense leftahead 419 636 marker 3
+sense rightahead 419 637 marker 3
+sense ahead 419 638 marker 3
+pickup 639 642
+turn left 640
+turn left 641
+flip 2 258 21
+sense here 643 664 friendwithfood
+sense leftahead 644 645 marker 1
+turn left 645
+sense rightahead 646 647 marker 1
+turn right 647
+sense ahead 648 651 marker 1
+sense here 650 649 marker 1
+move 648 648
+drop 243
+sense here 652 654 home
+sense ahead 664 653 home
+drop 243
+sense leftahead 655 656 marker 2
+turn left 656
+sense rightahead 657 658 marker 2
+turn right 658
+sense ahead 659 660 marker 2
+move 1158 660
+sense ahead 661 662 marker 4
+move 1158 662
+sense ahead 663 664 marker 5
+move 1158 664
+sense ahead 665 672 rock
+sense leftahead 667 666 rock
+turn left 678
+sense rightahead 669 668 rock
+turn right 678
+turn left 670
+turn left 671
+turn left 678
+sense ahead 673 678 friend
+sense leftahead 674 677 friend
+turn right 675
+sense ahead 676 678 friend
+turn right 675
+turn left 678
+sense ahead 679 685 foe
+sense leftahead 680 682 foe
+sense ahead 681 21 foe
+turn right 680
+sense rightahead 683 690 foe
+sense ahead 684 21 foe
+turn left 683
+sense leftahead 686 690 foe
+sense rightahead 687 690 foe
+turn left 688
+turn left 689
+turn left 21
+flip 2 691 693
+turn right 692
+move 694 694
+move 850 850
+sense here 21 695 marker 2 ; blaze_2
+sense here 21 696 marker 4
+sense here 21 697 marker 5
+mark 4 698
+sense here 719 699 friendwithfood
+sense here 719 700 home
+pickup 701 701
+sense ahead 702 703 food
+move 711 711
+sense leftahead 704 707 food
+turn left 705
+move 706 706
+turn right 711
+sense rightahead 708 711 food
+turn right 709
+move 710 710
+turn left 711
+sense leftahead 419 712 marker 3
+sense rightahead 419 713 marker 3
+sense ahead 419 714 marker 3
+pickup 715 719
+turn left 716
+turn left 717
+turn left 718
+flip 2 258 21
+sense here 720 741 friendwithfood
+sense leftahead 721 722 marker 1
+turn left 722
+sense rightahead 723 724 marker 1
+turn right 724
+sense ahead 725 728 marker 1
+sense here 727 726 marker 1
+move 725 725
+drop 243
+sense here 729 731 home
+sense ahead 741 730 home
+drop 243
+sense leftahead 732 733 marker 2
+turn left 733
+sense rightahead 734 735 marker 2
+turn right 735
+sense ahead 736 737 marker 2
+move 1158 737
+sense ahead 738 739 marker 4
+move 1158 739
+sense ahead 740 741 marker 5
+move 1158 741
+sense ahead 742 749 rock
+sense leftahead 744 743 rock
+turn left 755
+sense rightahead 746 745 rock
+turn right 755
+turn left 747
+turn left 748
+turn left 755
+sense ahead 750 755 friend
+sense leftahead 751 754 friend
+turn right 752
+sense ahead 753 755 friend
+turn right 752
+turn left 755
+sense ahead 756 762 foe
+sense leftahead 757 759 foe
+sense ahead 758 21 foe
+turn right 757
+sense rightahead 760 767 foe
+sense ahead 761 21 foe
+turn left 760
+sense leftahead 763 767 foe
+sense rightahead 764 767 foe
+turn left 765
+turn left 766
+turn left 21
+flip 20 768 773
+flip 2 769 771
+turn left 770
+move 1082 1082
+turn right 772
+move 1006 1006
+move 926 926
+sense here 101 775 marker 2 ; blazeright_2
+sense here 101 776 marker 4
+sense here 101 777 marker 5
+mark 4 778
+sense here 798 779 friendwithfood
+sense here 798 780 home
+pickup 781 781
+sense ahead 782 783 food
+move 791 791
+sense leftahead 784 787 food
+turn left 785
+move 786 786
+turn right 791
+sense rightahead 788 791 food
+turn right 789
+move 790 790
+turn left 791
+sense leftahead 419 792 marker 3
+sense rightahead 419 793 marker 3
+sense ahead 419 794 marker 3
+pickup 795 798
+turn right 796
+turn right 797
+flip 2 258 21
+sense here 799 820 friendwithfood
+sense leftahead 800 801 marker 1
+turn left 801
+sense rightahead 802 803 marker 1
+turn right 803
+sense ahead 804 807 marker 1
+sense here 806 805 marker 1
+move 804 804
+drop 243
+sense here 808 810 home
+sense ahead 820 809 home
+drop 243
+sense leftahead 811 812 marker 2
+turn left 812
+sense rightahead 813 814 marker 2
+turn right 814
+sense ahead 815 816 marker 2
+move 1158 816
+sense ahead 817 818 marker 4
+move 1158 818
+sense ahead 819 820 marker 5
+move 1158 820
+sense ahead 821 828 rock
+sense leftahead 823 822 rock
+turn left 834
+sense rightahead 825 824 rock
+turn right 834
+turn left 826
+turn left 827
+turn left 834
+sense ahead 829 834 friend
+sense leftahead 830 833 friend
+turn right 831
+sense ahead 832 834 friend
+turn right 831
+turn left 834
+sense ahead 835 841 foe
+sense leftahead 836 838 foe
+sense ahead 837 21 foe
+turn right 836
+sense rightahead 839 846 foe
+sense ahead 840 21 foe
+turn left 839
+sense leftahead 842 846 foe
+sense rightahead 843 846 foe
+turn left 844
+turn left 845
+turn left 21
+flip 2 847 849
+turn left 848
+move 926 926
+move 1006 1006
+sense here 172 851 marker 2 ; blazeleft_2
+sense here 172 852 marker 4
+sense here 172 853 marker 5
+mark 4 854
+sense here 874 855 friendwithfood
+sense here 874 856 home
+pickup 857 857
+sense ahead 858 859 food
+move 867 867
+sense leftahead 860 863 food
+turn left 861
+move 862 862
+turn right 867
+sense rightahead 864 867 food
+turn right 865
+move 866 866
+turn left 867
+sense leftahead 419 868 marker 3
+sense rightahead 419 869 marker 3
+sense ahead 419 870 marker 3
+pickup 871 874
+turn left 872
+turn left 873
+flip 2 258 21
+sense here 875 896 friendwithfood
+sense leftahead 876 877 marker 1
+turn left 877
+sense rightahead 878 879 marker 1
+turn right 879
+sense ahead 880 883 marker 1
+sense here 882 881 marker 1
+move 880 880
+drop 243
+sense here 884 886 home
+sense ahead 896 885 home
+drop 243
+sense leftahead 887 888 marker 2
+turn left 888
+sense rightahead 889 890 marker 2
+turn right 890
+sense ahead 891 892 marker 2
+move 1158 892
+sense ahead 893 894 marker 4
+move 1158 894
+sense ahead 895 896 marker 5
+move 1158 896
+sense ahead 897 904 rock
+sense leftahead 899 898 rock
+turn left 910
+sense rightahead 901 900 rock
+turn right 910
+turn left 902
+turn left 903
+turn left 910
+sense ahead 905 910 friend
+sense leftahead 906 909 friend
+turn right 907
+sense ahead 908 910 friend
+turn right 907
+turn left 910
+sense ahead 911 917 foe
+sense leftahead 912 914 foe
+sense ahead 913 21 foe
+turn right 912
+sense rightahead 915 922 foe
+sense ahead 916 21 foe
+turn left 915
+sense leftahead 918 922 foe
+sense rightahead 919 922 foe
+turn left 920
+turn left 921
+turn left 21
+flip 2 923 925
+turn right 924
+move 926 926
+move 1082 1082
+sense here 21 927 marker 2 ; blaze_3
+sense here 21 928 marker 4
+sense here 21 929 marker 5
+mark 5 930
+sense here 951 931 friendwithfood
+sense here 951 932 home
+pickup 933 933
+sense ahead 934 935 food
+move 943 943
+sense leftahead 936 939 food
+turn left 937
+move 938 938
+turn right 943
+sense rightahead 940 943 food
+turn right 941
+move 942 942
+turn left 943
+sense leftahead 419 944 marker 3
+sense rightahead 419 945 marker 3
+sense ahead 419 946 marker 3
+pickup 947 951
+turn left 948
+turn left 949
+turn left 950
+flip 2 258 21
+sense here 952 973 friendwithfood
+sense leftahead 953 954 marker 1
+turn left 954
+sense rightahead 955 956 marker 1
+turn right 956
+sense ahead 957 960 marker 1
+sense here 959 958 marker 1
+move 957 957
+drop 243
+sense here 961 963 home
+sense ahead 973 962 home
+drop 243
+sense leftahead 964 965 marker 2
+turn left 965
+sense rightahead 966 967 marker 2
+turn right 967
+sense ahead 968 969 marker 2
+move 1158 969
+sense ahead 970 971 marker 4
+move 1158 971
+sense ahead 972 973 marker 5
+move 1158 973
+sense ahead 974 981 rock
+sense leftahead 976 975 rock
+turn left 987
+sense rightahead 978 977 rock
+turn right 987
+turn left 979
+turn left 980
+turn left 987
+sense ahead 982 987 friend
+sense leftahead 983 986 friend
+turn right 984
+sense ahead 985 987 friend
+turn right 984
+turn left 987
+sense ahead 988 994 foe
+sense leftahead 989 991 foe
+sense ahead 990 21 foe
+turn right 989
+sense rightahead 992 999 foe
+sense ahead 993 21 foe
+turn left 992
+sense leftahead 995 999 foe
+sense rightahead 996 999 foe
+turn left 997
+turn left 998
+turn left 21
+flip 20 1000 1005
+flip 2 1001 1003
+turn left 1002
+move 618 618
+turn right 1004
+move 542 542
+move 462 462
+sense here 101 1007 marker 2 ; blazeright_3
+sense here 101 1008 marker 4
+sense here 101 1009 marker 5
+mark 5 1010
+sense here 1030 1011 friendwithfood
+sense here 1030 1012 home
+pickup 1013 1013
+sense ahead 1014 1015 food
+move 1023 1023
+sense leftahead 1016 1019 food
+turn left 1017
+move 1018 1018
+turn right 1023
+sense rightahead 1020 1023 food
+turn right 1021
+move 1022 1022
+turn left 1023
+sense leftahead 419 1024 marker 3
+sense rightahead 419 1025 marker 3
+sense ahead 419 1026 marker 3
+pickup 1027 1030
+turn right 1028
+turn right 1029
+flip 2 258 21
+sense here 1031 1052 friendwithfood
+sense leftahead 1032 1033 marker 1
+turn left 1033
+sense rightahead 1034 1035 marker 1
+turn right 1035
+sense ahead 1036 1039 marker 1
+sense here 1038 1037 marker 1
+move 1036 1036
+drop 243
+sense here 1040 1042 home
+sense ahead 1052 1041 home
+drop 243
+sense leftahead 1043 1044 marker 2
+turn left 1044
+sense rightahead 1045 1046 marker 2
+turn right 1046
+sense ahead 1047 1048 marker 2
+move 1158 1048
+sense ahead 1049 1050 marker 4
+move 1158 1050
+sense ahead 1051 1052 marker 5
+move 1158 1052
+sense ahead 1053 1060 rock
+sense leftahead 1055 1054 rock
+turn left 1066
+sense rightahead 1057 1056 rock
+turn right 1066
+turn left 1058
+turn left 1059
+turn left 1066
+sense ahead 1061 1066 friend
+sense leftahead 1062 1065 friend
+turn right 1063
+sense ahead 1064 1066 friend
+turn right 1063
+turn left 1066
+sense ahead 1067 1073 foe
+sense leftahead 1068 1070 foe
+sense ahead 1069 21 foe
+turn right 1068
+sense rightahead 1071 1078 foe
+sense ahead 1072 21 foe
+turn left 1071
+sense leftahead 1074 1078 foe
+sense rightahead 1075 1078 foe
+turn left 1076
+turn left 1077
+turn left 21
+flip 2 1079 1081
+turn left 1080
+move 462 462
+move 542 542
+sense here 172 1083 marker 2 ; blazeleft_3
+sense here 172 1084 marker 4
+sense here 172 1085 marker 5
+mark 5 1086
+sense here 1106 1087 friendwithfood
+sense here 1106 1088 home
+pickup 1089 1089
+sense ahead 1090 1091 food
+move 1099 1099
+sense leftahead 1092 1095 food
+turn left 1093
+move 1094 1094
+turn right 1099
+sense rightahead 1096 1099 food
+turn right 1097
+move 1098 1098
+turn left 1099
+sense leftahead 419 1100 marker 3
+sense rightahead 419 1101 marker 3
+sense ahead 419 1102 marker 3
+pickup 1103 1106
+turn left 1104
+turn left 1105
+flip 2 258 21
+sense here 1107 1128 friendwithfood
+sense leftahead 1108 1109 marker 1
+turn left 1109
+sense rightahead 1110 1111 marker 1
+turn right 1111
+sense ahead 1112 1115 marker 1
+sense here 1114 1113 marker 1
+move 1112 1112
+drop 243
+sense here 1116 1118 home
+sense ahead 1128 1117 home
+drop 243
+sense leftahead 1119 1120 marker 2
+turn left 1120
+sense rightahead 1121 1122 marker 2
+turn right 1122
+sense ahead 1123 1124 marker 2
+move 1158 1124
+sense ahead 1125 1126 marker 4
+move 1158 1126
+sense ahead 1127 1128 marker 5
+move 1158 1128
+sense ahead 1129 1136 rock
+sense leftahead 1131 1130 rock
+turn left 1142
+sense rightahead 1133 1132 rock
+turn right 1142
+turn left 1134
+turn left 1135
+turn left 1142
+sense ahead 1137 1142 friend
+sense leftahead 1138 1141 friend
+turn right 1139
+sense ahead 1140 1142 friend
+turn right 1139
+turn left 1142
+sense ahead 1143 1149 foe
+sense leftahead 1144 1146 foe
+sense ahead 1145 21 foe
+turn right 1144
+sense rightahead 1147 1154 foe
+sense ahead 1148 21 foe
+turn left 1147
+sense leftahead 1150 1154 foe
+sense rightahead 1151 1154 foe
+turn left 1152
+turn left 1153
+turn left 21
+flip 2 1155 1157
+turn right 1156
+move 462 462
+move 618 618
+sense here 1195 1159 marker 2 ; follow
+sense here 1229 1160 marker 4
+sense here 1161 21 marker 5
+flip 100 21 1162 ; follow_5
+sense here 21 1163 home
+sense ahead 1164 1186 home
+sense here 1165 1186 friendwithfood
+sense leftahead 1166 1167 marker 1
+turn left 1167
+sense rightahead 1168 1169 marker 1
+turn right 1169
+sense ahead 1170 1173 marker 1
+sense here 1172 1171 marker 1
+move 1170 1170
+drop 243
+sense here 1174 1176 home
+sense ahead 1186 1175 home
+drop 243
+sense leftahead 1177 1178 marker 2
+turn left 1178
+sense rightahead 1179 1180 marker 2
+turn right 1180
+sense ahead 1181 1182 marker 2
+move 1158 1182
+sense ahead 1183 1184 marker 4
+move 1158 1184
+sense ahead 1185 1186 marker 5
+move 1158 1186
+sense ahead 1187 1190 marker 4
+move 1229 1188
+sense ahead 1161 1189 foe
+sense ahead 1161 1190 friend
+sense rightahead 1191 1192 marker 4
+turn right 1161
+sense leftahead 1193 1194 marker 4
+turn left 1161
+turn left 1161
+flip 100 21 1196 ; follow_2
+sense here 21 1197 home
+sense ahead 1198 1220 home
+sense here 1199 1220 friendwithfood
+sense leftahead 1200 1201 marker 1
+turn left 1201
+sense rightahead 1202 1203 marker 1
+turn right 1203
+sense ahead 1204 1207 marker 1
+sense here 1206 1205 marker 1
+move 1204 1204
+drop 243
+sense here 1208 1210 home
+sense ahead 1220 1209 home
+drop 243
+sense leftahead 1211 1212 marker 2
+turn left 1212
+sense rightahead 1213 1214 marker 2
+turn right 1214
+sense ahead 1215 1216 marker 2
+move 1158 1216
+sense ahead 1217 1218 marker 4
+move 1158 1218
+sense ahead 1219 1220 marker 5
+move 1158 1220
+sense ahead 1221 1224 marker 5
+move 1161 1222
+sense ahead 1195 1223 foe
+sense ahead 1195 1224 friend
+sense rightahead 1225 1226 marker 5
+turn right 1195
+sense leftahead 1227 1228 marker 5
+turn left 1195
+turn left 1195
+flip 100 21 1230 ; follow_4
+sense here 21 1231 home
+sense ahead 1232 1254 home
+sense here 1233 1254 friendwithfood
+sense leftahead 1234 1235 marker 1
+turn left 1235
+sense rightahead 1236 1237 marker 1
+turn right 1237
+sense ahead 1238 1241 marker 1
+sense here 1240 1239 marker 1
+move 1238 1238
+drop 243
+sense here 1242 1244 home
+sense ahead 1254 1243 home
+drop 243
+sense leftahead 1245 1246 marker 2
+turn left 1246
+sense rightahead 1247 1248 marker 2
+turn right 1248
+sense ahead 1249 1250 marker 2
+move 1158 1250
+sense ahead 1251 1252 marker 4
+move 1158 1252
+sense ahead 1253 1254 marker 5
+move 1158 1254
+sense ahead 1255 1258 marker 2
+move 1195 1256
+sense ahead 1229 1257 foe
+sense ahead 1229 1258 friend
+sense rightahead 1259 1260 marker 2
+turn right 1229
+sense leftahead 1261 1262 marker 2
+turn left 1229
+turn left 1195

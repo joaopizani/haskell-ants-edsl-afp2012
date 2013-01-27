@@ -1,0 +1,573 @@
+Sense Ahead 3 1 Home
+Sense LeftAhead 3 2 Home
+Sense RightAhead 3 553 Home
+Turn Left 4
+Sense Ahead 7 5 Home
+Sense LeftAhead 7 6 Home
+Sense RightAhead 7 553 Home
+Turn Left 8
+Sense Ahead 11 9 Home
+Sense LeftAhead 11 10 Home
+Sense RightAhead 11 553 Home
+Turn Left 12
+Sense Ahead 15 13 Home
+Sense LeftAhead 15 14 Home
+Sense RightAhead 15 553 Home
+Turn Left 16
+Sense Ahead 19 17 Home
+Sense LeftAhead 19 18 Home
+Sense RightAhead 19 553 Home
+Turn Left 20
+Sense Ahead 23 21 Home
+Sense LeftAhead 23 22 Home
+Sense RightAhead 23 553 Home
+Turn Left 24
+Sense Ahead 25 58 Home
+Flip 2 26 55
+Turn Right 27
+Sense Ahead 28 58 Home
+Move 29 29
+Sense Ahead 32 30 Home
+Sense LeftAhead 32 31 Home
+Sense RightAhead 32 553 Home
+Turn Left 33
+Sense Ahead 36 34 Home
+Sense LeftAhead 36 35 Home
+Sense RightAhead 36 553 Home
+Turn Left 37
+Sense Ahead 40 38 Home
+Sense LeftAhead 40 39 Home
+Sense RightAhead 40 553 Home
+Turn Left 41
+Sense Ahead 44 42 Home
+Sense LeftAhead 44 43 Home
+Sense RightAhead 44 553 Home
+Turn Left 45
+Sense Ahead 48 46 Home
+Sense LeftAhead 48 47 Home
+Sense RightAhead 48 553 Home
+Turn Left 49
+Sense Ahead 52 50 Home
+Sense LeftAhead 52 51 Home
+Sense RightAhead 52 553 Home
+Turn Left 53
+Sense Ahead 54 58 Home
+Flip 2 26 55
+Turn Left 56
+Sense Ahead 57 58 Home
+Move 29 29
+Sense Here 60 59 Home
+Sense Here 377 60 Food
+Sense Here 62 61 Marker 2
+Sense Here 294 62 Marker 3
+Sense Here 63 64 Marker 2
+Sense Here 64 211 Marker 3
+Sense Here 65 66 Marker 2
+Sense Here 72 66 Marker 3
+Move 58 67
+Flip 2 70 68
+Turn Left 69
+Move 58 67
+Turn Right 71
+Move 58 67
+Sense Here 377 73 Food
+Sense Ahead 74 75 Marker 2
+Sense Ahead 75 210 Marker 3
+Sense Ahead 210 76 Food
+Sense LeftAhead 77 78 Marker 2
+Sense LeftAhead 78 208 Marker 3
+Sense LeftAhead 208 79 Food
+Sense RightAhead 80 81 Marker 2
+Sense RightAhead 81 206 Marker 3
+Sense RightAhead 206 82 Food
+Turn Left 83
+Turn Left 84
+Turn Left 85
+Sense Here 377 86 Food
+Sense Ahead 87 88 Marker 2
+Sense Ahead 88 205 Marker 3
+Sense Ahead 205 89 Food
+Sense LeftAhead 90 91 Marker 2
+Sense LeftAhead 91 203 Marker 3
+Sense LeftAhead 203 92 Food
+Sense RightAhead 93 94 Marker 2
+Sense RightAhead 94 171 Marker 3
+Sense RightAhead 171 95 Food
+Unmark 2 96
+Unmark 3 97
+Sense Here 58 98 Home
+Sense Ahead 100 99 Marker 2
+Sense Ahead 170 100 Marker 3
+Sense Ahead 170 101 Home
+Sense LeftAhead 103 102 Marker 2
+Sense LeftAhead 168 103 Marker 3
+Sense LeftAhead 168 104 Home
+Sense RightAhead 106 105 Marker 2
+Sense RightAhead 166 106 Marker 3
+Sense RightAhead 166 107 Home
+Turn Left 108
+Turn Left 109
+Turn Left 110
+Unmark 2 111
+Unmark 3 112
+Sense Here 58 113 Home
+Sense Ahead 115 114 Marker 2
+Sense Ahead 165 115 Marker 3
+Sense Ahead 165 116 Home
+Sense LeftAhead 118 117 Marker 2
+Sense LeftAhead 163 118 Marker 3
+Sense LeftAhead 163 119 Home
+Sense RightAhead 121 120 Marker 2
+Sense RightAhead 122 121 Marker 3
+Sense RightAhead 122 58 Home
+Turn Right 123
+Move 124 158
+Unmark 2 125
+Unmark 3 126
+Sense Here 58 127 Home
+Sense Ahead 128 129 Marker 2
+Sense Ahead 129 157 Marker 3
+Sense Ahead 157 130 Home
+Sense LeftAhead 131 132 Marker 2
+Sense LeftAhead 132 155 Marker 3
+Sense LeftAhead 155 133 Home
+Sense RightAhead 134 135 Marker 2
+Sense RightAhead 135 136 Marker 3
+Sense RightAhead 136 58 Home
+Turn Right 137
+Move 138 158
+Unmark 2 139
+Unmark 3 140
+Sense Here 58 141 Home
+Sense Ahead 142 143 Marker 2
+Sense Ahead 154 143 Marker 3
+Sense Ahead 154 144 Home
+Sense LeftAhead 145 146 Marker 2
+Sense LeftAhead 152 146 Marker 3
+Sense LeftAhead 152 147 Home
+Sense RightAhead 148 149 Marker 2
+Sense RightAhead 150 149 Marker 3
+Sense RightAhead 150 58 Home
+Turn Right 151
+Move 110 158
+Turn Left 153
+Move 110 158
+Move 110 158
+Turn Left 156
+Move 138 158
+Move 138 158
+Flip 2 161 159
+Turn Right 160
+Move 58 158
+Turn Left 162
+Move 58 158
+Turn Left 164
+Move 124 158
+Move 124 158
+Turn Right 167
+Move 124 158
+Turn Left 169
+Move 124 158
+Move 124 158
+Turn Right 172
+Move 173 158
+Sense Here 377 174 Food
+Sense Ahead 176 175 Marker 2
+Sense Ahead 202 176 Marker 3
+Sense Ahead 202 177 Food
+Sense LeftAhead 179 178 Marker 2
+Sense LeftAhead 200 179 Marker 3
+Sense LeftAhead 200 180 Food
+Sense RightAhead 182 181 Marker 2
+Sense RightAhead 183 182 Marker 3
+Sense RightAhead 183 95 Food
+Turn Right 184
+Move 185 158
+Sense Here 377 186 Food
+Sense Ahead 187 188 Marker 2
+Sense Ahead 199 188 Marker 3
+Sense Ahead 199 189 Food
+Sense LeftAhead 190 191 Marker 2
+Sense LeftAhead 197 191 Marker 3
+Sense LeftAhead 197 192 Food
+Sense RightAhead 193 194 Marker 2
+Sense RightAhead 195 194 Marker 3
+Sense RightAhead 195 95 Food
+Turn Right 196
+Move 85 158
+Turn Left 198
+Move 85 158
+Move 85 158
+Turn Left 201
+Move 185 158
+Move 185 158
+Turn Left 204
+Move 173 158
+Move 173 158
+Turn Right 207
+Move 173 158
+Turn Left 209
+Move 173 158
+Move 173 158
+Sense Here 377 212 Food
+Sense Ahead 214 213 Marker 2
+Sense Ahead 293 214 Marker 3
+Sense Ahead 293 215 Food
+Sense LeftAhead 217 216 Marker 2
+Sense LeftAhead 291 217 Marker 3
+Sense LeftAhead 291 218 Food
+Sense RightAhead 220 219 Marker 2
+Sense RightAhead 289 220 Marker 3
+Sense RightAhead 289 221 Food
+Turn Left 222
+Turn Left 223
+Turn Left 224
+Sense Here 377 225 Food
+Sense Ahead 227 226 Marker 2
+Sense Ahead 288 227 Marker 3
+Sense Ahead 288 228 Food
+Sense LeftAhead 230 229 Marker 2
+Sense LeftAhead 286 230 Marker 3
+Sense LeftAhead 286 231 Food
+Sense RightAhead 233 232 Marker 2
+Sense RightAhead 254 233 Marker 3
+Sense RightAhead 254 234 Food
+Unmark 2 235
+Unmark 3 236
+Sense Here 58 237 Home
+Sense Ahead 238 239 Marker 2
+Sense Ahead 253 239 Marker 3
+Sense Ahead 253 240 Home
+Sense LeftAhead 241 242 Marker 2
+Sense LeftAhead 251 242 Marker 3
+Sense LeftAhead 251 243 Home
+Sense RightAhead 244 245 Marker 2
+Sense RightAhead 249 245 Marker 3
+Sense RightAhead 249 246 Home
+Turn Left 247
+Turn Left 248
+Turn Left 138
+Turn Right 250
+Move 110 158
+Turn Left 252
+Move 110 158
+Move 110 158
+Turn Right 255
+Move 256 158
+Sense Here 377 257 Food
+Sense Ahead 258 259 Marker 2
+Sense Ahead 285 259 Marker 3
+Sense Ahead 285 260 Food
+Sense LeftAhead 261 262 Marker 2
+Sense LeftAhead 283 262 Marker 3
+Sense LeftAhead 283 263 Food
+Sense RightAhead 264 265 Marker 2
+Sense RightAhead 266 265 Marker 3
+Sense RightAhead 266 234 Food
+Turn Right 267
+Move 268 158
+Sense Here 377 269 Food
+Sense Ahead 270 271 Marker 2
+Sense Ahead 271 282 Marker 3
+Sense Ahead 282 272 Food
+Sense LeftAhead 273 274 Marker 2
+Sense LeftAhead 274 280 Marker 3
+Sense LeftAhead 280 275 Food
+Sense RightAhead 276 277 Marker 2
+Sense RightAhead 277 278 Marker 3
+Sense RightAhead 278 234 Food
+Turn Right 279
+Move 224 158
+Turn Left 281
+Move 224 158
+Move 224 158
+Turn Left 284
+Move 268 158
+Move 268 158
+Turn Left 287
+Move 256 158
+Move 256 158
+Turn Right 290
+Move 256 158
+Turn Left 292
+Move 256 158
+Move 256 158
+Sense Here 377 295 Food
+Sense Ahead 296 297 Marker 2
+Sense Ahead 376 297 Marker 3
+Sense Ahead 376 298 Food
+Sense LeftAhead 299 300 Marker 2
+Sense LeftAhead 374 300 Marker 3
+Sense LeftAhead 374 301 Food
+Sense RightAhead 302 303 Marker 2
+Sense RightAhead 372 303 Marker 3
+Sense RightAhead 372 304 Food
+Turn Left 305
+Turn Left 306
+Turn Left 307
+Sense Here 377 308 Food
+Sense Ahead 309 310 Marker 2
+Sense Ahead 371 310 Marker 3
+Sense Ahead 371 311 Food
+Sense LeftAhead 312 313 Marker 2
+Sense LeftAhead 369 313 Marker 3
+Sense LeftAhead 369 314 Food
+Sense RightAhead 315 316 Marker 2
+Sense RightAhead 337 316 Marker 3
+Sense RightAhead 337 317 Food
+Unmark 2 318
+Unmark 3 319
+Sense Here 58 320 Home
+Sense Ahead 321 322 Marker 2
+Sense Ahead 322 336 Marker 3
+Sense Ahead 336 323 Home
+Sense LeftAhead 324 325 Marker 2
+Sense LeftAhead 325 334 Marker 3
+Sense LeftAhead 334 326 Home
+Sense RightAhead 327 328 Marker 2
+Sense RightAhead 328 332 Marker 3
+Sense RightAhead 332 329 Home
+Turn Left 330
+Turn Left 331
+Turn Left 124
+Turn Right 333
+Move 138 158
+Turn Left 335
+Move 138 158
+Move 138 158
+Turn Right 338
+Move 339 158
+Sense Here 377 340 Food
+Sense Ahead 341 342 Marker 2
+Sense Ahead 342 368 Marker 3
+Sense Ahead 368 343 Food
+Sense LeftAhead 344 345 Marker 2
+Sense LeftAhead 345 366 Marker 3
+Sense LeftAhead 366 346 Food
+Sense RightAhead 347 348 Marker 2
+Sense RightAhead 348 349 Marker 3
+Sense RightAhead 349 317 Food
+Turn Right 350
+Move 351 158
+Sense Here 377 352 Food
+Sense Ahead 354 353 Marker 2
+Sense Ahead 365 354 Marker 3
+Sense Ahead 365 355 Food
+Sense LeftAhead 357 356 Marker 2
+Sense LeftAhead 363 357 Marker 3
+Sense LeftAhead 363 358 Food
+Sense RightAhead 360 359 Marker 2
+Sense RightAhead 361 360 Marker 3
+Sense RightAhead 361 317 Food
+Turn Right 362
+Move 307 158
+Turn Left 364
+Move 307 158
+Move 307 158
+Turn Left 367
+Move 351 158
+Move 351 158
+Turn Left 370
+Move 339 158
+Move 339 158
+Turn Right 373
+Move 339 158
+Turn Left 375
+Move 339 158
+Move 339 158
+Pickup 378 58
+Turn Right 379
+Turn Right 380
+Turn Right 381
+Unmark 2 382
+Mark 3 383
+Sense Here 385 384 Marker 4
+Sense Here 535 385 Marker 5
+Sense Here 386 387 Marker 4
+Sense Here 387 517 Marker 5
+Sense Here 388 389 Marker 4
+Sense Here 441 389 Marker 5
+Move 390 412
+Sense Here 411 391 Home
+Mark 2 392
+Unmark 3 393
+Sense Here 395 394 Marker 4
+Sense Here 535 395 Marker 5
+Sense Here 396 397 Marker 4
+Sense Here 397 517 Marker 5
+Sense Here 398 399 Marker 4
+Sense Here 441 399 Marker 5
+Move 400 412
+Sense Here 411 401 Home
+Mark 2 402
+Mark 3 403
+Sense Here 405 404 Marker 4
+Sense Here 535 405 Marker 5
+Sense Here 406 407 Marker 4
+Sense Here 407 517 Marker 5
+Sense Here 408 409 Marker 4
+Sense Here 441 409 Marker 5
+Move 410 412
+Sense Here 411 381 Home
+Drop 29
+Flip 2 439 413
+Turn Right 414
+Move 415 412
+Sense Here 417 416 Marker 4
+Sense Here 535 417 Marker 5
+Sense Here 418 419 Marker 4
+Sense Here 419 517 Marker 5
+Sense Here 420 421 Marker 4
+Sense Here 441 421 Marker 5
+Move 422 412
+Sense Here 411 423 Home
+Sense Here 425 424 Marker 4
+Sense Here 535 425 Marker 5
+Sense Here 426 427 Marker 4
+Sense Here 427 517 Marker 5
+Sense Here 428 429 Marker 4
+Sense Here 441 429 Marker 5
+Move 430 412
+Sense Here 411 431 Home
+Sense Here 433 432 Marker 4
+Sense Here 535 433 Marker 5
+Sense Here 434 435 Marker 4
+Sense Here 435 517 Marker 5
+Sense Here 436 437 Marker 4
+Sense Here 441 437 Marker 5
+Move 438 412
+Sense Here 411 415 Home
+Turn Left 440
+Move 415 412
+Sense Here 504 442 Home
+Sense Ahead 443 444 Marker 4
+Sense Ahead 444 503 Marker 5
+Sense Ahead 503 445 Home
+Sense LeftAhead 446 447 Marker 4
+Sense LeftAhead 447 501 Marker 5
+Sense LeftAhead 501 448 Home
+Sense RightAhead 449 450 Marker 4
+Sense RightAhead 450 499 Marker 5
+Sense RightAhead 499 451 Home
+Turn Left 452
+Turn Left 453
+Turn Left 454
+Sense Here 504 455 Home
+Sense Ahead 456 457 Marker 4
+Sense Ahead 457 498 Marker 5
+Sense Ahead 498 458 Home
+Sense LeftAhead 459 460 Marker 4
+Sense LeftAhead 460 496 Marker 5
+Sense LeftAhead 496 461 Home
+Sense RightAhead 462 463 Marker 4
+Sense RightAhead 463 464 Marker 5
+Sense RightAhead 464 412 Home
+Turn Right 465
+Move 466 412
+Sense Here 504 467 Home
+Sense Ahead 469 468 Marker 4
+Sense Ahead 495 469 Marker 5
+Sense Ahead 495 470 Home
+Sense LeftAhead 472 471 Marker 4
+Sense LeftAhead 493 472 Marker 5
+Sense LeftAhead 493 473 Home
+Sense RightAhead 475 474 Marker 4
+Sense RightAhead 476 475 Marker 5
+Sense RightAhead 476 412 Home
+Turn Right 477
+Move 478 412
+Sense Here 504 479 Home
+Sense Ahead 480 481 Marker 4
+Sense Ahead 492 481 Marker 5
+Sense Ahead 492 482 Home
+Sense LeftAhead 483 484 Marker 4
+Sense LeftAhead 490 484 Marker 5
+Sense LeftAhead 490 485 Home
+Sense RightAhead 486 487 Marker 4
+Sense RightAhead 488 487 Marker 5
+Sense RightAhead 488 412 Home
+Turn Right 489
+Move 454 412
+Turn Left 491
+Move 454 412
+Move 454 412
+Turn Left 494
+Move 478 412
+Move 478 412
+Turn Left 497
+Move 466 412
+Move 466 412
+Turn Right 500
+Move 466 412
+Turn Left 502
+Move 466 412
+Move 466 412
+Drop 505
+Sense LeftAhead 506 516 Friend
+Sense RightAhead 507 515 Friend
+Sense Ahead 508 513 Friend
+Turn Left 509
+Turn Left 510
+Turn Left 511
+Sense LeftAhead 512 516 Friend
+Sense RightAhead 29 515 Friend
+Move 514 29
+Sense Here 514 514 Friend
+Turn Right 513
+Turn Left 513
+Sense Here 504 518 Home
+Sense Ahead 520 519 Marker 4
+Sense Ahead 534 520 Marker 5
+Sense Ahead 534 521 Home
+Sense LeftAhead 523 522 Marker 4
+Sense LeftAhead 532 523 Marker 5
+Sense LeftAhead 532 524 Home
+Sense RightAhead 526 525 Marker 4
+Sense RightAhead 530 526 Marker 5
+Sense RightAhead 530 527 Home
+Turn Left 528
+Turn Left 529
+Turn Left 466
+Turn Right 531
+Move 478 412
+Turn Left 533
+Move 478 412
+Move 478 412
+Sense Here 504 536 Home
+Sense Ahead 537 538 Marker 4
+Sense Ahead 552 538 Marker 5
+Sense Ahead 552 539 Home
+Sense LeftAhead 540 541 Marker 4
+Sense LeftAhead 550 541 Marker 5
+Sense LeftAhead 550 542 Home
+Sense RightAhead 543 544 Marker 4
+Sense RightAhead 548 544 Marker 5
+Sense RightAhead 548 545 Home
+Turn Left 546
+Turn Left 547
+Turn Left 478
+Turn Right 549
+Move 454 412
+Turn Left 551
+Move 454 412
+Move 454 412
+Move 554 562
+Unmark 4 555
+Mark 5 556
+Move 557 562
+Mark 4 558
+Unmark 5 559
+Move 560 562
+Mark 4 561
+Mark 5 553
+Turn Right 563
+Move 564 572
+Unmark 4 565
+Mark 5 566
+Move 567 572
+Mark 4 568
+Unmark 5 569
+Move 570 572
+Mark 4 571
+Mark 5 563
+Turn Right 67

@@ -1,0 +1,132 @@
+Sense Ahead 1 2 Friend		;0 - function: start0
+Turn Left 110		;1
+Sense Here 10 3 Food		;2 - function: lookForFood0
+Sense Ahead 8 4 Food		;3
+Sense LeftAhead 5 6 Food		;4
+Turn Left 118		;5
+Sense RightAhead 7 8 Food		;6
+Turn Right 30		;7
+Move 2 9		;8 - function: moveAhead0
+Turn Left 118		;9 - function: moveLeft0
+Sense Here 8 11 Home		;10 - function: pickUpFood0
+PickUp 12 2		;11
+Move 14 13		;12 - function: moveHome0
+Turn Right 34		;13 - function: moveRight0
+Sense Here 20 15 Home		;14 - function: lookForHome0
+Sense Ahead 12 16 Home		;15
+Sense LeftAhead 17 18 Home		;16
+Turn Left 122		;17
+Sense RightAhead 19 12 Home		;18
+Turn Right 34		;19
+Drop 21		;20 - function: dropFood0
+Move 2 2		;21
+Sense Ahead 23 24 Friend		;22 - function: start1
+Turn Left 0		;23
+Sense Here 32 25 Food		;24 - function: lookForFood1
+Sense Ahead 30 26 Food		;25
+Sense LeftAhead 27 28 Food		;26
+Turn Left 8		;27
+Sense RightAhead 29 30 Food		;28
+Turn Right 52		;29
+Move 24 31		;30 - function: moveAhead1
+Turn Left 8		;31 - function: moveLeft1
+Sense Here 30 33 Home		;32 - function: pickUpFood1
+PickUp 34 24		;33
+Move 36 35		;34 - function: moveHome1
+Turn Right 56		;35 - function: moveRight1
+Sense Here 42 37 Home		;36 - function: lookForHome1
+Sense Ahead 34 38 Home		;37
+Sense LeftAhead 39 40 Home		;38
+Turn Left 12		;39
+Sense RightAhead 41 34 Home		;40
+Turn Right 56		;41
+Drop 43		;42 - function: dropFood1
+Move 24 24		;43
+Sense Ahead 45 46 Friend		;44 - function: start2
+Turn Left 22		;45
+Sense Here 54 47 Food		;46 - function: lookForFood2
+Sense Ahead 52 48 Food		;47
+Sense LeftAhead 49 50 Food		;48
+Turn Left 30		;49
+Sense RightAhead 51 52 Food		;50
+Turn Right 74		;51
+Move 46 53		;52 - function: moveAhead2
+Turn Left 30		;53 - function: moveLeft2
+Sense Here 52 55 Home		;54 - function: pickUpFood2
+PickUp 56 46		;55
+Move 58 57		;56 - function: moveHome2
+Turn Right 78		;57 - function: moveRight2
+Sense Here 64 59 Home		;58 - function: lookForHome2
+Sense Ahead 56 60 Home		;59
+Sense LeftAhead 61 62 Home		;60
+Turn Left 34		;61
+Sense RightAhead 63 56 Home		;62
+Turn Right 78		;63
+Drop 65		;64 - function: dropFood2
+Move 46 46		;65
+Sense Ahead 67 68 Friend		;66 - function: start3
+Turn Left 44		;67
+Sense Here 76 69 Food		;68 - function: lookForFood3
+Sense Ahead 74 70 Food		;69
+Sense LeftAhead 71 72 Food		;70
+Turn Left 52		;71
+Sense RightAhead 73 74 Food		;72
+Turn Right 96		;73
+Move 68 75		;74 - function: moveAhead3
+Turn Left 52		;75 - function: moveLeft3
+Sense Here 74 77 Home		;76 - function: pickUpFood3
+PickUp 78 68		;77
+Move 80 79		;78 - function: moveHome3
+Turn Right 100		;79 - function: moveRight3
+Sense Here 86 81 Home		;80 - function: lookForHome3
+Sense Ahead 78 82 Home		;81
+Sense LeftAhead 83 84 Home		;82
+Turn Left 56		;83
+Sense RightAhead 85 78 Home		;84
+Turn Right 100		;85
+Drop 87		;86 - function: dropFood3
+Move 68 68		;87
+Sense Ahead 89 90 Friend		;88 - function: start4
+Turn Left 66		;89
+Sense Here 98 91 Food		;90 - function: lookForFood4
+Sense Ahead 96 92 Food		;91
+Sense LeftAhead 93 94 Food		;92
+Turn Left 74		;93
+Sense RightAhead 95 96 Food		;94
+Turn Right 118		;95
+Move 90 97		;96 - function: moveAhead4
+Turn Left 74		;97 - function: moveLeft4
+Sense Here 96 99 Home		;98 - function: pickUpFood4
+PickUp 100 90		;99
+Move 102 101		;100 - function: moveHome4
+Turn Right 122		;101 - function: moveRight4
+Sense Here 108 103 Home		;102 - function: lookForHome4
+Sense Ahead 100 104 Home		;103
+Sense LeftAhead 105 106 Home		;104
+Turn Left 78		;105
+Sense RightAhead 107 100 Home		;106
+Turn Right 122		;107
+Drop 109		;108 - function: dropFood4
+Move 90 90		;109
+Sense Ahead 111 112 Friend		;110 - function: start5
+Turn Left 88		;111
+Sense Here 120 113 Food		;112 - function: lookForFood5
+Sense Ahead 118 114 Food		;113
+Sense LeftAhead 115 116 Food		;114
+Turn Left 96		;115
+Sense RightAhead 117 118 Food		;116
+Turn Right 8		;117
+Move 112 119		;118 - function: moveAhead5
+Turn Left 96		;119 - function: moveLeft5
+Sense Here 118 121 Home		;120 - function: pickUpFood5
+PickUp 122 112		;121
+Move 124 123		;122 - function: moveHome5
+Turn Right 12		;123 - function: moveRight5
+Sense Here 130 125 Home		;124 - function: lookForHome5
+Sense Ahead 122 126 Home		;125
+Sense LeftAhead 127 128 Home		;126
+Turn Left 100		;127
+Sense RightAhead 129 122 Home		;128
+Turn Right 12		;129
+Drop 131		;130 - function: dropFood5
+Move 112 112		;131

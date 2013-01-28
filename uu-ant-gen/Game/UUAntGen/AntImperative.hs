@@ -137,25 +137,27 @@ aMkCase condL = do
     ss' <- sequence ss
     let (condsF,ss) = unzip $ map linkTrue $ zip (map fst condL) ss' 
         -- linking conditions
-        conds' = foldr (\mkS1 s2 -> do (AntStrategy' m2 i2 f2,f) <- s2 
+        conds' = foldr (\mkS1 s2 -> do AntStrategy' m2 i2 f2 <- s2 
                                        AntStrategy' m1 i1 f1 <- mkS1 i2
-                                       return ( AntStrategy' (m1 `M.union` m2) i1 f2
-                                              , if f == gidx then f1 else f))
-                       (return $ (AntStrategy' M.empty gidx gidx, gidx)) 
+                                       return $ AntStrategy' (m1 `M.union` m2) 
+                                                             i1 
+                                                             (if f2 == gidx
+                                                              then f1
+                                                              else f2))
+                       (return $ AntStrategy' M.empty gidx gidx) 
                        condsF
-    (AntStrategy' mc ic _, f) <- conds'
+    AntStrategy' mc ic f <- conds'
     let mss = foldr M.union M.empty $ map instructions ss'
         ghosti = Ghost gidx (f : M.keys mss) 
         allInstrs = M.insert gidx ghosti (mc `M.union` mss) 
     return $ AntStrategy' allInstrs ic gidx 
-    
+   where
+        linkGhost :: AntState -> AntStrategy -> AntStrategy
+        linkGhost gidx s = s >>= return . replaceFinal gidx
 
-linkGhost :: AntState -> AntStrategy -> AntStrategy
-linkGhost gidx s = s >>= return . replaceFinal gidx
-
-linkTrue :: (AntState -> AntState -> AntStrategy, AntStrategy') 
-         -> (AntState -> AntStrategy, AntStrategy')
-linkTrue (mkS,s) = (\fs -> flip mkS fs $ initial s, s)
+        linkTrue :: (AntState -> AntState -> AntStrategy, AntStrategy') 
+                 -> (AntState -> AntStrategy, AntStrategy')
+        linkTrue (mkS,s) = (\fs -> flip mkS fs $ initial s, s)
     
 -- | Dealing with boolean operators
 

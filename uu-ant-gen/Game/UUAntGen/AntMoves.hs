@@ -8,38 +8,31 @@ import Game.UUAntGen.AntImperative
 import Game.UUAntGen.AntInstruction
 
 
-strategy' = iList [ initPositions
-                  , filterCornersL ]
+strategy' = iList $ [ iterate initMarkers iEmpty !! 6 
+                    , findFood
+                    ] 
+                  -- FIXME: remove this
+                  ++ replicate 1000 iDrop -- prevent code from looping
 
-initPositions = iIfThen (TrySense Ahead Home)
-                        turnAround 
-filterCornersL = iIfThenElse (TrySense LeftAhead Home)
-                             (turn120R `iSeq` filterCornersLR)
-                             filterCornersR
-filterCornersLR = iIfThenElse (TrySense RightAhead Home)
-                              (turn60L `iSeq` stupidHome)
-                              (turn60L `iSeq` markLine `iSeq` stupidRock)
-filterCornersR = iIfThenElse (TrySense RightAhead Home)
-                             (turn120L `iSeq` filterCornersRL)
-                             (markLine `iSeq` stupidRock)
-filterCornersRL = iIfThenElse (TrySense LeftAhead Home)
-                              (turn60R `iSeq` stupidHome)
-                              (turn60R `iSeq` markLine `iSeq` stupidRock)
+initMarkers g = iIfThenElse (TrySense LeftAhead Friend `Or`  
+                             TrySense RightAhead Friend)
+                            (iTurnL `iSeq` g)
+                            markLine
+
 markLine = markLoop `iSeq` 
            (iIfThenElse (TrySense LeftAhead Rock)
                         (iIfThen (Not $ TrySense RightAhead Rock)
                                  (iTurnR `iSeq` markLoop)) 
                         (iTurnL `iSeq` markLoop)) 
+
 markLoop = iWhile (Not $ TrySense Ahead Rock) 
                   (iList [ move, iMark P5
                          , iIfThen (Not $ TrySense Ahead Rock)
                                    (iList [ move, iMark P4
                                           , iIfThen (Not $ TrySense Ahead Rock)
                                                     (move `iSeq` iMark P3) ])])
--- undefined's aka to be expanded 
-stupidHome = iWhile (TrySense Ahead Home) (turn60L `iSeq` turn60R) 
-stupidRock = iWhile (TrySense Ahead Rock) (turn60L `iSeq` turn60R) 
-                                
+
+
 
 -- | Tries to move one step forward, uses the strategy passed as parameter if meets a wall
 moveOrWall :: AntImperative -> AntImperative

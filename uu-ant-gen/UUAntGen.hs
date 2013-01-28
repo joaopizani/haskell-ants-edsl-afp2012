@@ -6,6 +6,7 @@ import Game.UUAntGen.AntImperative;
 import Game.UUAntGen.AntInstruction;
 import Game.UUAntGen.AntMoves;
 import Game.UUAntGen.AntTransformation;
+import Game.UUAntGen.AntStrategies;
 import System.Environment;
 
 main = do  

@@ -8,31 +8,6 @@ import Game.UUAntGen.AntImperative
 import Game.UUAntGen.AntInstruction
 
 
-strategy' = iList $ [ iterate initMarkers iEmpty !! 6 
-                    , findFood
-                    ] 
-                  -- FIXME: remove this
-                  ++ replicate 1000 iDrop -- prevent code from looping
-
-initMarkers g = iIfThenElse (TrySense LeftAhead Friend `Or`  
-                             TrySense RightAhead Friend)
-                            (iTurnL `iSeq` g)
-                            markLine
-
-markLine = markLoop `iSeq` 
-           (iIfThenElse (TrySense LeftAhead Rock)
-                        (iIfThen (Not $ TrySense RightAhead Rock)
-                                 (iTurnR `iSeq` markLoop)) 
-                        (iTurnL `iSeq` markLoop)) 
-
-markLoop = iWhile (Not $ TrySense Ahead Rock) 
-                  (iList [ move, iMark P5
-                         , iIfThen (Not $ TrySense Ahead Rock)
-                                   (iList [ move, iMark P4
-                                          , iIfThen (Not $ TrySense Ahead Rock)
-                                                    (move `iSeq` iMark P3) ])])
-
-
 
 -- | Tries to move one step forward, uses the strategy passed as parameter if meets a wall
 moveOrWall :: AntImperative -> AntImperative
@@ -174,6 +149,9 @@ doSearch s c d a = doUntil (s `iSeq` a) (TrySense d c)
 
 goSearchSpiral :: Condition -> AntImperative
 goSearchSpiral c = goSearch (goSpiral 4) c Here
+
+goSearchSpiral' :: AntTest -> AntImperative
+goSearchSpiral' = doUntil (goSpiral 4) 
 
 goFFandBack :: AntImperative
 goFFandBack = iList [ goSearch safeMove Rock Ahead 

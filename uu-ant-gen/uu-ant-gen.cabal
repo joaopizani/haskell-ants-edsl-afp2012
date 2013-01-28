@@ -56,6 +56,7 @@ executable uu-ant-gen
                  Game.UUAntGen.AntDeepEmbedded 
                  Game.UUAntGen.AntImperative
                  Game.UUAntGen.AntTransformation
+                 Game.UUAntGen.AntStrategies
                  Game.UUAntGen.Test.AntInstructionArbitrary 
                  Game.UUAntGen.Test.AntInstructionHUnit
                  Game.UUAntGen.Test.AntInstructionQuickCheck

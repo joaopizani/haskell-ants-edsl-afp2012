@@ -9,7 +9,7 @@ import Game.UUAntGen.AntDeepEmbedded
 import Game.UUAntGen.AntInstruction
 import Game.UUAntGen.AntTransformation
 
-
+import Debug.Trace
 
 -- | Empty strategy, will be eliminated when sequeced (iSeq) with another one
 iEmpty :: AntImperative
@@ -130,41 +130,33 @@ aCase :: [(AntTest,AntStrategy)] -> AntStrategy
 aCase = aMkCase . mapFst processAntTest
     where mapFst f = map (\(x,y) -> (f x,y))
 
--- TODO: Finish off case
 aMkCase :: [(AntState -> AntState -> AntStrategy,AntStrategy)] -> AntStrategy
 aMkCase condL = do
     gidx <- supply
-    let (condsF,ss) = unzip $ reverse $ map (linkTrueAndGhost gidx) condL
-        (last,rest) = (head condsF,tail condsF)
-    let last'  = last gidx -- link to ghost
-        -- linking conditions
-        conds' = foldr (\mkS1 s2 -> do AntStrategy' m2 i2 f2 <- s2 
-                                       AntStrategy' m1 i1 f1 <- mkS1 i2
-                                       return $ AntStrategy' (m1 `M.union` m2) i1 f2)
-                       last' 
-                       (reverse $ rest)
-    AntStrategy' mc ic fc <- conds'
+    let ss = map (linkGhost gidx . snd) condL
     ss' <- sequence ss
-    AntStrategy' _ _ l <- last'
+    let (condsF,ss) = unzip $ map linkTrue $ zip (map fst condL) ss' 
+        -- linking conditions
+        conds' = foldr (\mkS1 s2 -> do (AntStrategy' m2 i2 f2,f) <- s2 
+                                       AntStrategy' m1 i1 f1 <- mkS1 i2
+                                       return ( AntStrategy' (m1 `M.union` m2) i1 f2
+                                              , if f == gidx then f1 else f))
+                       (return $ (AntStrategy' M.empty gidx gidx, gidx)) 
+                       condsF
+    (AntStrategy' mc ic _, f) <- conds'
     let mss = foldr M.union M.empty $ map instructions ss'
-        ghosti = Ghost gidx (l : M.keys mss) 
+        ghosti = Ghost gidx (f : M.keys mss) 
         allInstrs = M.insert gidx ghosti (mc `M.union` mss) 
     return $ AntStrategy' allInstrs ic gidx 
     
 
--- | Given a ghost id and a pair of 
-linkTrueAndGhost :: AntState
-                 -> (AntState -> AntState -> AntStrategy, AntStrategy) 
-                 -> (AntState -> AntStrategy, AntStrategy)
-linkTrueAndGhost gidx (mkS,s) = ( \fs -> s >>= flip mkS fs . initial
-                                , s >>= return . replaceFinal gidx)
+linkGhost :: AntState -> AntStrategy -> AntStrategy
+linkGhost gidx s = s >>= return . replaceFinal gidx
 
+linkTrue :: (AntState -> AntState -> AntStrategy, AntStrategy') 
+         -> (AntState -> AntStrategy, AntStrategy')
+linkTrue (mkS,s) = (\fs -> flip mkS fs $ initial s, s)
     
-mapFst f = map (\(a,b) -> (a,f b))     
-mapSnd f = map (\(a,b) -> (f a,b))     
-     
-    
-
 -- | Dealing with boolean operators
 
 -- | Procuces a block of conjunction of two conditional instructions given 

@@ -128,3 +128,6 @@ printInstructions m = unlines $ map show (M.elems m)
 compile :: AntStrategy -> String
 compile = printInstructions . keysToLineNumbers . ghostBuster . aForever . runAntStrategy
 
+compile' = printInstructions' . keysToLineNumbers . ghostBuster . aForever . runAntStrategy
+    where printInstructions' m = unlines $ map show (M.assocs m)
+

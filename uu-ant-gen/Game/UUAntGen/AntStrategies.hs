@@ -35,7 +35,7 @@ findWayHome =
 
 
 gatherFood :: AntImperative
-gatherFood = findFood `iSeq` bringFoodHome
+gatherFood = findFood `iSeq` turnAround `iSeq` bringFoodHome
 
 
 bringFoodHome :: AntImperative
@@ -64,11 +64,11 @@ findFoodSampleMap = iList $
 -- A complete strategy (#1)
 strategy' = iList $
     [ iterate initMarkers iEmpty !! 6  -- code for the corner guys
-    , findFood  -- find food
+    , chooseUniformly [iList [findFood  -- find food
     , pickup
     , findMainOrHome  -- find main track
     , followTrackHome
-    , dropAndStay ]  -- drop food at home or follow the main track
+    , dropAndStay ], protectLine]]  -- drop food at home or follow the main track
 
 initMarkers g =
     iIfThenElse (TrySense LeftAhead Friend `Or` TrySense RightAhead Friend)
@@ -120,7 +120,7 @@ markLine =
 
 
 --goSearchSpiral' (TrySense Here Food)
-findMainOrHome = doUntil find (home `Or` marker P1 `Or` marker P2 `Or` marker P3)
+findMainOrHome = doUntil find (marker P1 `Or` marker P2 `Or` marker P3)
 
 findDirToFollow p = doUntil iTurnR (markerAhead (pheromonePred p)) 
 markerAhead p = TrySense Ahead (Marker p)
@@ -157,7 +157,8 @@ dropAndStay = iList [iDrop,
                      findStay]
 
 
-findStay = iIfThenElse (Not $ TrySense LeftAhead Friend) (iTurnL `iSeq` move `iSeq` stay)
+findStay = iIfThen (TrySense Here (Marker P1)) $ 
+            iIfThenElse (Not $ TrySense LeftAhead Friend) (iTurnL `iSeq` move `iSeq` stay)
            $ iIfThenElse (Not $ TrySense RightAhead Friend) (iTurnR `iSeq` move `iSeq` stay)
            $ turnAround `iSeq`  
              (iIfThenElse (Not $ TrySense LeftAhead Friend) (iTurnL `iSeq` move `iSeq` stay)
@@ -166,13 +167,30 @@ findStay = iIfThenElse (Not $ TrySense LeftAhead Friend) (iTurnL `iSeq` move `iS
 
 
 -- stay until another one is trying to stay near this location
-stayUntil = iList [iWhile (Not $ TrySense Ahead Friend) (turnAround `iSeq` turnAround),
+stayUntil = iList [iWhile (Not $ TrySense Ahead Friend) 
+                        (iTurnL `iSeq` iMark P5),
                     turnAround,
                     goForwardNSteps 5,
                     findFood]
 -- TODO tautology
-stay = iWhile 
-        (And (TrySense Here Friend) (Not 
-                $ (And (TrySense Here (Marker P2)) (TrySense Ahead (Marker P1))))) 
-            iTurnL
+stay = iIfThen (Not $ TrySense Here (Marker P1)) $ 
+        iWhile 
+        (Not $ (And (TrySense Here (Marker P2)) (TrySense Ahead (Marker P1)))) 
+            (iTurnL `iSeq` iMark P5)
+
+protectLine = iList [randomTurn,
+                     iWhile (TrySense Ahead Friend) turnAround,
+                     toEdgeOfHome,
+                     toLineStart,
+                     iTurnR, --assumes we travel counterclockwise around the home
+                     findStay,
+                     findFood]
+
+toEdgeOfHome = iList [iWhile (TrySense Ahead Home) move,
+                        iWhile (Not $ TrySense LeftAhead Home) iTurnL]
+
+toLineStart = iWhile (And (Not $ (TrySense Here (Marker P1))) 
+                        (And (TrySense Ahead (Marker P5)) (TrySense Ahead Friend)))
+                $ iList [iIfThen (Not $ TrySense Ahead Home) iTurnL, move]
+
 -- End of strategy

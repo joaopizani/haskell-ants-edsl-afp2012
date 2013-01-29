@@ -32,7 +32,7 @@ moveOrWall wi = iIfThen (Not TryForward) wi
 
 -- | Picks up food (unconditionally)
 pickup :: AntImperative
-pickup = iTest TryPickUp
+pickup = iIfThen (notHome) $ iTest TryPickUp
 
 
 -- | Drops food

@@ -59,7 +59,7 @@ aMkWhile cond b = do
     gidx  <- supply  -- getting the unique id for the ghost instruction
     b'    <- b  -- extracting the instruction blocks from the Supply monad
     let bidx         = initial b'
-    AntStrategy' m i f <- cond bidx gidx
+    AntStrategy' m i _ <- cond bidx gidx
     let condInstrs = M.keys m
         ghosti     = Ghost gidx condInstrs
         bPlusG     = M.insert gidx ghosti (instructions $ replaceFinal i b')
@@ -81,7 +81,7 @@ aMkIfThenElse cond ts fs = do
     ts' <- ts  -- extracting the instruction blocks from the Supply monad
     fs' <- fs
     let (tidx, fidx) = (initial ts', initial fs')
-    AntStrategy' m i f <- cond tidx fidx
+    AntStrategy' m i _ <- cond tidx fidx
     let ghosti       = Ghost gidx [(final ts'),(final fs')]
         fPlusT       = (instructions $ replaceFinal gidx ts') `M.union` 
                        (instructions $ replaceFinal gidx fs')
@@ -101,7 +101,7 @@ aMkIfThen :: (AntState -> AntState -> AntStrategy) -> AntStrategy -> AntStrategy
 aMkIfThen cond body = do
     gidx <- supply
     body' <- body
-    AntStrategy' m i f <- cond (initial body') gidx
+    AntStrategy' m i _ <- cond (initial body') gidx
     let condInstrs = M.keys m
         ghosti     = Ghost gidx ((final body') : condInstrs)
         instrs     = (instructions $ replaceFinal gidx body') -- body instr
@@ -119,7 +119,7 @@ aTest = aMkTest . processAntTest
 aMkTest :: (AntState -> AntState -> AntStrategy) -> AntStrategy
 aMkTest cond = do
     gidx <- supply
-    AntStrategy' m i f <- cond gidx gidx
+    AntStrategy' m i _ <- cond gidx gidx
     let condInstrs = M.keys m
         ghost      = (gidx, Ghost gidx condInstrs)
         allInstrs  = m `M.union` M.fromList [ghost] 
@@ -139,7 +139,7 @@ aMkCase condL = do
     gidx <- supply
     let ss = map (linkGhost gidx . snd) condL
     ss' <- sequence ss
-    let (condsF,ss) = unzip $ map linkTrue $ zip (map fst condL) ss' 
+    let (condsF, _) = unzip $ map linkTrue $ zip (map fst condL) ss'
         -- linking conditions
         conds' = foldr (\mkS1 s2 -> do AntStrategy' m2 i2 f2 <- s2 
                                        AntStrategy' m1 i1 f1 <- mkS1 i2
@@ -177,7 +177,7 @@ aMkAnd :: (AntState -> AntState -> AntStrategy)  -- s1
        -> AntStrategy
 aMkAnd mkS1 mkS2 st sf = do
     AntStrategy' m2 i2 f2 <- mkS2 st sf
-    AntStrategy' m1 i1 f1 <- mkS1 i2 sf
+    AntStrategy' m1 i1 _  <- mkS1 i2 sf
     return $ AntStrategy' (m1 `M.union` m2) i1 f2
 
 
@@ -191,7 +191,7 @@ aMkOr :: (AntState -> AntState -> AntStrategy)  -- s1
       -> AntStrategy
 aMkOr mkS1 mkS2 st sf = do
     AntStrategy' m2 i2 f2 <- mkS2 st sf
-    AntStrategy' m1 i1 f1 <- mkS1 st i2
+    AntStrategy' m1 i1 _  <- mkS1 st i2
     return $ AntStrategy' (m1 `M.union` m2) i1 f2
 
 

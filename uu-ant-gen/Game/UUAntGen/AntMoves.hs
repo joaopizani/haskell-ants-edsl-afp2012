@@ -9,9 +9,15 @@ import Game.UUAntGen.AntInstruction
 
 
 
--- | Tries to move one step forward, uses the strategy passed as parameter if meets a wall
-moveOrWall :: AntImperative -> AntImperative
-moveOrWall wi = iIfThen (Not TryForward) wi
+-- REALLY BASIC MOVES
+
+-- Turns
+turn60L, turn120L, turn180L, turn60R, turn120R :: AntImperative
+turn60L  = iTurnL
+turn120L = iTurnL `iSeq` iTurnL
+turn180L = iTurnL `iSeq` iTurnL `iSeq` iTurnL
+turn60R  = iTurnR
+turn120R = iTurnR `iSeq` iTurnR
 
 
 -- | Tries to move one step forward, does ABSOLUTELY NOTHING if meets a wall
@@ -19,26 +25,25 @@ move :: AntImperative
 move = iTest TryForward
 
 
--- TODO should also be safe from foes using OR
-safeMove :: AntImperative
-safeMove =
-    (iWhile
-        (TrySense Ahead Friend)
-        (chooseUniformly
-            [ iTurnR `iSeq` iTurnL
-            , iList $ [iTurnR, move, turnAround, move, iTurnR, iTurnR]])
-    ) `iSeq` move
+-- | Tries to move one step forward, uses the strategy passed as parameter if meets a wall
+moveOrWall :: AntImperative -> AntImperative
+moveOrWall wi = iIfThen (Not TryForward) wi
 
 
+-- | Picks up food (unconditionally)
 pickup :: AntImperative
 pickup = iTest TryPickUp
 
 
+-- | Drops food
 dropFood :: AntImperative
 dropFood = Single CDrop
 
 
--- | Performs a given strategy in loop until a certain condition is met
+
+-- SIMPLY ITERATED MOVES
+
+-- | Performs a given strategy until a certain condition is met
 doUntil :: AntImperative -> AntTest -> AntImperative
 doUntil f t = iWhile (Not t) f
 
@@ -52,13 +57,16 @@ goFFUntilOrWall t w = doUntil (moveOrWall w) t
 
 -- | Goes forward until a condition is met. Doesn't care for walls in the way
 goFFUntil :: AntTest -> AntImperative
-goFFUntil t = doUntil safeMove t
+goFFUntil t = doUntil safeMove t  -- TODO why safeMove here?
 
 
 -- | Goes forward n number of steps. Doesn't care for walls in the way
 goForwardNSteps :: Int -> AntImperative
-goForwardNSteps n = iList (replicate n safeMove)
+goForwardNSteps n = iList (replicate n safeMove)  -- TODO why safeMove here?
 
+
+
+-- INTERLEAVING STRATEGIES
 
 -- | Makes an ant leave pheromone behind while performing any task
 interleaveStrategy :: AntImperative -> AntImperative -> AntImperative
@@ -74,6 +82,9 @@ interleaveStrategy s (IList l)          = iList $ intersperse s l
 withPheromone :: Pheromone -> AntImperative -> AntImperative
 withPheromone = interleaveStrategy . iMark
 
+
+
+-- RANDOM CHOICE
 
 -- | Chooses a random strategy, among the ones in the given list, with uniform distribution
 chooseUniformly :: [AntImperative] -> AntImperative
@@ -103,15 +114,6 @@ doForwardNStepsWith :: Int -> AntImperative -> AntImperative
 doForwardNStepsWith n other = interleaveStrategy other (goForwardNSteps n)
 
 
--- Turns
-turn60L, turn120L, turn180L, turn60R, turn120R :: AntImperative
-turn60L  = iTurnL
-turn120L = iTurnL `iSeq` iTurnL
-turn180L = iTurnL `iSeq` iTurnL `iSeq` iTurnL
-turn60R  = iTurnR
-turn120R = iTurnR `iSeq` iTurnR
-
-
 -- | Performs a random turn
 randomTurn :: AntImperative
 randomTurn = oneOfOrNothing [turn60L, turn120L, turn180L, turn60R, turn120R]
@@ -120,6 +122,17 @@ randomTurn = oneOfOrNothing [turn60L, turn120L, turn180L, turn60R, turn120R]
 -- | Turns 180 degrees
 turnAround :: AntImperative
 turnAround = turn180L
+
+
+-- | Safe move. TODO should also be safe from foes using OR
+safeMove :: AntImperative
+safeMove =
+    (iWhile
+        (TrySense Ahead Friend)
+        (chooseUniformly
+            [ iTurnR `iSeq` iTurnL
+            , iList $ [iTurnR, move, turnAround, move, iTurnR, iTurnR]])
+    ) `iSeq` move
 
 
 -- | Opening spiral, not covering all squares. A closed spiral is complicated. Ends with a turn
@@ -191,6 +204,10 @@ doFFandBack s = iList $
 
 
 
+-- HIGH-LEVEL convenience functions and combinators
+
+marker :: Pheromone -> AntTest
+marker p = TrySense Here (Marker p)
 
 home :: AntTest
 home = TrySense Here Home
@@ -198,53 +215,3 @@ home = TrySense Here Home
 notHome :: AntTest
 notHome = Not $ TrySense Here Home
 
-
-markHome :: AntImperative
-markHome = 
-    (doSearch move Rock Ahead (iMark P1))
-    `iSeq`
-    iList
-        [ turnAround, move, iTurnR, move, iTurnL
-        , iWhile (notHome `And` p1Ahead) (iMark P2 `iSeq` safeMove)]
-    where
-        p1Ahead = TrySense LeftAhead (Marker P1)
-
-
-findTrail :: AntImperative
-findTrail = doUntil (goSpiral 2) (markerP2 `Or` home)
-    where markerP2 = TrySense Here (Marker P2)
-
-
-findWayHome :: AntImperative
-findWayHome =
-    iIfThenElse (TrySense Here (Marker P2))
-    (
-        (iIfThen (TrySense RightAhead (Marker P1)) turnAround)
-        `iSeq`
-        goSearch safeMove Home Here
-    )
-    findTrail
-
-
-gatherFood :: AntImperative
-gatherFood = findFood `iSeq` bringFoodHome
-
-
-bringFoodHome :: AntImperative
-bringFoodHome =
-    iIfThenElse (TrySense Here Food)
-        (pickup `iSeq` findWayHome `iSeq` dropFood)
-        findFood
-
-
-findFood :: AntImperative
-findFood = goSearchSpiral Food
-
-
-findFoodSampleMap :: AntImperative
-findFoodSampleMap = iList $
-    [ iTurnR, iTurnR
-    , goFFUntil (TrySense Here Food)
-    , pickup, turnAround
-    , goFFUntil (TrySense Here Home)
-    , dropFood ]

@@ -19,7 +19,7 @@ getAntStates (Drop s1)         = [s1]
 getAntStates (Turn _ s1)       = [s1]
 getAntStates (Move s1 s2)      = [s2,s1]
 getAntStates (Flip _   s1 s2)  = [s1,s2]
-getAntStates (Ghost s1 ss)     = s1:ss 
+getAntStates (Ghost s1 ss)     = s1 : ss
 
 getDefaultState :: AntInstruction -> AntState
 getDefaultState = head . getAntStates
@@ -62,7 +62,7 @@ aForever as@(AntStrategy' _ i _) = replaceFinal i as
 -- | Given a AntStrategy with possibly ghost AntInstructions (resulting from IfThenElse and IfThen
 -- constructs), remove the Ghost instructions and make its parents bypass the ghost
 -- POST-CONDITIONS:
---     * There are no (Ghost _ _ _) instructions in the instruction map
+--     * There are no (Ghost _ _) instructions in the instruction map
 ghostBuster :: AntStrategy' -> AntStrategy'
 ghostBuster (AntStrategy' m i f) = AntStrategy' (bypassGhosts m gs) i f -- replaces old instrs
     where
@@ -73,7 +73,6 @@ ghostBuster (AntStrategy' m i f) = AntStrategy' (bypassGhosts m gs) i f -- repla
 bypassGhosts :: IMap -> [AntState] -> IMap
 bypassGhosts m gs = foldl bypassGhost m gs
 
--- TODO not bypassing correctly the ghosts in aWhile
 bypassGhost :: IMap -> AntState -> IMap
 bypassGhost m gidx = foldr (M.adjust bypassP) (M.delete gidx m) ss
     where
@@ -115,6 +114,7 @@ keyTranslate m (k, nk) = M.map (replaceMatchingStates k nk) changedInst
         changedInst = M.insert nk ins $ M.delete k m
 
 
+
 -- | Pretty-printing an AntStrategy' to a String.
 -- PRE-CONDITIONS:
 --     * The instruction map has keys in the range [0, (size-1)]
@@ -123,11 +123,14 @@ printInstructions :: IMap -> String
 printInstructions m = unlines $ map show (M.elems m)
 
 
+
 -- | TOP LEVEL compile function. Performs all program transformations and optimizations
 -- and then prints the final ant assembly
 compile :: AntStrategy -> String
 compile = printInstructions . keysToLineNumbers . ghostBuster . aForever . runAntStrategy
 
+-- Helper function to help with debugging, seeing the keys in the instruction map
+compile' :: AntStrategy -> String
 compile' = printInstructions' . keysToLineNumbers . ghostBuster . aForever . runAntStrategy
     where printInstructions' m = unlines $ map show (M.assocs m)
 

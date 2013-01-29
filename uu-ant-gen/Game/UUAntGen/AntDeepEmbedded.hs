@@ -12,7 +12,6 @@ data AntBasic
 
 
 -- Datatype representing all the possible tests to be performed in a conditional AntStrategy
--- TODO we want to join conditions (OR, AND)
 data AntTest
     = TrySense Direction Condition
     | TryRandomEqZero Int
@@ -23,23 +22,24 @@ data AntTest
     | Not AntTest
     deriving (Eq, Show)
 
-type AntTestAlgebra r = ( Direction -> Condition -> r
-                        , Int -> r
-                        , r
-                        , r
-                        , r -> r -> r
-                        , r -> r -> r
-                        , r -> r )
+type AntTestAlgebra r
+    = ( Direction -> Condition -> r  -- semantics for TrySense
+      , Int -> r  -- semantics for TryRandomEqZero
+      , r  -- semantics for TryForward
+      , r  -- semantics for TryPickUp
+      , r -> r -> r  -- semantics for And
+      , r -> r -> r  -- semantics for Or
+      , r -> r )  -- semantics for Not
 
 foldAntTest :: AntTestAlgebra r -> AntTest -> r
-foldAntTest (sense,random,forward,pickup,and,or,not) = fold
-    where fold (TrySense d c)      = sense d c
-          fold (TryRandomEqZero p) = random p 
-          fold TryForward          = forward
-          fold TryPickUp           = pickup
-          fold (And t1 t2)         = and (fold t1) (fold t2)
-          fold (Or t1 t2)          = or (fold t1) (fold t2)
-          fold (Not t)             = not (fold t)
+foldAntTest (sense', random', forward', pickup', and', or', not') = fold'
+    where fold' (TrySense d c)      = sense' d c
+          fold' (TryRandomEqZero p) = random' p
+          fold' TryForward          = forward'
+          fold' TryPickUp           = pickup'
+          fold' (And t1 t2)         = and' (fold' t1) (fold' t2)
+          fold' (Or t1 t2)          = or' (fold' t1) (fold' t2)
+          fold' (Not t)             = not' (fold' t)
 
 
 data AntImperative

@@ -9,11 +9,12 @@ import Game.UUAntGen.AntDeepEmbedded
 import Game.UUAntGen.AntInstruction
 import Game.UUAntGen.AntTransformation
 
-import Debug.Trace
 
 -- | Empty strategy, will be eliminated when sequeced (iSeq) with another one
 iEmpty :: AntImperative
 iEmpty = iList []
+
+
 
 -- Iterative programming-like constructs for building ant strategies. Sequencing, loop,
 -- conditionals, etc. Every constructs has two corresponding functions. One (prefixed with "a")
@@ -27,9 +28,6 @@ iSeq (IList s1) s2         = IList $ s1 ++ [s2]
 iSeq s1         (IList s2) = IList $ s1 : s2
 iSeq s1         s2         = IList [s1, s2]
 
-iList :: [AntImperative] -> AntImperative
-iList = IList
-
 (>>-) :: AntStrategy -> AntStrategy -> AntStrategy
 s1 >>- s2 = do
     s1' <- s1  -- extracting instruction blocks from within the Supply monad
@@ -39,6 +37,11 @@ s1 >>- s2 = do
                            (replaceDefaultState (initial s2') s1final) 
                            (instructions s1')
     return $ AntStrategy' (s1new `M.union` (instructions s2')) (initial s1') (final s2')
+
+
+-- Strategy made of a sequenced list of strategies
+iList :: [AntImperative] -> AntImperative
+iList = IList
 
 
 
@@ -110,7 +113,7 @@ iTest :: AntTest -> AntImperative
 iTest t = SideEffect t
 
 aTest :: AntTest -> AntStrategy
-aTest = aMkTest . processAntTest 
+aTest = aMkTest . processAntTest
 
 -- Helper function to build a aTest block
 aMkTest :: (AntState -> AntState -> AntStrategy) -> AntStrategy
@@ -123,6 +126,7 @@ aMkTest cond = do
     return $ AntStrategy' allInstrs i gidx
 
 
+-- Produces a switch-case like block, analogous to nested if-elsif statements
 iCase :: [(AntTest,AntImperative)] -> AntImperative
 iCase = Case
 
@@ -158,54 +162,57 @@ aMkCase condL = do
         linkTrue :: (AntState -> AntState -> AntStrategy, AntStrategy') 
                  -> (AntState -> AntStrategy, AntStrategy')
         linkTrue (mkS,s) = (\fs -> flip mkS fs $ initial s, s)
-    
+
+
+
 -- | Dealing with boolean operators
 
--- | Procuces a block of conjunction of two conditional instructions given 
--- two functions that, given the reference of the true and false branch, produce
--- blocks corresponding to the inner expressions. 
-aMkAnd :: (AntState -> AntState -> AntStrategy) -- s1
-       -> (AntState -> AntState -> AntStrategy) -- s2
-       -> AntState                              -- true branch
-       -> AntState                              -- else branch
+-- | Produces a block of conjunction of two conditional instructions given two functions
+-- that, given the reference of the true and false branches, produces blocks corresponding
+-- to the inner expressions
+aMkAnd :: (AntState -> AntState -> AntStrategy)  -- s1
+       -> (AntState -> AntState -> AntStrategy)  -- s2
+       -> AntState  -- true branch
+       -> AntState  -- else branch
        -> AntStrategy
 aMkAnd mkS1 mkS2 st sf = do
     AntStrategy' m2 i2 f2 <- mkS2 st sf
     AntStrategy' m1 i1 f1 <- mkS1 i2 sf
-    return $ AntStrategy' (m1 `M.union` m2) i1 f2 
+    return $ AntStrategy' (m1 `M.union` m2) i1 f2
 
 
--- | Procuces a block of disjunction of two conditional instructions given 
--- two functions that, given the reference of the true and false branch, produce
--- blocks corresponding to the inner expressions. 
-aMkOr :: (AntState -> AntState -> AntStrategy) -- s1
-      -> (AntState -> AntState -> AntStrategy) -- s2
-      -> AntState                              -- true branch
-      -> AntState                              -- else branch
+-- | Procuces a block of disjunction of two conditional instructions given two functions
+-- that, given the reference of the true and false branch, produce blocks corresponding
+-- to the inner expressions
+aMkOr :: (AntState -> AntState -> AntStrategy)  -- s1
+      -> (AntState -> AntState -> AntStrategy)  -- s2
+      -> AntState  -- true branch
+      -> AntState  -- else branch
       -> AntStrategy
 aMkOr mkS1 mkS2 st sf = do
-    AntStrategy' m2 i2 f2 <- mkS2 st sf 
+    AntStrategy' m2 i2 f2 <- mkS2 st sf
     AntStrategy' m1 i1 f1 <- mkS1 st i2
-    return $ AntStrategy' (m1 `M.union` m2) i1 f2 
+    return $ AntStrategy' (m1 `M.union` m2) i1 f2
 
 
 -- | Consumes an AntTest and returns a function that produces a block of conditional
 -- code, given two parameters: the locations of the true and else branch, respectively.
 processAntTest :: AntTest -> (AntState -> AntState -> AntStrategy)
-processAntTest = foldAntTest (sense,random,forward,pickup,and,or,not) 
-    where aMkSingletonCondStrategy f id1 id2 = do 
-              idx <- supply
-              return $ AntStrategy' (M.singleton idx (f id1 id2)) idx idx 
-          sense d c   = aMkSingletonCondStrategy (\t f -> Sense d t f c)
-          random p    = aMkSingletonCondStrategy (\t f -> Flip p t f)
-          forward     = aMkSingletonCondStrategy Move
-          pickup      = aMkSingletonCondStrategy PickUp
-          and         = aMkAnd 
-          or          = aMkOr 
-          not s       = flip s 
+processAntTest = foldAntTest (sense', random', forward', pickup', and', or', not')
+    where
+        aMkSingletonCondStrategy f id1 id2 = do
+            idx <- supply
+            return $ AntStrategy' (M.singleton idx (f id1 id2)) idx idx
+        sense' d c = aMkSingletonCondStrategy (\t f -> Sense d t f c)
+        random' p  = aMkSingletonCondStrategy (\t f -> Flip p t f)
+        forward'   = aMkSingletonCondStrategy Move
+        pickup'    = aMkSingletonCondStrategy PickUp
+        and'       = aMkAnd
+        or'        = aMkOr
+        not'       = flip
 
 
--- | This functions gives the semantics of the AntImperative deep-embedded EDSL,
+-- | This function gives the semantics of the AntImperative deep-embedded EDSL,
 -- in terms of the assembly-building functions aWhile, aIfThenElse, etc.
 semanticsImp :: AntImperative -> AntStrategy
 semanticsImp (Single b)         = semanticsBasic b
@@ -213,11 +220,10 @@ semanticsImp (IfThenElse c t e) = aIfThenElse c (semanticsImp t) (semanticsImp e
 semanticsImp (IfThen c b)       = aIfThen c (semanticsImp b)
 semanticsImp (While c b)        = aWhile c (semanticsImp b)
 semanticsImp (SideEffect t)     = aTest t
+semanticsImp (Case l)           = aCase (mapSnd semanticsImp l)
+    where mapSnd f = map (\(x,y) -> (x,f y))
 semanticsImp (IList l)          = semanticsImpList l
     where
         semanticsImpList (x:[]) = semanticsImp x
         semanticsImpList (x:xs) = semanticsImp x >>- semanticsImpList xs
-semanticsImp (Case l)           = aCase (mapSnd semanticsImp l)
-    where
-        mapSnd f = map (\(x,y) -> (x,f y))
 

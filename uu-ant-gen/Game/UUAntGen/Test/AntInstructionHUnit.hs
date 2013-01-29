@@ -1,10 +1,10 @@
 module Game.UUAntGen.Test.AntInstructionHUnit where
 
-import qualified Data.HashMap.Lazy            as M
-import           Game.UUAntGen.AntInstruction
-import           Game.UUAntGen.AntMap         (AntStrategy' (..), aDrop, aTurnL, getAntStrategy)
-import           Test.HUnit                   (Test, test, (~:), (~?=))
+import qualified Data.HashMap.Lazy as M
+import           Test.HUnit        (Test, test, (~:), (~?=))
 
+import Game.UUAntGen.AntInstruction
+import Game.UUAntGen.AntMap         (AntStrategy' (..), aDrop, aTurnL, getAntStrategy)
 
 testAntInstruction :: Test
 testAntInstruction = "testAntInstruction" ~: test $

@@ -44,9 +44,10 @@ bringFoodHome =
         (pickup `iSeq` findWayHome `iSeq` dropFood)
         findFood
 
+find = ricochet --iList [goForwardNSteps 3, randomTurn]
 
 findFood :: AntImperative
-findFood = goSearchSpiral Food
+findFood = doUntil find food
 
 
 findFoodSampleMap :: AntImperative
@@ -63,7 +64,7 @@ findFoodSampleMap = iList $
 -- A complete strategy (#1)
 strategy' = iList $
     [ iterate initMarkers iEmpty !! 6  -- code for the corner guys
-    , findFood'  -- find food
+    , findFood  -- find food
     , pickup
     , findMainOrHome  -- find main track
     , followTrackHome
@@ -88,12 +89,8 @@ markLine =
         markerCase l = iCase $ map (\(p, f) -> (marker p, f p)) l 
         atMarker p = safeMove `iSeq` iMark (pheromoneSucc p)
 
-findFood' = --goSearchSpiral' (TrySense Here Food)
-    doUntil (iList [goForwardNSteps 3, randomTurn]) (TrySense Here Food)
-
-
 --goSearchSpiral' (TrySense Here Food)
-findMainOrHome = doUntil (iList [randomTurn, move]) (home `Or` marker P1 `Or` marker P2 `Or` marker P3)
+findMainOrHome = doUntil find (home `Or` marker P1 `Or` marker P2 `Or` marker P3)
 
 findDirToFollow p = doUntil iTurnR (markerAhead (pheromonePred p)) 
 markerAhead p = TrySense Ahead (Marker p)
@@ -130,14 +127,13 @@ bounce = iCase [ (And wallLeft wallRight , random120)
 
 -- End of strategy
 
-bounceUntil t = bounceUntilWhile t (iList [])
+ricochet = ricochetWhile (iList [])
 -- could use the case statement
-bounceUntilWhile :: AntTest -> AntImperative -> AntImperative
-bounceUntilWhile t ai = iWhile (Not $ t) $ 
-                    doUntil (moveOrWall
+ricochetWhile ::  AntImperative -> AntImperative
+ricochetWhile ai = (moveOrWall
                         (iIfThenElse (TrySense RightAhead Rock) 
                             (IfThenElse (TrySense LeftAhead Rock) turnAround iTurnL) 
-                        (iTurnR)) `iSeq` ai) t
+                        (iTurnR)) `iSeq` ai)
 
 dropAndStay = iList [iDrop,
                      turnAround, 
@@ -154,6 +150,10 @@ findStay = iIfThenElse (Not $ TrySense LeftAhead Friend) (iTurnL `iSeq` move `iS
 stayUntil = iList [iWhile (Not $ TrySense Ahead Friend) (turnAround `iSeq` turnAround),
                     turnAround,
                     goForwardNSteps 5,
-                    findFood']
-stay = iWhile (Not $ TrySense Ahead FriendWithFood) iTurnL
+                    findFood]
+-- TODO tautology
+stay = iWhile 
+        (And (TrySense Here Friend) (Not 
+                $ (And (TrySense Here (Marker P2)) (TrySense Ahead (Marker P1))))) 
+            iTurnL
 -- End of strategy

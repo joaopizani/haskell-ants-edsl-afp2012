@@ -6,6 +6,8 @@ import Game.UUAntGen.AntAssembly
 import Game.UUAntGen.AntDeepEmbedded
 import Game.UUAntGen.AntInstruction
 
+
+
 -- BASIC STRATEGIES
 markHome :: AntImperative
 markHome = 
@@ -83,16 +85,16 @@ pheromoneSucc P3 = P1
 pheromoneSucc _  = error "pheromoneSucc should always be called with {1,2,3}"
 
 
+markerCase :: [(Pheromone, Pheromone -> AntImperative)] -> AntImperative
+markerCase l = iCase $ map (\(p, f) -> (marker p, f p)) l
+
+withMarkers :: [Pheromone] -> (Pheromone -> AntImperative) -> AntImperative
+withMarkers ps handler = markerCase $ zip ps (repeat handler)
+
 markLoop = iMark P1 `iSeq` markLine `iSeq` bounce [Rock] `iSeq` markLine `iSeq` gatherFood
 
-markLine =
-    iWhile (Not $ TrySense Ahead Rock )
-        (iCase [ (marker P1, atMarker P1)
-               , (marker P2, atMarker P2)
-               , (marker P3, atMarker P3) ])
+markLine = doUntil (withMarkers [P1, P2, P3] atMarker) (TrySense Ahead Rock)
     where
-        markerCase :: [(Pheromone, Pheromone -> AntImperative)] -> AntImperative
-        markerCase l = iCase $ map (\(p, f) -> (marker p, f p)) l 
         atMarker p = (iIfThen testHighway $ bounce allMarkers)
                      `iSeq` safeMove `iSeq` iMark (pheromoneSucc p)
         allMarkers  = map Marker [P1, P2, P3]
@@ -103,27 +105,25 @@ markLine =
 --goSearchSpiral' (TrySense Here Food)
 findMain = doUntil find (marker P1 `Or` marker P2 `Or` marker P3)
 
-findDirToFollow p = doUntil iTurnR (markerAhead (pheromonePred p)) 
 markerAhead p = TrySense Ahead (Marker p)
 
-
-followTrackHome = iCase [ (marker P1, atMarker P1)
-                              , (marker P2, atMarker P2)
-                              , (marker P3, atMarker P3)]
-    where
-        atMarker p = findDirToFollow p `iSeq` followUntilHome
+findDirToFollow p = doUntil iTurnR (markerAhead (pheromonePred p)) 
 
 
+
+-- | Follows a track of pheromones back to the nest
+followTrackHome = withMarkers [P1, P2, P3] atMarker
+    where atMarker p = findDirToFollow p `iSeq` followUntilHome
 
 
 followUntilHome = doUntil followStep home 
     where followStep = moveOrWall turnUntilMark
-          turnUntilMark = iCase [ (marker P1, findDirToFollow P1)
-                                , (marker P2, findDirToFollow P2) 
-                                , (marker P3, findDirToFollow P3) ] 
-
+          turnUntilMark = withMarkers [P1, P2, P3] findDirToFollow
 
 -- End of strategy
+
+
+
 
 ricochet = ricochetWhile (iList [])
 -- could use the case statement

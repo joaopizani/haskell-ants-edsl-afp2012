@@ -129,10 +129,15 @@ turnAround = turn180L
 -- | Safe move. Works around friends or foes in front of it
 safeMove :: AntImperative
 safeMove =
-    (iWhile
-        (TrySense Ahead Friend `Or` TrySense Ahead Foe)
-        ((iList $ [turn60R, move, turnAround, move, turn120R]))
+    (iWhile (friendOrFoe Ahead)
+        (iCase [tryLeftAhead, tryRightAhead])
     ) `iSeq` move
+    where
+        tryLeftAhead  = (Not $ friendOrFoe LeftAhead,  detour (turn60L, turn120L))
+        tryRightAhead = (Not $ friendOrFoe RightAhead, detour (turn60R, turn120R))
+        detour (turnIn, turnOut) = iList [turnIn, move, turnAround, waitFreeCell, move, turnOut]
+        friendOrFoe d = (TrySense d Friend `Or` TrySense d Foe)
+        waitFreeCell = iWhile (friendOrFoe Ahead) iEmpty
 
 
 -- | Opening spiral, not covering all squares. A closed spiral is complicated. Ends with a turn

@@ -12,7 +12,8 @@ import Game.UUAntGen.AntTransformation
 
 -- | Empty strategy, will be eliminated when sequeced (iSeq) with another one
 iEmpty :: AntImperative
-iEmpty = iList []
+iEmpty = iTest tautology
+    where tautology = TrySense Here Friend
 
 
 

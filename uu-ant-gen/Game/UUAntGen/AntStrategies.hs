@@ -167,7 +167,7 @@ findStay = iIfThen (TrySense Here (Marker P1)) $
 
 
 -- stay until another one is trying to stay near this location
-stayUntil = iList [iWhile (Not $ TrySense Ahead Friend) 
+stayUntil = iList [iWhile (Not $ (And (TrySense Ahead Friend) (TrySense Ahead (Marker P1)))) 
                         (iTurnL `iSeq` iMark P5),
                     turnAround,
                     goForwardNSteps 5,
@@ -189,8 +189,9 @@ protectLine = iList [randomTurn,
 toEdgeOfHome = iList [iWhile (TrySense Ahead Home) move,
                         iWhile (Not $ TrySense LeftAhead Home) iTurnL]
 
-toLineStart = iWhile (And (Not $ (TrySense Here (Marker P1))) 
-                        (And (TrySense Ahead (Marker P5)) (TrySense Ahead Friend)))
-                $ iList [iIfThen (Not $ TrySense Ahead Home) iTurnL, move]
+toLineStart = iWhile (Not $ (TrySense Here (Marker P1))) $ 
+                iIfThenElse (And (TrySense Ahead (Marker P5)) (TrySense Ahead Friend))
+                    (iList [iTurnL, goForwardNSteps 2, iTurnR, goForwardNSteps 2])
+                    (iList [iIfThen (Not $ TrySense Ahead Home) iTurnL, move])
 
 -- End of strategy

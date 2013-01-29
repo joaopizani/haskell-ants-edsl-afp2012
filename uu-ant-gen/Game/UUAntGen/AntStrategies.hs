@@ -79,23 +79,18 @@ initMarkers g =
         markLoop
 
 
-markLoop = markLine
-             -- Code for +1 repetition             
---           `iSeq` 
---           (iIfThenElse (TrySense LeftAhead Rock)
---                        (iIfThen (Not $ TrySense RightAhead Rock)
---                                 (iTurnR `iSeq` markLine)) 
---                        (iTurnL `iSeq` markLine)) 
+markLoop = iMark P1 `iSeq` markLine `iSeq` bounce `iSeq` markLine
 
 
--- FIXME: Maybe use safeMove?
 markLine =
     iWhile (Not $ TrySense Ahead Rock)
-        (iIfThenElse (Not $ TrySense LeftAhead Rock)
-            (iList [iTurnL, move, iMark P4, turn120R, move, iTurnL, iMark P5])
-            (move `iSeq` iMark P5)
-        )
-
+        (iCase [ (marker P1, atMarker P1)
+               , (marker P2, atMarker P2)
+               , (marker P3, atMarker P3) ])
+    where
+        markerCase :: [(Pheromone, Pheromone -> AntImperative)] -> AntImperative
+        markerCase l = iCase $ map (\(p, f) -> (marker p, f p)) l 
+        atMarker p = safeMove `iSeq` iMark (pheromonePred p)
 
 findFood' = --goSearchSpiral' (TrySense Here Food)
     doUntil (iList [goForwardNSteps 3, randomTurn]) (TrySense Here Food)
@@ -105,10 +100,36 @@ findFood' = --goSearchSpiral' (TrySense Here Food)
 findMainOrHome = doUntil (iList [randomTurn, move]) (home `Or` marker P5 `Or` marker P4)
 
 
-dropFoodOrFollowTrack = iCase [(home, atHome), (marker P4, atMarker P4), (marker P5, atMarker P5)]
+findDirToFollow p = doUntil iTurnR (markerAhead (pred p)) 
+markerAhead p = TrySense Ahead (Marker p)
+
+
+dropFoodOrFollowTrack = iCase [ (home, atHome)
+                              , (marker P1, atMarker P1)
+                              , (marker P2, atMarker P2)
+                              , (marker P3, atMarker P3)]
     where atHome = iDrop --FIXME
-          atMarker P4 = doUntil iTurnR (TrySense Ahead (Marker P4)) `iSeq` goUntilHome
-          atMarker P5 = doUntil iTurnL (TrySense Ahead (Marker P5)) `iSeq` goUntilHome
-          goUntilHome = doUntil move home
+          atMarker p = findDirToFollow p `iSeq` followUntilHome
+
+pheromonePred P1 = P3 
+pheromonePred P2 = P1 
+pheromonePred P3 = P2 
+pheromonePred _  = error "pheromonePred should always be called with {1,2,3}"
+
+followUntilHome = doUntil followStep home 
+    where followStep = moveOrWall turnUntilMark
+          turnUntilMark = iCase [ (marker P1, findDirToFollow P1)
+                                , (marker P2, findDirToFollow P2) 
+                                , (marker P3, findDirToFollow P3) ] 
+
+
+bounce = iCase [ (And wallLeft wallRight , random120)
+               , (wallLeft               , turn60R)
+               , (wallRight              , turn60L) ]
+    where wallLeft  = TrySense LeftAhead Rock
+          wallRight = TrySense RightAhead Rock
+          random120 = chooseUniformly [ turn120L, turn120R ]
+
+
 -- End of strategy
 

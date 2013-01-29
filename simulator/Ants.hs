@@ -340,7 +340,7 @@ drawMarkers dc ref =
     
 
 markerRadius :: Float -> Markers -> Int
-markerRadius scale = round . (/20) . (*scale) . sqrt . min 100 . fromIntegral  
+markerRadius scale = round . (/10) . (*scale) . sqrt . min 100 . fromIntegral  
 
 drawAnts :: DC a -> GUI ()
 drawAnts dc ref =

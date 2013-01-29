@@ -10,6 +10,6 @@ import Game.UUAntGen.AntStrategies;
 import System.Environment;
 
 main = do  
-    writeFile "../ants-sample/uu.ant" $ compile $ semanticsImp $ strategy
+    writeFile "../ants-sample/uu.ant" $ compile $ semanticsImp $ strategy'
 
 strategy = chooseUniformly [findFoodSampleMap, gatherFood, randomTurn `iSeq` markHome]

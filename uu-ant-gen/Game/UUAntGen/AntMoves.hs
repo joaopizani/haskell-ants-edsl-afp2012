@@ -57,12 +57,12 @@ goFFUntilOrWall t w = doUntil (moveOrWall w) t
 
 -- | Goes forward until a condition is met. Doesn't care for walls in the way
 goFFUntil :: AntTest -> AntImperative
-goFFUntil t = doUntil safeMove t  -- TODO why safeMove here?
+goFFUntil t = doUntil safeMove t  
 
 
 -- | Goes forward n number of steps. Doesn't care for walls in the way
 goForwardNSteps :: Int -> AntImperative
-goForwardNSteps n = iList (replicate n safeMove)  -- TODO why safeMove here?
+goForwardNSteps n = iList (replicate n safeMove)  
 
 
 
@@ -124,14 +124,12 @@ turnAround :: AntImperative
 turnAround = turn180L
 
 
--- | Safe move. TODO should also be safe from foes using OR
+-- | Safe move. Works around friends or foes in front of it
 safeMove :: AntImperative
 safeMove =
     (iWhile
-        (TrySense Ahead Friend)
-        (chooseUniformly
-            [ iTurnR `iSeq` iTurnL
-            , iList $ [iTurnR, move, turnAround, move, iTurnR, iTurnR]])
+        (TrySense Ahead Friend `Or` TrySense Ahead Foe)
+        ((iList $ [turn60R, move, turnAround, move, turn120R]))
     ) `iSeq` move
 
 

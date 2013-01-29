@@ -217,6 +217,7 @@ marker p = TrySense Here (Marker p)
 home :: AntTest
 home = TrySense Here Home
 
+food :: AntTest
 food = TrySense Here Food
 
 notHome :: AntTest

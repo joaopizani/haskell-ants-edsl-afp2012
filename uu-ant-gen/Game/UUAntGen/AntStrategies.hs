@@ -22,28 +22,6 @@ findTrail :: AntImperative
 findTrail = doUntil (goSpiral 2) (markerP2 `Or` home)
     where markerP2 = TrySense Here (Marker P2)
 
-
-findWayHome :: AntImperative
-findWayHome =
-    iIfThenElse (TrySense Here (Marker P2))
-    (
-        (iIfThen (TrySense RightAhead (Marker P1)) turnAround)
-        `iSeq`
-        goSearch safeMove Home Here
-    )
-    findTrail
-
-
-gatherFood :: AntImperative
-gatherFood = findFood `iSeq` turnAround `iSeq` bringFoodHome
-
-
-bringFoodHome :: AntImperative
-bringFoodHome =
-    iIfThenElse (TrySense Here Food)
-        (pickup `iSeq` findWayHome `iSeq` dropFood)
-        findFood
-
 find = ricochet --iList [goForwardNSteps 3, randomTurn]
 
 findFood :: AntImperative
@@ -64,11 +42,15 @@ findFoodSampleMap = iList $
 -- A complete strategy (#1)
 strategy' = iList $
     [ iterate initMarkers iEmpty !! 6  -- code for the corner guys
-    , chooseUniformly [iList [findFood  -- find food
+    , chooseUniformly [gatherFood, 
+            protectLine]]  -- protect the main line or if not necessary gather food
+
+gatherFood = iWhile (tautology) $ 
+    iList [findFood  -- find food
     , pickup
-    , findMainOrHome  -- find main track
+    , findMain  -- find main track
     , followTrackHome
-    , dropAndStay ], protectLine]]  -- drop food at home or follow the main track
+    , dropAndStay ]
 
 initMarkers g =
     iIfThenElse (TrySense LeftAhead Friend `Or` TrySense RightAhead Friend)
@@ -87,7 +69,6 @@ bounce conds =
         wallLeft  = foldr1 Or $ map (TrySense LeftAhead) conds
         wallRight = foldr1 Or $ map (TrySense RightAhead) conds
         random120 = chooseUniformly [ turn120L, turn120R ]
-        tautology = TrySense Here Friend  -- TODO nice function, move to library
 
 
 
@@ -102,7 +83,7 @@ pheromoneSucc P3 = P1
 pheromoneSucc _  = error "pheromoneSucc should always be called with {1,2,3}"
 
 
-markLoop = iMark P1 `iSeq` markLine `iSeq` bounce [Rock] `iSeq` markLine
+markLoop = iMark P1 `iSeq` markLine `iSeq` bounce [Rock] `iSeq` markLine `iSeq` gatherFood
 
 markLine =
     iWhile (Not $ TrySense Ahead Rock )
@@ -120,7 +101,7 @@ markLine =
 
 
 --goSearchSpiral' (TrySense Here Food)
-findMainOrHome = doUntil find (marker P1 `Or` marker P2 `Or` marker P3)
+findMain = doUntil find (marker P1 `Or` marker P2 `Or` marker P3)
 
 findDirToFollow p = doUntil iTurnR (markerAhead (pheromonePred p)) 
 markerAhead p = TrySense Ahead (Marker p)
@@ -170,9 +151,9 @@ findStay = iIfThen (TrySense Here (Marker P1)) $
 stayUntil = iList [iWhile (Not $ (And (TrySense Ahead Friend) (TrySense Ahead (Marker P1)))) 
                         (iTurnL `iSeq` iMark P5),
                     turnAround,
-                    goForwardNSteps 5,
+                    goForwardNSteps 3,
                     findFood]
--- TODO tautology
+
 stay = iIfThen (Not $ TrySense Here (Marker P1)) $ 
         iWhile 
         (Not $ (And (TrySense Here (Marker P2)) (TrySense Ahead (Marker P1)))) 
@@ -184,7 +165,7 @@ protectLine = iList [randomTurn,
                      toLineStart,
                      iTurnR, --assumes we travel counterclockwise around the home
                      findStay,
-                     findFood]
+                     gatherFood]
 
 toEdgeOfHome = iList [iWhile (TrySense Ahead Home) move,
                         iWhile (Not $ TrySense LeftAhead Home) iTurnL]

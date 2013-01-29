@@ -76,18 +76,48 @@ initMarkers g =
         markLoop
 
 
-markLoop = iMark P1 `iSeq` markLine `iSeq` bounce `iSeq` markLine
 
+bounce conds =
+    iCase
+        [ (And wallLeft wallRight , random120)
+        , (wallLeft               , turn120R)
+        , (wallRight              , turn120L)
+        , (tautology              , random120) ]
+    where
+        wallLeft  = foldr1 Or $ map (TrySense LeftAhead) conds
+        wallRight = foldr1 Or $ map (TrySense RightAhead) conds
+        random120 = chooseUniformly [ turn120L, turn120R ]
+        tautology = TrySense Here Friend  -- TODO nice function, move to library
+
+
+
+pheromonePred P1 = P3
+pheromonePred P2 = P1
+pheromonePred P3 = P2
+pheromonePred _  = error "pheromonePred should always be called with {1,2,3}"
+
+pheromoneSucc P1 = P2
+pheromoneSucc P2 = P3
+pheromoneSucc P3 = P1
+pheromoneSucc _  = error "pheromoneSucc should always be called with {1,2,3}"
+
+
+markLoop = iMark P1 `iSeq` markLine `iSeq` bounce [Rock] `iSeq` markLine
 
 markLine =
-    iWhile (Not $ TrySense Ahead Rock)
+    iWhile (Not $ TrySense Ahead Rock )
         (iCase [ (marker P1, atMarker P1)
                , (marker P2, atMarker P2)
                , (marker P3, atMarker P3) ])
     where
         markerCase :: [(Pheromone, Pheromone -> AntImperative)] -> AntImperative
         markerCase l = iCase $ map (\(p, f) -> (marker p, f p)) l 
-        atMarker p = safeMove `iSeq` iMark (pheromoneSucc p)
+        atMarker p = (iIfThen testHighway $ bounce allMarkers)
+                     `iSeq` safeMove `iSeq` iMark (pheromoneSucc p)
+        allMarkers  = map Marker [P1, P2, P3]
+        testHighway = foldr1 Or $ map (TrySense Ahead) allMarkers
+
+
 
 --goSearchSpiral' (TrySense Here Food)
 findMainOrHome = doUntil find (home `Or` marker P1 `Or` marker P2 `Or` marker P3)
@@ -99,15 +129,10 @@ markerAhead p = TrySense Ahead (Marker p)
 followTrackHome = iCase [ (marker P1, atMarker P1)
                               , (marker P2, atMarker P2)
                               , (marker P3, atMarker P3)]
-    where atMarker p = findDirToFollow p `iSeq` followUntilHome 
-pheromonePred P1 = P3 
-pheromonePred P2 = P1 
-pheromonePred P3 = P2 
-pheromonePred _  = error "pheromonePred should always be called with {1,2,3}"
-pheromoneSucc P1 = P2 
-pheromoneSucc P2 = P3 
-pheromoneSucc P3 = P1
-pheromoneSucc _  = error "pheromoneSucc should always be called with {1,2,3}"
+    where
+        atMarker p = findDirToFollow p `iSeq` followUntilHome
+
+
 
 
 followUntilHome = doUntil followStep home 
@@ -115,14 +140,6 @@ followUntilHome = doUntil followStep home
           turnUntilMark = iCase [ (marker P1, findDirToFollow P1)
                                 , (marker P2, findDirToFollow P2) 
                                 , (marker P3, findDirToFollow P3) ] 
-
-
-bounce = iCase [ (And wallLeft wallRight , random120)
-               , (wallLeft               , turn60R)
-               , (wallRight              , turn60L) ]
-    where wallLeft  = TrySense LeftAhead Rock
-          wallRight = TrySense RightAhead Rock
-          random120 = chooseUniformly [ turn120L, turn120R ]
 
 
 -- End of strategy
@@ -138,13 +155,15 @@ ricochetWhile ai = (moveOrWall
 dropAndStay = iList [iDrop,
                      turnAround, 
                      findStay]
-                        
+
+
 findStay = iIfThenElse (Not $ TrySense LeftAhead Friend) (iTurnL `iSeq` move `iSeq` stay)
            $ iIfThenElse (Not $ TrySense RightAhead Friend) (iTurnR `iSeq` move `iSeq` stay)
            $ turnAround `iSeq`  
              (iIfThenElse (Not $ TrySense LeftAhead Friend) (iTurnL `iSeq` move `iSeq` stay)
             $ iIfThenElse (Not $ TrySense RightAhead Friend) (iTurnR `iSeq` move `iSeq` stay)
             $ iIfThen (Not $ TrySense Ahead Friend) (move `iSeq` stayUntil))
+
 
 -- stay until another one is trying to stay near this location
 stayUntil = iList [iWhile (Not $ TrySense Ahead Friend) (turnAround `iSeq` turnAround),

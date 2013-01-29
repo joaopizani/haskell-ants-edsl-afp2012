@@ -6,8 +6,6 @@ import Game.UUAntGen.AntAssembly
 import Game.UUAntGen.AntDeepEmbedded
 import Game.UUAntGen.AntInstruction
 
-
-
 -- BASIC STRATEGIES
 markHome :: AntImperative
 markHome = 
@@ -68,10 +66,8 @@ strategy' = iList $
     , findFood'  -- find food
     , pickup
     , findMainOrHome  -- find main track
-    , dropFoodOrFollowTrack ]  -- drop food at home or follow the main track
-    -- FIXME: remove this
-    ++ replicate 1000 iDrop -- prevent code from looping, for a while...
-
+    , followTrackHome
+    , dropAndStay ]  -- drop food at home or follow the main track
 
 initMarkers g =
     iIfThenElse (TrySense LeftAhead Friend `Or` TrySense RightAhead Friend)
@@ -90,31 +86,32 @@ markLine =
     where
         markerCase :: [(Pheromone, Pheromone -> AntImperative)] -> AntImperative
         markerCase l = iCase $ map (\(p, f) -> (marker p, f p)) l 
-        atMarker p = safeMove `iSeq` iMark (pheromonePred p)
+        atMarker p = safeMove `iSeq` iMark (pheromoneSucc p)
 
 findFood' = --goSearchSpiral' (TrySense Here Food)
     doUntil (iList [goForwardNSteps 3, randomTurn]) (TrySense Here Food)
 
 
 --goSearchSpiral' (TrySense Here Food)
-findMainOrHome = doUntil (iList [randomTurn, move]) (home `Or` marker P5 `Or` marker P4)
+findMainOrHome = doUntil (iList [randomTurn, move]) (home `Or` marker P1 `Or` marker P2 `Or` marker P3)
 
-
-findDirToFollow p = doUntil iTurnR (markerAhead (pred p)) 
+findDirToFollow p = doUntil iTurnR (markerAhead (pheromonePred p)) 
 markerAhead p = TrySense Ahead (Marker p)
 
 
-dropFoodOrFollowTrack = iCase [ (home, atHome)
-                              , (marker P1, atMarker P1)
+followTrackHome = iCase [ (marker P1, atMarker P1)
                               , (marker P2, atMarker P2)
                               , (marker P3, atMarker P3)]
-    where atHome = iDrop --FIXME
-          atMarker p = findDirToFollow p `iSeq` followUntilHome
-
+    where atMarker p = findDirToFollow p `iSeq` followUntilHome 
 pheromonePred P1 = P3 
 pheromonePred P2 = P1 
 pheromonePred P3 = P2 
 pheromonePred _  = error "pheromonePred should always be called with {1,2,3}"
+pheromoneSucc P1 = P2 
+pheromoneSucc P2 = P3 
+pheromoneSucc P3 = P1
+pheromoneSucc _  = error "pheromoneSucc should always be called with {1,2,3}"
+
 
 followUntilHome = doUntil followStep home 
     where followStep = moveOrWall turnUntilMark
@@ -133,3 +130,30 @@ bounce = iCase [ (And wallLeft wallRight , random120)
 
 -- End of strategy
 
+bounceUntil t = bounceUntilWhile t (iList [])
+-- could use the case statement
+bounceUntilWhile :: AntTest -> AntImperative -> AntImperative
+bounceUntilWhile t ai = iWhile (Not $ t) $ 
+                    doUntil (moveOrWall
+                        (iIfThenElse (TrySense RightAhead Rock) 
+                            (IfThenElse (TrySense LeftAhead Rock) turnAround iTurnL) 
+                        (iTurnR)) `iSeq` ai) t
+
+dropAndStay = iList [iDrop,
+                     turnAround, 
+                     findStay]
+                        
+findStay = iIfThenElse (Not $ TrySense LeftAhead Friend) (iTurnL `iSeq` move `iSeq` stay)
+           $ iIfThenElse (Not $ TrySense RightAhead Friend) (iTurnR `iSeq` move `iSeq` stay)
+           $ turnAround `iSeq`  
+             (iIfThenElse (Not $ TrySense LeftAhead Friend) (iTurnL `iSeq` move `iSeq` stay)
+            $ iIfThenElse (Not $ TrySense RightAhead Friend) (iTurnR `iSeq` move `iSeq` stay)
+            $ iIfThen (Not $ TrySense Ahead Friend) (move `iSeq` stayUntil))
+
+-- stay until another one is trying to stay near this location
+stayUntil = iList [iWhile (Not $ TrySense Ahead Friend) (turnAround `iSeq` turnAround),
+                    turnAround,
+                    goForwardNSteps 5,
+                    findFood']
+stay = iWhile (Not $ TrySense Ahead FriendWithFood) iTurnL
+-- End of strategy

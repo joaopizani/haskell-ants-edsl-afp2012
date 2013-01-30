@@ -1,12 +1,12 @@
-module Game.UUAntGen.AntMoves where
+module Game.UUAntGen.Frontend.AntMoves where
 
 import Data.List (intersperse)
 
-import Game.UUAntGen.AntAssembly
-import Game.UUAntGen.AntDeepEmbedded
-import Game.UUAntGen.AntImperative
-import Game.UUAntGen.AntInstruction
+import Game.UUAntGen.Backend.AntAssembly
+import Game.UUAntGen.Backend.AntDeepEmbedded
+import Game.UUAntGen.Backend.AntInstruction
 
+import Game.UUAntGen.Frontend.AntImperative
 
 
 -- REALLY BASIC MOVES

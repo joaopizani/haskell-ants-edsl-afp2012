@@ -1,10 +1,11 @@
 module Main where
 
-import Game.UUAntGen.AntDeepEmbedded;
-import Game.UUAntGen.AntImperative;
-import Game.UUAntGen.AntInstruction;
-import Game.UUAntGen.AntTransformation;
-import Game.UUAntGen.AntStrategies;
+import Game.UUAntGen.Backend.AntDeepEmbedded
+import Game.UUAntGen.Backend.AntInstruction
+import Game.UUAntGen.Backend.AntTransformation
+
+import Game.UUAntGen.Frontend.AntImperative
+import Game.UUAntGen.Frontend.AntStrategies
 
 
 main :: IO ()

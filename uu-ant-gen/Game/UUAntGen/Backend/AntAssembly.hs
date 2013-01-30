@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveGeneric #-}
-module Game.UUAntGen.AntAssembly where
+module Game.UUAntGen.Backend.AntAssembly where
 
 import Data.Hashable (Hashable)
 import GHC.Generics  (Generic)

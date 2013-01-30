@@ -1,6 +1,6 @@
-module Game.UUAntGen.AntDeepEmbedded where
+module Game.UUAntGen.Backend.AntDeepEmbedded where
 
-import Game.UUAntGen.AntAssembly
+import Game.UUAntGen.Backend.AntAssembly
 
 
 data AntBasic

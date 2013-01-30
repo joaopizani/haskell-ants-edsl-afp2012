@@ -1,11 +1,11 @@
-module Game.UUAntGen.AntStrategies where
+module Game.UUAntGen.Frontend.AntStrategies where
 
-import Game.UUAntGen.AntImperative
-import Game.UUAntGen.AntMoves
-import Game.UUAntGen.AntAssembly
-import Game.UUAntGen.AntDeepEmbedded
-import Game.UUAntGen.AntInstruction
+import Game.UUAntGen.Backend.AntAssembly
+import Game.UUAntGen.Backend.AntDeepEmbedded
+import Game.UUAntGen.Backend.AntInstruction
 
+import Game.UUAntGen.Frontend.AntImperative
+import Game.UUAntGen.Frontend.AntMoves
 
 
 -- BASIC STRATEGIES

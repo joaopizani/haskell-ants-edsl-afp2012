@@ -1,12 +1,12 @@
-module Game.UUAntGen.AntTransformation where
+module Game.UUAntGen.Backend.AntTransformation where
 
 import           Control.Monad.Supply (runSupply)
 import           Data.List            (delete)
 import           Data.Map             ((!))
 import qualified Data.Map             as M
 
-import Game.UUAntGen.AntAssembly
-import Game.UUAntGen.AntInstruction
+import Game.UUAntGen.Backend.AntAssembly
+import Game.UUAntGen.Backend.AntInstruction
 
 
 -- | Obtains the next possible states of a given AntInstruction

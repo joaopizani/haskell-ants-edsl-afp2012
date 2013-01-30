@@ -1,13 +1,13 @@
-module Game.UUAntGen.AntImperative where
+module Game.UUAntGen.Frontend.AntImperative where
 
 import           Control.Monad.Supply (supply)
 import           Data.Map             ((!))
 import qualified Data.Map             as M
 
-import Game.UUAntGen.AntAssembly
-import Game.UUAntGen.AntDeepEmbedded
-import Game.UUAntGen.AntInstruction
-import Game.UUAntGen.AntTransformation
+import Game.UUAntGen.Backend.AntAssembly
+import Game.UUAntGen.Backend.AntDeepEmbedded
+import Game.UUAntGen.Backend.AntInstruction
+import Game.UUAntGen.Backend.AntTransformation
 
 
 

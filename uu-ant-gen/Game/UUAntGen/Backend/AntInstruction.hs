@@ -1,10 +1,10 @@
-module Game.UUAntGen.AntInstruction where
+module Game.UUAntGen.Backend.AntInstruction where
 
 import           Control.Monad.Supply (Supply, supply)
 import qualified Data.Map             as M
 
-import Game.UUAntGen.AntAssembly
-import Game.UUAntGen.AntDeepEmbedded
+import Game.UUAntGen.Backend.AntAssembly
+import Game.UUAntGen.Backend.AntDeepEmbedded
 
 
 type IMap = M.Map AntState AntInstruction

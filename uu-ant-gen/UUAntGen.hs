@@ -9,7 +9,7 @@ import Game.UUAntGen.Frontend.AntStrategies
 
 
 main :: IO ()
-main = putStr $ compileAndPrint strategy'
+main = putStr $ compileAndPrint strategy''
 
 
 -- COMPILATION PIPELINE: From AntImperative and/or AntStrategy to String (ant file)

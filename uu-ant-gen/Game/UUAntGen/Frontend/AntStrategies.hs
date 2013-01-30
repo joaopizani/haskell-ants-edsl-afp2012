@@ -24,8 +24,10 @@ ricochetWhile s = moveOrWall howToTurn `iSeq` s
 
 
 untilOverFood :: AntImperative -> AntImperative
-untilOverFood st = doUntil st senseFoodHere
+untilOverFood st = doUntil st (And senseFoodHere (Not senseHomeHere))
 
+untilOverHome :: AntImperative -> AntImperative
+untilOverHome st = doUntil st senseHomeHere
 
 findFoodSampleMap :: AntImperative
 findFoodSampleMap = iList $
@@ -236,3 +238,16 @@ toLineStart =
 
 -- End of OUR STRATEGY
 
+-- Fallback simple strategy...
+
+strategy'' :: AntImperative
+strategy'' = iList $ [ findFood
+                     , pickup
+                     , turnAround
+                     , returnToBase 
+                     , iDrop ]
+    where findFood      = untilOverFood tryMoveOrTurn
+          returnToBase  = untilOverHome tryMoveOrTurn 
+          tryMoveOrTurn = iIfThen (Not $ TryForward)
+                                  randomTurn
+ 

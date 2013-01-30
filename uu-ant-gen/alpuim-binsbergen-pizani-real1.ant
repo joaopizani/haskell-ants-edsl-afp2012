@@ -1,20 +1,20 @@
-Sense LeftAhead 407 2454 Friend
-Mark 0 194
+Sense LeftAhead 401 2418 Friend
+Mark 0 191
 Turn Left 3
-Turn Left 62
+Turn Left 61
 Turn Right 5
-Turn Right 62
+Turn Right 61
 Flip 2 2 4
 Turn Right 8
-Turn Right 62
+Turn Right 61
 Turn Left 10
-Turn Left 62
+Turn Left 61
 Turn Left 12
-Turn Left 62
+Turn Left 61
 Turn Right 14
-Turn Right 62
+Turn Right 61
 Flip 2 11 13
-Sense Here 15 62 Friend
+Sense Here 15 61 Friend
 Sense RightAhead 9 16 Marker 2
 Sense RightAhead 9 17 Marker 1
 Sense RightAhead 9 18 Marker 0
@@ -27,7 +27,7 @@ Sense RightAhead 6 24 Marker 0
 Sense LeftAhead 25 22 Marker 2
 Sense LeftAhead 25 26 Marker 1
 Sense LeftAhead 25 27 Marker 0
-Sense Ahead 28 62 Marker 2
+Sense Ahead 28 61 Marker 2
 Sense Ahead 28 29 Marker 1
 Sense Ahead 28 30 Marker 0
 Turn Left 33
@@ -40,7 +40,7 @@ Sense Ahead 37 40 Foe
 Sense Ahead 37 38 Friend
 Move 41 41
 Turn Left 42
-Turn Left 62
+Turn Left 61
 Turn Right 44
 Move 45 45
 Turn Left 46
@@ -51,731 +51,731 @@ Sense Ahead 48 51 Foe
 Sense Ahead 48 49 Friend
 Move 52 52
 Turn Right 53
-Turn Right 62
-Sense Here 62 62 Friend
-Flip 1 62 54
-Sense Here 55 62 Friend
-Sense RightAhead 56 43 Foe
-Sense RightAhead 56 57 Friend
-Sense LeftAhead 58 32 Foe
-Sense LeftAhead 58 59 Friend
-Sense Ahead 60 63 Foe
-Sense Ahead 60 61 Friend
-Move 64 64
-Mark 1 194
-Turn Left 66
-Turn Left 125
-Turn Right 68
-Turn Right 125
-Flip 2 65 67
-Turn Right 71
-Turn Right 125
-Turn Left 73
-Turn Left 125
-Turn Left 75
-Turn Left 125
-Turn Right 77
-Turn Right 125
-Flip 2 74 76
-Sense Here 78 125 Friend
-Sense RightAhead 72 79 Marker 2
-Sense RightAhead 72 80 Marker 1
-Sense RightAhead 72 81 Marker 0
-Sense LeftAhead 70 82 Marker 2
-Sense LeftAhead 70 83 Marker 1
-Sense LeftAhead 70 84 Marker 0
-Sense RightAhead 69 85 Marker 2
-Sense RightAhead 69 86 Marker 1
-Sense RightAhead 69 87 Marker 0
-Sense LeftAhead 88 85 Marker 2
-Sense LeftAhead 88 89 Marker 1
-Sense LeftAhead 88 90 Marker 0
-Sense Ahead 91 125 Marker 2
-Sense Ahead 91 92 Marker 1
-Sense Ahead 91 93 Marker 0
-Turn Left 96
-Move 97 97
+Turn Right 61
+Sense Here 61 61 Friend
+Sense Here 54 61 Friend
+Sense RightAhead 55 43 Foe
+Sense RightAhead 55 56 Friend
+Sense LeftAhead 57 32 Foe
+Sense LeftAhead 57 58 Friend
+Sense Ahead 59 62 Foe
+Sense Ahead 59 60 Friend
+Move 63 63
+Mark 1 191
+Turn Left 65
+Turn Left 123
+Turn Right 67
+Turn Right 123
+Flip 2 64 66
+Turn Right 70
+Turn Right 123
+Turn Left 72
+Turn Left 123
+Turn Left 74
+Turn Left 123
+Turn Right 76
+Turn Right 123
+Flip 2 73 75
+Sense Here 77 123 Friend
+Sense RightAhead 71 78 Marker 2
+Sense RightAhead 71 79 Marker 1
+Sense RightAhead 71 80 Marker 0
+Sense LeftAhead 69 81 Marker 2
+Sense LeftAhead 69 82 Marker 1
+Sense LeftAhead 69 83 Marker 0
+Sense RightAhead 68 84 Marker 2
+Sense RightAhead 68 85 Marker 1
+Sense RightAhead 68 86 Marker 0
+Sense LeftAhead 87 84 Marker 2
+Sense LeftAhead 87 88 Marker 1
+Sense LeftAhead 87 89 Marker 0
+Sense Ahead 90 123 Marker 2
+Sense Ahead 90 91 Marker 1
+Sense Ahead 90 92 Marker 0
+Turn Left 95
+Move 96 96
+Turn Left 97
 Turn Left 98
-Turn Left 99
-Turn Left 102
-Sense Here 102 102 Friend
-Sense Ahead 100 103 Foe
-Sense Ahead 100 101 Friend
-Move 104 104
-Turn Left 105
-Turn Left 125
-Turn Right 107
-Move 108 108
+Turn Left 101
+Sense Here 101 101 Friend
+Sense Ahead 99 102 Foe
+Sense Ahead 99 100 Friend
+Move 103 103
+Turn Left 104
+Turn Left 123
+Turn Right 106
+Move 107 107
+Turn Left 108
 Turn Left 109
-Turn Left 110
-Turn Left 113
-Sense Here 113 113 Friend
-Sense Ahead 111 114 Foe
-Sense Ahead 111 112 Friend
-Move 115 115
-Turn Right 116
-Turn Right 125
-Sense Here 125 125 Friend
-Flip 1 125 117
-Sense Here 118 125 Friend
-Sense RightAhead 119 106 Foe
-Sense RightAhead 119 120 Friend
-Sense LeftAhead 121 95 Foe
-Sense LeftAhead 121 122 Friend
-Sense Ahead 123 126 Foe
-Sense Ahead 123 124 Friend
-Move 127 127
-Mark 2 194
-Turn Left 129
-Turn Left 188
-Turn Right 131
-Turn Right 188
-Flip 2 128 130
-Turn Right 134
-Turn Right 188
+Turn Left 112
+Sense Here 112 112 Friend
+Sense Ahead 110 113 Foe
+Sense Ahead 110 111 Friend
+Move 114 114
+Turn Right 115
+Turn Right 123
+Sense Here 123 123 Friend
+Sense Here 116 123 Friend
+Sense RightAhead 117 105 Foe
+Sense RightAhead 117 118 Friend
+Sense LeftAhead 119 94 Foe
+Sense LeftAhead 119 120 Friend
+Sense Ahead 121 124 Foe
+Sense Ahead 121 122 Friend
+Move 125 125
+Mark 2 191
+Turn Left 127
+Turn Left 185
+Turn Right 129
+Turn Right 185
+Flip 2 126 128
+Turn Right 132
+Turn Right 185
+Turn Left 134
+Turn Left 185
 Turn Left 136
-Turn Left 188
-Turn Left 138
-Turn Left 188
-Turn Right 140
-Turn Right 188
-Flip 2 137 139
-Sense Here 141 188 Friend
-Sense RightAhead 135 142 Marker 2
-Sense RightAhead 135 143 Marker 1
-Sense RightAhead 135 144 Marker 0
-Sense LeftAhead 133 145 Marker 2
-Sense LeftAhead 133 146 Marker 1
-Sense LeftAhead 133 147 Marker 0
-Sense RightAhead 132 148 Marker 2
-Sense RightAhead 132 149 Marker 1
-Sense RightAhead 132 150 Marker 0
-Sense LeftAhead 151 148 Marker 2
-Sense LeftAhead 151 152 Marker 1
-Sense LeftAhead 151 153 Marker 0
-Sense Ahead 154 188 Marker 2
-Sense Ahead 154 155 Marker 1
-Sense Ahead 154 156 Marker 0
+Turn Left 185
+Turn Right 138
+Turn Right 185
+Flip 2 135 137
+Sense Here 139 185 Friend
+Sense RightAhead 133 140 Marker 2
+Sense RightAhead 133 141 Marker 1
+Sense RightAhead 133 142 Marker 0
+Sense LeftAhead 131 143 Marker 2
+Sense LeftAhead 131 144 Marker 1
+Sense LeftAhead 131 145 Marker 0
+Sense RightAhead 130 146 Marker 2
+Sense RightAhead 130 147 Marker 1
+Sense RightAhead 130 148 Marker 0
+Sense LeftAhead 149 146 Marker 2
+Sense LeftAhead 149 150 Marker 1
+Sense LeftAhead 149 151 Marker 0
+Sense Ahead 152 185 Marker 2
+Sense Ahead 152 153 Marker 1
+Sense Ahead 152 154 Marker 0
+Turn Left 157
+Move 158 158
 Turn Left 159
-Move 160 160
-Turn Left 161
-Turn Left 162
-Turn Left 165
-Sense Here 165 165 Friend
-Sense Ahead 163 166 Foe
-Sense Ahead 163 164 Friend
-Move 167 167
-Turn Left 168
-Turn Left 188
-Turn Right 170
-Move 171 171
-Turn Left 172
-Turn Left 173
-Turn Left 176
-Sense Here 176 176 Friend
-Sense Ahead 174 177 Foe
-Sense Ahead 174 175 Friend
-Move 178 178
-Turn Right 179
-Turn Right 188
-Sense Here 188 188 Friend
-Flip 1 188 180
-Sense Here 181 188 Friend
-Sense RightAhead 182 169 Foe
-Sense RightAhead 182 183 Friend
-Sense LeftAhead 184 158 Foe
-Sense LeftAhead 184 185 Friend
-Sense Ahead 186 189 Foe
-Sense Ahead 186 187 Friend
-Move 190 190
-Mark 0 194
-Sense Here 157 194 Marker 2
-Sense Here 94 191 Marker 1
-Sense Here 31 192 Marker 0
-Sense Ahead 213 193 Rock
-Turn Left 196
-Turn Left 406
+Turn Left 160
+Turn Left 163
+Sense Here 163 163 Friend
+Sense Ahead 161 164 Foe
+Sense Ahead 161 162 Friend
+Move 165 165
+Turn Left 166
+Turn Left 185
+Turn Right 168
+Move 169 169
+Turn Left 170
+Turn Left 171
+Turn Left 174
+Sense Here 174 174 Friend
+Sense Ahead 172 175 Foe
+Sense Ahead 172 173 Friend
+Move 176 176
+Turn Right 177
+Turn Right 185
+Sense Here 185 185 Friend
+Sense Here 178 185 Friend
+Sense RightAhead 179 167 Foe
+Sense RightAhead 179 180 Friend
+Sense LeftAhead 181 156 Foe
+Sense LeftAhead 181 182 Friend
+Sense Ahead 183 186 Foe
+Sense Ahead 183 184 Friend
+Move 187 187
+Mark 0 191
+Sense Here 155 191 Marker 2
+Sense Here 93 188 Marker 1
+Sense Here 31 189 Marker 0
+Sense Ahead 210 190 Rock
+Turn Left 193
+Turn Left 400
+Turn Right 195
+Turn Right 400
+Flip 2 192 194
 Turn Right 198
-Turn Right 406
-Flip 2 195 197
-Turn Right 201
-Turn Right 406
-Turn Left 203
-Turn Left 406
-Turn Left 205
-Turn Left 406
-Turn Right 207
-Turn Right 406
-Flip 2 204 206
-Sense Here 208 406 Friend
-Sense RightAhead 202 209 Rock
-Sense LeftAhead 200 210 Rock
-Sense RightAhead 199 211 Rock
-Sense LeftAhead 212 211 Rock
-Turn Left 215
-Turn Left 274
+Turn Right 400
+Turn Left 200
+Turn Left 400
+Turn Left 202
+Turn Left 400
+Turn Right 204
+Turn Right 400
+Flip 2 201 203
+Sense Here 205 400 Friend
+Sense RightAhead 199 206 Rock
+Sense LeftAhead 197 207 Rock
+Sense RightAhead 196 208 Rock
+Sense LeftAhead 209 208 Rock
+Turn Left 212
+Turn Left 270
+Turn Right 214
+Turn Right 270
+Flip 2 211 213
 Turn Right 217
-Turn Right 274
-Flip 2 214 216
-Turn Right 220
-Turn Right 274
-Turn Left 222
-Turn Left 274
-Turn Left 224
-Turn Left 274
-Turn Right 226
-Turn Right 274
-Flip 2 223 225
-Sense Here 227 274 Friend
-Sense RightAhead 221 228 Marker 2
-Sense RightAhead 221 229 Marker 1
-Sense RightAhead 221 230 Marker 0
-Sense LeftAhead 219 231 Marker 2
-Sense LeftAhead 219 232 Marker 1
-Sense LeftAhead 219 233 Marker 0
-Sense RightAhead 218 234 Marker 2
-Sense RightAhead 218 235 Marker 1
-Sense RightAhead 218 236 Marker 0
-Sense LeftAhead 237 234 Marker 2
-Sense LeftAhead 237 238 Marker 1
-Sense LeftAhead 237 239 Marker 0
-Sense Ahead 240 274 Marker 2
-Sense Ahead 240 241 Marker 1
-Sense Ahead 240 242 Marker 0
+Turn Right 270
+Turn Left 219
+Turn Left 270
+Turn Left 221
+Turn Left 270
+Turn Right 223
+Turn Right 270
+Flip 2 220 222
+Sense Here 224 270 Friend
+Sense RightAhead 218 225 Marker 2
+Sense RightAhead 218 226 Marker 1
+Sense RightAhead 218 227 Marker 0
+Sense LeftAhead 216 228 Marker 2
+Sense LeftAhead 216 229 Marker 1
+Sense LeftAhead 216 230 Marker 0
+Sense RightAhead 215 231 Marker 2
+Sense RightAhead 215 232 Marker 1
+Sense RightAhead 215 233 Marker 0
+Sense LeftAhead 234 231 Marker 2
+Sense LeftAhead 234 235 Marker 1
+Sense LeftAhead 234 236 Marker 0
+Sense Ahead 237 270 Marker 2
+Sense Ahead 237 238 Marker 1
+Sense Ahead 237 239 Marker 0
+Turn Left 242
+Move 243 243
+Turn Left 244
 Turn Left 245
-Move 246 246
-Turn Left 247
 Turn Left 248
+Sense Here 248 248 Friend
+Sense Ahead 246 249 Foe
+Sense Ahead 246 247 Friend
+Move 250 250
 Turn Left 251
-Sense Here 251 251 Friend
-Sense Ahead 249 252 Foe
-Sense Ahead 249 250 Friend
-Move 253 253
-Turn Left 254
-Turn Left 274
-Turn Right 256
-Move 257 257
-Turn Left 258
+Turn Left 270
+Turn Right 253
+Move 254 254
+Turn Left 255
+Turn Left 256
 Turn Left 259
-Turn Left 262
-Sense Here 262 262 Friend
-Sense Ahead 260 263 Foe
-Sense Ahead 260 261 Friend
-Move 264 264
-Turn Right 265
-Turn Right 274
-Sense Here 274 274 Friend
-Flip 1 274 266
-Sense Here 267 274 Friend
-Sense RightAhead 268 255 Foe
-Sense RightAhead 268 269 Friend
-Sense LeftAhead 270 244 Foe
-Sense LeftAhead 270 271 Friend
-Sense Ahead 272 275 Foe
-Sense Ahead 272 273 Friend
-Move 276 276
-Mark 1 406
-Turn Left 278
-Turn Left 337
-Turn Right 280
-Turn Right 337
-Flip 2 277 279
-Turn Right 283
-Turn Right 337
-Turn Left 285
-Turn Left 337
-Turn Left 287
-Turn Left 337
-Turn Right 289
-Turn Right 337
-Flip 2 286 288
-Sense Here 290 337 Friend
-Sense RightAhead 284 291 Marker 2
-Sense RightAhead 284 292 Marker 1
-Sense RightAhead 284 293 Marker 0
-Sense LeftAhead 282 294 Marker 2
-Sense LeftAhead 282 295 Marker 1
-Sense LeftAhead 282 296 Marker 0
-Sense RightAhead 281 297 Marker 2
-Sense RightAhead 281 298 Marker 1
-Sense RightAhead 281 299 Marker 0
-Sense LeftAhead 300 297 Marker 2
-Sense LeftAhead 300 301 Marker 1
-Sense LeftAhead 300 302 Marker 0
-Sense Ahead 303 337 Marker 2
-Sense Ahead 303 304 Marker 1
-Sense Ahead 303 305 Marker 0
-Turn Left 308
-Move 309 309
+Sense Here 259 259 Friend
+Sense Ahead 257 260 Foe
+Sense Ahead 257 258 Friend
+Move 261 261
+Turn Right 262
+Turn Right 270
+Sense Here 270 270 Friend
+Sense Here 263 270 Friend
+Sense RightAhead 264 252 Foe
+Sense RightAhead 264 265 Friend
+Sense LeftAhead 266 241 Foe
+Sense LeftAhead 266 267 Friend
+Sense Ahead 268 271 Foe
+Sense Ahead 268 269 Friend
+Move 272 272
+Mark 1 400
+Turn Left 274
+Turn Left 332
+Turn Right 276
+Turn Right 332
+Flip 2 273 275
+Turn Right 279
+Turn Right 332
+Turn Left 281
+Turn Left 332
+Turn Left 283
+Turn Left 332
+Turn Right 285
+Turn Right 332
+Flip 2 282 284
+Sense Here 286 332 Friend
+Sense RightAhead 280 287 Marker 2
+Sense RightAhead 280 288 Marker 1
+Sense RightAhead 280 289 Marker 0
+Sense LeftAhead 278 290 Marker 2
+Sense LeftAhead 278 291 Marker 1
+Sense LeftAhead 278 292 Marker 0
+Sense RightAhead 277 293 Marker 2
+Sense RightAhead 277 294 Marker 1
+Sense RightAhead 277 295 Marker 0
+Sense LeftAhead 296 293 Marker 2
+Sense LeftAhead 296 297 Marker 1
+Sense LeftAhead 296 298 Marker 0
+Sense Ahead 299 332 Marker 2
+Sense Ahead 299 300 Marker 1
+Sense Ahead 299 301 Marker 0
+Turn Left 304
+Move 305 305
+Turn Left 306
+Turn Left 307
 Turn Left 310
-Turn Left 311
-Turn Left 314
-Sense Here 314 314 Friend
-Sense Ahead 312 315 Foe
-Sense Ahead 312 313 Friend
+Sense Here 310 310 Friend
+Sense Ahead 308 311 Foe
+Sense Ahead 308 309 Friend
+Move 312 312
+Turn Left 313
+Turn Left 332
+Turn Right 315
 Move 316 316
 Turn Left 317
-Turn Left 337
-Turn Right 319
-Move 320 320
+Turn Left 318
 Turn Left 321
-Turn Left 322
-Turn Left 325
-Sense Here 325 325 Friend
-Sense Ahead 323 326 Foe
-Sense Ahead 323 324 Friend
-Move 327 327
-Turn Right 328
-Turn Right 337
-Sense Here 337 337 Friend
-Flip 1 337 329
-Sense Here 330 337 Friend
-Sense RightAhead 331 318 Foe
-Sense RightAhead 331 332 Friend
-Sense LeftAhead 333 307 Foe
-Sense LeftAhead 333 334 Friend
-Sense Ahead 335 338 Foe
-Sense Ahead 335 336 Friend
-Move 339 339
-Mark 2 406
-Turn Left 341
-Turn Left 400
-Turn Right 343
-Turn Right 400
-Flip 2 340 342
-Turn Right 346
-Turn Right 400
-Turn Left 348
-Turn Left 400
-Turn Left 350
-Turn Left 400
-Turn Right 352
-Turn Right 400
-Flip 2 349 351
-Sense Here 353 400 Friend
-Sense RightAhead 347 354 Marker 2
-Sense RightAhead 347 355 Marker 1
-Sense RightAhead 347 356 Marker 0
-Sense LeftAhead 345 357 Marker 2
-Sense LeftAhead 345 358 Marker 1
-Sense LeftAhead 345 359 Marker 0
-Sense RightAhead 344 360 Marker 2
-Sense RightAhead 344 361 Marker 1
-Sense RightAhead 344 362 Marker 0
-Sense LeftAhead 363 360 Marker 2
-Sense LeftAhead 363 364 Marker 1
-Sense LeftAhead 363 365 Marker 0
-Sense Ahead 366 400 Marker 2
-Sense Ahead 366 367 Marker 1
-Sense Ahead 366 368 Marker 0
-Turn Left 371
-Move 372 372
-Turn Left 373
-Turn Left 374
-Turn Left 377
-Sense Here 377 377 Friend
-Sense Ahead 375 378 Foe
-Sense Ahead 375 376 Friend
-Move 379 379
+Sense Here 321 321 Friend
+Sense Ahead 319 322 Foe
+Sense Ahead 319 320 Friend
+Move 323 323
+Turn Right 324
+Turn Right 332
+Sense Here 332 332 Friend
+Sense Here 325 332 Friend
+Sense RightAhead 326 314 Foe
+Sense RightAhead 326 327 Friend
+Sense LeftAhead 328 303 Foe
+Sense LeftAhead 328 329 Friend
+Sense Ahead 330 333 Foe
+Sense Ahead 330 331 Friend
+Move 334 334
+Mark 2 400
+Turn Left 336
+Turn Left 394
+Turn Right 338
+Turn Right 394
+Flip 2 335 337
+Turn Right 341
+Turn Right 394
+Turn Left 343
+Turn Left 394
+Turn Left 345
+Turn Left 394
+Turn Right 347
+Turn Right 394
+Flip 2 344 346
+Sense Here 348 394 Friend
+Sense RightAhead 342 349 Marker 2
+Sense RightAhead 342 350 Marker 1
+Sense RightAhead 342 351 Marker 0
+Sense LeftAhead 340 352 Marker 2
+Sense LeftAhead 340 353 Marker 1
+Sense LeftAhead 340 354 Marker 0
+Sense RightAhead 339 355 Marker 2
+Sense RightAhead 339 356 Marker 1
+Sense RightAhead 339 357 Marker 0
+Sense LeftAhead 358 355 Marker 2
+Sense LeftAhead 358 359 Marker 1
+Sense LeftAhead 358 360 Marker 0
+Sense Ahead 361 394 Marker 2
+Sense Ahead 361 362 Marker 1
+Sense Ahead 361 363 Marker 0
+Turn Left 366
+Move 367 367
+Turn Left 368
+Turn Left 369
+Turn Left 372
+Sense Here 372 372 Friend
+Sense Ahead 370 373 Foe
+Sense Ahead 370 371 Friend
+Move 374 374
+Turn Left 375
+Turn Left 394
+Turn Right 377
+Move 378 378
+Turn Left 379
 Turn Left 380
-Turn Left 400
-Turn Right 382
-Move 383 383
-Turn Left 384
-Turn Left 385
-Turn Left 388
-Sense Here 388 388 Friend
-Sense Ahead 386 389 Foe
-Sense Ahead 386 387 Friend
-Move 390 390
-Turn Right 391
-Turn Right 400
-Sense Here 400 400 Friend
-Flip 1 400 392
-Sense Here 393 400 Friend
-Sense RightAhead 394 381 Foe
-Sense RightAhead 394 395 Friend
-Sense LeftAhead 396 370 Foe
-Sense LeftAhead 396 397 Friend
-Sense Ahead 398 401 Foe
-Sense Ahead 398 399 Friend
-Move 402 402
-Mark 0 406
-Sense Here 369 406 Marker 2
-Sense Here 306 403 Marker 1
-Sense Here 243 404 Marker 0
-Sense Ahead 2455 405 Rock
-Turn Left 2453
-Mark 0 601
-Turn Left 410
-Turn Left 469
-Turn Right 412
-Turn Right 469
-Flip 2 409 411
+Turn Left 383
+Sense Here 383 383 Friend
+Sense Ahead 381 384 Foe
+Sense Ahead 381 382 Friend
+Move 385 385
+Turn Right 386
+Turn Right 394
+Sense Here 394 394 Friend
+Sense Here 387 394 Friend
+Sense RightAhead 388 376 Foe
+Sense RightAhead 388 389 Friend
+Sense LeftAhead 390 365 Foe
+Sense LeftAhead 390 391 Friend
+Sense Ahead 392 395 Foe
+Sense Ahead 392 393 Friend
+Move 396 396
+Mark 0 400
+Sense Here 364 400 Marker 2
+Sense Here 302 397 Marker 1
+Sense Here 240 398 Marker 0
+Sense Ahead 2419 399 Rock
+Turn Left 2417
+Mark 0 592
+Turn Left 404
+Turn Left 462
+Turn Right 406
+Turn Right 462
+Flip 2 403 405
+Turn Right 409
+Turn Right 462
+Turn Left 411
+Turn Left 462
+Turn Left 413
+Turn Left 462
 Turn Right 415
-Turn Right 469
-Turn Left 417
-Turn Left 469
-Turn Left 419
-Turn Left 469
-Turn Right 421
-Turn Right 469
-Flip 2 418 420
-Sense Here 422 469 Friend
-Sense RightAhead 416 423 Marker 2
-Sense RightAhead 416 424 Marker 1
-Sense RightAhead 416 425 Marker 0
-Sense LeftAhead 414 426 Marker 2
-Sense LeftAhead 414 427 Marker 1
-Sense LeftAhead 414 428 Marker 0
-Sense RightAhead 413 429 Marker 2
-Sense RightAhead 413 430 Marker 1
-Sense RightAhead 413 431 Marker 0
-Sense LeftAhead 432 429 Marker 2
-Sense LeftAhead 432 433 Marker 1
-Sense LeftAhead 432 434 Marker 0
-Sense Ahead 435 469 Marker 2
-Sense Ahead 435 436 Marker 1
-Sense Ahead 435 437 Marker 0
+Turn Right 462
+Flip 2 412 414
+Sense Here 416 462 Friend
+Sense RightAhead 410 417 Marker 2
+Sense RightAhead 410 418 Marker 1
+Sense RightAhead 410 419 Marker 0
+Sense LeftAhead 408 420 Marker 2
+Sense LeftAhead 408 421 Marker 1
+Sense LeftAhead 408 422 Marker 0
+Sense RightAhead 407 423 Marker 2
+Sense RightAhead 407 424 Marker 1
+Sense RightAhead 407 425 Marker 0
+Sense LeftAhead 426 423 Marker 2
+Sense LeftAhead 426 427 Marker 1
+Sense LeftAhead 426 428 Marker 0
+Sense Ahead 429 462 Marker 2
+Sense Ahead 429 430 Marker 1
+Sense Ahead 429 431 Marker 0
+Turn Left 434
+Move 435 435
+Turn Left 436
+Turn Left 437
 Turn Left 440
-Move 441 441
-Turn Left 442
+Sense Here 440 440 Friend
+Sense Ahead 438 441 Foe
+Sense Ahead 438 439 Friend
+Move 442 442
 Turn Left 443
-Turn Left 446
-Sense Here 446 446 Friend
-Sense Ahead 444 447 Foe
-Sense Ahead 444 445 Friend
-Move 448 448
-Turn Left 449
-Turn Left 469
-Turn Right 451
-Move 452 452
-Turn Left 453
-Turn Left 454
-Turn Left 457
-Sense Here 457 457 Friend
-Sense Ahead 455 458 Foe
-Sense Ahead 455 456 Friend
-Move 459 459
-Turn Right 460
-Turn Right 469
-Sense Here 469 469 Friend
-Flip 1 469 461
-Sense Here 462 469 Friend
-Sense RightAhead 463 450 Foe
-Sense RightAhead 463 464 Friend
-Sense LeftAhead 465 439 Foe
-Sense LeftAhead 465 466 Friend
-Sense Ahead 467 470 Foe
-Sense Ahead 467 468 Friend
-Move 471 471
-Mark 1 601
+Turn Left 462
+Turn Right 445
+Move 446 446
+Turn Left 447
+Turn Left 448
+Turn Left 451
+Sense Here 451 451 Friend
+Sense Ahead 449 452 Foe
+Sense Ahead 449 450 Friend
+Move 453 453
+Turn Right 454
+Turn Right 462
+Sense Here 462 462 Friend
+Sense Here 455 462 Friend
+Sense RightAhead 456 444 Foe
+Sense RightAhead 456 457 Friend
+Sense LeftAhead 458 433 Foe
+Sense LeftAhead 458 459 Friend
+Sense Ahead 460 463 Foe
+Sense Ahead 460 461 Friend
+Move 464 464
+Mark 1 592
+Turn Left 466
+Turn Left 524
+Turn Right 468
+Turn Right 524
+Flip 2 465 467
+Turn Right 471
+Turn Right 524
 Turn Left 473
-Turn Left 532
-Turn Right 475
-Turn Right 532
-Flip 2 472 474
-Turn Right 478
-Turn Right 532
-Turn Left 480
-Turn Left 532
-Turn Left 482
-Turn Left 532
-Turn Right 484
-Turn Right 532
-Flip 2 481 483
-Sense Here 485 532 Friend
-Sense RightAhead 479 486 Marker 2
-Sense RightAhead 479 487 Marker 1
-Sense RightAhead 479 488 Marker 0
-Sense LeftAhead 477 489 Marker 2
-Sense LeftAhead 477 490 Marker 1
-Sense LeftAhead 477 491 Marker 0
-Sense RightAhead 476 492 Marker 2
-Sense RightAhead 476 493 Marker 1
-Sense RightAhead 476 494 Marker 0
-Sense LeftAhead 495 492 Marker 2
-Sense LeftAhead 495 496 Marker 1
-Sense LeftAhead 495 497 Marker 0
-Sense Ahead 498 532 Marker 2
-Sense Ahead 498 499 Marker 1
-Sense Ahead 498 500 Marker 0
-Turn Left 503
+Turn Left 524
+Turn Left 475
+Turn Left 524
+Turn Right 477
+Turn Right 524
+Flip 2 474 476
+Sense Here 478 524 Friend
+Sense RightAhead 472 479 Marker 2
+Sense RightAhead 472 480 Marker 1
+Sense RightAhead 472 481 Marker 0
+Sense LeftAhead 470 482 Marker 2
+Sense LeftAhead 470 483 Marker 1
+Sense LeftAhead 470 484 Marker 0
+Sense RightAhead 469 485 Marker 2
+Sense RightAhead 469 486 Marker 1
+Sense RightAhead 469 487 Marker 0
+Sense LeftAhead 488 485 Marker 2
+Sense LeftAhead 488 489 Marker 1
+Sense LeftAhead 488 490 Marker 0
+Sense Ahead 491 524 Marker 2
+Sense Ahead 491 492 Marker 1
+Sense Ahead 491 493 Marker 0
+Turn Left 496
+Move 497 497
+Turn Left 498
+Turn Left 499
+Turn Left 502
+Sense Here 502 502 Friend
+Sense Ahead 500 503 Foe
+Sense Ahead 500 501 Friend
 Move 504 504
 Turn Left 505
-Turn Left 506
+Turn Left 524
+Turn Right 507
+Move 508 508
 Turn Left 509
-Sense Here 509 509 Friend
-Sense Ahead 507 510 Foe
-Sense Ahead 507 508 Friend
-Move 511 511
-Turn Left 512
-Turn Left 532
-Turn Right 514
+Turn Left 510
+Turn Left 513
+Sense Here 513 513 Friend
+Sense Ahead 511 514 Foe
+Sense Ahead 511 512 Friend
 Move 515 515
-Turn Left 516
-Turn Left 517
-Turn Left 520
-Sense Here 520 520 Friend
-Sense Ahead 518 521 Foe
-Sense Ahead 518 519 Friend
-Move 522 522
-Turn Right 523
-Turn Right 532
-Sense Here 532 532 Friend
-Flip 1 532 524
-Sense Here 525 532 Friend
-Sense RightAhead 526 513 Foe
-Sense RightAhead 526 527 Friend
-Sense LeftAhead 528 502 Foe
-Sense LeftAhead 528 529 Friend
-Sense Ahead 530 533 Foe
-Sense Ahead 530 531 Friend
-Move 534 534
-Mark 2 601
-Turn Left 536
-Turn Left 595
-Turn Right 538
-Turn Right 595
-Flip 2 535 537
-Turn Right 541
-Turn Right 595
-Turn Left 543
-Turn Left 595
-Turn Left 545
-Turn Left 595
-Turn Right 547
-Turn Right 595
-Flip 2 544 546
-Sense Here 548 595 Friend
-Sense RightAhead 542 549 Marker 2
-Sense RightAhead 542 550 Marker 1
-Sense RightAhead 542 551 Marker 0
-Sense LeftAhead 540 552 Marker 2
-Sense LeftAhead 540 553 Marker 1
-Sense LeftAhead 540 554 Marker 0
-Sense RightAhead 539 555 Marker 2
-Sense RightAhead 539 556 Marker 1
-Sense RightAhead 539 557 Marker 0
-Sense LeftAhead 558 555 Marker 2
-Sense LeftAhead 558 559 Marker 1
-Sense LeftAhead 558 560 Marker 0
-Sense Ahead 561 595 Marker 2
-Sense Ahead 561 562 Marker 1
-Sense Ahead 561 563 Marker 0
-Turn Left 566
-Move 567 567
-Turn Left 568
-Turn Left 569
-Turn Left 572
-Sense Here 572 572 Friend
-Sense Ahead 570 573 Foe
-Sense Ahead 570 571 Friend
-Move 574 574
-Turn Left 575
-Turn Left 595
-Turn Right 577
-Move 578 578
-Turn Left 579
-Turn Left 580
-Turn Left 583
-Sense Here 583 583 Friend
-Sense Ahead 581 584 Foe
-Sense Ahead 581 582 Friend
-Move 585 585
+Turn Right 516
+Turn Right 524
+Sense Here 524 524 Friend
+Sense Here 517 524 Friend
+Sense RightAhead 518 506 Foe
+Sense RightAhead 518 519 Friend
+Sense LeftAhead 520 495 Foe
+Sense LeftAhead 520 521 Friend
+Sense Ahead 522 525 Foe
+Sense Ahead 522 523 Friend
+Move 526 526
+Mark 2 592
+Turn Left 528
+Turn Left 586
+Turn Right 530
 Turn Right 586
-Turn Right 595
-Sense Here 595 595 Friend
-Flip 1 595 587
-Sense Here 588 595 Friend
-Sense RightAhead 589 576 Foe
-Sense RightAhead 589 590 Friend
-Sense LeftAhead 591 565 Foe
-Sense LeftAhead 591 592 Friend
-Sense Ahead 593 596 Foe
-Sense Ahead 593 594 Friend
-Move 597 597
-Mark 0 601
-Sense Here 564 601 Marker 2
-Sense Here 501 598 Marker 1
-Sense Here 438 599 Marker 0
-Sense Ahead 620 600 Rock
+Flip 2 527 529
+Turn Right 533
+Turn Right 586
+Turn Left 535
+Turn Left 586
+Turn Left 537
+Turn Left 586
+Turn Right 539
+Turn Right 586
+Flip 2 536 538
+Sense Here 540 586 Friend
+Sense RightAhead 534 541 Marker 2
+Sense RightAhead 534 542 Marker 1
+Sense RightAhead 534 543 Marker 0
+Sense LeftAhead 532 544 Marker 2
+Sense LeftAhead 532 545 Marker 1
+Sense LeftAhead 532 546 Marker 0
+Sense RightAhead 531 547 Marker 2
+Sense RightAhead 531 548 Marker 1
+Sense RightAhead 531 549 Marker 0
+Sense LeftAhead 550 547 Marker 2
+Sense LeftAhead 550 551 Marker 1
+Sense LeftAhead 550 552 Marker 0
+Sense Ahead 553 586 Marker 2
+Sense Ahead 553 554 Marker 1
+Sense Ahead 553 555 Marker 0
+Turn Left 558
+Move 559 559
+Turn Left 560
+Turn Left 561
+Turn Left 564
+Sense Here 564 564 Friend
+Sense Ahead 562 565 Foe
+Sense Ahead 562 563 Friend
+Move 566 566
+Turn Left 567
+Turn Left 586
+Turn Right 569
+Move 570 570
+Turn Left 571
+Turn Left 572
+Turn Left 575
+Sense Here 575 575 Friend
+Sense Ahead 573 576 Foe
+Sense Ahead 573 574 Friend
+Move 577 577
+Turn Right 578
+Turn Right 586
+Sense Here 586 586 Friend
+Sense Here 579 586 Friend
+Sense RightAhead 580 568 Foe
+Sense RightAhead 580 581 Friend
+Sense LeftAhead 582 557 Foe
+Sense LeftAhead 582 583 Friend
+Sense Ahead 584 587 Foe
+Sense Ahead 584 585 Friend
+Move 588 588
+Mark 0 592
+Sense Here 556 592 Marker 2
+Sense Here 494 589 Marker 1
+Sense Here 432 590 Marker 0
+Sense Ahead 611 591 Rock
+Turn Left 594
+Turn Left 801
+Turn Right 596
+Turn Right 801
+Flip 2 593 595
+Turn Right 599
+Turn Right 801
+Turn Left 601
+Turn Left 801
 Turn Left 603
-Turn Left 813
+Turn Left 801
 Turn Right 605
-Turn Right 813
+Turn Right 801
 Flip 2 602 604
-Turn Right 608
-Turn Right 813
-Turn Left 610
-Turn Left 813
-Turn Left 612
-Turn Left 813
-Turn Right 614
-Turn Right 813
-Flip 2 611 613
-Sense Here 615 813 Friend
-Sense RightAhead 609 616 Rock
-Sense LeftAhead 607 617 Rock
-Sense RightAhead 606 618 Rock
-Sense LeftAhead 619 618 Rock
+Sense Here 606 801 Friend
+Sense RightAhead 600 607 Rock
+Sense LeftAhead 598 608 Rock
+Sense RightAhead 597 609 Rock
+Sense LeftAhead 610 609 Rock
+Turn Left 613
+Turn Left 671
+Turn Right 615
+Turn Right 671
+Flip 2 612 614
+Turn Right 618
+Turn Right 671
+Turn Left 620
+Turn Left 671
 Turn Left 622
-Turn Left 681
+Turn Left 671
 Turn Right 624
-Turn Right 681
+Turn Right 671
 Flip 2 621 623
-Turn Right 627
-Turn Right 681
-Turn Left 629
-Turn Left 681
-Turn Left 631
-Turn Left 681
-Turn Right 633
-Turn Right 681
-Flip 2 630 632
-Sense Here 634 681 Friend
-Sense RightAhead 628 635 Marker 2
-Sense RightAhead 628 636 Marker 1
-Sense RightAhead 628 637 Marker 0
-Sense LeftAhead 626 638 Marker 2
-Sense LeftAhead 626 639 Marker 1
-Sense LeftAhead 626 640 Marker 0
-Sense RightAhead 625 641 Marker 2
-Sense RightAhead 625 642 Marker 1
-Sense RightAhead 625 643 Marker 0
-Sense LeftAhead 644 641 Marker 2
-Sense LeftAhead 644 645 Marker 1
-Sense LeftAhead 644 646 Marker 0
-Sense Ahead 647 681 Marker 2
-Sense Ahead 647 648 Marker 1
-Sense Ahead 647 649 Marker 0
+Sense Here 625 671 Friend
+Sense RightAhead 619 626 Marker 2
+Sense RightAhead 619 627 Marker 1
+Sense RightAhead 619 628 Marker 0
+Sense LeftAhead 617 629 Marker 2
+Sense LeftAhead 617 630 Marker 1
+Sense LeftAhead 617 631 Marker 0
+Sense RightAhead 616 632 Marker 2
+Sense RightAhead 616 633 Marker 1
+Sense RightAhead 616 634 Marker 0
+Sense LeftAhead 635 632 Marker 2
+Sense LeftAhead 635 636 Marker 1
+Sense LeftAhead 635 637 Marker 0
+Sense Ahead 638 671 Marker 2
+Sense Ahead 638 639 Marker 1
+Sense Ahead 638 640 Marker 0
+Turn Left 643
+Move 644 644
+Turn Left 645
+Turn Left 646
+Turn Left 649
+Sense Here 649 649 Friend
+Sense Ahead 647 650 Foe
+Sense Ahead 647 648 Friend
+Move 651 651
 Turn Left 652
-Move 653 653
-Turn Left 654
-Turn Left 655
-Turn Left 658
-Sense Here 658 658 Friend
-Sense Ahead 656 659 Foe
-Sense Ahead 656 657 Friend
-Move 660 660
-Turn Left 661
-Turn Left 681
+Turn Left 671
+Turn Right 654
+Move 655 655
+Turn Left 656
+Turn Left 657
+Turn Left 660
+Sense Here 660 660 Friend
+Sense Ahead 658 661 Foe
+Sense Ahead 658 659 Friend
+Move 662 662
 Turn Right 663
-Move 664 664
-Turn Left 665
-Turn Left 666
-Turn Left 669
-Sense Here 669 669 Friend
-Sense Ahead 667 670 Foe
-Sense Ahead 667 668 Friend
-Move 671 671
-Turn Right 672
-Turn Right 681
-Sense Here 681 681 Friend
-Flip 1 681 673
-Sense Here 674 681 Friend
-Sense RightAhead 675 662 Foe
-Sense RightAhead 675 676 Friend
-Sense LeftAhead 677 651 Foe
-Sense LeftAhead 677 678 Friend
-Sense Ahead 679 682 Foe
-Sense Ahead 679 680 Friend
-Move 683 683
-Mark 1 813
-Turn Left 685
-Turn Left 744
-Turn Right 687
-Turn Right 744
-Flip 2 684 686
-Turn Right 690
-Turn Right 744
-Turn Left 692
-Turn Left 744
-Turn Left 694
-Turn Left 744
-Turn Right 696
-Turn Right 744
-Flip 2 693 695
-Sense Here 697 744 Friend
-Sense RightAhead 691 698 Marker 2
-Sense RightAhead 691 699 Marker 1
-Sense RightAhead 691 700 Marker 0
-Sense LeftAhead 689 701 Marker 2
-Sense LeftAhead 689 702 Marker 1
-Sense LeftAhead 689 703 Marker 0
-Sense RightAhead 688 704 Marker 2
-Sense RightAhead 688 705 Marker 1
-Sense RightAhead 688 706 Marker 0
-Sense LeftAhead 707 704 Marker 2
-Sense LeftAhead 707 708 Marker 1
-Sense LeftAhead 707 709 Marker 0
-Sense Ahead 710 744 Marker 2
-Sense Ahead 710 711 Marker 1
-Sense Ahead 710 712 Marker 0
-Turn Left 715
-Move 716 716
-Turn Left 717
+Turn Right 671
+Sense Here 671 671 Friend
+Sense Here 664 671 Friend
+Sense RightAhead 665 653 Foe
+Sense RightAhead 665 666 Friend
+Sense LeftAhead 667 642 Foe
+Sense LeftAhead 667 668 Friend
+Sense Ahead 669 672 Foe
+Sense Ahead 669 670 Friend
+Move 673 673
+Mark 1 801
+Turn Left 675
+Turn Left 733
+Turn Right 677
+Turn Right 733
+Flip 2 674 676
+Turn Right 680
+Turn Right 733
+Turn Left 682
+Turn Left 733
+Turn Left 684
+Turn Left 733
+Turn Right 686
+Turn Right 733
+Flip 2 683 685
+Sense Here 687 733 Friend
+Sense RightAhead 681 688 Marker 2
+Sense RightAhead 681 689 Marker 1
+Sense RightAhead 681 690 Marker 0
+Sense LeftAhead 679 691 Marker 2
+Sense LeftAhead 679 692 Marker 1
+Sense LeftAhead 679 693 Marker 0
+Sense RightAhead 678 694 Marker 2
+Sense RightAhead 678 695 Marker 1
+Sense RightAhead 678 696 Marker 0
+Sense LeftAhead 697 694 Marker 2
+Sense LeftAhead 697 698 Marker 1
+Sense LeftAhead 697 699 Marker 0
+Sense Ahead 700 733 Marker 2
+Sense Ahead 700 701 Marker 1
+Sense Ahead 700 702 Marker 0
+Turn Left 705
+Move 706 706
+Turn Left 707
+Turn Left 708
+Turn Left 711
+Sense Here 711 711 Friend
+Sense Ahead 709 712 Foe
+Sense Ahead 709 710 Friend
+Move 713 713
+Turn Left 714
+Turn Left 733
+Turn Right 716
+Move 717 717
 Turn Left 718
-Turn Left 721
-Sense Here 721 721 Friend
-Sense Ahead 719 722 Foe
-Sense Ahead 719 720 Friend
-Move 723 723
-Turn Left 724
+Turn Left 719
+Turn Left 722
+Sense Here 722 722 Friend
+Sense Ahead 720 723 Foe
+Sense Ahead 720 721 Friend
+Move 724 724
+Turn Right 725
+Turn Right 733
+Sense Here 733 733 Friend
+Sense Here 726 733 Friend
+Sense RightAhead 727 715 Foe
+Sense RightAhead 727 728 Friend
+Sense LeftAhead 729 704 Foe
+Sense LeftAhead 729 730 Friend
+Sense Ahead 731 734 Foe
+Sense Ahead 731 732 Friend
+Move 735 735
+Mark 2 801
+Turn Left 737
+Turn Left 795
+Turn Right 739
+Turn Right 795
+Flip 2 736 738
+Turn Right 742
+Turn Right 795
 Turn Left 744
-Turn Right 726
-Move 727 727
-Turn Left 728
-Turn Left 729
-Turn Left 732
-Sense Here 732 732 Friend
-Sense Ahead 730 733 Foe
-Sense Ahead 730 731 Friend
-Move 734 734
-Turn Right 735
-Turn Right 744
-Sense Here 744 744 Friend
-Flip 1 744 736
-Sense Here 737 744 Friend
-Sense RightAhead 738 725 Foe
-Sense RightAhead 738 739 Friend
-Sense LeftAhead 740 714 Foe
-Sense LeftAhead 740 741 Friend
-Sense Ahead 742 745 Foe
-Sense Ahead 742 743 Friend
-Move 746 746
-Mark 2 813
-Turn Left 748
-Turn Left 807
-Turn Right 750
-Turn Right 807
-Flip 2 747 749
-Turn Right 753
-Turn Right 807
-Turn Left 755
-Turn Left 807
-Turn Left 757
-Turn Left 807
-Turn Right 759
-Turn Right 807
-Flip 2 756 758
-Sense Here 760 807 Friend
-Sense RightAhead 754 761 Marker 2
-Sense RightAhead 754 762 Marker 1
-Sense RightAhead 754 763 Marker 0
-Sense LeftAhead 752 764 Marker 2
-Sense LeftAhead 752 765 Marker 1
-Sense LeftAhead 752 766 Marker 0
-Sense RightAhead 751 767 Marker 2
-Sense RightAhead 751 768 Marker 1
-Sense RightAhead 751 769 Marker 0
-Sense LeftAhead 770 767 Marker 2
-Sense LeftAhead 770 771 Marker 1
-Sense LeftAhead 770 772 Marker 0
-Sense Ahead 773 807 Marker 2
-Sense Ahead 773 774 Marker 1
-Sense Ahead 773 775 Marker 0
-Turn Left 778
+Turn Left 795
+Turn Left 746
+Turn Left 795
+Turn Right 748
+Turn Right 795
+Flip 2 745 747
+Sense Here 749 795 Friend
+Sense RightAhead 743 750 Marker 2
+Sense RightAhead 743 751 Marker 1
+Sense RightAhead 743 752 Marker 0
+Sense LeftAhead 741 753 Marker 2
+Sense LeftAhead 741 754 Marker 1
+Sense LeftAhead 741 755 Marker 0
+Sense RightAhead 740 756 Marker 2
+Sense RightAhead 740 757 Marker 1
+Sense RightAhead 740 758 Marker 0
+Sense LeftAhead 759 756 Marker 2
+Sense LeftAhead 759 760 Marker 1
+Sense LeftAhead 759 761 Marker 0
+Sense Ahead 762 795 Marker 2
+Sense Ahead 762 763 Marker 1
+Sense Ahead 762 764 Marker 0
+Turn Left 767
+Move 768 768
+Turn Left 769
+Turn Left 770
+Turn Left 773
+Sense Here 773 773 Friend
+Sense Ahead 771 774 Foe
+Sense Ahead 771 772 Friend
+Move 775 775
+Turn Left 776
+Turn Left 795
+Turn Right 778
 Move 779 779
 Turn Left 780
 Turn Left 781
@@ -784,1675 +784,1675 @@ Sense Here 784 784 Friend
 Sense Ahead 782 785 Foe
 Sense Ahead 782 783 Friend
 Move 786 786
-Turn Left 787
-Turn Left 807
-Turn Right 789
-Move 790 790
-Turn Left 791
-Turn Left 792
-Turn Left 795
+Turn Right 787
+Turn Right 795
 Sense Here 795 795 Friend
+Sense Here 788 795 Friend
+Sense RightAhead 789 777 Foe
+Sense RightAhead 789 790 Friend
+Sense LeftAhead 791 766 Foe
+Sense LeftAhead 791 792 Friend
 Sense Ahead 793 796 Foe
 Sense Ahead 793 794 Friend
 Move 797 797
-Turn Right 798
+Mark 0 801
+Sense Here 765 801 Marker 2
+Sense Here 703 798 Marker 1
+Sense Here 641 799 Marker 0
+Sense Ahead 2419 800 Rock
+Turn Left 2415
+Mark 0 993
+Turn Left 805
+Turn Left 863
 Turn Right 807
-Sense Here 807 807 Friend
-Flip 1 807 799
-Sense Here 800 807 Friend
-Sense RightAhead 801 788 Foe
-Sense RightAhead 801 802 Friend
-Sense LeftAhead 803 777 Foe
-Sense LeftAhead 803 804 Friend
-Sense Ahead 805 808 Foe
-Sense Ahead 805 806 Friend
-Move 809 809
-Mark 0 813
-Sense Here 776 813 Marker 2
-Sense Here 713 810 Marker 1
-Sense Here 650 811 Marker 0
-Sense Ahead 2455 812 Rock
-Turn Left 2451
-Mark 0 1008
-Turn Left 817
-Turn Left 876
-Turn Right 819
-Turn Right 876
-Flip 2 816 818
-Turn Right 822
-Turn Right 876
-Turn Left 824
-Turn Left 876
-Turn Left 826
-Turn Left 876
-Turn Right 828
-Turn Right 876
-Flip 2 825 827
-Sense Here 829 876 Friend
-Sense RightAhead 823 830 Marker 2
-Sense RightAhead 823 831 Marker 1
-Sense RightAhead 823 832 Marker 0
-Sense LeftAhead 821 833 Marker 2
-Sense LeftAhead 821 834 Marker 1
-Sense LeftAhead 821 835 Marker 0
-Sense RightAhead 820 836 Marker 2
-Sense RightAhead 820 837 Marker 1
-Sense RightAhead 820 838 Marker 0
-Sense LeftAhead 839 836 Marker 2
-Sense LeftAhead 839 840 Marker 1
-Sense LeftAhead 839 841 Marker 0
-Sense Ahead 842 876 Marker 2
-Sense Ahead 842 843 Marker 1
-Sense Ahead 842 844 Marker 0
-Turn Left 847
-Move 848 848
+Turn Right 863
+Flip 2 804 806
+Turn Right 810
+Turn Right 863
+Turn Left 812
+Turn Left 863
+Turn Left 814
+Turn Left 863
+Turn Right 816
+Turn Right 863
+Flip 2 813 815
+Sense Here 817 863 Friend
+Sense RightAhead 811 818 Marker 2
+Sense RightAhead 811 819 Marker 1
+Sense RightAhead 811 820 Marker 0
+Sense LeftAhead 809 821 Marker 2
+Sense LeftAhead 809 822 Marker 1
+Sense LeftAhead 809 823 Marker 0
+Sense RightAhead 808 824 Marker 2
+Sense RightAhead 808 825 Marker 1
+Sense RightAhead 808 826 Marker 0
+Sense LeftAhead 827 824 Marker 2
+Sense LeftAhead 827 828 Marker 1
+Sense LeftAhead 827 829 Marker 0
+Sense Ahead 830 863 Marker 2
+Sense Ahead 830 831 Marker 1
+Sense Ahead 830 832 Marker 0
+Turn Left 835
+Move 836 836
+Turn Left 837
+Turn Left 838
+Turn Left 841
+Sense Here 841 841 Friend
+Sense Ahead 839 842 Foe
+Sense Ahead 839 840 Friend
+Move 843 843
+Turn Left 844
+Turn Left 863
+Turn Right 846
+Move 847 847
+Turn Left 848
 Turn Left 849
-Turn Left 850
-Turn Left 853
-Sense Here 853 853 Friend
-Sense Ahead 851 854 Foe
-Sense Ahead 851 852 Friend
-Move 855 855
-Turn Left 856
+Turn Left 852
+Sense Here 852 852 Friend
+Sense Ahead 850 853 Foe
+Sense Ahead 850 851 Friend
+Move 854 854
+Turn Right 855
+Turn Right 863
+Sense Here 863 863 Friend
+Sense Here 856 863 Friend
+Sense RightAhead 857 845 Foe
+Sense RightAhead 857 858 Friend
+Sense LeftAhead 859 834 Foe
+Sense LeftAhead 859 860 Friend
+Sense Ahead 861 864 Foe
+Sense Ahead 861 862 Friend
+Move 865 865
+Mark 1 993
+Turn Left 867
+Turn Left 925
+Turn Right 869
+Turn Right 925
+Flip 2 866 868
+Turn Right 872
+Turn Right 925
+Turn Left 874
+Turn Left 925
 Turn Left 876
-Turn Right 858
-Move 859 859
-Turn Left 860
-Turn Left 861
-Turn Left 864
-Sense Here 864 864 Friend
-Sense Ahead 862 865 Foe
-Sense Ahead 862 863 Friend
-Move 866 866
-Turn Right 867
-Turn Right 876
-Sense Here 876 876 Friend
-Flip 1 876 868
-Sense Here 869 876 Friend
-Sense RightAhead 870 857 Foe
-Sense RightAhead 870 871 Friend
-Sense LeftAhead 872 846 Foe
-Sense LeftAhead 872 873 Friend
-Sense Ahead 874 877 Foe
-Sense Ahead 874 875 Friend
-Move 878 878
-Mark 1 1008
-Turn Left 880
-Turn Left 939
-Turn Right 882
-Turn Right 939
-Flip 2 879 881
-Turn Right 885
-Turn Right 939
-Turn Left 887
-Turn Left 939
-Turn Left 889
-Turn Left 939
-Turn Right 891
-Turn Right 939
-Flip 2 888 890
-Sense Here 892 939 Friend
-Sense RightAhead 886 893 Marker 2
-Sense RightAhead 886 894 Marker 1
-Sense RightAhead 886 895 Marker 0
-Sense LeftAhead 884 896 Marker 2
-Sense LeftAhead 884 897 Marker 1
-Sense LeftAhead 884 898 Marker 0
-Sense RightAhead 883 899 Marker 2
-Sense RightAhead 883 900 Marker 1
-Sense RightAhead 883 901 Marker 0
-Sense LeftAhead 902 899 Marker 2
-Sense LeftAhead 902 903 Marker 1
-Sense LeftAhead 902 904 Marker 0
-Sense Ahead 905 939 Marker 2
-Sense Ahead 905 906 Marker 1
-Sense Ahead 905 907 Marker 0
+Turn Left 925
+Turn Right 878
+Turn Right 925
+Flip 2 875 877
+Sense Here 879 925 Friend
+Sense RightAhead 873 880 Marker 2
+Sense RightAhead 873 881 Marker 1
+Sense RightAhead 873 882 Marker 0
+Sense LeftAhead 871 883 Marker 2
+Sense LeftAhead 871 884 Marker 1
+Sense LeftAhead 871 885 Marker 0
+Sense RightAhead 870 886 Marker 2
+Sense RightAhead 870 887 Marker 1
+Sense RightAhead 870 888 Marker 0
+Sense LeftAhead 889 886 Marker 2
+Sense LeftAhead 889 890 Marker 1
+Sense LeftAhead 889 891 Marker 0
+Sense Ahead 892 925 Marker 2
+Sense Ahead 892 893 Marker 1
+Sense Ahead 892 894 Marker 0
+Turn Left 897
+Move 898 898
+Turn Left 899
+Turn Left 900
+Turn Left 903
+Sense Here 903 903 Friend
+Sense Ahead 901 904 Foe
+Sense Ahead 901 902 Friend
+Move 905 905
+Turn Left 906
+Turn Left 925
+Turn Right 908
+Move 909 909
 Turn Left 910
-Move 911 911
-Turn Left 912
-Turn Left 913
-Turn Left 916
-Sense Here 916 916 Friend
-Sense Ahead 914 917 Foe
-Sense Ahead 914 915 Friend
-Move 918 918
-Turn Left 919
-Turn Left 939
-Turn Right 921
-Move 922 922
-Turn Left 923
-Turn Left 924
-Turn Left 927
-Sense Here 927 927 Friend
-Sense Ahead 925 928 Foe
-Sense Ahead 925 926 Friend
-Move 929 929
-Turn Right 930
-Turn Right 939
-Sense Here 939 939 Friend
-Flip 1 939 931
-Sense Here 932 939 Friend
-Sense RightAhead 933 920 Foe
-Sense RightAhead 933 934 Friend
-Sense LeftAhead 935 909 Foe
-Sense LeftAhead 935 936 Friend
-Sense Ahead 937 940 Foe
-Sense Ahead 937 938 Friend
-Move 941 941
-Mark 2 1008
-Turn Left 943
-Turn Left 1002
-Turn Right 945
-Turn Right 1002
-Flip 2 942 944
-Turn Right 948
-Turn Right 1002
-Turn Left 950
-Turn Left 1002
-Turn Left 952
-Turn Left 1002
-Turn Right 954
-Turn Right 1002
-Flip 2 951 953
-Sense Here 955 1002 Friend
-Sense RightAhead 949 956 Marker 2
-Sense RightAhead 949 957 Marker 1
-Sense RightAhead 949 958 Marker 0
-Sense LeftAhead 947 959 Marker 2
-Sense LeftAhead 947 960 Marker 1
-Sense LeftAhead 947 961 Marker 0
-Sense RightAhead 946 962 Marker 2
-Sense RightAhead 946 963 Marker 1
-Sense RightAhead 946 964 Marker 0
-Sense LeftAhead 965 962 Marker 2
-Sense LeftAhead 965 966 Marker 1
-Sense LeftAhead 965 967 Marker 0
-Sense Ahead 968 1002 Marker 2
-Sense Ahead 968 969 Marker 1
-Sense Ahead 968 970 Marker 0
-Turn Left 973
-Move 974 974
-Turn Left 975
-Turn Left 976
-Turn Left 979
-Sense Here 979 979 Friend
-Sense Ahead 977 980 Foe
-Sense Ahead 977 978 Friend
-Move 981 981
-Turn Left 982
-Turn Left 1002
-Turn Right 984
-Move 985 985
-Turn Left 986
+Turn Left 911
+Turn Left 914
+Sense Here 914 914 Friend
+Sense Ahead 912 915 Foe
+Sense Ahead 912 913 Friend
+Move 916 916
+Turn Right 917
+Turn Right 925
+Sense Here 925 925 Friend
+Sense Here 918 925 Friend
+Sense RightAhead 919 907 Foe
+Sense RightAhead 919 920 Friend
+Sense LeftAhead 921 896 Foe
+Sense LeftAhead 921 922 Friend
+Sense Ahead 923 926 Foe
+Sense Ahead 923 924 Friend
+Move 927 927
+Mark 2 993
+Turn Left 929
 Turn Left 987
-Turn Left 990
-Sense Here 990 990 Friend
-Sense Ahead 988 991 Foe
-Sense Ahead 988 989 Friend
-Move 992 992
-Turn Right 993
-Turn Right 1002
-Sense Here 1002 1002 Friend
-Flip 1 1002 994
-Sense Here 995 1002 Friend
-Sense RightAhead 996 983 Foe
-Sense RightAhead 996 997 Friend
-Sense LeftAhead 998 972 Foe
-Sense LeftAhead 998 999 Friend
-Sense Ahead 1000 1003 Foe
-Sense Ahead 1000 1001 Friend
-Move 1004 1004
-Mark 0 1008
-Sense Here 971 1008 Marker 2
-Sense Here 908 1005 Marker 1
-Sense Here 845 1006 Marker 0
-Sense Ahead 1027 1007 Rock
-Turn Left 1010
-Turn Left 1220
-Turn Right 1012
-Turn Right 1220
-Flip 2 1009 1011
-Turn Right 1015
-Turn Right 1220
-Turn Left 1017
-Turn Left 1220
-Turn Left 1019
-Turn Left 1220
-Turn Right 1021
-Turn Right 1220
-Flip 2 1018 1020
-Sense Here 1022 1220 Friend
-Sense RightAhead 1016 1023 Rock
-Sense LeftAhead 1014 1024 Rock
-Sense RightAhead 1013 1025 Rock
-Sense LeftAhead 1026 1025 Rock
-Turn Left 1029
-Turn Left 1088
-Turn Right 1031
-Turn Right 1088
-Flip 2 1028 1030
-Turn Right 1034
-Turn Right 1088
-Turn Left 1036
-Turn Left 1088
-Turn Left 1038
-Turn Left 1088
-Turn Right 1040
-Turn Right 1088
-Flip 2 1037 1039
-Sense Here 1041 1088 Friend
-Sense RightAhead 1035 1042 Marker 2
-Sense RightAhead 1035 1043 Marker 1
-Sense RightAhead 1035 1044 Marker 0
-Sense LeftAhead 1033 1045 Marker 2
-Sense LeftAhead 1033 1046 Marker 1
-Sense LeftAhead 1033 1047 Marker 0
-Sense RightAhead 1032 1048 Marker 2
-Sense RightAhead 1032 1049 Marker 1
-Sense RightAhead 1032 1050 Marker 0
-Sense LeftAhead 1051 1048 Marker 2
-Sense LeftAhead 1051 1052 Marker 1
-Sense LeftAhead 1051 1053 Marker 0
-Sense Ahead 1054 1088 Marker 2
-Sense Ahead 1054 1055 Marker 1
-Sense Ahead 1054 1056 Marker 0
-Turn Left 1059
-Move 1060 1060
-Turn Left 1061
-Turn Left 1062
-Turn Left 1065
-Sense Here 1065 1065 Friend
-Sense Ahead 1063 1066 Foe
-Sense Ahead 1063 1064 Friend
-Move 1067 1067
-Turn Left 1068
-Turn Left 1088
-Turn Right 1070
-Move 1071 1071
-Turn Left 1072
-Turn Left 1073
-Turn Left 1076
-Sense Here 1076 1076 Friend
-Sense Ahead 1074 1077 Foe
-Sense Ahead 1074 1075 Friend
-Move 1078 1078
-Turn Right 1079
-Turn Right 1088
-Sense Here 1088 1088 Friend
-Flip 1 1088 1080
-Sense Here 1081 1088 Friend
-Sense RightAhead 1082 1069 Foe
-Sense RightAhead 1082 1083 Friend
-Sense LeftAhead 1084 1058 Foe
-Sense LeftAhead 1084 1085 Friend
-Sense Ahead 1086 1089 Foe
-Sense Ahead 1086 1087 Friend
-Move 1090 1090
-Mark 1 1220
-Turn Left 1092
-Turn Left 1151
-Turn Right 1094
-Turn Right 1151
-Flip 2 1091 1093
-Turn Right 1097
-Turn Right 1151
-Turn Left 1099
-Turn Left 1151
-Turn Left 1101
-Turn Left 1151
-Turn Right 1103
-Turn Right 1151
-Flip 2 1100 1102
-Sense Here 1104 1151 Friend
-Sense RightAhead 1098 1105 Marker 2
-Sense RightAhead 1098 1106 Marker 1
-Sense RightAhead 1098 1107 Marker 0
-Sense LeftAhead 1096 1108 Marker 2
-Sense LeftAhead 1096 1109 Marker 1
-Sense LeftAhead 1096 1110 Marker 0
-Sense RightAhead 1095 1111 Marker 2
-Sense RightAhead 1095 1112 Marker 1
-Sense RightAhead 1095 1113 Marker 0
-Sense LeftAhead 1114 1111 Marker 2
-Sense LeftAhead 1114 1115 Marker 1
-Sense LeftAhead 1114 1116 Marker 0
-Sense Ahead 1117 1151 Marker 2
-Sense Ahead 1117 1118 Marker 1
-Sense Ahead 1117 1119 Marker 0
-Turn Left 1122
-Move 1123 1123
-Turn Left 1124
-Turn Left 1125
-Turn Left 1128
-Sense Here 1128 1128 Friend
-Sense Ahead 1126 1129 Foe
-Sense Ahead 1126 1127 Friend
-Move 1130 1130
-Turn Left 1131
-Turn Left 1151
-Turn Right 1133
-Move 1134 1134
-Turn Left 1135
-Turn Left 1136
-Turn Left 1139
-Sense Here 1139 1139 Friend
-Sense Ahead 1137 1140 Foe
-Sense Ahead 1137 1138 Friend
-Move 1141 1141
-Turn Right 1142
-Turn Right 1151
-Sense Here 1151 1151 Friend
-Flip 1 1151 1143
-Sense Here 1144 1151 Friend
-Sense RightAhead 1145 1132 Foe
-Sense RightAhead 1145 1146 Friend
-Sense LeftAhead 1147 1121 Foe
-Sense LeftAhead 1147 1148 Friend
-Sense Ahead 1149 1152 Foe
-Sense Ahead 1149 1150 Friend
-Move 1153 1153
-Mark 2 1220
-Turn Left 1155
-Turn Left 1214
-Turn Right 1157
-Turn Right 1214
-Flip 2 1154 1156
-Turn Right 1160
-Turn Right 1214
-Turn Left 1162
-Turn Left 1214
-Turn Left 1164
-Turn Left 1214
-Turn Right 1166
-Turn Right 1214
-Flip 2 1163 1165
-Sense Here 1167 1214 Friend
-Sense RightAhead 1161 1168 Marker 2
-Sense RightAhead 1161 1169 Marker 1
-Sense RightAhead 1161 1170 Marker 0
-Sense LeftAhead 1159 1171 Marker 2
-Sense LeftAhead 1159 1172 Marker 1
-Sense LeftAhead 1159 1173 Marker 0
-Sense RightAhead 1158 1174 Marker 2
-Sense RightAhead 1158 1175 Marker 1
-Sense RightAhead 1158 1176 Marker 0
-Sense LeftAhead 1177 1174 Marker 2
-Sense LeftAhead 1177 1178 Marker 1
-Sense LeftAhead 1177 1179 Marker 0
-Sense Ahead 1180 1214 Marker 2
-Sense Ahead 1180 1181 Marker 1
-Sense Ahead 1180 1182 Marker 0
-Turn Left 1185
-Move 1186 1186
-Turn Left 1187
-Turn Left 1188
-Turn Left 1191
-Sense Here 1191 1191 Friend
-Sense Ahead 1189 1192 Foe
-Sense Ahead 1189 1190 Friend
-Move 1193 1193
-Turn Left 1194
-Turn Left 1214
-Turn Right 1196
-Move 1197 1197
-Turn Left 1198
-Turn Left 1199
+Turn Right 931
+Turn Right 987
+Flip 2 928 930
+Turn Right 934
+Turn Right 987
+Turn Left 936
+Turn Left 987
+Turn Left 938
+Turn Left 987
+Turn Right 940
+Turn Right 987
+Flip 2 937 939
+Sense Here 941 987 Friend
+Sense RightAhead 935 942 Marker 2
+Sense RightAhead 935 943 Marker 1
+Sense RightAhead 935 944 Marker 0
+Sense LeftAhead 933 945 Marker 2
+Sense LeftAhead 933 946 Marker 1
+Sense LeftAhead 933 947 Marker 0
+Sense RightAhead 932 948 Marker 2
+Sense RightAhead 932 949 Marker 1
+Sense RightAhead 932 950 Marker 0
+Sense LeftAhead 951 948 Marker 2
+Sense LeftAhead 951 952 Marker 1
+Sense LeftAhead 951 953 Marker 0
+Sense Ahead 954 987 Marker 2
+Sense Ahead 954 955 Marker 1
+Sense Ahead 954 956 Marker 0
+Turn Left 959
+Move 960 960
+Turn Left 961
+Turn Left 962
+Turn Left 965
+Sense Here 965 965 Friend
+Sense Ahead 963 966 Foe
+Sense Ahead 963 964 Friend
+Move 967 967
+Turn Left 968
+Turn Left 987
+Turn Right 970
+Move 971 971
+Turn Left 972
+Turn Left 973
+Turn Left 976
+Sense Here 976 976 Friend
+Sense Ahead 974 977 Foe
+Sense Ahead 974 975 Friend
+Move 978 978
+Turn Right 979
+Turn Right 987
+Sense Here 987 987 Friend
+Sense Here 980 987 Friend
+Sense RightAhead 981 969 Foe
+Sense RightAhead 981 982 Friend
+Sense LeftAhead 983 958 Foe
+Sense LeftAhead 983 984 Friend
+Sense Ahead 985 988 Foe
+Sense Ahead 985 986 Friend
+Move 989 989
+Mark 0 993
+Sense Here 957 993 Marker 2
+Sense Here 895 990 Marker 1
+Sense Here 833 991 Marker 0
+Sense Ahead 1012 992 Rock
+Turn Left 995
 Turn Left 1202
-Sense Here 1202 1202 Friend
-Sense Ahead 1200 1203 Foe
-Sense Ahead 1200 1201 Friend
-Move 1204 1204
-Turn Right 1205
-Turn Right 1214
-Sense Here 1214 1214 Friend
-Flip 1 1214 1206
-Sense Here 1207 1214 Friend
-Sense RightAhead 1208 1195 Foe
-Sense RightAhead 1208 1209 Friend
-Sense LeftAhead 1210 1184 Foe
-Sense LeftAhead 1210 1211 Friend
-Sense Ahead 1212 1215 Foe
-Sense Ahead 1212 1213 Friend
-Move 1216 1216
-Mark 0 1220
-Sense Here 1183 1220 Marker 2
-Sense Here 1120 1217 Marker 1
-Sense Here 1057 1218 Marker 0
-Sense Ahead 2455 1219 Rock
-Turn Left 2449
-Mark 0 1415
-Turn Left 1224
-Turn Left 1283
-Turn Right 1226
-Turn Right 1283
-Flip 2 1223 1225
-Turn Right 1229
-Turn Right 1283
-Turn Left 1231
-Turn Left 1283
-Turn Left 1233
-Turn Left 1283
-Turn Right 1235
-Turn Right 1283
-Flip 2 1232 1234
-Sense Here 1236 1283 Friend
-Sense RightAhead 1230 1237 Marker 2
-Sense RightAhead 1230 1238 Marker 1
-Sense RightAhead 1230 1239 Marker 0
-Sense LeftAhead 1228 1240 Marker 2
-Sense LeftAhead 1228 1241 Marker 1
-Sense LeftAhead 1228 1242 Marker 0
-Sense RightAhead 1227 1243 Marker 2
-Sense RightAhead 1227 1244 Marker 1
-Sense RightAhead 1227 1245 Marker 0
-Sense LeftAhead 1246 1243 Marker 2
-Sense LeftAhead 1246 1247 Marker 1
-Sense LeftAhead 1246 1248 Marker 0
-Sense Ahead 1249 1283 Marker 2
-Sense Ahead 1249 1250 Marker 1
-Sense Ahead 1249 1251 Marker 0
-Turn Left 1254
+Turn Right 997
+Turn Right 1202
+Flip 2 994 996
+Turn Right 1000
+Turn Right 1202
+Turn Left 1002
+Turn Left 1202
+Turn Left 1004
+Turn Left 1202
+Turn Right 1006
+Turn Right 1202
+Flip 2 1003 1005
+Sense Here 1007 1202 Friend
+Sense RightAhead 1001 1008 Rock
+Sense LeftAhead 999 1009 Rock
+Sense RightAhead 998 1010 Rock
+Sense LeftAhead 1011 1010 Rock
+Turn Left 1014
+Turn Left 1072
+Turn Right 1016
+Turn Right 1072
+Flip 2 1013 1015
+Turn Right 1019
+Turn Right 1072
+Turn Left 1021
+Turn Left 1072
+Turn Left 1023
+Turn Left 1072
+Turn Right 1025
+Turn Right 1072
+Flip 2 1022 1024
+Sense Here 1026 1072 Friend
+Sense RightAhead 1020 1027 Marker 2
+Sense RightAhead 1020 1028 Marker 1
+Sense RightAhead 1020 1029 Marker 0
+Sense LeftAhead 1018 1030 Marker 2
+Sense LeftAhead 1018 1031 Marker 1
+Sense LeftAhead 1018 1032 Marker 0
+Sense RightAhead 1017 1033 Marker 2
+Sense RightAhead 1017 1034 Marker 1
+Sense RightAhead 1017 1035 Marker 0
+Sense LeftAhead 1036 1033 Marker 2
+Sense LeftAhead 1036 1037 Marker 1
+Sense LeftAhead 1036 1038 Marker 0
+Sense Ahead 1039 1072 Marker 2
+Sense Ahead 1039 1040 Marker 1
+Sense Ahead 1039 1041 Marker 0
+Turn Left 1044
+Move 1045 1045
+Turn Left 1046
+Turn Left 1047
+Turn Left 1050
+Sense Here 1050 1050 Friend
+Sense Ahead 1048 1051 Foe
+Sense Ahead 1048 1049 Friend
+Move 1052 1052
+Turn Left 1053
+Turn Left 1072
+Turn Right 1055
+Move 1056 1056
+Turn Left 1057
+Turn Left 1058
+Turn Left 1061
+Sense Here 1061 1061 Friend
+Sense Ahead 1059 1062 Foe
+Sense Ahead 1059 1060 Friend
+Move 1063 1063
+Turn Right 1064
+Turn Right 1072
+Sense Here 1072 1072 Friend
+Sense Here 1065 1072 Friend
+Sense RightAhead 1066 1054 Foe
+Sense RightAhead 1066 1067 Friend
+Sense LeftAhead 1068 1043 Foe
+Sense LeftAhead 1068 1069 Friend
+Sense Ahead 1070 1073 Foe
+Sense Ahead 1070 1071 Friend
+Move 1074 1074
+Mark 1 1202
+Turn Left 1076
+Turn Left 1134
+Turn Right 1078
+Turn Right 1134
+Flip 2 1075 1077
+Turn Right 1081
+Turn Right 1134
+Turn Left 1083
+Turn Left 1134
+Turn Left 1085
+Turn Left 1134
+Turn Right 1087
+Turn Right 1134
+Flip 2 1084 1086
+Sense Here 1088 1134 Friend
+Sense RightAhead 1082 1089 Marker 2
+Sense RightAhead 1082 1090 Marker 1
+Sense RightAhead 1082 1091 Marker 0
+Sense LeftAhead 1080 1092 Marker 2
+Sense LeftAhead 1080 1093 Marker 1
+Sense LeftAhead 1080 1094 Marker 0
+Sense RightAhead 1079 1095 Marker 2
+Sense RightAhead 1079 1096 Marker 1
+Sense RightAhead 1079 1097 Marker 0
+Sense LeftAhead 1098 1095 Marker 2
+Sense LeftAhead 1098 1099 Marker 1
+Sense LeftAhead 1098 1100 Marker 0
+Sense Ahead 1101 1134 Marker 2
+Sense Ahead 1101 1102 Marker 1
+Sense Ahead 1101 1103 Marker 0
+Turn Left 1106
+Move 1107 1107
+Turn Left 1108
+Turn Left 1109
+Turn Left 1112
+Sense Here 1112 1112 Friend
+Sense Ahead 1110 1113 Foe
+Sense Ahead 1110 1111 Friend
+Move 1114 1114
+Turn Left 1115
+Turn Left 1134
+Turn Right 1117
+Move 1118 1118
+Turn Left 1119
+Turn Left 1120
+Turn Left 1123
+Sense Here 1123 1123 Friend
+Sense Ahead 1121 1124 Foe
+Sense Ahead 1121 1122 Friend
+Move 1125 1125
+Turn Right 1126
+Turn Right 1134
+Sense Here 1134 1134 Friend
+Sense Here 1127 1134 Friend
+Sense RightAhead 1128 1116 Foe
+Sense RightAhead 1128 1129 Friend
+Sense LeftAhead 1130 1105 Foe
+Sense LeftAhead 1130 1131 Friend
+Sense Ahead 1132 1135 Foe
+Sense Ahead 1132 1133 Friend
+Move 1136 1136
+Mark 2 1202
+Turn Left 1138
+Turn Left 1196
+Turn Right 1140
+Turn Right 1196
+Flip 2 1137 1139
+Turn Right 1143
+Turn Right 1196
+Turn Left 1145
+Turn Left 1196
+Turn Left 1147
+Turn Left 1196
+Turn Right 1149
+Turn Right 1196
+Flip 2 1146 1148
+Sense Here 1150 1196 Friend
+Sense RightAhead 1144 1151 Marker 2
+Sense RightAhead 1144 1152 Marker 1
+Sense RightAhead 1144 1153 Marker 0
+Sense LeftAhead 1142 1154 Marker 2
+Sense LeftAhead 1142 1155 Marker 1
+Sense LeftAhead 1142 1156 Marker 0
+Sense RightAhead 1141 1157 Marker 2
+Sense RightAhead 1141 1158 Marker 1
+Sense RightAhead 1141 1159 Marker 0
+Sense LeftAhead 1160 1157 Marker 2
+Sense LeftAhead 1160 1161 Marker 1
+Sense LeftAhead 1160 1162 Marker 0
+Sense Ahead 1163 1196 Marker 2
+Sense Ahead 1163 1164 Marker 1
+Sense Ahead 1163 1165 Marker 0
+Turn Left 1168
+Move 1169 1169
+Turn Left 1170
+Turn Left 1171
+Turn Left 1174
+Sense Here 1174 1174 Friend
+Sense Ahead 1172 1175 Foe
+Sense Ahead 1172 1173 Friend
+Move 1176 1176
+Turn Left 1177
+Turn Left 1196
+Turn Right 1179
+Move 1180 1180
+Turn Left 1181
+Turn Left 1182
+Turn Left 1185
+Sense Here 1185 1185 Friend
+Sense Ahead 1183 1186 Foe
+Sense Ahead 1183 1184 Friend
+Move 1187 1187
+Turn Right 1188
+Turn Right 1196
+Sense Here 1196 1196 Friend
+Sense Here 1189 1196 Friend
+Sense RightAhead 1190 1178 Foe
+Sense RightAhead 1190 1191 Friend
+Sense LeftAhead 1192 1167 Foe
+Sense LeftAhead 1192 1193 Friend
+Sense Ahead 1194 1197 Foe
+Sense Ahead 1194 1195 Friend
+Move 1198 1198
+Mark 0 1202
+Sense Here 1166 1202 Marker 2
+Sense Here 1104 1199 Marker 1
+Sense Here 1042 1200 Marker 0
+Sense Ahead 2419 1201 Rock
+Turn Left 2413
+Mark 0 1394
+Turn Left 1206
+Turn Left 1264
+Turn Right 1208
+Turn Right 1264
+Flip 2 1205 1207
+Turn Right 1211
+Turn Right 1264
+Turn Left 1213
+Turn Left 1264
+Turn Left 1215
+Turn Left 1264
+Turn Right 1217
+Turn Right 1264
+Flip 2 1214 1216
+Sense Here 1218 1264 Friend
+Sense RightAhead 1212 1219 Marker 2
+Sense RightAhead 1212 1220 Marker 1
+Sense RightAhead 1212 1221 Marker 0
+Sense LeftAhead 1210 1222 Marker 2
+Sense LeftAhead 1210 1223 Marker 1
+Sense LeftAhead 1210 1224 Marker 0
+Sense RightAhead 1209 1225 Marker 2
+Sense RightAhead 1209 1226 Marker 1
+Sense RightAhead 1209 1227 Marker 0
+Sense LeftAhead 1228 1225 Marker 2
+Sense LeftAhead 1228 1229 Marker 1
+Sense LeftAhead 1228 1230 Marker 0
+Sense Ahead 1231 1264 Marker 2
+Sense Ahead 1231 1232 Marker 1
+Sense Ahead 1231 1233 Marker 0
+Turn Left 1236
+Move 1237 1237
+Turn Left 1238
+Turn Left 1239
+Turn Left 1242
+Sense Here 1242 1242 Friend
+Sense Ahead 1240 1243 Foe
+Sense Ahead 1240 1241 Friend
+Move 1244 1244
+Turn Left 1245
+Turn Left 1264
+Turn Right 1247
+Move 1248 1248
+Turn Left 1249
+Turn Left 1250
+Turn Left 1253
+Sense Here 1253 1253 Friend
+Sense Ahead 1251 1254 Foe
+Sense Ahead 1251 1252 Friend
 Move 1255 1255
-Turn Left 1256
-Turn Left 1257
-Turn Left 1260
-Sense Here 1260 1260 Friend
-Sense Ahead 1258 1261 Foe
-Sense Ahead 1258 1259 Friend
-Move 1262 1262
-Turn Left 1263
-Turn Left 1283
-Turn Right 1265
+Turn Right 1256
+Turn Right 1264
+Sense Here 1264 1264 Friend
+Sense Here 1257 1264 Friend
+Sense RightAhead 1258 1246 Foe
+Sense RightAhead 1258 1259 Friend
+Sense LeftAhead 1260 1235 Foe
+Sense LeftAhead 1260 1261 Friend
+Sense Ahead 1262 1265 Foe
+Sense Ahead 1262 1263 Friend
 Move 1266 1266
-Turn Left 1267
+Mark 1 1394
 Turn Left 1268
-Turn Left 1271
-Sense Here 1271 1271 Friend
-Sense Ahead 1269 1272 Foe
-Sense Ahead 1269 1270 Friend
-Move 1273 1273
-Turn Right 1274
-Turn Right 1283
-Sense Here 1283 1283 Friend
-Flip 1 1283 1275
-Sense Here 1276 1283 Friend
-Sense RightAhead 1277 1264 Foe
-Sense RightAhead 1277 1278 Friend
-Sense LeftAhead 1279 1253 Foe
-Sense LeftAhead 1279 1280 Friend
-Sense Ahead 1281 1284 Foe
-Sense Ahead 1281 1282 Friend
-Move 1285 1285
-Mark 1 1415
-Turn Left 1287
-Turn Left 1346
-Turn Right 1289
-Turn Right 1346
-Flip 2 1286 1288
-Turn Right 1292
-Turn Right 1346
-Turn Left 1294
-Turn Left 1346
-Turn Left 1296
-Turn Left 1346
-Turn Right 1298
-Turn Right 1346
-Flip 2 1295 1297
-Sense Here 1299 1346 Friend
-Sense RightAhead 1293 1300 Marker 2
-Sense RightAhead 1293 1301 Marker 1
-Sense RightAhead 1293 1302 Marker 0
-Sense LeftAhead 1291 1303 Marker 2
-Sense LeftAhead 1291 1304 Marker 1
-Sense LeftAhead 1291 1305 Marker 0
-Sense RightAhead 1290 1306 Marker 2
-Sense RightAhead 1290 1307 Marker 1
-Sense RightAhead 1290 1308 Marker 0
-Sense LeftAhead 1309 1306 Marker 2
-Sense LeftAhead 1309 1310 Marker 1
-Sense LeftAhead 1309 1311 Marker 0
-Sense Ahead 1312 1346 Marker 2
-Sense Ahead 1312 1313 Marker 1
-Sense Ahead 1312 1314 Marker 0
-Turn Left 1317
-Move 1318 1318
-Turn Left 1319
-Turn Left 1320
-Turn Left 1323
-Sense Here 1323 1323 Friend
-Sense Ahead 1321 1324 Foe
-Sense Ahead 1321 1322 Friend
-Move 1325 1325
 Turn Left 1326
-Turn Left 1346
-Turn Right 1328
-Move 1329 1329
+Turn Right 1270
+Turn Right 1326
+Flip 2 1267 1269
+Turn Right 1273
+Turn Right 1326
+Turn Left 1275
+Turn Left 1326
+Turn Left 1277
+Turn Left 1326
+Turn Right 1279
+Turn Right 1326
+Flip 2 1276 1278
+Sense Here 1280 1326 Friend
+Sense RightAhead 1274 1281 Marker 2
+Sense RightAhead 1274 1282 Marker 1
+Sense RightAhead 1274 1283 Marker 0
+Sense LeftAhead 1272 1284 Marker 2
+Sense LeftAhead 1272 1285 Marker 1
+Sense LeftAhead 1272 1286 Marker 0
+Sense RightAhead 1271 1287 Marker 2
+Sense RightAhead 1271 1288 Marker 1
+Sense RightAhead 1271 1289 Marker 0
+Sense LeftAhead 1290 1287 Marker 2
+Sense LeftAhead 1290 1291 Marker 1
+Sense LeftAhead 1290 1292 Marker 0
+Sense Ahead 1293 1326 Marker 2
+Sense Ahead 1293 1294 Marker 1
+Sense Ahead 1293 1295 Marker 0
+Turn Left 1298
+Move 1299 1299
+Turn Left 1300
+Turn Left 1301
+Turn Left 1304
+Sense Here 1304 1304 Friend
+Sense Ahead 1302 1305 Foe
+Sense Ahead 1302 1303 Friend
+Move 1306 1306
+Turn Left 1307
+Turn Left 1326
+Turn Right 1309
+Move 1310 1310
+Turn Left 1311
+Turn Left 1312
+Turn Left 1315
+Sense Here 1315 1315 Friend
+Sense Ahead 1313 1316 Foe
+Sense Ahead 1313 1314 Friend
+Move 1317 1317
+Turn Right 1318
+Turn Right 1326
+Sense Here 1326 1326 Friend
+Sense Here 1319 1326 Friend
+Sense RightAhead 1320 1308 Foe
+Sense RightAhead 1320 1321 Friend
+Sense LeftAhead 1322 1297 Foe
+Sense LeftAhead 1322 1323 Friend
+Sense Ahead 1324 1327 Foe
+Sense Ahead 1324 1325 Friend
+Move 1328 1328
+Mark 2 1394
 Turn Left 1330
-Turn Left 1331
-Turn Left 1334
-Sense Here 1334 1334 Friend
-Sense Ahead 1332 1335 Foe
-Sense Ahead 1332 1333 Friend
-Move 1336 1336
-Turn Right 1337
-Turn Right 1346
-Sense Here 1346 1346 Friend
-Flip 1 1346 1338
-Sense Here 1339 1346 Friend
-Sense RightAhead 1340 1327 Foe
-Sense RightAhead 1340 1341 Friend
-Sense LeftAhead 1342 1316 Foe
-Sense LeftAhead 1342 1343 Friend
-Sense Ahead 1344 1347 Foe
-Sense Ahead 1344 1345 Friend
-Move 1348 1348
-Mark 2 1415
-Turn Left 1350
-Turn Left 1409
-Turn Right 1352
-Turn Right 1409
-Flip 2 1349 1351
-Turn Right 1355
-Turn Right 1409
-Turn Left 1357
-Turn Left 1409
-Turn Left 1359
-Turn Left 1409
-Turn Right 1361
-Turn Right 1409
-Flip 2 1358 1360
-Sense Here 1362 1409 Friend
-Sense RightAhead 1356 1363 Marker 2
-Sense RightAhead 1356 1364 Marker 1
-Sense RightAhead 1356 1365 Marker 0
-Sense LeftAhead 1354 1366 Marker 2
-Sense LeftAhead 1354 1367 Marker 1
-Sense LeftAhead 1354 1368 Marker 0
-Sense RightAhead 1353 1369 Marker 2
-Sense RightAhead 1353 1370 Marker 1
-Sense RightAhead 1353 1371 Marker 0
-Sense LeftAhead 1372 1369 Marker 2
-Sense LeftAhead 1372 1373 Marker 1
-Sense LeftAhead 1372 1374 Marker 0
-Sense Ahead 1375 1409 Marker 2
-Sense Ahead 1375 1376 Marker 1
-Sense Ahead 1375 1377 Marker 0
-Turn Left 1380
-Move 1381 1381
-Turn Left 1382
-Turn Left 1383
-Turn Left 1386
-Sense Here 1386 1386 Friend
-Sense Ahead 1384 1387 Foe
-Sense Ahead 1384 1385 Friend
-Move 1388 1388
-Turn Left 1389
-Turn Left 1409
-Turn Right 1391
-Move 1392 1392
-Turn Left 1393
-Turn Left 1394
-Turn Left 1397
-Sense Here 1397 1397 Friend
-Sense Ahead 1395 1398 Foe
-Sense Ahead 1395 1396 Friend
-Move 1399 1399
-Turn Right 1400
-Turn Right 1409
-Sense Here 1409 1409 Friend
-Flip 1 1409 1401
-Sense Here 1402 1409 Friend
-Sense RightAhead 1403 1390 Foe
-Sense RightAhead 1403 1404 Friend
-Sense LeftAhead 1405 1379 Foe
-Sense LeftAhead 1405 1406 Friend
-Sense Ahead 1407 1410 Foe
-Sense Ahead 1407 1408 Friend
-Move 1411 1411
-Mark 0 1415
-Sense Here 1378 1415 Marker 2
-Sense Here 1315 1412 Marker 1
-Sense Here 1252 1413 Marker 0
-Sense Ahead 1434 1414 Rock
-Turn Left 1417
-Turn Left 1627
-Turn Right 1419
-Turn Right 1627
-Flip 2 1416 1418
-Turn Right 1422
-Turn Right 1627
+Turn Left 1388
+Turn Right 1332
+Turn Right 1388
+Flip 2 1329 1331
+Turn Right 1335
+Turn Right 1388
+Turn Left 1337
+Turn Left 1388
+Turn Left 1339
+Turn Left 1388
+Turn Right 1341
+Turn Right 1388
+Flip 2 1338 1340
+Sense Here 1342 1388 Friend
+Sense RightAhead 1336 1343 Marker 2
+Sense RightAhead 1336 1344 Marker 1
+Sense RightAhead 1336 1345 Marker 0
+Sense LeftAhead 1334 1346 Marker 2
+Sense LeftAhead 1334 1347 Marker 1
+Sense LeftAhead 1334 1348 Marker 0
+Sense RightAhead 1333 1349 Marker 2
+Sense RightAhead 1333 1350 Marker 1
+Sense RightAhead 1333 1351 Marker 0
+Sense LeftAhead 1352 1349 Marker 2
+Sense LeftAhead 1352 1353 Marker 1
+Sense LeftAhead 1352 1354 Marker 0
+Sense Ahead 1355 1388 Marker 2
+Sense Ahead 1355 1356 Marker 1
+Sense Ahead 1355 1357 Marker 0
+Turn Left 1360
+Move 1361 1361
+Turn Left 1362
+Turn Left 1363
+Turn Left 1366
+Sense Here 1366 1366 Friend
+Sense Ahead 1364 1367 Foe
+Sense Ahead 1364 1365 Friend
+Move 1368 1368
+Turn Left 1369
+Turn Left 1388
+Turn Right 1371
+Move 1372 1372
+Turn Left 1373
+Turn Left 1374
+Turn Left 1377
+Sense Here 1377 1377 Friend
+Sense Ahead 1375 1378 Foe
+Sense Ahead 1375 1376 Friend
+Move 1379 1379
+Turn Right 1380
+Turn Right 1388
+Sense Here 1388 1388 Friend
+Sense Here 1381 1388 Friend
+Sense RightAhead 1382 1370 Foe
+Sense RightAhead 1382 1383 Friend
+Sense LeftAhead 1384 1359 Foe
+Sense LeftAhead 1384 1385 Friend
+Sense Ahead 1386 1389 Foe
+Sense Ahead 1386 1387 Friend
+Move 1390 1390
+Mark 0 1394
+Sense Here 1358 1394 Marker 2
+Sense Here 1296 1391 Marker 1
+Sense Here 1234 1392 Marker 0
+Sense Ahead 1413 1393 Rock
+Turn Left 1396
+Turn Left 1603
+Turn Right 1398
+Turn Right 1603
+Flip 2 1395 1397
+Turn Right 1401
+Turn Right 1603
+Turn Left 1403
+Turn Left 1603
+Turn Left 1405
+Turn Left 1603
+Turn Right 1407
+Turn Right 1603
+Flip 2 1404 1406
+Sense Here 1408 1603 Friend
+Sense RightAhead 1402 1409 Rock
+Sense LeftAhead 1400 1410 Rock
+Sense RightAhead 1399 1411 Rock
+Sense LeftAhead 1412 1411 Rock
+Turn Left 1415
+Turn Left 1473
+Turn Right 1417
+Turn Right 1473
+Flip 2 1414 1416
+Turn Right 1420
+Turn Right 1473
+Turn Left 1422
+Turn Left 1473
 Turn Left 1424
-Turn Left 1627
-Turn Left 1426
-Turn Left 1627
-Turn Right 1428
-Turn Right 1627
-Flip 2 1425 1427
-Sense Here 1429 1627 Friend
-Sense RightAhead 1423 1430 Rock
-Sense LeftAhead 1421 1431 Rock
-Sense RightAhead 1420 1432 Rock
-Sense LeftAhead 1433 1432 Rock
-Turn Left 1436
-Turn Left 1495
-Turn Right 1438
-Turn Right 1495
-Flip 2 1435 1437
-Turn Right 1441
-Turn Right 1495
-Turn Left 1443
-Turn Left 1495
+Turn Left 1473
+Turn Right 1426
+Turn Right 1473
+Flip 2 1423 1425
+Sense Here 1427 1473 Friend
+Sense RightAhead 1421 1428 Marker 2
+Sense RightAhead 1421 1429 Marker 1
+Sense RightAhead 1421 1430 Marker 0
+Sense LeftAhead 1419 1431 Marker 2
+Sense LeftAhead 1419 1432 Marker 1
+Sense LeftAhead 1419 1433 Marker 0
+Sense RightAhead 1418 1434 Marker 2
+Sense RightAhead 1418 1435 Marker 1
+Sense RightAhead 1418 1436 Marker 0
+Sense LeftAhead 1437 1434 Marker 2
+Sense LeftAhead 1437 1438 Marker 1
+Sense LeftAhead 1437 1439 Marker 0
+Sense Ahead 1440 1473 Marker 2
+Sense Ahead 1440 1441 Marker 1
+Sense Ahead 1440 1442 Marker 0
 Turn Left 1445
-Turn Left 1495
-Turn Right 1447
-Turn Right 1495
-Flip 2 1444 1446
-Sense Here 1448 1495 Friend
-Sense RightAhead 1442 1449 Marker 2
-Sense RightAhead 1442 1450 Marker 1
-Sense RightAhead 1442 1451 Marker 0
-Sense LeftAhead 1440 1452 Marker 2
-Sense LeftAhead 1440 1453 Marker 1
-Sense LeftAhead 1440 1454 Marker 0
-Sense RightAhead 1439 1455 Marker 2
-Sense RightAhead 1439 1456 Marker 1
-Sense RightAhead 1439 1457 Marker 0
-Sense LeftAhead 1458 1455 Marker 2
-Sense LeftAhead 1458 1459 Marker 1
-Sense LeftAhead 1458 1460 Marker 0
-Sense Ahead 1461 1495 Marker 2
-Sense Ahead 1461 1462 Marker 1
-Sense Ahead 1461 1463 Marker 0
-Turn Left 1466
-Move 1467 1467
-Turn Left 1468
-Turn Left 1469
-Turn Left 1472
-Sense Here 1472 1472 Friend
-Sense Ahead 1470 1473 Foe
-Sense Ahead 1470 1471 Friend
-Move 1474 1474
-Turn Left 1475
-Turn Left 1495
-Turn Right 1477
-Move 1478 1478
-Turn Left 1479
-Turn Left 1480
-Turn Left 1483
-Sense Here 1483 1483 Friend
-Sense Ahead 1481 1484 Foe
-Sense Ahead 1481 1482 Friend
-Move 1485 1485
-Turn Right 1486
-Turn Right 1495
-Sense Here 1495 1495 Friend
-Flip 1 1495 1487
-Sense Here 1488 1495 Friend
-Sense RightAhead 1489 1476 Foe
-Sense RightAhead 1489 1490 Friend
-Sense LeftAhead 1491 1465 Foe
-Sense LeftAhead 1491 1492 Friend
-Sense Ahead 1493 1496 Foe
-Sense Ahead 1493 1494 Friend
-Move 1497 1497
-Mark 1 1627
-Turn Left 1499
-Turn Left 1558
-Turn Right 1501
-Turn Right 1558
-Flip 2 1498 1500
-Turn Right 1504
-Turn Right 1558
-Turn Left 1506
-Turn Left 1558
-Turn Left 1508
-Turn Left 1558
-Turn Right 1510
-Turn Right 1558
-Flip 2 1507 1509
-Sense Here 1511 1558 Friend
-Sense RightAhead 1505 1512 Marker 2
-Sense RightAhead 1505 1513 Marker 1
-Sense RightAhead 1505 1514 Marker 0
-Sense LeftAhead 1503 1515 Marker 2
-Sense LeftAhead 1503 1516 Marker 1
-Sense LeftAhead 1503 1517 Marker 0
-Sense RightAhead 1502 1518 Marker 2
-Sense RightAhead 1502 1519 Marker 1
-Sense RightAhead 1502 1520 Marker 0
-Sense LeftAhead 1521 1518 Marker 2
-Sense LeftAhead 1521 1522 Marker 1
-Sense LeftAhead 1521 1523 Marker 0
-Sense Ahead 1524 1558 Marker 2
-Sense Ahead 1524 1525 Marker 1
-Sense Ahead 1524 1526 Marker 0
-Turn Left 1529
-Move 1530 1530
-Turn Left 1531
-Turn Left 1532
+Move 1446 1446
+Turn Left 1447
+Turn Left 1448
+Turn Left 1451
+Sense Here 1451 1451 Friend
+Sense Ahead 1449 1452 Foe
+Sense Ahead 1449 1450 Friend
+Move 1453 1453
+Turn Left 1454
+Turn Left 1473
+Turn Right 1456
+Move 1457 1457
+Turn Left 1458
+Turn Left 1459
+Turn Left 1462
+Sense Here 1462 1462 Friend
+Sense Ahead 1460 1463 Foe
+Sense Ahead 1460 1461 Friend
+Move 1464 1464
+Turn Right 1465
+Turn Right 1473
+Sense Here 1473 1473 Friend
+Sense Here 1466 1473 Friend
+Sense RightAhead 1467 1455 Foe
+Sense RightAhead 1467 1468 Friend
+Sense LeftAhead 1469 1444 Foe
+Sense LeftAhead 1469 1470 Friend
+Sense Ahead 1471 1474 Foe
+Sense Ahead 1471 1472 Friend
+Move 1475 1475
+Mark 1 1603
+Turn Left 1477
 Turn Left 1535
+Turn Right 1479
+Turn Right 1535
+Flip 2 1476 1478
+Turn Right 1482
+Turn Right 1535
+Turn Left 1484
+Turn Left 1535
+Turn Left 1486
+Turn Left 1535
+Turn Right 1488
+Turn Right 1535
+Flip 2 1485 1487
+Sense Here 1489 1535 Friend
+Sense RightAhead 1483 1490 Marker 2
+Sense RightAhead 1483 1491 Marker 1
+Sense RightAhead 1483 1492 Marker 0
+Sense LeftAhead 1481 1493 Marker 2
+Sense LeftAhead 1481 1494 Marker 1
+Sense LeftAhead 1481 1495 Marker 0
+Sense RightAhead 1480 1496 Marker 2
+Sense RightAhead 1480 1497 Marker 1
+Sense RightAhead 1480 1498 Marker 0
+Sense LeftAhead 1499 1496 Marker 2
+Sense LeftAhead 1499 1500 Marker 1
+Sense LeftAhead 1499 1501 Marker 0
+Sense Ahead 1502 1535 Marker 2
+Sense Ahead 1502 1503 Marker 1
+Sense Ahead 1502 1504 Marker 0
+Turn Left 1507
+Move 1508 1508
+Turn Left 1509
+Turn Left 1510
+Turn Left 1513
+Sense Here 1513 1513 Friend
+Sense Ahead 1511 1514 Foe
+Sense Ahead 1511 1512 Friend
+Move 1515 1515
+Turn Left 1516
+Turn Left 1535
+Turn Right 1518
+Move 1519 1519
+Turn Left 1520
+Turn Left 1521
+Turn Left 1524
+Sense Here 1524 1524 Friend
+Sense Ahead 1522 1525 Foe
+Sense Ahead 1522 1523 Friend
+Move 1526 1526
+Turn Right 1527
+Turn Right 1535
 Sense Here 1535 1535 Friend
+Sense Here 1528 1535 Friend
+Sense RightAhead 1529 1517 Foe
+Sense RightAhead 1529 1530 Friend
+Sense LeftAhead 1531 1506 Foe
+Sense LeftAhead 1531 1532 Friend
 Sense Ahead 1533 1536 Foe
 Sense Ahead 1533 1534 Friend
 Move 1537 1537
-Turn Left 1538
-Turn Left 1558
-Turn Right 1540
-Move 1541 1541
-Turn Left 1542
-Turn Left 1543
+Mark 2 1603
+Turn Left 1539
+Turn Left 1597
+Turn Right 1541
+Turn Right 1597
+Flip 2 1538 1540
+Turn Right 1544
+Turn Right 1597
 Turn Left 1546
-Sense Here 1546 1546 Friend
-Sense Ahead 1544 1547 Foe
-Sense Ahead 1544 1545 Friend
-Move 1548 1548
-Turn Right 1549
-Turn Right 1558
-Sense Here 1558 1558 Friend
-Flip 1 1558 1550
-Sense Here 1551 1558 Friend
-Sense RightAhead 1552 1539 Foe
-Sense RightAhead 1552 1553 Friend
-Sense LeftAhead 1554 1528 Foe
-Sense LeftAhead 1554 1555 Friend
-Sense Ahead 1556 1559 Foe
-Sense Ahead 1556 1557 Friend
-Move 1560 1560
-Mark 2 1627
-Turn Left 1562
-Turn Left 1621
-Turn Right 1564
-Turn Right 1621
-Flip 2 1561 1563
-Turn Right 1567
-Turn Right 1621
+Turn Left 1597
+Turn Left 1548
+Turn Left 1597
+Turn Right 1550
+Turn Right 1597
+Flip 2 1547 1549
+Sense Here 1551 1597 Friend
+Sense RightAhead 1545 1552 Marker 2
+Sense RightAhead 1545 1553 Marker 1
+Sense RightAhead 1545 1554 Marker 0
+Sense LeftAhead 1543 1555 Marker 2
+Sense LeftAhead 1543 1556 Marker 1
+Sense LeftAhead 1543 1557 Marker 0
+Sense RightAhead 1542 1558 Marker 2
+Sense RightAhead 1542 1559 Marker 1
+Sense RightAhead 1542 1560 Marker 0
+Sense LeftAhead 1561 1558 Marker 2
+Sense LeftAhead 1561 1562 Marker 1
+Sense LeftAhead 1561 1563 Marker 0
+Sense Ahead 1564 1597 Marker 2
+Sense Ahead 1564 1565 Marker 1
+Sense Ahead 1564 1566 Marker 0
 Turn Left 1569
-Turn Left 1621
+Move 1570 1570
 Turn Left 1571
-Turn Left 1621
-Turn Right 1573
-Turn Right 1621
-Flip 2 1570 1572
-Sense Here 1574 1621 Friend
-Sense RightAhead 1568 1575 Marker 2
-Sense RightAhead 1568 1576 Marker 1
-Sense RightAhead 1568 1577 Marker 0
-Sense LeftAhead 1566 1578 Marker 2
-Sense LeftAhead 1566 1579 Marker 1
-Sense LeftAhead 1566 1580 Marker 0
-Sense RightAhead 1565 1581 Marker 2
-Sense RightAhead 1565 1582 Marker 1
-Sense RightAhead 1565 1583 Marker 0
-Sense LeftAhead 1584 1581 Marker 2
-Sense LeftAhead 1584 1585 Marker 1
-Sense LeftAhead 1584 1586 Marker 0
-Sense Ahead 1587 1621 Marker 2
-Sense Ahead 1587 1588 Marker 1
-Sense Ahead 1587 1589 Marker 0
-Turn Left 1592
-Move 1593 1593
-Turn Left 1594
-Turn Left 1595
-Turn Left 1598
-Sense Here 1598 1598 Friend
-Sense Ahead 1596 1599 Foe
-Sense Ahead 1596 1597 Friend
-Move 1600 1600
-Turn Left 1601
-Turn Left 1621
-Turn Right 1603
-Move 1604 1604
-Turn Left 1605
-Turn Left 1606
-Turn Left 1609
-Sense Here 1609 1609 Friend
-Sense Ahead 1607 1610 Foe
-Sense Ahead 1607 1608 Friend
-Move 1611 1611
+Turn Left 1572
+Turn Left 1575
+Sense Here 1575 1575 Friend
+Sense Ahead 1573 1576 Foe
+Sense Ahead 1573 1574 Friend
+Move 1577 1577
+Turn Left 1578
+Turn Left 1597
+Turn Right 1580
+Move 1581 1581
+Turn Left 1582
+Turn Left 1583
+Turn Left 1586
+Sense Here 1586 1586 Friend
+Sense Ahead 1584 1587 Foe
+Sense Ahead 1584 1585 Friend
+Move 1588 1588
+Turn Right 1589
+Turn Right 1597
+Sense Here 1597 1597 Friend
+Sense Here 1590 1597 Friend
+Sense RightAhead 1591 1579 Foe
+Sense RightAhead 1591 1592 Friend
+Sense LeftAhead 1593 1568 Foe
+Sense LeftAhead 1593 1594 Friend
+Sense Ahead 1595 1598 Foe
+Sense Ahead 1595 1596 Friend
+Move 1599 1599
+Mark 0 1603
+Sense Here 1567 1603 Marker 2
+Sense Here 1505 1600 Marker 1
+Sense Here 1443 1601 Marker 0
+Sense Ahead 2419 1602 Rock
+Turn Left 2411
+Mark 0 1795
+Turn Left 1607
+Turn Left 1665
+Turn Right 1609
+Turn Right 1665
+Flip 2 1606 1608
 Turn Right 1612
-Turn Right 1621
-Sense Here 1621 1621 Friend
-Flip 1 1621 1613
-Sense Here 1614 1621 Friend
-Sense RightAhead 1615 1602 Foe
-Sense RightAhead 1615 1616 Friend
-Sense LeftAhead 1617 1591 Foe
-Sense LeftAhead 1617 1618 Friend
-Sense Ahead 1619 1622 Foe
-Sense Ahead 1619 1620 Friend
-Move 1623 1623
-Mark 0 1627
-Sense Here 1590 1627 Marker 2
-Sense Here 1527 1624 Marker 1
-Sense Here 1464 1625 Marker 0
-Sense Ahead 2455 1626 Rock
-Turn Left 2447
-Mark 0 1822
-Turn Left 1631
-Turn Left 1690
-Turn Right 1633
-Turn Right 1690
-Flip 2 1630 1632
-Turn Right 1636
-Turn Right 1690
-Turn Left 1638
-Turn Left 1690
+Turn Right 1665
+Turn Left 1614
+Turn Left 1665
+Turn Left 1616
+Turn Left 1665
+Turn Right 1618
+Turn Right 1665
+Flip 2 1615 1617
+Sense Here 1619 1665 Friend
+Sense RightAhead 1613 1620 Marker 2
+Sense RightAhead 1613 1621 Marker 1
+Sense RightAhead 1613 1622 Marker 0
+Sense LeftAhead 1611 1623 Marker 2
+Sense LeftAhead 1611 1624 Marker 1
+Sense LeftAhead 1611 1625 Marker 0
+Sense RightAhead 1610 1626 Marker 2
+Sense RightAhead 1610 1627 Marker 1
+Sense RightAhead 1610 1628 Marker 0
+Sense LeftAhead 1629 1626 Marker 2
+Sense LeftAhead 1629 1630 Marker 1
+Sense LeftAhead 1629 1631 Marker 0
+Sense Ahead 1632 1665 Marker 2
+Sense Ahead 1632 1633 Marker 1
+Sense Ahead 1632 1634 Marker 0
+Turn Left 1637
+Move 1638 1638
+Turn Left 1639
 Turn Left 1640
-Turn Left 1690
-Turn Right 1642
-Turn Right 1690
-Flip 2 1639 1641
-Sense Here 1643 1690 Friend
-Sense RightAhead 1637 1644 Marker 2
-Sense RightAhead 1637 1645 Marker 1
-Sense RightAhead 1637 1646 Marker 0
-Sense LeftAhead 1635 1647 Marker 2
-Sense LeftAhead 1635 1648 Marker 1
-Sense LeftAhead 1635 1649 Marker 0
-Sense RightAhead 1634 1650 Marker 2
-Sense RightAhead 1634 1651 Marker 1
-Sense RightAhead 1634 1652 Marker 0
-Sense LeftAhead 1653 1650 Marker 2
-Sense LeftAhead 1653 1654 Marker 1
-Sense LeftAhead 1653 1655 Marker 0
-Sense Ahead 1656 1690 Marker 2
-Sense Ahead 1656 1657 Marker 1
-Sense Ahead 1656 1658 Marker 0
-Turn Left 1661
-Move 1662 1662
-Turn Left 1663
-Turn Left 1664
-Turn Left 1667
-Sense Here 1667 1667 Friend
-Sense Ahead 1665 1668 Foe
-Sense Ahead 1665 1666 Friend
-Move 1669 1669
-Turn Left 1670
-Turn Left 1690
-Turn Right 1672
-Move 1673 1673
-Turn Left 1674
-Turn Left 1675
-Turn Left 1678
-Sense Here 1678 1678 Friend
-Sense Ahead 1676 1679 Foe
-Sense Ahead 1676 1677 Friend
-Move 1680 1680
-Turn Right 1681
-Turn Right 1690
-Sense Here 1690 1690 Friend
-Flip 1 1690 1682
-Sense Here 1683 1690 Friend
-Sense RightAhead 1684 1671 Foe
-Sense RightAhead 1684 1685 Friend
-Sense LeftAhead 1686 1660 Foe
-Sense LeftAhead 1686 1687 Friend
-Sense Ahead 1688 1691 Foe
-Sense Ahead 1688 1689 Friend
-Move 1692 1692
-Mark 1 1822
-Turn Left 1694
-Turn Left 1753
-Turn Right 1696
-Turn Right 1753
-Flip 2 1693 1695
-Turn Right 1699
-Turn Right 1753
-Turn Left 1701
-Turn Left 1753
-Turn Left 1703
-Turn Left 1753
-Turn Right 1705
-Turn Right 1753
-Flip 2 1702 1704
-Sense Here 1706 1753 Friend
-Sense RightAhead 1700 1707 Marker 2
-Sense RightAhead 1700 1708 Marker 1
-Sense RightAhead 1700 1709 Marker 0
-Sense LeftAhead 1698 1710 Marker 2
-Sense LeftAhead 1698 1711 Marker 1
-Sense LeftAhead 1698 1712 Marker 0
-Sense RightAhead 1697 1713 Marker 2
-Sense RightAhead 1697 1714 Marker 1
-Sense RightAhead 1697 1715 Marker 0
-Sense LeftAhead 1716 1713 Marker 2
-Sense LeftAhead 1716 1717 Marker 1
-Sense LeftAhead 1716 1718 Marker 0
-Sense Ahead 1719 1753 Marker 2
-Sense Ahead 1719 1720 Marker 1
-Sense Ahead 1719 1721 Marker 0
-Turn Left 1724
-Move 1725 1725
-Turn Left 1726
+Turn Left 1643
+Sense Here 1643 1643 Friend
+Sense Ahead 1641 1644 Foe
+Sense Ahead 1641 1642 Friend
+Move 1645 1645
+Turn Left 1646
+Turn Left 1665
+Turn Right 1648
+Move 1649 1649
+Turn Left 1650
+Turn Left 1651
+Turn Left 1654
+Sense Here 1654 1654 Friend
+Sense Ahead 1652 1655 Foe
+Sense Ahead 1652 1653 Friend
+Move 1656 1656
+Turn Right 1657
+Turn Right 1665
+Sense Here 1665 1665 Friend
+Sense Here 1658 1665 Friend
+Sense RightAhead 1659 1647 Foe
+Sense RightAhead 1659 1660 Friend
+Sense LeftAhead 1661 1636 Foe
+Sense LeftAhead 1661 1662 Friend
+Sense Ahead 1663 1666 Foe
+Sense Ahead 1663 1664 Friend
+Move 1667 1667
+Mark 1 1795
+Turn Left 1669
 Turn Left 1727
-Turn Left 1730
-Sense Here 1730 1730 Friend
-Sense Ahead 1728 1731 Foe
-Sense Ahead 1728 1729 Friend
-Move 1732 1732
-Turn Left 1733
-Turn Left 1753
-Turn Right 1735
-Move 1736 1736
-Turn Left 1737
-Turn Left 1738
-Turn Left 1741
-Sense Here 1741 1741 Friend
-Sense Ahead 1739 1742 Foe
-Sense Ahead 1739 1740 Friend
-Move 1743 1743
-Turn Right 1744
-Turn Right 1753
-Sense Here 1753 1753 Friend
-Flip 1 1753 1745
-Sense Here 1746 1753 Friend
-Sense RightAhead 1747 1734 Foe
-Sense RightAhead 1747 1748 Friend
-Sense LeftAhead 1749 1723 Foe
-Sense LeftAhead 1749 1750 Friend
-Sense Ahead 1751 1754 Foe
-Sense Ahead 1751 1752 Friend
-Move 1755 1755
-Mark 2 1822
-Turn Left 1757
-Turn Left 1816
-Turn Right 1759
-Turn Right 1816
-Flip 2 1756 1758
-Turn Right 1762
-Turn Right 1816
-Turn Left 1764
-Turn Left 1816
-Turn Left 1766
-Turn Left 1816
-Turn Right 1768
-Turn Right 1816
-Flip 2 1765 1767
-Sense Here 1769 1816 Friend
-Sense RightAhead 1763 1770 Marker 2
-Sense RightAhead 1763 1771 Marker 1
-Sense RightAhead 1763 1772 Marker 0
-Sense LeftAhead 1761 1773 Marker 2
-Sense LeftAhead 1761 1774 Marker 1
-Sense LeftAhead 1761 1775 Marker 0
-Sense RightAhead 1760 1776 Marker 2
-Sense RightAhead 1760 1777 Marker 1
-Sense RightAhead 1760 1778 Marker 0
-Sense LeftAhead 1779 1776 Marker 2
-Sense LeftAhead 1779 1780 Marker 1
-Sense LeftAhead 1779 1781 Marker 0
-Sense Ahead 1782 1816 Marker 2
-Sense Ahead 1782 1783 Marker 1
-Sense Ahead 1782 1784 Marker 0
-Turn Left 1787
-Move 1788 1788
+Turn Right 1671
+Turn Right 1727
+Flip 2 1668 1670
+Turn Right 1674
+Turn Right 1727
+Turn Left 1676
+Turn Left 1727
+Turn Left 1678
+Turn Left 1727
+Turn Right 1680
+Turn Right 1727
+Flip 2 1677 1679
+Sense Here 1681 1727 Friend
+Sense RightAhead 1675 1682 Marker 2
+Sense RightAhead 1675 1683 Marker 1
+Sense RightAhead 1675 1684 Marker 0
+Sense LeftAhead 1673 1685 Marker 2
+Sense LeftAhead 1673 1686 Marker 1
+Sense LeftAhead 1673 1687 Marker 0
+Sense RightAhead 1672 1688 Marker 2
+Sense RightAhead 1672 1689 Marker 1
+Sense RightAhead 1672 1690 Marker 0
+Sense LeftAhead 1691 1688 Marker 2
+Sense LeftAhead 1691 1692 Marker 1
+Sense LeftAhead 1691 1693 Marker 0
+Sense Ahead 1694 1727 Marker 2
+Sense Ahead 1694 1695 Marker 1
+Sense Ahead 1694 1696 Marker 0
+Turn Left 1699
+Move 1700 1700
+Turn Left 1701
+Turn Left 1702
+Turn Left 1705
+Sense Here 1705 1705 Friend
+Sense Ahead 1703 1706 Foe
+Sense Ahead 1703 1704 Friend
+Move 1707 1707
+Turn Left 1708
+Turn Left 1727
+Turn Right 1710
+Move 1711 1711
+Turn Left 1712
+Turn Left 1713
+Turn Left 1716
+Sense Here 1716 1716 Friend
+Sense Ahead 1714 1717 Foe
+Sense Ahead 1714 1715 Friend
+Move 1718 1718
+Turn Right 1719
+Turn Right 1727
+Sense Here 1727 1727 Friend
+Sense Here 1720 1727 Friend
+Sense RightAhead 1721 1709 Foe
+Sense RightAhead 1721 1722 Friend
+Sense LeftAhead 1723 1698 Foe
+Sense LeftAhead 1723 1724 Friend
+Sense Ahead 1725 1728 Foe
+Sense Ahead 1725 1726 Friend
+Move 1729 1729
+Mark 2 1795
+Turn Left 1731
 Turn Left 1789
-Turn Left 1790
-Turn Left 1793
-Sense Here 1793 1793 Friend
-Sense Ahead 1791 1794 Foe
-Sense Ahead 1791 1792 Friend
-Move 1795 1795
-Turn Left 1796
-Turn Left 1816
-Turn Right 1798
-Move 1799 1799
-Turn Left 1800
-Turn Left 1801
+Turn Right 1733
+Turn Right 1789
+Flip 2 1730 1732
+Turn Right 1736
+Turn Right 1789
+Turn Left 1738
+Turn Left 1789
+Turn Left 1740
+Turn Left 1789
+Turn Right 1742
+Turn Right 1789
+Flip 2 1739 1741
+Sense Here 1743 1789 Friend
+Sense RightAhead 1737 1744 Marker 2
+Sense RightAhead 1737 1745 Marker 1
+Sense RightAhead 1737 1746 Marker 0
+Sense LeftAhead 1735 1747 Marker 2
+Sense LeftAhead 1735 1748 Marker 1
+Sense LeftAhead 1735 1749 Marker 0
+Sense RightAhead 1734 1750 Marker 2
+Sense RightAhead 1734 1751 Marker 1
+Sense RightAhead 1734 1752 Marker 0
+Sense LeftAhead 1753 1750 Marker 2
+Sense LeftAhead 1753 1754 Marker 1
+Sense LeftAhead 1753 1755 Marker 0
+Sense Ahead 1756 1789 Marker 2
+Sense Ahead 1756 1757 Marker 1
+Sense Ahead 1756 1758 Marker 0
+Turn Left 1761
+Move 1762 1762
+Turn Left 1763
+Turn Left 1764
+Turn Left 1767
+Sense Here 1767 1767 Friend
+Sense Ahead 1765 1768 Foe
+Sense Ahead 1765 1766 Friend
+Move 1769 1769
+Turn Left 1770
+Turn Left 1789
+Turn Right 1772
+Move 1773 1773
+Turn Left 1774
+Turn Left 1775
+Turn Left 1778
+Sense Here 1778 1778 Friend
+Sense Ahead 1776 1779 Foe
+Sense Ahead 1776 1777 Friend
+Move 1780 1780
+Turn Right 1781
+Turn Right 1789
+Sense Here 1789 1789 Friend
+Sense Here 1782 1789 Friend
+Sense RightAhead 1783 1771 Foe
+Sense RightAhead 1783 1784 Friend
+Sense LeftAhead 1785 1760 Foe
+Sense LeftAhead 1785 1786 Friend
+Sense Ahead 1787 1790 Foe
+Sense Ahead 1787 1788 Friend
+Move 1791 1791
+Mark 0 1795
+Sense Here 1759 1795 Marker 2
+Sense Here 1697 1792 Marker 1
+Sense Here 1635 1793 Marker 0
+Sense Ahead 1814 1794 Rock
+Turn Left 1797
+Turn Left 2004
+Turn Right 1799
+Turn Right 2004
+Flip 2 1796 1798
+Turn Right 1802
+Turn Right 2004
 Turn Left 1804
-Sense Here 1804 1804 Friend
-Sense Ahead 1802 1805 Foe
-Sense Ahead 1802 1803 Friend
-Move 1806 1806
-Turn Right 1807
-Turn Right 1816
-Sense Here 1816 1816 Friend
-Flip 1 1816 1808
-Sense Here 1809 1816 Friend
-Sense RightAhead 1810 1797 Foe
-Sense RightAhead 1810 1811 Friend
-Sense LeftAhead 1812 1786 Foe
-Sense LeftAhead 1812 1813 Friend
-Sense Ahead 1814 1817 Foe
-Sense Ahead 1814 1815 Friend
-Move 1818 1818
-Mark 0 1822
-Sense Here 1785 1822 Marker 2
-Sense Here 1722 1819 Marker 1
-Sense Here 1659 1820 Marker 0
-Sense Ahead 1841 1821 Rock
-Turn Left 1824
-Turn Left 2034
-Turn Right 1826
-Turn Right 2034
-Flip 2 1823 1825
-Turn Right 1829
-Turn Right 2034
-Turn Left 1831
-Turn Left 2034
-Turn Left 1833
-Turn Left 2034
-Turn Right 1835
-Turn Right 2034
-Flip 2 1832 1834
-Sense Here 1836 2034 Friend
-Sense RightAhead 1830 1837 Rock
-Sense LeftAhead 1828 1838 Rock
-Sense RightAhead 1827 1839 Rock
-Sense LeftAhead 1840 1839 Rock
-Turn Left 1843
-Turn Left 1902
-Turn Right 1845
-Turn Right 1902
-Flip 2 1842 1844
-Turn Right 1848
-Turn Right 1902
-Turn Left 1850
-Turn Left 1902
+Turn Left 2004
+Turn Left 1806
+Turn Left 2004
+Turn Right 1808
+Turn Right 2004
+Flip 2 1805 1807
+Sense Here 1809 2004 Friend
+Sense RightAhead 1803 1810 Rock
+Sense LeftAhead 1801 1811 Rock
+Sense RightAhead 1800 1812 Rock
+Sense LeftAhead 1813 1812 Rock
+Turn Left 1816
+Turn Left 1874
+Turn Right 1818
+Turn Right 1874
+Flip 2 1815 1817
+Turn Right 1821
+Turn Right 1874
+Turn Left 1823
+Turn Left 1874
+Turn Left 1825
+Turn Left 1874
+Turn Right 1827
+Turn Right 1874
+Flip 2 1824 1826
+Sense Here 1828 1874 Friend
+Sense RightAhead 1822 1829 Marker 2
+Sense RightAhead 1822 1830 Marker 1
+Sense RightAhead 1822 1831 Marker 0
+Sense LeftAhead 1820 1832 Marker 2
+Sense LeftAhead 1820 1833 Marker 1
+Sense LeftAhead 1820 1834 Marker 0
+Sense RightAhead 1819 1835 Marker 2
+Sense RightAhead 1819 1836 Marker 1
+Sense RightAhead 1819 1837 Marker 0
+Sense LeftAhead 1838 1835 Marker 2
+Sense LeftAhead 1838 1839 Marker 1
+Sense LeftAhead 1838 1840 Marker 0
+Sense Ahead 1841 1874 Marker 2
+Sense Ahead 1841 1842 Marker 1
+Sense Ahead 1841 1843 Marker 0
+Turn Left 1846
+Move 1847 1847
+Turn Left 1848
+Turn Left 1849
 Turn Left 1852
-Turn Left 1902
-Turn Right 1854
-Turn Right 1902
-Flip 2 1851 1853
-Sense Here 1855 1902 Friend
-Sense RightAhead 1849 1856 Marker 2
-Sense RightAhead 1849 1857 Marker 1
-Sense RightAhead 1849 1858 Marker 0
-Sense LeftAhead 1847 1859 Marker 2
-Sense LeftAhead 1847 1860 Marker 1
-Sense LeftAhead 1847 1861 Marker 0
-Sense RightAhead 1846 1862 Marker 2
-Sense RightAhead 1846 1863 Marker 1
-Sense RightAhead 1846 1864 Marker 0
-Sense LeftAhead 1865 1862 Marker 2
-Sense LeftAhead 1865 1866 Marker 1
-Sense LeftAhead 1865 1867 Marker 0
-Sense Ahead 1868 1902 Marker 2
-Sense Ahead 1868 1869 Marker 1
-Sense Ahead 1868 1870 Marker 0
-Turn Left 1873
-Move 1874 1874
-Turn Left 1875
-Turn Left 1876
-Turn Left 1879
-Sense Here 1879 1879 Friend
-Sense Ahead 1877 1880 Foe
-Sense Ahead 1877 1878 Friend
-Move 1881 1881
-Turn Left 1882
-Turn Left 1902
-Turn Right 1884
-Move 1885 1885
-Turn Left 1886
-Turn Left 1887
-Turn Left 1890
-Sense Here 1890 1890 Friend
-Sense Ahead 1888 1891 Foe
-Sense Ahead 1888 1889 Friend
-Move 1892 1892
-Turn Right 1893
-Turn Right 1902
-Sense Here 1902 1902 Friend
-Flip 1 1902 1894
-Sense Here 1895 1902 Friend
-Sense RightAhead 1896 1883 Foe
-Sense RightAhead 1896 1897 Friend
-Sense LeftAhead 1898 1872 Foe
-Sense LeftAhead 1898 1899 Friend
-Sense Ahead 1900 1903 Foe
-Sense Ahead 1900 1901 Friend
-Move 1904 1904
-Mark 1 2034
-Turn Left 1906
-Turn Left 1965
-Turn Right 1908
-Turn Right 1965
-Flip 2 1905 1907
-Turn Right 1911
-Turn Right 1965
-Turn Left 1913
-Turn Left 1965
-Turn Left 1915
-Turn Left 1965
-Turn Right 1917
-Turn Right 1965
-Flip 2 1914 1916
-Sense Here 1918 1965 Friend
-Sense RightAhead 1912 1919 Marker 2
-Sense RightAhead 1912 1920 Marker 1
-Sense RightAhead 1912 1921 Marker 0
-Sense LeftAhead 1910 1922 Marker 2
-Sense LeftAhead 1910 1923 Marker 1
-Sense LeftAhead 1910 1924 Marker 0
-Sense RightAhead 1909 1925 Marker 2
-Sense RightAhead 1909 1926 Marker 1
-Sense RightAhead 1909 1927 Marker 0
-Sense LeftAhead 1928 1925 Marker 2
-Sense LeftAhead 1928 1929 Marker 1
-Sense LeftAhead 1928 1930 Marker 0
-Sense Ahead 1931 1965 Marker 2
-Sense Ahead 1931 1932 Marker 1
-Sense Ahead 1931 1933 Marker 0
+Sense Here 1852 1852 Friend
+Sense Ahead 1850 1853 Foe
+Sense Ahead 1850 1851 Friend
+Move 1854 1854
+Turn Left 1855
+Turn Left 1874
+Turn Right 1857
+Move 1858 1858
+Turn Left 1859
+Turn Left 1860
+Turn Left 1863
+Sense Here 1863 1863 Friend
+Sense Ahead 1861 1864 Foe
+Sense Ahead 1861 1862 Friend
+Move 1865 1865
+Turn Right 1866
+Turn Right 1874
+Sense Here 1874 1874 Friend
+Sense Here 1867 1874 Friend
+Sense RightAhead 1868 1856 Foe
+Sense RightAhead 1868 1869 Friend
+Sense LeftAhead 1870 1845 Foe
+Sense LeftAhead 1870 1871 Friend
+Sense Ahead 1872 1875 Foe
+Sense Ahead 1872 1873 Friend
+Move 1876 1876
+Mark 1 2004
+Turn Left 1878
 Turn Left 1936
-Move 1937 1937
-Turn Left 1938
-Turn Left 1939
-Turn Left 1942
-Sense Here 1942 1942 Friend
-Sense Ahead 1940 1943 Foe
-Sense Ahead 1940 1941 Friend
-Move 1944 1944
-Turn Left 1945
-Turn Left 1965
-Turn Right 1947
-Move 1948 1948
+Turn Right 1880
+Turn Right 1936
+Flip 2 1877 1879
+Turn Right 1883
+Turn Right 1936
+Turn Left 1885
+Turn Left 1936
+Turn Left 1887
+Turn Left 1936
+Turn Right 1889
+Turn Right 1936
+Flip 2 1886 1888
+Sense Here 1890 1936 Friend
+Sense RightAhead 1884 1891 Marker 2
+Sense RightAhead 1884 1892 Marker 1
+Sense RightAhead 1884 1893 Marker 0
+Sense LeftAhead 1882 1894 Marker 2
+Sense LeftAhead 1882 1895 Marker 1
+Sense LeftAhead 1882 1896 Marker 0
+Sense RightAhead 1881 1897 Marker 2
+Sense RightAhead 1881 1898 Marker 1
+Sense RightAhead 1881 1899 Marker 0
+Sense LeftAhead 1900 1897 Marker 2
+Sense LeftAhead 1900 1901 Marker 1
+Sense LeftAhead 1900 1902 Marker 0
+Sense Ahead 1903 1936 Marker 2
+Sense Ahead 1903 1904 Marker 1
+Sense Ahead 1903 1905 Marker 0
+Turn Left 1908
+Move 1909 1909
+Turn Left 1910
+Turn Left 1911
+Turn Left 1914
+Sense Here 1914 1914 Friend
+Sense Ahead 1912 1915 Foe
+Sense Ahead 1912 1913 Friend
+Move 1916 1916
+Turn Left 1917
+Turn Left 1936
+Turn Right 1919
+Move 1920 1920
+Turn Left 1921
+Turn Left 1922
+Turn Left 1925
+Sense Here 1925 1925 Friend
+Sense Ahead 1923 1926 Foe
+Sense Ahead 1923 1924 Friend
+Move 1927 1927
+Turn Right 1928
+Turn Right 1936
+Sense Here 1936 1936 Friend
+Sense Here 1929 1936 Friend
+Sense RightAhead 1930 1918 Foe
+Sense RightAhead 1930 1931 Friend
+Sense LeftAhead 1932 1907 Foe
+Sense LeftAhead 1932 1933 Friend
+Sense Ahead 1934 1937 Foe
+Sense Ahead 1934 1935 Friend
+Move 1938 1938
+Mark 2 2004
+Turn Left 1940
+Turn Left 1998
+Turn Right 1942
+Turn Right 1998
+Flip 2 1939 1941
+Turn Right 1945
+Turn Right 1998
+Turn Left 1947
+Turn Left 1998
 Turn Left 1949
-Turn Left 1950
-Turn Left 1953
-Sense Here 1953 1953 Friend
-Sense Ahead 1951 1954 Foe
-Sense Ahead 1951 1952 Friend
-Move 1955 1955
-Turn Right 1956
-Turn Right 1965
-Sense Here 1965 1965 Friend
-Flip 1 1965 1957
-Sense Here 1958 1965 Friend
-Sense RightAhead 1959 1946 Foe
-Sense RightAhead 1959 1960 Friend
-Sense LeftAhead 1961 1935 Foe
-Sense LeftAhead 1961 1962 Friend
-Sense Ahead 1963 1966 Foe
-Sense Ahead 1963 1964 Friend
-Move 1967 1967
-Mark 2 2034
-Turn Left 1969
-Turn Left 2028
-Turn Right 1971
-Turn Right 2028
-Flip 2 1968 1970
-Turn Right 1974
-Turn Right 2028
+Turn Left 1998
+Turn Right 1951
+Turn Right 1998
+Flip 2 1948 1950
+Sense Here 1952 1998 Friend
+Sense RightAhead 1946 1953 Marker 2
+Sense RightAhead 1946 1954 Marker 1
+Sense RightAhead 1946 1955 Marker 0
+Sense LeftAhead 1944 1956 Marker 2
+Sense LeftAhead 1944 1957 Marker 1
+Sense LeftAhead 1944 1958 Marker 0
+Sense RightAhead 1943 1959 Marker 2
+Sense RightAhead 1943 1960 Marker 1
+Sense RightAhead 1943 1961 Marker 0
+Sense LeftAhead 1962 1959 Marker 2
+Sense LeftAhead 1962 1963 Marker 1
+Sense LeftAhead 1962 1964 Marker 0
+Sense Ahead 1965 1998 Marker 2
+Sense Ahead 1965 1966 Marker 1
+Sense Ahead 1965 1967 Marker 0
+Turn Left 1970
+Move 1971 1971
+Turn Left 1972
+Turn Left 1973
 Turn Left 1976
-Turn Left 2028
-Turn Left 1978
-Turn Left 2028
-Turn Right 1980
-Turn Right 2028
-Flip 2 1977 1979
-Sense Here 1981 2028 Friend
-Sense RightAhead 1975 1982 Marker 2
-Sense RightAhead 1975 1983 Marker 1
-Sense RightAhead 1975 1984 Marker 0
-Sense LeftAhead 1973 1985 Marker 2
-Sense LeftAhead 1973 1986 Marker 1
-Sense LeftAhead 1973 1987 Marker 0
-Sense RightAhead 1972 1988 Marker 2
-Sense RightAhead 1972 1989 Marker 1
-Sense RightAhead 1972 1990 Marker 0
-Sense LeftAhead 1991 1988 Marker 2
-Sense LeftAhead 1991 1992 Marker 1
-Sense LeftAhead 1991 1993 Marker 0
-Sense Ahead 1994 2028 Marker 2
-Sense Ahead 1994 1995 Marker 1
-Sense Ahead 1994 1996 Marker 0
-Turn Left 1999
+Sense Here 1976 1976 Friend
+Sense Ahead 1974 1977 Foe
+Sense Ahead 1974 1975 Friend
+Move 1978 1978
+Turn Left 1979
+Turn Left 1998
+Turn Right 1981
+Move 1982 1982
+Turn Left 1983
+Turn Left 1984
+Turn Left 1987
+Sense Here 1987 1987 Friend
+Sense Ahead 1985 1988 Foe
+Sense Ahead 1985 1986 Friend
+Move 1989 1989
+Turn Right 1990
+Turn Right 1998
+Sense Here 1998 1998 Friend
+Sense Here 1991 1998 Friend
+Sense RightAhead 1992 1980 Foe
+Sense RightAhead 1992 1993 Friend
+Sense LeftAhead 1994 1969 Foe
+Sense LeftAhead 1994 1995 Friend
+Sense Ahead 1996 1999 Foe
+Sense Ahead 1996 1997 Friend
 Move 2000 2000
-Turn Left 2001
-Turn Left 2002
-Turn Left 2005
-Sense Here 2005 2005 Friend
-Sense Ahead 2003 2006 Foe
-Sense Ahead 2003 2004 Friend
-Move 2007 2007
-Turn Left 2008
-Turn Left 2028
-Turn Right 2010
-Move 2011 2011
-Turn Left 2012
-Turn Left 2013
-Turn Left 2016
-Sense Here 2016 2016 Friend
-Sense Ahead 2014 2017 Foe
-Sense Ahead 2014 2015 Friend
-Move 2018 2018
-Turn Right 2019
-Turn Right 2028
-Sense Here 2028 2028 Friend
-Flip 1 2028 2020
-Sense Here 2021 2028 Friend
-Sense RightAhead 2022 2009 Foe
-Sense RightAhead 2022 2023 Friend
-Sense LeftAhead 2024 1998 Foe
-Sense LeftAhead 2024 2025 Friend
-Sense Ahead 2026 2029 Foe
-Sense Ahead 2026 2027 Friend
-Move 2030 2030
-Mark 0 2034
-Sense Here 1997 2034 Marker 2
-Sense Here 1934 2031 Marker 1
-Sense Here 1871 2032 Marker 0
-Sense Ahead 2455 2033 Rock
-Turn Left 2445
-Mark 0 2229
-Turn Left 2038
-Turn Left 2097
-Turn Right 2040
-Turn Right 2097
-Flip 2 2037 2039
-Turn Right 2043
-Turn Right 2097
-Turn Left 2045
-Turn Left 2097
-Turn Left 2047
-Turn Left 2097
-Turn Right 2049
-Turn Right 2097
-Flip 2 2046 2048
-Sense Here 2050 2097 Friend
-Sense RightAhead 2044 2051 Marker 2
-Sense RightAhead 2044 2052 Marker 1
-Sense RightAhead 2044 2053 Marker 0
-Sense LeftAhead 2042 2054 Marker 2
-Sense LeftAhead 2042 2055 Marker 1
-Sense LeftAhead 2042 2056 Marker 0
-Sense RightAhead 2041 2057 Marker 2
-Sense RightAhead 2041 2058 Marker 1
-Sense RightAhead 2041 2059 Marker 0
-Sense LeftAhead 2060 2057 Marker 2
-Sense LeftAhead 2060 2061 Marker 1
-Sense LeftAhead 2060 2062 Marker 0
-Sense Ahead 2063 2097 Marker 2
-Sense Ahead 2063 2064 Marker 1
-Sense Ahead 2063 2065 Marker 0
-Turn Left 2068
-Move 2069 2069
-Turn Left 2070
-Turn Left 2071
-Turn Left 2074
-Sense Here 2074 2074 Friend
-Sense Ahead 2072 2075 Foe
-Sense Ahead 2072 2073 Friend
-Move 2076 2076
-Turn Left 2077
-Turn Left 2097
-Turn Right 2079
-Move 2080 2080
-Turn Left 2081
-Turn Left 2082
-Turn Left 2085
-Sense Here 2085 2085 Friend
-Sense Ahead 2083 2086 Foe
-Sense Ahead 2083 2084 Friend
-Move 2087 2087
-Turn Right 2088
-Turn Right 2097
-Sense Here 2097 2097 Friend
-Flip 1 2097 2089
-Sense Here 2090 2097 Friend
-Sense RightAhead 2091 2078 Foe
-Sense RightAhead 2091 2092 Friend
-Sense LeftAhead 2093 2067 Foe
-Sense LeftAhead 2093 2094 Friend
-Sense Ahead 2095 2098 Foe
-Sense Ahead 2095 2096 Friend
-Move 2099 2099
-Mark 1 2229
-Turn Left 2101
-Turn Left 2160
-Turn Right 2103
-Turn Right 2160
-Flip 2 2100 2102
-Turn Right 2106
-Turn Right 2160
-Turn Left 2108
-Turn Left 2160
-Turn Left 2110
-Turn Left 2160
-Turn Right 2112
-Turn Right 2160
-Flip 2 2109 2111
-Sense Here 2113 2160 Friend
-Sense RightAhead 2107 2114 Marker 2
-Sense RightAhead 2107 2115 Marker 1
-Sense RightAhead 2107 2116 Marker 0
-Sense LeftAhead 2105 2117 Marker 2
-Sense LeftAhead 2105 2118 Marker 1
-Sense LeftAhead 2105 2119 Marker 0
-Sense RightAhead 2104 2120 Marker 2
-Sense RightAhead 2104 2121 Marker 1
-Sense RightAhead 2104 2122 Marker 0
-Sense LeftAhead 2123 2120 Marker 2
-Sense LeftAhead 2123 2124 Marker 1
-Sense LeftAhead 2123 2125 Marker 0
-Sense Ahead 2126 2160 Marker 2
-Sense Ahead 2126 2127 Marker 1
-Sense Ahead 2126 2128 Marker 0
-Turn Left 2131
-Move 2132 2132
-Turn Left 2133
-Turn Left 2134
-Turn Left 2137
-Sense Here 2137 2137 Friend
-Sense Ahead 2135 2138 Foe
-Sense Ahead 2135 2136 Friend
-Move 2139 2139
-Turn Left 2140
-Turn Left 2160
-Turn Right 2142
-Move 2143 2143
-Turn Left 2144
-Turn Left 2145
-Turn Left 2148
-Sense Here 2148 2148 Friend
-Sense Ahead 2146 2149 Foe
-Sense Ahead 2146 2147 Friend
-Move 2150 2150
-Turn Right 2151
-Turn Right 2160
-Sense Here 2160 2160 Friend
-Flip 1 2160 2152
-Sense Here 2153 2160 Friend
-Sense RightAhead 2154 2141 Foe
-Sense RightAhead 2154 2155 Friend
-Sense LeftAhead 2156 2130 Foe
-Sense LeftAhead 2156 2157 Friend
-Sense Ahead 2158 2161 Foe
-Sense Ahead 2158 2159 Friend
-Move 2162 2162
-Mark 2 2229
-Turn Left 2164
-Turn Left 2223
-Turn Right 2166
-Turn Right 2223
-Flip 2 2163 2165
-Turn Right 2169
-Turn Right 2223
-Turn Left 2171
-Turn Left 2223
-Turn Left 2173
-Turn Left 2223
-Turn Right 2175
-Turn Right 2223
-Flip 2 2172 2174
-Sense Here 2176 2223 Friend
-Sense RightAhead 2170 2177 Marker 2
-Sense RightAhead 2170 2178 Marker 1
-Sense RightAhead 2170 2179 Marker 0
-Sense LeftAhead 2168 2180 Marker 2
-Sense LeftAhead 2168 2181 Marker 1
-Sense LeftAhead 2168 2182 Marker 0
-Sense RightAhead 2167 2183 Marker 2
-Sense RightAhead 2167 2184 Marker 1
-Sense RightAhead 2167 2185 Marker 0
-Sense LeftAhead 2186 2183 Marker 2
-Sense LeftAhead 2186 2187 Marker 1
-Sense LeftAhead 2186 2188 Marker 0
-Sense Ahead 2189 2223 Marker 2
-Sense Ahead 2189 2190 Marker 1
-Sense Ahead 2189 2191 Marker 0
-Turn Left 2194
-Move 2195 2195
-Turn Left 2196
-Turn Left 2197
-Turn Left 2200
-Sense Here 2200 2200 Friend
-Sense Ahead 2198 2201 Foe
-Sense Ahead 2198 2199 Friend
-Move 2202 2202
-Turn Left 2203
-Turn Left 2223
-Turn Right 2205
-Move 2206 2206
-Turn Left 2207
-Turn Left 2208
-Turn Left 2211
-Sense Here 2211 2211 Friend
-Sense Ahead 2209 2212 Foe
-Sense Ahead 2209 2210 Friend
-Move 2213 2213
-Turn Right 2214
-Turn Right 2223
-Sense Here 2223 2223 Friend
-Flip 1 2223 2215
-Sense Here 2216 2223 Friend
-Sense RightAhead 2217 2204 Foe
-Sense RightAhead 2217 2218 Friend
-Sense LeftAhead 2219 2193 Foe
-Sense LeftAhead 2219 2220 Friend
-Sense Ahead 2221 2224 Foe
-Sense Ahead 2221 2222 Friend
-Move 2225 2225
-Mark 0 2229
-Sense Here 2192 2229 Marker 2
-Sense Here 2129 2226 Marker 1
-Sense Here 2066 2227 Marker 0
-Sense Ahead 2248 2228 Rock
-Turn Left 2231
-Turn Left 2441
-Turn Right 2233
-Turn Right 2441
-Flip 2 2230 2232
-Turn Right 2236
-Turn Right 2441
-Turn Left 2238
-Turn Left 2441
-Turn Left 2240
-Turn Left 2441
-Turn Right 2242
-Turn Right 2441
-Flip 2 2239 2241
-Sense Here 2243 2441 Friend
-Sense RightAhead 2237 2244 Rock
-Sense LeftAhead 2235 2245 Rock
-Sense RightAhead 2234 2246 Rock
-Sense LeftAhead 2247 2246 Rock
-Turn Left 2250
-Turn Left 2309
-Turn Right 2252
-Turn Right 2309
-Flip 2 2249 2251
-Turn Right 2255
-Turn Right 2309
-Turn Left 2257
-Turn Left 2309
-Turn Left 2259
-Turn Left 2309
-Turn Right 2261
-Turn Right 2309
-Flip 2 2258 2260
-Sense Here 2262 2309 Friend
-Sense RightAhead 2256 2263 Marker 2
-Sense RightAhead 2256 2264 Marker 1
-Sense RightAhead 2256 2265 Marker 0
-Sense LeftAhead 2254 2266 Marker 2
-Sense LeftAhead 2254 2267 Marker 1
-Sense LeftAhead 2254 2268 Marker 0
-Sense RightAhead 2253 2269 Marker 2
-Sense RightAhead 2253 2270 Marker 1
-Sense RightAhead 2253 2271 Marker 0
-Sense LeftAhead 2272 2269 Marker 2
-Sense LeftAhead 2272 2273 Marker 1
-Sense LeftAhead 2272 2274 Marker 0
-Sense Ahead 2275 2309 Marker 2
-Sense Ahead 2275 2276 Marker 1
-Sense Ahead 2275 2277 Marker 0
-Turn Left 2280
-Move 2281 2281
-Turn Left 2282
-Turn Left 2283
-Turn Left 2286
-Sense Here 2286 2286 Friend
-Sense Ahead 2284 2287 Foe
-Sense Ahead 2284 2285 Friend
-Move 2288 2288
-Turn Left 2289
-Turn Left 2309
-Turn Right 2291
-Move 2292 2292
-Turn Left 2293
-Turn Left 2294
-Turn Left 2297
-Sense Here 2297 2297 Friend
-Sense Ahead 2295 2298 Foe
-Sense Ahead 2295 2296 Friend
-Move 2299 2299
-Turn Right 2300
-Turn Right 2309
-Sense Here 2309 2309 Friend
-Flip 1 2309 2301
-Sense Here 2302 2309 Friend
-Sense RightAhead 2303 2290 Foe
-Sense RightAhead 2303 2304 Friend
-Sense LeftAhead 2305 2279 Foe
-Sense LeftAhead 2305 2306 Friend
-Sense Ahead 2307 2310 Foe
-Sense Ahead 2307 2308 Friend
-Move 2311 2311
-Mark 1 2441
-Turn Left 2313
-Turn Left 2372
-Turn Right 2315
-Turn Right 2372
-Flip 2 2312 2314
-Turn Right 2318
-Turn Right 2372
-Turn Left 2320
-Turn Left 2372
-Turn Left 2322
-Turn Left 2372
-Turn Right 2324
-Turn Right 2372
-Flip 2 2321 2323
-Sense Here 2325 2372 Friend
-Sense RightAhead 2319 2326 Marker 2
-Sense RightAhead 2319 2327 Marker 1
-Sense RightAhead 2319 2328 Marker 0
-Sense LeftAhead 2317 2329 Marker 2
-Sense LeftAhead 2317 2330 Marker 1
-Sense LeftAhead 2317 2331 Marker 0
-Sense RightAhead 2316 2332 Marker 2
-Sense RightAhead 2316 2333 Marker 1
-Sense RightAhead 2316 2334 Marker 0
-Sense LeftAhead 2335 2332 Marker 2
-Sense LeftAhead 2335 2336 Marker 1
-Sense LeftAhead 2335 2337 Marker 0
-Sense Ahead 2338 2372 Marker 2
-Sense Ahead 2338 2339 Marker 1
-Sense Ahead 2338 2340 Marker 0
-Turn Left 2343
-Move 2344 2344
-Turn Left 2345
-Turn Left 2346
-Turn Left 2349
-Sense Here 2349 2349 Friend
-Sense Ahead 2347 2350 Foe
-Sense Ahead 2347 2348 Friend
-Move 2351 2351
-Turn Left 2352
-Turn Left 2372
-Turn Right 2354
-Move 2355 2355
-Turn Left 2356
-Turn Left 2357
-Turn Left 2360
-Sense Here 2360 2360 Friend
-Sense Ahead 2358 2361 Foe
-Sense Ahead 2358 2359 Friend
-Move 2362 2362
-Turn Right 2363
-Turn Right 2372
-Sense Here 2372 2372 Friend
-Flip 1 2372 2364
-Sense Here 2365 2372 Friend
-Sense RightAhead 2366 2353 Foe
-Sense RightAhead 2366 2367 Friend
-Sense LeftAhead 2368 2342 Foe
-Sense LeftAhead 2368 2369 Friend
-Sense Ahead 2370 2373 Foe
-Sense Ahead 2370 2371 Friend
-Move 2374 2374
-Mark 2 2441
-Turn Left 2376
-Turn Left 2435
-Turn Right 2378
-Turn Right 2435
-Flip 2 2375 2377
-Turn Right 2381
-Turn Right 2435
-Turn Left 2383
-Turn Left 2435
-Turn Left 2385
-Turn Left 2435
-Turn Right 2387
-Turn Right 2435
-Flip 2 2384 2386
-Sense Here 2388 2435 Friend
-Sense RightAhead 2382 2389 Marker 2
-Sense RightAhead 2382 2390 Marker 1
-Sense RightAhead 2382 2391 Marker 0
-Sense LeftAhead 2380 2392 Marker 2
-Sense LeftAhead 2380 2393 Marker 1
-Sense LeftAhead 2380 2394 Marker 0
-Sense RightAhead 2379 2395 Marker 2
-Sense RightAhead 2379 2396 Marker 1
-Sense RightAhead 2379 2397 Marker 0
-Sense LeftAhead 2398 2395 Marker 2
-Sense LeftAhead 2398 2399 Marker 1
-Sense LeftAhead 2398 2400 Marker 0
-Sense Ahead 2401 2435 Marker 2
-Sense Ahead 2401 2402 Marker 1
-Sense Ahead 2401 2403 Marker 0
-Turn Left 2406
-Move 2407 2407
-Turn Left 2408
+Mark 0 2004
+Sense Here 1968 2004 Marker 2
+Sense Here 1906 2001 Marker 1
+Sense Here 1844 2002 Marker 0
+Sense Ahead 2419 2003 Rock
 Turn Left 2409
-Turn Left 2412
-Sense Here 2412 2412 Friend
-Sense Ahead 2410 2413 Foe
-Sense Ahead 2410 2411 Friend
-Move 2414 2414
-Turn Left 2415
-Turn Left 2435
-Turn Right 2417
-Move 2418 2418
-Turn Left 2419
-Turn Left 2420
-Turn Left 2423
+Mark 0 2196
+Turn Left 2008
+Turn Left 2066
+Turn Right 2010
+Turn Right 2066
+Flip 2 2007 2009
+Turn Right 2013
+Turn Right 2066
+Turn Left 2015
+Turn Left 2066
+Turn Left 2017
+Turn Left 2066
+Turn Right 2019
+Turn Right 2066
+Flip 2 2016 2018
+Sense Here 2020 2066 Friend
+Sense RightAhead 2014 2021 Marker 2
+Sense RightAhead 2014 2022 Marker 1
+Sense RightAhead 2014 2023 Marker 0
+Sense LeftAhead 2012 2024 Marker 2
+Sense LeftAhead 2012 2025 Marker 1
+Sense LeftAhead 2012 2026 Marker 0
+Sense RightAhead 2011 2027 Marker 2
+Sense RightAhead 2011 2028 Marker 1
+Sense RightAhead 2011 2029 Marker 0
+Sense LeftAhead 2030 2027 Marker 2
+Sense LeftAhead 2030 2031 Marker 1
+Sense LeftAhead 2030 2032 Marker 0
+Sense Ahead 2033 2066 Marker 2
+Sense Ahead 2033 2034 Marker 1
+Sense Ahead 2033 2035 Marker 0
+Turn Left 2038
+Move 2039 2039
+Turn Left 2040
+Turn Left 2041
+Turn Left 2044
+Sense Here 2044 2044 Friend
+Sense Ahead 2042 2045 Foe
+Sense Ahead 2042 2043 Friend
+Move 2046 2046
+Turn Left 2047
+Turn Left 2066
+Turn Right 2049
+Move 2050 2050
+Turn Left 2051
+Turn Left 2052
+Turn Left 2055
+Sense Here 2055 2055 Friend
+Sense Ahead 2053 2056 Foe
+Sense Ahead 2053 2054 Friend
+Move 2057 2057
+Turn Right 2058
+Turn Right 2066
+Sense Here 2066 2066 Friend
+Sense Here 2059 2066 Friend
+Sense RightAhead 2060 2048 Foe
+Sense RightAhead 2060 2061 Friend
+Sense LeftAhead 2062 2037 Foe
+Sense LeftAhead 2062 2063 Friend
+Sense Ahead 2064 2067 Foe
+Sense Ahead 2064 2065 Friend
+Move 2068 2068
+Mark 1 2196
+Turn Left 2070
+Turn Left 2128
+Turn Right 2072
+Turn Right 2128
+Flip 2 2069 2071
+Turn Right 2075
+Turn Right 2128
+Turn Left 2077
+Turn Left 2128
+Turn Left 2079
+Turn Left 2128
+Turn Right 2081
+Turn Right 2128
+Flip 2 2078 2080
+Sense Here 2082 2128 Friend
+Sense RightAhead 2076 2083 Marker 2
+Sense RightAhead 2076 2084 Marker 1
+Sense RightAhead 2076 2085 Marker 0
+Sense LeftAhead 2074 2086 Marker 2
+Sense LeftAhead 2074 2087 Marker 1
+Sense LeftAhead 2074 2088 Marker 0
+Sense RightAhead 2073 2089 Marker 2
+Sense RightAhead 2073 2090 Marker 1
+Sense RightAhead 2073 2091 Marker 0
+Sense LeftAhead 2092 2089 Marker 2
+Sense LeftAhead 2092 2093 Marker 1
+Sense LeftAhead 2092 2094 Marker 0
+Sense Ahead 2095 2128 Marker 2
+Sense Ahead 2095 2096 Marker 1
+Sense Ahead 2095 2097 Marker 0
+Turn Left 2100
+Move 2101 2101
+Turn Left 2102
+Turn Left 2103
+Turn Left 2106
+Sense Here 2106 2106 Friend
+Sense Ahead 2104 2107 Foe
+Sense Ahead 2104 2105 Friend
+Move 2108 2108
+Turn Left 2109
+Turn Left 2128
+Turn Right 2111
+Move 2112 2112
+Turn Left 2113
+Turn Left 2114
+Turn Left 2117
+Sense Here 2117 2117 Friend
+Sense Ahead 2115 2118 Foe
+Sense Ahead 2115 2116 Friend
+Move 2119 2119
+Turn Right 2120
+Turn Right 2128
+Sense Here 2128 2128 Friend
+Sense Here 2121 2128 Friend
+Sense RightAhead 2122 2110 Foe
+Sense RightAhead 2122 2123 Friend
+Sense LeftAhead 2124 2099 Foe
+Sense LeftAhead 2124 2125 Friend
+Sense Ahead 2126 2129 Foe
+Sense Ahead 2126 2127 Friend
+Move 2130 2130
+Mark 2 2196
+Turn Left 2132
+Turn Left 2190
+Turn Right 2134
+Turn Right 2190
+Flip 2 2131 2133
+Turn Right 2137
+Turn Right 2190
+Turn Left 2139
+Turn Left 2190
+Turn Left 2141
+Turn Left 2190
+Turn Right 2143
+Turn Right 2190
+Flip 2 2140 2142
+Sense Here 2144 2190 Friend
+Sense RightAhead 2138 2145 Marker 2
+Sense RightAhead 2138 2146 Marker 1
+Sense RightAhead 2138 2147 Marker 0
+Sense LeftAhead 2136 2148 Marker 2
+Sense LeftAhead 2136 2149 Marker 1
+Sense LeftAhead 2136 2150 Marker 0
+Sense RightAhead 2135 2151 Marker 2
+Sense RightAhead 2135 2152 Marker 1
+Sense RightAhead 2135 2153 Marker 0
+Sense LeftAhead 2154 2151 Marker 2
+Sense LeftAhead 2154 2155 Marker 1
+Sense LeftAhead 2154 2156 Marker 0
+Sense Ahead 2157 2190 Marker 2
+Sense Ahead 2157 2158 Marker 1
+Sense Ahead 2157 2159 Marker 0
+Turn Left 2162
+Move 2163 2163
+Turn Left 2164
+Turn Left 2165
+Turn Left 2168
+Sense Here 2168 2168 Friend
+Sense Ahead 2166 2169 Foe
+Sense Ahead 2166 2167 Friend
+Move 2170 2170
+Turn Left 2171
+Turn Left 2190
+Turn Right 2173
+Move 2174 2174
+Turn Left 2175
+Turn Left 2176
+Turn Left 2179
+Sense Here 2179 2179 Friend
+Sense Ahead 2177 2180 Foe
+Sense Ahead 2177 2178 Friend
+Move 2181 2181
+Turn Right 2182
+Turn Right 2190
+Sense Here 2190 2190 Friend
+Sense Here 2183 2190 Friend
+Sense RightAhead 2184 2172 Foe
+Sense RightAhead 2184 2185 Friend
+Sense LeftAhead 2186 2161 Foe
+Sense LeftAhead 2186 2187 Friend
+Sense Ahead 2188 2191 Foe
+Sense Ahead 2188 2189 Friend
+Move 2192 2192
+Mark 0 2196
+Sense Here 2160 2196 Marker 2
+Sense Here 2098 2193 Marker 1
+Sense Here 2036 2194 Marker 0
+Sense Ahead 2215 2195 Rock
+Turn Left 2198
+Turn Left 2405
+Turn Right 2200
+Turn Right 2405
+Flip 2 2197 2199
+Turn Right 2203
+Turn Right 2405
+Turn Left 2205
+Turn Left 2405
+Turn Left 2207
+Turn Left 2405
+Turn Right 2209
+Turn Right 2405
+Flip 2 2206 2208
+Sense Here 2210 2405 Friend
+Sense RightAhead 2204 2211 Rock
+Sense LeftAhead 2202 2212 Rock
+Sense RightAhead 2201 2213 Rock
+Sense LeftAhead 2214 2213 Rock
+Turn Left 2217
+Turn Left 2275
+Turn Right 2219
+Turn Right 2275
+Flip 2 2216 2218
+Turn Right 2222
+Turn Right 2275
+Turn Left 2224
+Turn Left 2275
+Turn Left 2226
+Turn Left 2275
+Turn Right 2228
+Turn Right 2275
+Flip 2 2225 2227
+Sense Here 2229 2275 Friend
+Sense RightAhead 2223 2230 Marker 2
+Sense RightAhead 2223 2231 Marker 1
+Sense RightAhead 2223 2232 Marker 0
+Sense LeftAhead 2221 2233 Marker 2
+Sense LeftAhead 2221 2234 Marker 1
+Sense LeftAhead 2221 2235 Marker 0
+Sense RightAhead 2220 2236 Marker 2
+Sense RightAhead 2220 2237 Marker 1
+Sense RightAhead 2220 2238 Marker 0
+Sense LeftAhead 2239 2236 Marker 2
+Sense LeftAhead 2239 2240 Marker 1
+Sense LeftAhead 2239 2241 Marker 0
+Sense Ahead 2242 2275 Marker 2
+Sense Ahead 2242 2243 Marker 1
+Sense Ahead 2242 2244 Marker 0
+Turn Left 2247
+Move 2248 2248
+Turn Left 2249
+Turn Left 2250
+Turn Left 2253
+Sense Here 2253 2253 Friend
+Sense Ahead 2251 2254 Foe
+Sense Ahead 2251 2252 Friend
+Move 2255 2255
+Turn Left 2256
+Turn Left 2275
+Turn Right 2258
+Move 2259 2259
+Turn Left 2260
+Turn Left 2261
+Turn Left 2264
+Sense Here 2264 2264 Friend
+Sense Ahead 2262 2265 Foe
+Sense Ahead 2262 2263 Friend
+Move 2266 2266
+Turn Right 2267
+Turn Right 2275
+Sense Here 2275 2275 Friend
+Sense Here 2268 2275 Friend
+Sense RightAhead 2269 2257 Foe
+Sense RightAhead 2269 2270 Friend
+Sense LeftAhead 2271 2246 Foe
+Sense LeftAhead 2271 2272 Friend
+Sense Ahead 2273 2276 Foe
+Sense Ahead 2273 2274 Friend
+Move 2277 2277
+Mark 1 2405
+Turn Left 2279
+Turn Left 2337
+Turn Right 2281
+Turn Right 2337
+Flip 2 2278 2280
+Turn Right 2284
+Turn Right 2337
+Turn Left 2286
+Turn Left 2337
+Turn Left 2288
+Turn Left 2337
+Turn Right 2290
+Turn Right 2337
+Flip 2 2287 2289
+Sense Here 2291 2337 Friend
+Sense RightAhead 2285 2292 Marker 2
+Sense RightAhead 2285 2293 Marker 1
+Sense RightAhead 2285 2294 Marker 0
+Sense LeftAhead 2283 2295 Marker 2
+Sense LeftAhead 2283 2296 Marker 1
+Sense LeftAhead 2283 2297 Marker 0
+Sense RightAhead 2282 2298 Marker 2
+Sense RightAhead 2282 2299 Marker 1
+Sense RightAhead 2282 2300 Marker 0
+Sense LeftAhead 2301 2298 Marker 2
+Sense LeftAhead 2301 2302 Marker 1
+Sense LeftAhead 2301 2303 Marker 0
+Sense Ahead 2304 2337 Marker 2
+Sense Ahead 2304 2305 Marker 1
+Sense Ahead 2304 2306 Marker 0
+Turn Left 2309
+Move 2310 2310
+Turn Left 2311
+Turn Left 2312
+Turn Left 2315
+Sense Here 2315 2315 Friend
+Sense Ahead 2313 2316 Foe
+Sense Ahead 2313 2314 Friend
+Move 2317 2317
+Turn Left 2318
+Turn Left 2337
+Turn Right 2320
+Move 2321 2321
+Turn Left 2322
+Turn Left 2323
+Turn Left 2326
+Sense Here 2326 2326 Friend
+Sense Ahead 2324 2327 Foe
+Sense Ahead 2324 2325 Friend
+Move 2328 2328
+Turn Right 2329
+Turn Right 2337
+Sense Here 2337 2337 Friend
+Sense Here 2330 2337 Friend
+Sense RightAhead 2331 2319 Foe
+Sense RightAhead 2331 2332 Friend
+Sense LeftAhead 2333 2308 Foe
+Sense LeftAhead 2333 2334 Friend
+Sense Ahead 2335 2338 Foe
+Sense Ahead 2335 2336 Friend
+Move 2339 2339
+Mark 2 2405
+Turn Left 2341
+Turn Left 2399
+Turn Right 2343
+Turn Right 2399
+Flip 2 2340 2342
+Turn Right 2346
+Turn Right 2399
+Turn Left 2348
+Turn Left 2399
+Turn Left 2350
+Turn Left 2399
+Turn Right 2352
+Turn Right 2399
+Flip 2 2349 2351
+Sense Here 2353 2399 Friend
+Sense RightAhead 2347 2354 Marker 2
+Sense RightAhead 2347 2355 Marker 1
+Sense RightAhead 2347 2356 Marker 0
+Sense LeftAhead 2345 2357 Marker 2
+Sense LeftAhead 2345 2358 Marker 1
+Sense LeftAhead 2345 2359 Marker 0
+Sense RightAhead 2344 2360 Marker 2
+Sense RightAhead 2344 2361 Marker 1
+Sense RightAhead 2344 2362 Marker 0
+Sense LeftAhead 2363 2360 Marker 2
+Sense LeftAhead 2363 2364 Marker 1
+Sense LeftAhead 2363 2365 Marker 0
+Sense Ahead 2366 2399 Marker 2
+Sense Ahead 2366 2367 Marker 1
+Sense Ahead 2366 2368 Marker 0
+Turn Left 2371
+Move 2372 2372
+Turn Left 2373
+Turn Left 2374
+Turn Left 2377
+Sense Here 2377 2377 Friend
+Sense Ahead 2375 2378 Foe
+Sense Ahead 2375 2376 Friend
+Move 2379 2379
+Turn Left 2380
+Turn Left 2399
+Turn Right 2382
+Move 2383 2383
+Turn Left 2384
+Turn Left 2385
+Turn Left 2388
+Sense Here 2388 2388 Friend
+Sense Ahead 2386 2389 Foe
+Sense Ahead 2386 2387 Friend
+Move 2390 2390
+Turn Right 2391
+Turn Right 2399
+Sense Here 2399 2399 Friend
+Sense Here 2392 2399 Friend
+Sense RightAhead 2393 2381 Foe
+Sense RightAhead 2393 2394 Friend
+Sense LeftAhead 2395 2370 Foe
+Sense LeftAhead 2395 2396 Friend
+Sense Ahead 2397 2400 Foe
+Sense Ahead 2397 2398 Friend
+Move 2401 2401
+Mark 0 2405
+Sense Here 2369 2405 Marker 2
+Sense Here 2307 2402 Marker 1
+Sense Here 2245 2403 Marker 0
+Sense Ahead 2419 2404 Rock
+Turn Left 2407
+Sense Here 2419 2419 Friend
+Sense RightAhead 2406 2006 Friend
+Sense LeftAhead 2406 2408 Friend
+Sense RightAhead 2005 1605 Friend
+Sense LeftAhead 2005 2410 Friend
+Sense RightAhead 1604 1204 Friend
+Sense LeftAhead 1604 2412 Friend
+Sense RightAhead 1203 803 Friend
+Sense LeftAhead 1203 2414 Friend
+Sense RightAhead 802 402 Friend
+Sense LeftAhead 802 2416 Friend
+Sense RightAhead 401 1 Friend
+Sense Here 2420 2420 Friend
+Sense Here 2421 2421 Friend
+Sense Here 2422 2422 Friend
 Sense Here 2423 2423 Friend
-Sense Ahead 2421 2424 Foe
-Sense Ahead 2421 2422 Friend
-Move 2425 2425
-Turn Right 2426
-Turn Right 2435
+Sense Here 2424 2424 Friend
+Sense Here 2425 2425 Friend
+Sense Here 2426 2426 Friend
+Sense Here 2427 2427 Friend
+Sense Here 2428 2428 Friend
+Sense Here 2429 2429 Friend
+Sense Here 2430 2430 Friend
+Sense Here 2431 2431 Friend
+Sense Here 2432 2432 Friend
+Sense Here 2433 2433 Friend
+Sense Here 2434 2434 Friend
 Sense Here 2435 2435 Friend
-Flip 1 2435 2427
-Sense Here 2428 2435 Friend
-Sense RightAhead 2429 2416 Foe
-Sense RightAhead 2429 2430 Friend
-Sense LeftAhead 2431 2405 Foe
-Sense LeftAhead 2431 2432 Friend
-Sense Ahead 2433 2436 Foe
-Sense Ahead 2433 2434 Friend
-Move 2437 2437
-Mark 0 2441
-Sense Here 2404 2441 Marker 2
-Sense Here 2341 2438 Marker 1
-Sense Here 2278 2439 Marker 0
-Sense Ahead 2455 2440 Rock
-Turn Left 2443
+Sense Here 2436 2436 Friend
+Sense Here 2437 2437 Friend
+Sense Here 2438 2438 Friend
+Sense Here 2439 2439 Friend
+Sense Here 2440 2440 Friend
+Sense Here 2441 2441 Friend
+Sense Here 2442 2442 Friend
+Sense Here 2443 2443 Friend
+Sense Here 2444 2444 Friend
+Sense Here 2445 2445 Friend
+Sense Here 2446 2446 Friend
+Sense Here 2447 2447 Friend
+Sense Here 2448 2448 Friend
+Sense Here 2449 2449 Friend
+Sense Here 2450 2450 Friend
+Sense Here 2451 2451 Friend
+Sense Here 2452 2452 Friend
+Sense Here 2453 2453 Friend
+Sense Here 2454 2454 Friend
 Sense Here 2455 2455 Friend
-Sense RightAhead 2442 2036 Friend
-Sense LeftAhead 2442 2444 Friend
-Sense RightAhead 2035 1629 Friend
-Sense LeftAhead 2035 2446 Friend
-Sense RightAhead 1628 1222 Friend
-Sense LeftAhead 1628 2448 Friend
-Sense RightAhead 1221 815 Friend
-Sense LeftAhead 1221 2450 Friend
-Sense RightAhead 814 408 Friend
-Sense LeftAhead 814 2452 Friend
-Sense RightAhead 407 1 Friend
 Sense Here 2456 2456 Friend
 Sense Here 2457 2457 Friend
 Sense Here 2458 2458 Friend
@@ -3216,115 +3216,178 @@ Sense Here 3215 3215 Friend
 Sense Here 3216 3216 Friend
 Sense Here 3217 3217 Friend
 Sense Here 3218 3218 Friend
-Sense Here 3219 3219 Friend
 Sense Here 3220 3220 Friend
-Sense Here 3221 3221 Friend
-Sense Here 3222 3222 Friend
-Sense Here 3223 3223 Friend
-Sense Here 3224 3224 Friend
-Sense Here 3225 3225 Friend
-Sense Here 3226 3226 Friend
-Sense Here 3227 3227 Friend
-Sense Here 3228 3228 Friend
-Sense Here 3229 3229 Friend
-Sense Here 3230 3230 Friend
-Sense Here 3231 3231 Friend
-Sense Here 3232 3232 Friend
-Sense Here 3233 3233 Friend
-Sense Here 3234 3234 Friend
-Sense Here 3235 3235 Friend
-Sense Here 3236 3236 Friend
-Sense Here 3237 3237 Friend
-Sense Here 3238 3238 Friend
-Sense Here 3239 3239 Friend
-Sense Here 3240 3240 Friend
-Sense Here 3241 3241 Friend
-Sense Here 3242 3242 Friend
-Sense Here 3243 3243 Friend
-Sense Here 3244 3244 Friend
-Sense Here 3245 3245 Friend
-Sense Here 3246 3246 Friend
-Sense Here 3247 3247 Friend
-Sense Here 3248 3248 Friend
-Sense Here 3249 3249 Friend
-Sense Here 3250 3250 Friend
-Sense Here 3251 3251 Friend
-Sense Here 3252 3252 Friend
-Sense Here 3253 3253 Friend
-Sense Here 3254 3254 Friend
-Sense Here 3268 3268 Friend
-Turn Left 3329
-Turn Left 3257
-Turn Left 3329
-Turn Left 3259
+Move 3223 3223
+Flip 1000 3223 3219
+Turn Left 3225
+Turn Right 3225
+Flip 2 3221 3222
+Move 3228 3228
+Flip 1000 3228 3224
+Turn Left 3230
+Turn Right 3230
+Flip 2 3226 3227
+Move 3233 3233
+Flip 1000 3233 3229
+Turn Left 3235
+Turn Right 3235
+Flip 2 3231 3232
+Move 3238 3238
+Flip 1000 3238 3234
+Turn Left 3240
+Turn Right 3240
+Flip 2 3236 3237
+Move 3243 3243
+Flip 1000 3243 3239
+Turn Left 3245
+Turn Right 3245
+Flip 2 3241 3242
+Move 3248 3248
+Flip 1000 3248 3244
+Turn Left 3250
+Turn Right 3250
+Flip 2 3246 3247
+Move 3253 3253
+Flip 1000 3253 3249
+Turn Left 3255
+Turn Right 3255
+Flip 2 3251 3252
+Move 3258 3258
+Flip 1000 3258 3254
 Turn Left 3260
-Turn Left 3329
-Turn Right 3329
-Turn Right 3263
-Turn Right 3329
+Turn Right 3260
+Flip 2 3256 3257
+Move 3263 3263
+Flip 1000 3263 3259
+Turn Left 3265
+Turn Right 3265
 Flip 2 3261 3262
-Flip 3 3258 3264
-Flip 4 3256 3265
-Flip 5 3255 3266
-Flip 6 3329 3267
-Move 3273 3273
-Flip 1000 3273 3269
-Turn Left 3275
-Turn Right 3275
-Flip 2 3271 3272
-Sense Here 3270 3276 Home
-Sense Here 3274 3270 Food
-PickUp 3284 3284
-Move 3281 3281
-Flip 1000 3281 3277
-Turn Left 3284
-Turn Right 3284
-Flip 2 3279 3280
-Sense Here 3326 3278 Marker 2
-Sense Here 3326 3282 Marker 1
-Sense Here 3326 3283 Marker 0
-Turn Right 3286
-Sense Ahead 3297 3285 Marker 2
-Turn Right 3288
-Sense Ahead 3297 3287 Marker 2
-Turn Right 3290
-Sense Ahead 3297 3289 Marker 0
-Turn Right 3292
-Sense Ahead 3297 3291 Marker 1
-Sense Here 3292 3297 Marker 2
-Sense Here 3290 3293 Marker 1
-Sense Here 3288 3294 Marker 0
-Move 3297 3295
-Sense Here 3327 3296 Home
-Turn Right 3299
-Sense Ahead 3310 3298 Marker 0
-Turn Right 3301
-Sense Ahead 3310 3300 Marker 2
-Turn Right 3303
-Sense Ahead 3310 3302 Marker 0
-Turn Right 3305
-Sense Ahead 3310 3304 Marker 1
-Sense Here 3305 3310 Marker 2
-Sense Here 3303 3306 Marker 1
-Sense Here 3301 3307 Marker 0
-Move 3310 3308
-Sense Here 3327 3309 Home
-Turn Right 3312
-Sense Ahead 3323 3311 Marker 1
-Turn Right 3314
-Sense Ahead 3323 3313 Marker 2
-Turn Right 3316
-Sense Ahead 3323 3315 Marker 0
-Turn Right 3318
-Sense Ahead 3323 3317 Marker 1
-Sense Here 3318 3323 Marker 2
-Sense Here 3316 3319 Marker 1
-Sense Here 3314 3320 Marker 0
-Move 3323 3321
-Sense Here 3327 3322 Home
-Sense Here 3312 3327 Marker 2
-Sense Here 3299 3324 Marker 1
-Sense Here 3286 3325 Marker 0
-Drop 3328
-Move 3329 3329
-Sense Here 3275 0 Friend
+Move 3268 3268
+Flip 1000 3268 3264
+Turn Left 3282
+Turn Right 3282
+Flip 2 3266 3267
+Turn Left 3392
+Turn Left 3271
+Turn Left 3392
+Turn Left 3273
+Turn Left 3274
+Turn Left 3392
+Turn Right 3392
+Turn Right 3277
+Turn Right 3392
+Flip 2 3275 3276
+Flip 3 3272 3278
+Flip 4 3270 3279
+Flip 5 3269 3280
+Flip 6 3392 3281
+Move 3287 3287
+Flip 1000 3287 3283
+Turn Left 3289
+Turn Right 3289
+Flip 2 3285 3286
+Sense Here 3284 3290 Home
+Sense Here 3288 3284 Food
+PickUp 3298 3298
+Move 3295 3295
+Flip 1000 3295 3291
+Turn Left 3298
+Turn Right 3298
+Flip 2 3293 3294
+Sense Here 3340 3292 Marker 2
+Sense Here 3340 3296 Marker 1
+Sense Here 3340 3297 Marker 0
+Turn Right 3300
+Sense Ahead 3311 3299 Marker 2
+Turn Right 3302
+Sense Ahead 3311 3301 Marker 2
+Turn Right 3304
+Sense Ahead 3311 3303 Marker 0
+Turn Right 3306
+Sense Ahead 3311 3305 Marker 1
+Sense Here 3306 3311 Marker 2
+Sense Here 3304 3307 Marker 1
+Sense Here 3302 3308 Marker 0
+Move 3311 3309
+Sense Here 3341 3310 Home
+Turn Right 3313
+Sense Ahead 3324 3312 Marker 0
+Turn Right 3315
+Sense Ahead 3324 3314 Marker 2
+Turn Right 3317
+Sense Ahead 3324 3316 Marker 0
+Turn Right 3319
+Sense Ahead 3324 3318 Marker 1
+Sense Here 3319 3324 Marker 2
+Sense Here 3317 3320 Marker 1
+Sense Here 3315 3321 Marker 0
+Move 3324 3322
+Sense Here 3341 3323 Home
+Turn Right 3326
+Sense Ahead 3337 3325 Marker 1
+Turn Right 3328
+Sense Ahead 3337 3327 Marker 2
+Turn Right 3330
+Sense Ahead 3337 3329 Marker 0
+Turn Right 3332
+Sense Ahead 3337 3331 Marker 1
+Sense Here 3332 3337 Marker 2
+Sense Here 3330 3333 Marker 1
+Sense Here 3328 3334 Marker 0
+Move 3337 3335
+Sense Here 3341 3336 Home
+Sense Here 3326 3341 Marker 2
+Sense Here 3313 3338 Marker 1
+Sense Here 3300 3339 Marker 0
+Drop 3343
+Move 3346 3346
+Flip 1000 3346 3342
+Turn Left 3348
+Turn Right 3348
+Flip 2 3344 3345
+Move 3351 3351
+Flip 1000 3351 3347
+Turn Left 3353
+Turn Right 3353
+Flip 2 3349 3350
+Move 3356 3356
+Flip 1000 3356 3352
+Turn Left 3358
+Turn Right 3358
+Flip 2 3354 3355
+Move 3361 3361
+Flip 1000 3361 3357
+Turn Left 3363
+Turn Right 3363
+Flip 2 3359 3360
+Move 3366 3366
+Flip 1000 3366 3362
+Turn Left 3368
+Turn Right 3368
+Flip 2 3364 3365
+Move 3371 3371
+Flip 1000 3371 3367
+Turn Left 3373
+Turn Right 3373
+Flip 2 3369 3370
+Move 3376 3376
+Flip 1000 3376 3372
+Turn Left 3378
+Turn Right 3378
+Flip 2 3374 3375
+Move 3381 3381
+Flip 1000 3381 3377
+Turn Left 3383
+Turn Right 3383
+Flip 2 3379 3380
+Move 3386 3386
+Flip 1000 3386 3382
+Turn Left 3388
+Turn Right 3388
+Flip 2 3384 3385
+Move 3391 3391
+Flip 1000 3391 3387
+Turn Left 3392
+Turn Right 3392
+Flip 2 3389 3390
+Sense Here 3289 0 Friend

@@ -79,7 +79,6 @@ bypassGhost m gidx = foldr (M.adjust bypassP) (M.delete gidx m) ss
         (Ghost n ss) = m ! gidx
         bypassP      = replaceMatchingStates gidx n
 
--- TODO UGLY NAME Replace a state by a new if it matches the wanted one
 r :: AntState -> AntState -> AntState -> AntState
 r wanted existing new = if wanted == existing then new else existing
 

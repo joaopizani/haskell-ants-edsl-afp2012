@@ -3267,20 +3267,20 @@ Flip 1000 3268 3264
 Turn Left 3282
 Turn Right 3282
 Flip 2 3266 3267
-Turn Left 3533
+Turn Left 3582
 Turn Left 3271
-Turn Left 3533
+Turn Left 3582
 Turn Left 3273
 Turn Left 3274
-Turn Left 3533
-Turn Right 3533
+Turn Left 3582
+Turn Right 3582
 Turn Right 3277
-Turn Right 3533
+Turn Right 3582
 Flip 2 3275 3276
 Flip 3 3272 3278
 Flip 4 3270 3279
 Flip 5 3269 3280
-Flip 6 3533 3281
+Flip 6 3582 3281
 Turn Left 3284
 Turn Left 3381
 Turn Right 3286
@@ -3529,6 +3529,55 @@ Sense Here 3531 3526 Home
 Sense Here 3516 3531 Marker 2
 Sense Here 3503 3528 Marker 1
 Sense Here 3490 3529 Marker 0
-Drop 3532
-Move 3533 3533
+Drop 3533
+Move 3536 3536
+Flip 1000 3536 3532
+Turn Left 3538
+Turn Right 3538
+Flip 2 3534 3535
+Move 3541 3541
+Flip 1000 3541 3537
+Turn Left 3543
+Turn Right 3543
+Flip 2 3539 3540
+Move 3546 3546
+Flip 1000 3546 3542
+Turn Left 3548
+Turn Right 3548
+Flip 2 3544 3545
+Move 3551 3551
+Flip 1000 3551 3547
+Turn Left 3553
+Turn Right 3553
+Flip 2 3549 3550
+Move 3556 3556
+Flip 1000 3556 3552
+Turn Left 3558
+Turn Right 3558
+Flip 2 3554 3555
+Move 3561 3561
+Flip 1000 3561 3557
+Turn Left 3563
+Turn Right 3563
+Flip 2 3559 3560
+Move 3566 3566
+Flip 1000 3566 3562
+Turn Left 3568
+Turn Right 3568
+Flip 2 3564 3565
+Move 3571 3571
+Flip 1000 3571 3567
+Turn Left 3573
+Turn Right 3573
+Flip 2 3569 3570
+Move 3576 3576
+Flip 1000 3576 3572
+Turn Left 3578
+Turn Right 3578
+Flip 2 3574 3575
+Move 3581 3581
+Flip 1000 3581 3577
+Turn Left 3582
+Turn Right 3582
+Flip 2 3579 3580
 Sense Here 3384 0 Friend

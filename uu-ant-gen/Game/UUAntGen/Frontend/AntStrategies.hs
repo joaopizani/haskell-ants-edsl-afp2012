@@ -21,7 +21,7 @@ testMaxNTimes = testMaxNTimesWhileDoing iEmpty
 
 
 untilOverFood :: AntImperative -> AntImperative
-untilOverFood st = doUntil st (senseFoodHere `And` (Not senseHomeHere))  --TODO try removing home
+untilOverFood st = doUntil st (senseFoodHere `And` (Not senseHomeHere))
 
 untilOverHome :: AntImperative -> AntImperative
 untilOverHome st = doUntil st senseHomeHere
@@ -102,7 +102,7 @@ backOnTrackUntil' ps c = doUntil (moveOrWall alignToPred) (TrySense Here c)
 -- front of us, we "skip" that cell, so that ants driving on the road can "go over" the crossing.
 
 -- | Paints a straight line with a cyclic sequence of pheromone markers, until meeting a wall. Also,
--- bounces whenever any of the conditions specified is met.  TODO (bouncing or skipping)
+-- bounces whenever any of the conditions specified is met.
 markLineBouncingOnAny :: [Condition] -> [Pheromone] -> AntImperative
 markLineBouncingOnAny cs ps = doUntil (withMarkersHere ps step) (senseRock Ahead)
     where
@@ -116,7 +116,6 @@ markLine :: [Pheromone] -> AntImperative
 markLine ps = markLineBouncingOnAny (map Marker ps) ps
 
 
--- TODO: Stray function, is it useful?
 findFoodSampleMap :: AntImperative
 findFoodSampleMap = iList $
     [ iTurnR, iTurnR
@@ -132,8 +131,11 @@ findFoodSampleMap = iList $
 
 
 
--- OUR STRATEGY #1
+-- OUR STRATEGY BLOCK
 
+-- | We have "highways" and local roads in our strategies. A highway connects the nest to the
+-- rest of the map, while a local road connects a source of food to a highway (or the nest). Each
+-- of these paths are a mutually-exclusive cyclic sequence of pheromones
 highwayPs, foodRoadPs :: [Pheromone]
 highwayPs = [P0, P1, P2]
 foodRoadPs = [P3, P4, P5]
@@ -165,7 +167,6 @@ highwayDetectAndBuild = testMaxNTimesWhileDoing turn60L 6 noFriendsOnSides markH
     where noFriendsOnSides = Not (senseFriend LeftAhead `Or` senseFriend RightAhead)
 
 
-
 -- | Bounces only once on a wall
 markHighway :: AntImperative
 markHighway = iMark (head highwayPs) `iSeq` line `iSeq` bounceOnAny [Rock] `iSeq` line
@@ -178,14 +179,14 @@ markFoodRoad = iMark (head foodRoadPs) `iSeq` doUntil step (isOverAnyOfMarks hig
     where step = markLine foodRoadPs `iSeq` bounceOnAny [Rock]
 
 
+-- | The basic block that an ant executes during her life, in an infinite loop.
 gatherFood :: AntImperative -> AntImperative
 gatherFood step = iForever $ iList
     [ untilOverFood step
     , pickup
     , untilOverAnyOfMarks highwayPs step
     , backOnTrackUntil highwayPs Home
-    , dropFood `iSeq` move
---  , dropAndStay  --TODO what did liewe want here?
+    , dropFood `iSeq` disperse
     ]
 
 
@@ -209,7 +210,7 @@ stayUntil = iList $
     [ iWhile (Not $ senseFriend Ahead `And` senseMarker Ahead P1)
           (turn60L `iSeq` iMark P5)
     , turnAround
-    , safeGoFFNSteps 3  --TODO really needs to be safe?
+    , safeGoFFNSteps 3
     , untilOverFood ricochet
     ]
 
@@ -249,7 +250,6 @@ toLineStart =
 
 
 -- THE TOP LEVEL STRATEGIES
-
 winnerStrategy1 :: AntImperative
 winnerStrategy1 = iList $
     [ highwayDetectAndBuild  -- if on a corner, go build highway

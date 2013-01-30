@@ -11,44 +11,41 @@ import Game.UUAntGen.Frontend.AntMoves
 
 -- GENERAL-PURPOSE STRATEGIES, for the user
 
-ricochet :: AntImperative
-ricochet = ricochetWhile (iList [])
+testMaxNTimesWhileDoing :: AntImperative -> Int -> AntTest -> AntImperative -> AntImperative
+testMaxNTimesWhileDoing _ 0 _ _ = iEmpty
+testMaxNTimesWhileDoing b n c t =
+    iIfThenElse c t (b `iSeq` testMaxNTimesWhileDoing b (n-1) c t)
 
--- TODO How does this work? Does this work?
-ricochetWhile ::  AntImperative -> AntImperative
-ricochetWhile s = moveOrWall howToTurn `iSeq` s
-    where
-        rockL     = senseRock LeftAhead
-        rockR     = senseRock RightAhead
-        howToTurn = iCase [(rockL `And` rockR, turnAround), (rockL, turn60R), (rockR, turn60L)]
+testMaxNTimes :: Int -> AntTest -> AntImperative -> AntImperative
+testMaxNTimes = testMaxNTimesWhileDoing iEmpty
 
 
 untilOverFood :: AntImperative -> AntImperative
-untilOverFood st = doUntil st (And senseFoodHere (Not senseHomeHere))
+untilOverFood st = doUntil st (senseFoodHere `And` (Not senseHomeHere))  --TODO try removing home
 
 untilOverHome :: AntImperative -> AntImperative
 untilOverHome st = doUntil st senseHomeHere
 
-findFoodSampleMap :: AntImperative
-findFoodSampleMap = iList $
-    [ iTurnR, iTurnR
-    , safeGoFFUntil (TrySense Here Food)  --TODO really needs to be safe (from collisions)?
-    , pickup, turnAround
-    , safeGoFFUntil (TrySense Here Home)  --TODO really needs to be safe?
-    , dropFood ]
-
 
 bounceOnAny :: [Condition] -> AntImperative
-bounceOnAny conds =
-    iCase
-        [ (left `And` right, random120)
-        , (left            , turn120R)
-        , (right           , turn120L)
-        , (tautology       , random120) ]
+bounceOnAny conds = iCase [(l `And` r, rand), (l, turn120R), (r, turn120L), (tautology, rand)]
     where
-        left  = foldr1 Or $ map (TrySense LeftAhead) conds
-        right = foldr1 Or $ map (TrySense RightAhead) conds
-        random120 = chooseUniformly [turn120L, turn120R]
+        l    = foldr1 Or $ map (TrySense LeftAhead) conds
+        r    = foldr1 Or $ map (TrySense RightAhead) conds
+        rand = chooseUniformly [turn120L, turn120R]
+
+
+ricochet :: AntImperative
+ricochet = handleWall `iSeq` safeMove
+    where handleWall = iIfThen (senseRock Ahead) (bounceOnAny [Rock])
+
+
+sillyRandomStepSized :: Int -> AntImperative
+sillyRandomStepSized n = doWithChance n move `iSeq` chooseUniformly [turn60L, turn60R]
+
+sillyRandomStep :: AntImperative
+sillyRandomStep = sillyRandomStepSized 1000
+
 
 
 -- | Case-distinction when sensing for markers, using a different function to treat each case
@@ -110,6 +107,16 @@ markLine :: [Pheromone] -> AntImperative
 markLine ps = markLineBouncingOnAny (map Marker ps) ps
 
 
+-- TODO: Stray function, is it useful?
+findFoodSampleMap :: AntImperative
+findFoodSampleMap = iList $
+    [ iTurnR, iTurnR
+    , safeGoFFUntil (TrySense Here Food)  --TODO really needs to be safe (from collisions)?
+    , pickup, turnAround
+    , safeGoFFUntil (TrySense Here Home)  --TODO really needs to be safe?
+    , dropFood
+    ]
+
 
 
 
@@ -141,29 +148,13 @@ pheromoneSucc P4 = P5
 pheromoneSucc P5 = P3
 
 
--- | THE TOP LEVEL STRATEGY
-strategy' :: AntImperative
-strategy' = iList $
-    [ iterate initMarkers iEmpty !! 6  -- code for the corner guys
-    , chooseUniformly [gatherFood, protectLine]  -- protect main line or only gather food
-    ]
 
+-- | Turns at most 6 times around, while testing the position of friends around.
+-- This is to detect whether we are in a corner. If we are, then go build highway.
+highwayDetectAndBuild :: AntImperative
+highwayDetectAndBuild = testMaxNTimesWhileDoing turn60L 6 noFriendsOnSides markHighway
+    where noFriendsOnSides = Not (senseFriend LeftAhead `Or` senseFriend RightAhead)
 
-gatherFood :: AntImperative
-gatherFood = iForever $ iList
-    [ untilOverFood ricochet  -- should it be ricochet?
-    , pickup
-    , untilOverAnyOfMarks highwayPs ricochet
-    , backOnTrackUntil highwayPs Home
-    , dropAndStay
-    ]
-
-
-initMarkers :: AntImperative -> AntImperative
-initMarkers g =
-    iIfThenElse (TrySense LeftAhead Friend `Or` TrySense RightAhead Friend)
-        (iTurnL `iSeq` g)
-        (markHighway `iSeq` gatherFood)
 
 
 -- | Bounces only once on a wall
@@ -177,6 +168,16 @@ markFoodRoad :: AntImperative
 markFoodRoad = iMark (head foodRoadPs) `iSeq` doUntil step (isOverAnyOfMarks highwayPs)
     where step = markLine foodRoadPs `iSeq` bounceOnAny [Rock]
 
+
+gatherFood :: AntImperative -> AntImperative
+gatherFood step = iForever $ iList
+    [ untilOverFood step
+    , pickup
+    , untilOverAnyOfMarks highwayPs step
+    , backOnTrackUntil highwayPs Home
+    , dropFood `iSeq` move
+--  , dropAndStay  --TODO what did liewe want here?
+    ]
 
 
 dropAndStay :: AntImperative
@@ -200,7 +201,7 @@ stayUntil = iList $
           (turn60L `iSeq` iMark P5)
     , turnAround
     , safeGoFFNSteps 3  --TODO really needs to be safe?
-    , untilOverFood ricochet  --TODO should it be ricochet?
+    , untilOverFood ricochet
     ]
 
 
@@ -219,7 +220,7 @@ protectLine = iList $
     , toLineStart
     , turn60R  --assumes we travel counterclockwise around the home
     , findStay
-    , gatherFood ]
+    , gatherFood sillyRandomStep ]
 
 
 toEdgeOfHome :: AntImperative
@@ -233,21 +234,43 @@ toLineStart :: AntImperative
 toLineStart =
     iWhile (Not $ senseMarkerHere P1) $
         iIfThenElse (senseMarker Ahead P5 `And` senseFriend Ahead)
-            (iList [turn60L, safeGoFFNSteps 2, turn60R, safeGoFFNSteps 2])  --TODO really needs to be safe?
+            (iList [turn60L, safeGoFFNSteps 2, turn60R, safeGoFFNSteps 2])
             (iList [iIfThen (Not $ senseHome Ahead) turn60L, move])
 
--- End of OUR STRATEGY
 
--- Fallback simple strategy...
 
-strategy'' :: AntImperative
-strategy'' = iList $ [ findFood
-                     , pickup
-                     , turnAround
-                     , returnToBase 
-                     , iDrop ]
-    where findFood      = untilOverFood tryMoveOrTurn
-          returnToBase  = untilOverHome tryMoveOrTurn 
-          tryMoveOrTurn = iIfThen (Not $ TryForward)
-                                  randomTurn
- 
+
+-- THE TOP LEVEL STRATEGIES
+
+winnerStrategy1 :: AntImperative
+winnerStrategy1 = iList $
+    [ highwayDetectAndBuild  -- if on a corner, go build highway
+    , iDelay 300  -- wait some turns to give the highway guys a headstart
+    , randomTurn  -- Divert in random directions, avoid a big group together
+    , gatherFood sillyRandomStep -- then gather food
+    ]
+
+
+winnerStrategy2 :: AntImperative
+winnerStrategy2 = iList $
+    [ highwayDetectAndBuild  -- if on a corner, go build highway
+    , iDelay 300  -- wait some turns to give the highway guys a headstart
+    , randomTurn  -- Divert in random directions, avoid a big group together
+    , gatherFood ricochet  -- then gather food
+    ]
+
+
+-- Fallback simple strategy
+fallbackStrategy :: AntImperative
+fallbackStrategy = iList $
+    [ findFood
+    , pickup
+    , turnAround
+    , returnToBase 
+    , iDrop
+    ]
+    where
+        findFood      = untilOverFood tryMoveOrTurn
+        returnToBase  = untilOverHome tryMoveOrTurn 
+        tryMoveOrTurn = iIfThen (Not $ TryForward) randomTurn
+

@@ -1,5 +1,8 @@
 module Main where
 
+import System.Environment (getArgs)
+import Control.Monad (liftM)
+
 import Game.UUAntGen.Backend.AntDeepEmbedded
 import Game.UUAntGen.Backend.AntInstruction
 import Game.UUAntGen.Backend.AntTransformation
@@ -9,7 +12,15 @@ import Game.UUAntGen.Frontend.AntStrategies
 
 
 main :: IO ()
-main = putStr $ compileAndPrint strategy''
+main = do
+    idx <- liftM (read . head) getArgs
+    putStr $ compileAndPrint (strategies !! idx)
+
+
+-- LIST OF STRATEGIES
+strategies :: [AntImperative]
+strategies = [fallbackStrategy, winnerStrategy1, winnerStrategy2]
+
 
 
 -- COMPILATION PIPELINE: From AntImperative and/or AntStrategy to String (ant file)

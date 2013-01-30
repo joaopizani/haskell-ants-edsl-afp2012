@@ -8,7 +8,8 @@ import GHC.Generics  (Generic)
 newtype AntState = AntState Int
     deriving (Eq, Ord, Generic)  -- have to derive Generic to make auto-instance of Hashable work
 
-instance Hashable AntState where  -- empty instance decl, GHC Generics will derive it
+-- | We might want to use a hash table. Empty instance decl, GHC Generics will derive it
+instance Hashable AntState where
 
 instance Show AntState where
     show (AntState i) = show i
@@ -42,6 +43,7 @@ data Condition
     | Food | Rock | Marker Pheromone | FoeMarker | Home | FoeHome
     deriving (Eq)
 
+-- | We avoid the extra parentheses that GHC's derived instance would add
 instance Show Condition where
     show (Marker p) = "Marker " ++ (show p)
     show Friend = "Friend"
@@ -54,6 +56,9 @@ instance Show Condition where
     show Home = "Home"
     show FoeHome = "FoeHome"
 
+
+
+-- | Elements of this datatype are Ant assembly instructions.
 data AntInstruction
     = Sense Direction AntState AntState Condition
     | Mark Pheromone AntState

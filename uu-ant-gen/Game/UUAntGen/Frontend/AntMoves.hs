@@ -27,7 +27,7 @@ turnAround = turn180L
 
 -- | Picks up food (never pickup food at the nest (home))
 pickup :: AntImperative
-pickup = iIfThen (Not senseHomeHere) $ iTest TryPickUp
+pickup = iTest TryPickUp
 
 
 -- | Drops food
@@ -42,10 +42,11 @@ move = iTest TryForward
 
 -- | Safe move. Works around friends or foes in front of it. Subject to RACE CONDITIONS
 safeMove :: AntImperative
-safeMove = iWhile (friendOrFoe Ahead) (iCase [tryLA, tryRA]) `iSeq` move
+safeMove = iWhile (friendOrFoe Ahead) (iCase [tryLA, tryRA, (tautology, lastResort)]) `iSeq` move
     where
         tryLA                = (Not $ friendOrFoe LeftAhead,  detour (turn60L, turn120L))
         tryRA                = (Not $ friendOrFoe RightAhead, detour (turn60R, turn120R))
+        lastResort           = iList $ replicate 10 (move `iSeq` randomTurn)
         detour (goIn, goOut) = iList [goIn, move, turnAround, waitForFreeCell, move, goOut]
         friendOrFoe d        = (senseFriend d `Or` senseFoe d)
         waitForFreeCell      = iWhile (friendOrFoe Ahead) iEmpty

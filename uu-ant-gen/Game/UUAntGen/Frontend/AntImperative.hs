@@ -202,6 +202,9 @@ tautology = TrySense Here Friend
 iEmpty :: AntImperative
 iEmpty = iTest tautology
 
+-- | Delays execution n rounds by doing nothing repeatedly
+iDelay :: Int -> AntImperative
+iDelay n = iList $ replicate n iEmpty
 
 -- | An infinite loop, executes a certain strategy forever. Implemented basically as while(true)
 iForever :: AntImperative -> AntImperative

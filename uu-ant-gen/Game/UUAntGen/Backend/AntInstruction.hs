@@ -1,13 +1,13 @@
 module Game.UUAntGen.Backend.AntInstruction where
 
 import           Control.Monad.Supply (Supply, supply)
-import qualified Data.Map             as M
+import qualified Data.HashMap.Strict  as M
 
 import Game.UUAntGen.Backend.AntAssembly
 import Game.UUAntGen.Backend.AntDeepEmbedded
 
 
-type IMap = M.Map AntState AntInstruction
+type IMap = M.HashMap AntState AntInstruction
 
 data AntStrategy' = AntStrategy'
     { instructions :: IMap

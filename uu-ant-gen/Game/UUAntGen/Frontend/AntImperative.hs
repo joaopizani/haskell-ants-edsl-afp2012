@@ -1,8 +1,8 @@
 module Game.UUAntGen.Frontend.AntImperative where
 
 import           Control.Monad.Supply (supply)
-import           Data.Map             ((!))
-import qualified Data.Map             as M
+import           Data.HashMap.Strict  ((!))
+import qualified Data.HashMap.Strict  as M
 
 import Game.UUAntGen.Backend.AntAssembly
 import Game.UUAntGen.Backend.AntDeepEmbedded

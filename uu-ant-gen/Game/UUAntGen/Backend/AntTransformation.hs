@@ -2,8 +2,8 @@ module Game.UUAntGen.Backend.AntTransformation where
 
 import           Control.Monad.Supply (runSupply)
 import           Data.List            (delete)
-import           Data.Map             ((!))
-import qualified Data.Map             as M
+import           Data.HashMap.Strict  ((!))
+import qualified Data.HashMap.Strict  as M
 
 import Game.UUAntGen.Backend.AntAssembly
 import Game.UUAntGen.Backend.AntInstruction
@@ -124,6 +124,6 @@ printInstructions m = unlines $ map show (M.elems m)
 
 -- Prints an instruction map, but shows also the keys (for better debugging)
 printInstructionsWithKeys :: IMap -> String
-printInstructionsWithKeys m = unlines $ map show (M.assocs m)
+printInstructionsWithKeys m = unlines $ map show (M.toList m)
 
 

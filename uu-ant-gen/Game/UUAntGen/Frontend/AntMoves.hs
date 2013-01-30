@@ -31,7 +31,7 @@ moveOrWall wi = iIfThen (Not TryForward) wi
 
 -- | Picks up food (unconditionally)
 pickup :: AntImperative
-pickup = iIfThen (notHome) $ iTest TryPickUp
+pickup = iIfThen (Not senseHomeHere) $ iTest TryPickUp
 
 
 -- | Drops food
@@ -123,18 +123,15 @@ turnAround :: AntImperative
 turnAround = turn180L
 
 
--- | Safe move. Works around friends or foes in front of it
+-- | Safe move. Works around friends or foes in front of it. Subject to RACE CONDITIONS
 safeMove :: AntImperative
-safeMove =
-    (iWhile (friendOrFoe Ahead)
-        (iCase [tryLeftAhead, tryRightAhead])
-    ) `iSeq` move
+safeMove = iWhile (friendOrFoe Ahead) (iCase [tryLA, tryRA]) `iSeq` move
     where
-        tryLeftAhead  = (Not $ friendOrFoe LeftAhead,  detour (turn60L, turn120L))
-        tryRightAhead = (Not $ friendOrFoe RightAhead, detour (turn60R, turn120R))
-        detour (turnIn, turnOut) = iList [turnIn, move, turnAround, waitFreeCell, move, turnOut]
-        friendOrFoe d = (TrySense d Friend `Or` TrySense d Foe)
-        waitFreeCell = iWhile (friendOrFoe Ahead) iEmpty
+        tryLA                = (Not $ friendOrFoe LeftAhead,  detour (turn60L, turn120L))
+        tryRA                = (Not $ friendOrFoe RightAhead, detour (turn60R, turn120R))
+        detour (goIn, goOut) = iList [goIn, move, turnAround, waitForFreeCell, move, goOut]
+        friendOrFoe d        = (senseFriend d `Or` senseFoe d)
+        waitForFreeCell      = iWhile (friendOrFoe Ahead) iEmpty
 
 
 -- | Opening spiral, not covering all squares. A closed spiral is complicated. Ends with a turn
@@ -207,15 +204,47 @@ doFFandBack s = iList $
 
 
 -- HIGH-LEVEL convenience functions and combinators
+sense :: Direction -> Condition -> AntTest
+sense = TrySense
 
-marker :: Pheromone -> AntTest
-marker p = TrySense Here (Marker p)
 
-home :: AntTest
-home = TrySense Here Home
+senseMarker :: Direction -> Pheromone -> AntTest
+senseMarker d p = sense d (Marker p)
 
-food :: AntTest
-food = TrySense Here Food
+senseMarkerHere :: Pheromone -> AntTest
+senseMarkerHere = senseMarker Here
 
-notHome :: AntTest
-notHome = Not $ TrySense Here Home
+
+senseHome :: Direction -> AntTest
+senseHome d = sense d Home
+
+senseHomeHere :: AntTest
+senseHomeHere = senseHome Here
+
+
+senseFood :: Direction -> AntTest
+senseFood d = sense d Food
+
+senseFoodHere :: AntTest
+senseFoodHere = senseFood Here
+
+
+senseRock :: Direction -> AntTest
+senseRock d = sense d Rock
+
+senseRockHere :: AntTest
+senseRockHere = senseRock Here
+
+
+senseFoe :: Direction -> AntTest
+senseFoe d = sense d Foe
+
+senseFoeHere :: AntTest
+senseFoeHere = senseFoe Here
+
+
+senseFriend :: Direction -> AntTest
+senseFriend d = sense d Friend
+
+senseFriendHere :: AntTest
+senseFriendHere = senseFriend Here

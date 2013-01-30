@@ -8,6 +8,7 @@ import Game.UUAntGen.Frontend.AntImperative
 import Game.UUAntGen.Frontend.AntMoves
 
 
+
 -- BASIC STRATEGIES
 markHome :: AntImperative
 markHome = 
@@ -15,20 +16,31 @@ markHome =
     `iSeq`
     iList
         [ turnAround, move, iTurnR, move, iTurnL
-        , iWhile (notHome `And` p1Ahead) (iMark P2 `iSeq` safeMove)]
+        , iWhile ((Not senseHomeHere) `And` p1Ahead) (iMark P2 `iSeq` safeMove)]
     where
         p1Ahead = TrySense LeftAhead (Marker P1)
 
 
 findTrail :: AntImperative
-findTrail = doUntil (goSpiral 2) (markerP2 `Or` home)
+findTrail = doUntil (goSpiral 2) (markerP2 `Or` senseHomeHere)
     where markerP2 = TrySense Here (Marker P2)
 
+
 find :: AntImperative
-find = ricochet --iList [goForwardNSteps 3, randomTurn]
+find = ricochet
+
+ricochet :: AntImperative
+ricochet = ricochetWhile (iList [])
+-- could use the case statement
+ricochetWhile ::  AntImperative -> AntImperative
+ricochetWhile ai = (moveOrWall
+                        (iIfThenElse (TrySense RightAhead Rock) 
+                            (IfThenElse (TrySense LeftAhead Rock) turnAround iTurnL) 
+                        (iTurnR)) `iSeq` ai)
+
 
 findFood :: AntImperative
-findFood = doUntil find food
+findFood = doUntil find senseFoodHere
 
 
 findFoodSampleMap :: AntImperative
@@ -40,142 +52,143 @@ findFoodSampleMap = iList $
     , dropFood ]
 
 
+bounceOnAny :: [Condition] -> AntImperative
+bounceOnAny conds =
+    iCase
+        [ (left `And` right, random120)
+        , (left            , turn120R)
+        , (right           , turn120L)
+        , (tautology       , random120) ]
+    where
+        left  = foldr1 Or $ map (TrySense LeftAhead) conds
+        right = foldr1 Or $ map (TrySense RightAhead) conds
+        random120 = chooseUniformly [turn120L, turn120R]
+
+
+-- | Case-distinction when sensing for markers, using a different function to treat each case
+markersCase :: Direction -> [(Pheromone, Pheromone -> AntImperative)] -> AntImperative
+markersCase d ps = iCase $ map (\(p, f) -> (senseMarker d p, f p)) ps
+
+-- | Case-distinction when sensing for markers here, using a different function to treat each case
+markersHereCase :: [(Pheromone, Pheromone -> AntImperative)] -> AntImperative
+markersHereCase = markersCase Here
+
+-- | Senses given pheromones in order and applies the given (parameterized) strategy to the 1st match
+withMarkers :: Direction -> [Pheromone] -> (Pheromone -> AntImperative) -> AntImperative
+withMarkers d ps handler = markersCase d $ zip ps (repeat handler)
+
+withMarkersHere :: [Pheromone] -> (Pheromone -> AntImperative) -> AntImperative
+withMarkersHere = withMarkers Here
+
+
+
 
 
 -- A complete strategy (#1)
 
-highwayPheromones, foodRoadPheromones :: [Pheromone]
-highwayPheromones = [P0, P1, P2]
-foodRoadPheromones = [P3, P4, P5]
+highwayPs, foodRoadPs :: [Pheromone]
+highwayPs = [P0, P1, P2]
+foodRoadPs = [P3, P4, P5]
 
+-- | The predecessor of a pheromone. In this particular strategy, pheromones are in two cyclic
+-- groups of 3 elements each: highway pheromones and food road (local) pheromones
+pheromonePred :: Pheromone -> Pheromone
+pheromonePred P2 = P1  -- highway pheromones
+pheromonePred P1 = P0
+pheromonePred P0 = P2
+pheromonePred P5 = P4  -- food road pheromones
+pheromonePred P4 = P3
+pheromonePred P3 = P5
+
+pheromoneSucc :: Pheromone -> Pheromone
+pheromoneSucc P0 = P1  -- highway pheromones
+pheromoneSucc P1 = P2
+pheromoneSucc P2 = P0
+pheromoneSucc P3 = P4  -- food road pheromones
+pheromoneSucc P4 = P5
+pheromoneSucc P5 = P3
+
+
+-- | THE TOP LEVEL STRATEGY
 strategy' :: AntImperative
 strategy' = iList $
     [ iterate initMarkers iEmpty !! 6  -- code for the corner guys
-    , chooseUniformly [gatherFood, 
-            protectLine]]  -- protect the main line or if not necessary gather food
+    , chooseUniformly [gatherFood, protectLine]  -- protect main line or only gather food
+    ]
+
 
 gatherFood :: AntImperative
-gatherFood = iWhile (tautology) $ 
-    iList [findFood  -- find food
+gatherFood = iForever $ iList
+    [ findFood  -- find food
     , pickup
-    , findPheromoneTrack highwayPheromones
-    , backOnPheromoneTrackUntil highwayPheromones Home
-    , dropAndStay ]
+    , findPheromoneTrack highwayPs
+    , backOnPheromoneTrackUntil highwayPs Home
+    , dropAndStay
+    ]
+
 
 initMarkers :: AntImperative -> AntImperative
 initMarkers g =
     iIfThenElse (TrySense LeftAhead Friend `Or` TrySense RightAhead Friend)
         (iTurnL `iSeq` g)
-        markHighway
+        (markHighway `iSeq` gatherFood)
 
 
 
-bounce :: [Condition] -> AntImperative
-bounce conds =
-    iCase
-        [ (And wallLeft wallRight , random120)
-        , (wallLeft               , turn120R)
-        , (wallRight              , turn120L)
-        , (tautology              , random120) ]
-    where
-        wallLeft  = foldr1 Or $ map (TrySense LeftAhead) conds
-        wallRight = foldr1 Or $ map (TrySense RightAhead) conds
-        random120 = chooseUniformly [ turn120L, turn120R ]
 
-
-pheromonePred :: Pheromone -> Pheromone
-pheromonePred P2 = P1
-pheromonePred P1 = P0
-pheromonePred P0 = P2
-
-pheromonePred P5 = P4
-pheromonePred P4 = P3
-pheromonePred P3 = P5
-
-
-pheromoneSucc :: Pheromone -> Pheromone
-pheromoneSucc P0 = P1
-pheromoneSucc P1 = P2
-pheromoneSucc P2 = P0
-
-pheromoneSucc P3 = P4
-pheromoneSucc P4 = P5
-pheromoneSucc P5 = P3
-
-
-markerCase :: [(Pheromone, Pheromone -> AntImperative)] -> AntImperative
-markerCase l = iCase $ map (\(p, f) -> (marker p, f p)) l
-
-withMarkers :: [Pheromone] -> (Pheromone -> AntImperative) -> AntImperative
-withMarkers ps handler = markerCase $ zip ps (repeat handler)
 
 
 isOnPheromoneTrack :: [Pheromone] -> AntTest
-isOnPheromoneTrack ps = foldr1 Or (map marker ps)
+isOnPheromoneTrack ps = foldr1 Or (map senseMarkerHere ps)
 
 findPheromoneTrack :: [Pheromone] -> AntImperative
 findPheromoneTrack ps = doUntil find (isOnPheromoneTrack ps)
 
 
+-- TODO parameterize on crossing test: markLine = markBouncingOnMeet tautology
+-- TODO parameterize on stopping condition
 markLine :: [Pheromone] -> AntImperative
-markLine ps = doUntil (withMarkers ps atMarker) (TrySense Ahead Rock)
+markLine ps = doUntil (withMarkersHere ps step) (senseRock Ahead)
     where
-        allMarkers  = map Marker ps
-        testcross   = foldr1 Or $ map (TrySense Ahead) allMarkers
-        atMarker p  = (iIfThen testcross $ bounce allMarkers)
-                      `iSeq` safeMove `iSeq` iMark (pheromoneSucc p)
+        ps'    = map Marker ps
+        cross  = foldr1 Or $ map (TrySense Ahead) ps'
+        step p = (iIfThen cross $ bounceOnAny ps') `iSeq` safeMove `iSeq` iMark (pheromoneSucc p)
 
 
 markHighway :: AntImperative
-markHighway = iMark (head highwayPheromones) `iSeq`
-           line `iSeq` bounce [Rock] `iSeq` line `iSeq` gatherFood
-    where line = markLine highwayPheromones
+markHighway = iMark (head highwayPs) `iSeq` line `iSeq` bounceOnAny [Rock] `iSeq` line
+    where line = markLine highwayPs
 
 
 markFoodRoad :: AntImperative
-markFoodRoad = iMark (head foodRoadPheromones) `iSeq`
-               (doUntil loop $ isOnPheromoneTrack highwayPheromones)
-    where
-        line = markLine foodRoadPheromones
-        loop = line `iSeq` bounce [Rock]
+markFoodRoad = iMark (head foodRoadPs) `iSeq` doUntil step (isOnPheromoneTrack highwayPs)
+    where step = markLine foodRoadPs `iSeq` bounceOnAny [Rock]
 
-
-
-markerAhead :: Pheromone -> AntTest
-markerAhead p = TrySense Ahead (Marker p)
 
 
 
 -- | Follows a track of pheromones back to the nest
 backOnPheromoneTrackUntil :: [Pheromone] -> Condition -> AntImperative
-backOnPheromoneTrackUntil ps c = withMarkers ps atMarker
+backOnPheromoneTrackUntil ps c = withMarkersHere ps atMarker
     where atMarker p = findDirToFollow p `iSeq` (followUntilCondition ps c)
 
 findDirToFollow :: Pheromone -> AntImperative
-findDirToFollow p = doUntil iTurnR (markerAhead (pheromonePred p)) 
+findDirToFollow p = doUntil iTurnR $ senseMarker Ahead (pheromonePred p)
 
 followUntilCondition :: [Pheromone] -> Condition -> AntImperative
 followUntilCondition ps c = doUntil followStep (TrySense Here c)
     where
         followStep = moveOrWall turnUntilMark
-        turnUntilMark = withMarkers ps findDirToFollow
+        turnUntilMark = withMarkersHere ps findDirToFollow
 
 findHighway :: AntImperative
-findHighway = findPheromoneTrack highwayPheromones
+findHighway = findPheromoneTrack highwayPs
 
 
 -- End of strategy
 
 
 
-ricochet :: AntImperative
-ricochet = ricochetWhile (iList [])
--- could use the case statement
-ricochetWhile ::  AntImperative -> AntImperative
-ricochetWhile ai = (moveOrWall
-                        (iIfThenElse (TrySense RightAhead Rock) 
-                            (IfThenElse (TrySense LeftAhead Rock) turnAround iTurnL) 
-                        (iTurnR)) `iSeq` ai)
 
 dropAndStay :: AntImperative
 dropAndStay = iList [iDrop,

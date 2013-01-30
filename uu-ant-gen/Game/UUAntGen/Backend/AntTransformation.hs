@@ -2,8 +2,8 @@ module Game.UUAntGen.Backend.AntTransformation where
 
 import           Control.Monad.Supply (runSupply)
 import           Data.List            (delete)
-import           Data.HashMap.Strict  ((!))
-import qualified Data.HashMap.Strict  as M
+import           Data.Map             ((!))
+import qualified Data.Map             as M
 
 import Game.UUAntGen.Backend.AntAssembly
 import Game.UUAntGen.Backend.AntInstruction

@@ -9,46 +9,30 @@ import Game.UUAntGen.Frontend.AntMoves
 
 
 
--- BASIC STRATEGIES
-markHome :: AntImperative
-markHome = 
-    (doSearch move Rock Ahead (iMark P1))
-    `iSeq`
-    iList
-        [ turnAround, move, iTurnR, move, iTurnL
-        , iWhile ((Not senseHomeHere) `And` p1Ahead) (iMark P2 `iSeq` safeMove)]
-    where
-        p1Ahead = TrySense LeftAhead (Marker P1)
-
-
-findTrail :: AntImperative
-findTrail = doUntil (goSpiral 2) (markerP2 `Or` senseHomeHere)
-    where markerP2 = TrySense Here (Marker P2)
-
-
-find :: AntImperative
-find = ricochet
+-- GENERAL-PURPOSE STRATEGIES, for the user
 
 ricochet :: AntImperative
 ricochet = ricochetWhile (iList [])
--- could use the case statement
+
+-- TODO How does this work? Does this work?
 ricochetWhile ::  AntImperative -> AntImperative
-ricochetWhile ai = (moveOrWall
-                        (iIfThenElse (TrySense RightAhead Rock) 
-                            (IfThenElse (TrySense LeftAhead Rock) turnAround iTurnL) 
-                        (iTurnR)) `iSeq` ai)
+ricochetWhile s = moveOrWall howToTurn `iSeq` s
+    where
+        rockL     = senseRock LeftAhead
+        rockR     = senseRock RightAhead
+        howToTurn = iCase [(rockL `And` rockR, turnAround), (rockL, turn60R), (rockR, turn60L)]
 
 
-findFood :: AntImperative
-findFood = doUntil find senseFoodHere
+untilOverFood :: AntImperative -> AntImperative
+untilOverFood st = doUntil st senseFoodHere
 
 
 findFoodSampleMap :: AntImperative
 findFoodSampleMap = iList $
     [ iTurnR, iTurnR
-    , goFFUntil (TrySense Here Food)
+    , safeGoFFUntil (TrySense Here Food)  --TODO really needs to be safe (from collisions)?
     , pickup, turnAround
-    , goFFUntil (TrySense Here Home)
+    , safeGoFFUntil (TrySense Here Home)  --TODO really needs to be safe?
     , dropFood ]
 
 
@@ -81,10 +65,56 @@ withMarkersHere :: [Pheromone] -> (Pheromone -> AntImperative) -> AntImperative
 withMarkersHere = withMarkers Here
 
 
+-- | Tests whether an ant is on top on any of the pheromones in the given list
+isOverAnyOfMarks :: [Pheromone] -> AntTest
+isOverAnyOfMarks ps = foldr1 Or (map senseMarkerHere ps)
+
+-- | Perform some strategy until it comes over any of the pheromones in the given list
+untilOverAnyOfMarks :: [Pheromone] -> AntImperative -> AntImperative
+untilOverAnyOfMarks ps st = doUntil st (isOverAnyOfMarks ps)
 
 
 
--- A complete strategy (#1)
+-- | Aligns an ant (by turning the needed amount of times) to follow a certain pheromone
+alignToFollow :: Pheromone -> AntImperative
+alignToFollow p = doUntil iTurnR $ senseMarker Ahead p
+
+-- | Regresses on an ordered track of pheromones until a condition is met
+backOnTrackUntil :: [Pheromone] -> Condition -> AntImperative
+backOnTrackUntil ps c = withMarkersHere ps step
+    where step p = alignToFollow (pheromonePred p) `iSeq` (backOnTrackUntil' ps c)
+
+backOnTrackUntil' :: [Pheromone] -> Condition -> AntImperative
+backOnTrackUntil' ps c = doUntil (moveOrWall alignToPred) (TrySense Here c)
+    where alignToPred = withMarkersHere ps (alignToFollow . pheromonePred)
+
+
+
+-- TODO instead of only bouncing, another strategy would be nice: when meeting a pheromone track in
+-- front of us, we "skip" that cell, so that ants driving on the road can "go over" the crossing.
+
+-- | Paints a straight line with a cyclic sequence of pheromone markers, until meeting a wall. Also,
+-- bounces whenever any of the conditions specified is met.  TODO (bouncing or skipping)
+markLineBouncingOnAny :: [Condition] -> [Pheromone] -> AntImperative
+markLineBouncingOnAny cs ps = doUntil (withMarkersHere ps step) (senseRock Ahead)
+    where
+        ps'    = map Marker ps
+        cross  = foldr1 Or $ map (TrySense Ahead) cs
+        step p = iIfThen cross (bounceOnAny ps') `iSeq` safeMove `iSeq` iMark (pheromoneSucc p)
+
+
+-- | Paints a straight cyclic sequence of pheromone markers, until a wall. Bounces on itself
+markLine :: [Pheromone] -> AntImperative
+markLine ps = markLineBouncingOnAny (map Marker ps) ps
+
+
+
+
+
+
+
+
+-- OUR STRATEGY #1
 
 highwayPs, foodRoadPs :: [Pheromone]
 highwayPs = [P0, P1, P2]
@@ -119,10 +149,10 @@ strategy' = iList $
 
 gatherFood :: AntImperative
 gatherFood = iForever $ iList
-    [ findFood  -- find food
+    [ untilOverFood ricochet  -- should it be ricochet?
     , pickup
-    , findPheromoneTrack highwayPs
-    , backOnPheromoneTrackUntil highwayPs Home
+    , untilOverAnyOfMarks highwayPs ricochet
+    , backOnTrackUntil highwayPs Home
     , dropAndStay
     ]
 
@@ -134,66 +164,21 @@ initMarkers g =
         (markHighway `iSeq` gatherFood)
 
 
-
-
-
-
-isOnPheromoneTrack :: [Pheromone] -> AntTest
-isOnPheromoneTrack ps = foldr1 Or (map senseMarkerHere ps)
-
-findPheromoneTrack :: [Pheromone] -> AntImperative
-findPheromoneTrack ps = doUntil find (isOnPheromoneTrack ps)
-
-
--- TODO parameterize on crossing test: markLine = markBouncingOnMeet tautology
--- TODO parameterize on stopping condition
-markLine :: [Pheromone] -> AntImperative
-markLine ps = doUntil (withMarkersHere ps step) (senseRock Ahead)
-    where
-        ps'    = map Marker ps
-        cross  = foldr1 Or $ map (TrySense Ahead) ps'
-        step p = (iIfThen cross $ bounceOnAny ps') `iSeq` safeMove `iSeq` iMark (pheromoneSucc p)
-
-
+-- | Bounces only once on a wall
 markHighway :: AntImperative
 markHighway = iMark (head highwayPs) `iSeq` line `iSeq` bounceOnAny [Rock] `iSeq` line
     where line = markLine highwayPs
 
 
+-- | Bounces always on walls, stops when it finds a highway
 markFoodRoad :: AntImperative
-markFoodRoad = iMark (head foodRoadPs) `iSeq` doUntil step (isOnPheromoneTrack highwayPs)
+markFoodRoad = iMark (head foodRoadPs) `iSeq` doUntil step (isOverAnyOfMarks highwayPs)
     where step = markLine foodRoadPs `iSeq` bounceOnAny [Rock]
 
 
 
-
--- | Follows a track of pheromones back to the nest
-backOnPheromoneTrackUntil :: [Pheromone] -> Condition -> AntImperative
-backOnPheromoneTrackUntil ps c = withMarkersHere ps atMarker
-    where atMarker p = findDirToFollow p `iSeq` (followUntilCondition ps c)
-
-findDirToFollow :: Pheromone -> AntImperative
-findDirToFollow p = doUntil iTurnR $ senseMarker Ahead (pheromonePred p)
-
-followUntilCondition :: [Pheromone] -> Condition -> AntImperative
-followUntilCondition ps c = doUntil followStep (TrySense Here c)
-    where
-        followStep = moveOrWall turnUntilMark
-        turnUntilMark = withMarkersHere ps findDirToFollow
-
-findHighway :: AntImperative
-findHighway = findPheromoneTrack highwayPs
-
-
--- End of strategy
-
-
-
-
 dropAndStay :: AntImperative
-dropAndStay = iList [iDrop,
-                     turnAround, 
-                     findStay]
+dropAndStay = iList [dropFood, turnAround, findStay]
 
 
 findStay :: AntImperative
@@ -208,35 +193,46 @@ findStay = iIfThen (TrySense Here (Marker P1)) $
 
 -- stay until another one is trying to stay near this location
 stayUntil :: AntImperative
-stayUntil = iList [iWhile (Not $ (And (TrySense Ahead Friend) (TrySense Ahead (Marker P1)))) 
-                        (iTurnL `iSeq` iMark P5),
-                    turnAround,
-                    goForwardNSteps 3,
-                    findFood]
+stayUntil = iList $
+    [ iWhile (Not $ senseFriend Ahead `And` senseMarker Ahead P1)
+          (turn60L `iSeq` iMark P5)
+    , turnAround
+    , safeGoFFNSteps 3  --TODO really needs to be safe?
+    , untilOverFood ricochet  --TODO should it be ricochet?
+    ]
+
 
 stay :: AntImperative
-stay = iIfThen (Not $ TrySense Here (Marker P1)) $ 
-        iWhile 
-        (Not $ (And (TrySense Here (Marker P2)) (TrySense Ahead (Marker P1)))) 
-            (iTurnL `iSeq` iMark P5)
+stay =
+    iIfThen (Not $ senseMarkerHere P1) $
+        iWhile (Not $ senseMarkerHere P2 `And` senseMarker Ahead P1)
+            (turn60L `iSeq` iMark P5)
+
 
 protectLine :: AntImperative
-protectLine = iList [randomTurn,
-                     iWhile (TrySense Ahead Friend) turnAround,
-                     toEdgeOfHome,
-                     toLineStart,
-                     iTurnR, --assumes we travel counterclockwise around the home
-                     findStay,
-                     gatherFood]
+protectLine = iList $
+    [ randomTurn
+    , iWhile (senseFriend Ahead) turnAround
+    , toEdgeOfHome
+    , toLineStart
+    , turn60R  --assumes we travel counterclockwise around the home
+    , findStay
+    , gatherFood ]
+
 
 toEdgeOfHome :: AntImperative
-toEdgeOfHome = iList [iWhile (TrySense Ahead Home) move,
-                        iWhile (Not $ TrySense LeftAhead Home) iTurnL]
+toEdgeOfHome = iList $
+    [ iWhile (senseHome Ahead) move
+    , iWhile (Not $ senseHome LeftAhead) iTurnL
+    ]
+
 
 toLineStart :: AntImperative
-toLineStart = iWhile (Not $ (TrySense Here (Marker P1))) $ 
-                iIfThenElse (And (TrySense Ahead (Marker P5)) (TrySense Ahead Friend))
-                    (iList [iTurnL, goForwardNSteps 2, iTurnR, goForwardNSteps 2])
-                    (iList [iIfThen (Not $ TrySense Ahead Home) iTurnL, move])
+toLineStart =
+    iWhile (Not $ senseMarkerHere P1) $
+        iIfThenElse (senseMarker Ahead P5 `And` senseFriend Ahead)
+            (iList [turn60L, safeGoFFNSteps 2, turn60R, safeGoFFNSteps 2])  --TODO really needs to be safe?
+            (iList [iIfThen (Not $ senseHome Ahead) turn60L, move])
 
--- End of strategy
+-- End of OUR STRATEGY
+

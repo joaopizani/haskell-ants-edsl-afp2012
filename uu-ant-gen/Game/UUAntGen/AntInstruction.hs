@@ -33,7 +33,6 @@ aMkSingletonStrategy :: (AntState -> AntInstruction) -> AntStrategy
 aMkSingletonStrategy instr = supply >>= return . aMkSingletonStrategy' instr
 
 
-
 aMark :: Pheromone -> AntStrategy
 aMark p = aMkSingletonStrategy (Mark p)
 

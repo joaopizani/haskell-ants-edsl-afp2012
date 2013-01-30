@@ -55,8 +55,8 @@ runAntStrategy s = fst $ runSupply s [AntState 0..]
 -- PROGRAM TRANSFORMATION acting on the map of assembly instructions
 
 -- | Makes a program loop on the top level (last instruction points to the first)
-aForever :: AntStrategy' -> AntStrategy'
-aForever as@(AntStrategy' _ i _) = replaceFinal i as
+topLevelForever :: AntStrategy' -> AntStrategy'
+topLevelForever as@(AntStrategy' _ i _) = replaceFinal i as
 
 
 -- | Given a AntStrategy with possibly ghost AntInstructions (resulting from IfThenElse and IfThen
@@ -115,22 +115,15 @@ keyTranslate m (k, nk) = M.map (replaceMatchingStates k nk) changedInst
 
 
 
--- | Pretty-printing an AntStrategy' to a String.
+-- | Pretty-printing an instruction map to a String.
 -- PRE-CONDITIONS:
 --     * The instruction map has keys in the range [0, (size-1)]
 --     * The key of the initial instruction is 0
 printInstructions :: IMap -> String
 printInstructions m = unlines $ map show (M.elems m)
 
+-- Prints an instruction map, but shows also the keys (for better debugging)
+printInstructionsWithKeys :: IMap -> String
+printInstructionsWithKeys m = unlines $ map show (M.assocs m)
 
-
--- | TOP LEVEL compile function. Performs all program transformations and optimizations
--- and then prints the final ant assembly
-compile :: AntStrategy -> String
-compile = printInstructions . keysToLineNumbers . ghostBuster . aForever . runAntStrategy
-
--- Helper function to help with debugging, seeing the keys in the instruction map
-compile' :: AntStrategy -> String
-compile' = printInstructions' . keysToLineNumbers . ghostBuster . aForever . runAntStrategy
-    where printInstructions' m = unlines $ map show (M.assocs m)
 

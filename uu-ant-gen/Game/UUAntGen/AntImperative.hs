@@ -10,12 +10,6 @@ import Game.UUAntGen.AntInstruction
 import Game.UUAntGen.AntTransformation
 
 
--- | Empty strategy, will be eliminated when sequeced (iSeq) with another one
-iEmpty :: AntImperative
-iEmpty = iTest tautology
-    where tautology = TrySense Here Friend
-
-
 
 -- Iterative programming-like constructs for building ant strategies. Sequencing, loop,
 -- conditionals, etc. Every constructs has two corresponding functions. One (prefixed with "a")
@@ -24,7 +18,7 @@ iEmpty = iTest tautology
 
 -- Sequencing AntStrategies. Means that s2 will be executed after s1
 iSeq :: AntImperative -> AntImperative -> AntImperative
-iSeq (IList s1) (IList s2) = IList (s1 ++ s2)  -- first 3 patterns eliminate empty strategies
+iSeq (IList s1) (IList s2) = IList $ s1 ++ s2   -- first 3 patterns eliminate empty strategies
 iSeq (IList s1) s2         = IList $ s1 ++ [s2]
 iSeq s1         (IList s2) = IList $ s1 : s2
 iSeq s1         s2         = IList [s1, s2]
@@ -38,7 +32,6 @@ s1 >>- s2 = do
                            (replaceDefaultState (initial s2') s1final) 
                            (instructions s1')
     return $ AntStrategy' (s1new `M.union` (instructions s2')) (initial s1') (final s2')
-
 
 -- Strategy made of a sequenced list of strategies
 iList :: [AntImperative] -> AntImperative
@@ -67,6 +60,7 @@ aMkWhile cond b = do
     return $ AntStrategy' (m `M.union` bPlusG) i gidx
 
 
+
 -- IfThenElse, given a test and two strategies: one for the true branch and one for the false
 iIfThenElse :: AntTest -> AntImperative -> AntImperative -> AntImperative
 iIfThenElse c t f = IfThenElse c t f
@@ -78,15 +72,14 @@ aIfThenElse = aMkIfThenElse . processAntTest
 -- and two strategies. Introduces a "Ghost" instruction to serve as return point from both branches
 aMkIfThenElse :: (AntState -> AntState -> AntStrategy) -> AntStrategy -> AntStrategy -> AntStrategy
 aMkIfThenElse cond ts fs = do
-    gidx <- supply -- getting the unique id for the ghost instruction
+    g <- supply -- getting the unique id for the ghost instruction
     ts' <- ts  -- extracting the instruction blocks from the Supply monad
     fs' <- fs
     let (tidx, fidx) = (initial ts', initial fs')
     AntStrategy' m i _ <- cond tidx fidx
-    let ghosti       = Ghost gidx [(final ts'),(final fs')]
-        fPlusT       = (instructions $ replaceFinal gidx ts') `M.union` 
-                       (instructions $ replaceFinal gidx fs')
-    return $ AntStrategy' (m `M.union` (M.insert gidx ghosti fPlusT)) i gidx
+    let ghosti = Ghost g [(final ts'),(final fs')]
+        fPlusT = (instructions $ replaceFinal g ts') `M.union` (instructions $ replaceFinal g fs')
+    return $ AntStrategy' (m `M.union` (M.insert g ghosti fPlusT)) i g
 
 
 
@@ -99,14 +92,15 @@ aIfThen = aMkIfThen . processAntTest
 
 -- Helper function to make a IfThen block.
 aMkIfThen :: (AntState -> AntState -> AntStrategy) -> AntStrategy -> AntStrategy
-aMkIfThen cond body = do
-    gidx <- supply
-    body' <- body
-    AntStrategy' m i _ <- cond (initial body') gidx
+aMkIfThen cond b = do
+    g  <- supply
+    b' <- b
+    AntStrategy' m i _ <- cond (initial b') g
     let condInstrs = M.keys m
-        ghosti     = Ghost gidx ((final body') : condInstrs)
-        instrs     = (instructions $ replaceFinal gidx body') -- body instr
-    return $ AntStrategy' (m `M.union` M.insert gidx ghosti instrs) i gidx
+        ghosti     = Ghost g ((final b') : condInstrs)
+        instrs     = (instructions $ replaceFinal g b')
+    return $ AntStrategy' (m `M.union` M.insert g ghosti instrs) i g
+
 
 
 -- Produces a block containing a side-effecting test instruction, but with no body
@@ -116,15 +110,15 @@ iTest t = SideEffect t
 aTest :: AntTest -> AntStrategy
 aTest = aMkTest . processAntTest
 
--- Helper function to build a aTest block
+-- Helper function to build a aTest block, given the condition for which to test
 aMkTest :: (AntState -> AntState -> AntStrategy) -> AntStrategy
 aMkTest cond = do
-    gidx <- supply
-    AntStrategy' m i _ <- cond gidx gidx
+    g <- supply
+    AntStrategy' m i _ <- cond g g
     let condInstrs = M.keys m
-        ghost      = (gidx, Ghost gidx condInstrs)
-        allInstrs  = m `M.union` M.fromList [ghost] 
-    return $ AntStrategy' allInstrs i gidx
+        allInstrs  = m `M.union` M.fromList [(g, Ghost g condInstrs)]
+    return $ AntStrategy' allInstrs i g
+
 
 
 -- Produces a switch-case like block, analogous to nested if-elsif statements
@@ -136,32 +130,24 @@ aCase = aMkCase . mapFst processAntTest
     where mapFst f = map (\(x,y) -> (f x,y))
 
 aMkCase :: [(AntState -> AntState -> AntStrategy,AntStrategy)] -> AntStrategy
-aMkCase condL = do
-    gidx <- supply
-    let ss = map (linkGhost gidx . snd) condL
-    ss' <- sequence ss
-    let (condsF, _) = unzip $ map linkTrue $ zip (map fst condL) ss'
+aMkCase conds = do
+    g <- supply
+    ss' <- mapM (linkToGhost g . snd) conds
+    let (condsF, _) = unzip $ map linkTrue $ zip (map fst conds) ss'
         -- linking conditions
-        conds' = foldr (\mkS1 s2 -> do AntStrategy' m2 i2 f2 <- s2 
-                                       AntStrategy' m1 i1 f1 <- mkS1 i2
-                                       return $ AntStrategy' (m1 `M.union` m2) 
-                                                             i1 
-                                                             (if f2 == gidx
-                                                              then f1
-                                                              else f2))
-                       (return $ AntStrategy' M.empty gidx gidx) 
-                       condsF
-    AntStrategy' mc ic f <- conds'
-    let mss = foldr M.union M.empty $ map instructions ss'
-        ghosti = Ghost gidx (f : M.keys mss) 
-        allInstrs = M.insert gidx ghosti (mc `M.union` mss) 
-    return $ AntStrategy' allInstrs ic gidx 
-   where
-        linkGhost :: AntState -> AntStrategy -> AntStrategy
-        linkGhost gidx s = s >>= return . replaceFinal gidx
+        conds' = foldr (buildCondStrat g) (return $ AntStrategy' M.empty g g) condsF
 
-        linkTrue :: (AntState -> AntState -> AntStrategy, AntStrategy') 
-                 -> (AntState -> AntStrategy, AntStrategy')
+    AntStrategy' mc ic f <- conds'
+    let mss       = foldr M.union M.empty $ map instructions ss'
+        ghosti    = Ghost g (f : M.keys mss)
+        allInstrs = M.insert g ghosti (mc `M.union` mss)
+    return $ AntStrategy' allInstrs ic g
+   where
+        buildCondStrat g mkS1 s2 = do
+            AntStrategy' m2 i2 f2 <- s2
+            AntStrategy' m1 i1 f1 <- mkS1 i2
+            return $ AntStrategy' (m1 `M.union` m2) i1 (if f2 == g then f1 else f2)
+        linkToGhost g s = s >>= return . replaceFinal g
         linkTrue (mkS,s) = (\fs -> flip mkS fs $ initial s, s)
 
 
@@ -171,11 +157,8 @@ aMkCase condL = do
 -- | Produces a block of conjunction of two conditional instructions given two functions
 -- that, given the reference of the true and false branches, produces blocks corresponding
 -- to the inner expressions
-aMkAnd :: (AntState -> AntState -> AntStrategy)  -- s1
-       -> (AntState -> AntState -> AntStrategy)  -- s2
-       -> AntState  -- true branch
-       -> AntState  -- else branch
-       -> AntStrategy
+aMkAnd :: (AntState -> AntState -> AntStrategy) -> (AntState -> AntState -> AntStrategy)
+       -> AntState -> AntState -> AntStrategy
 aMkAnd mkS1 mkS2 st sf = do
     AntStrategy' m2 i2 f2 <- mkS2 st sf
     AntStrategy' m1 i1 _  <- mkS1 i2 sf
@@ -185,11 +168,8 @@ aMkAnd mkS1 mkS2 st sf = do
 -- | Procuces a block of disjunction of two conditional instructions given two functions
 -- that, given the reference of the true and false branch, produce blocks corresponding
 -- to the inner expressions
-aMkOr :: (AntState -> AntState -> AntStrategy)  -- s1
-      -> (AntState -> AntState -> AntStrategy)  -- s2
-      -> AntState  -- true branch
-      -> AntState  -- else branch
-      -> AntStrategy
+aMkOr :: (AntState -> AntState -> AntStrategy) -> (AntState -> AntState -> AntStrategy)
+      -> AntState -> AntState -> AntStrategy
 aMkOr mkS1 mkS2 st sf = do
     AntStrategy' m2 i2 f2 <- mkS2 st sf
     AntStrategy' m1 i1 _  <- mkS1 st i2
@@ -211,6 +191,23 @@ processAntTest = foldAntTest (sense', random', forward', pickup', and', or', not
         and'       = aMkAnd
         or'        = aMkOr
         not'       = flip
+
+
+
+-- | A logical condition (AntTest) which never fails, i.e, a tautology. Pearl of ant nature
+tautology :: AntTest
+tautology = TrySense Here Friend
+
+-- | The empty strategy is a side-effecting test with no side effects and which never fails
+iEmpty :: AntImperative
+iEmpty = iTest tautology
+
+
+-- | An infinite loop, executes a certain strategy forever. Implemented basically as while(true)
+iForever :: AntImperative -> AntImperative
+iForever = iWhile tautology
+
+
 
 
 -- | This function gives the semantics of the AntImperative deep-embedded EDSL,

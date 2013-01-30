@@ -24,9 +24,6 @@ turn120R = iTurnR `iSeq` iTurnR
 move :: AntImperative
 move = iTest TryForward
 
-tautology :: AntTest
-tautology = TrySense Here Friend
-
 -- | Tries to move one step forward, uses the strategy passed as parameter if meets a wall
 moveOrWall :: AntImperative -> AntImperative
 moveOrWall wi = iIfThen (Not TryForward) wi

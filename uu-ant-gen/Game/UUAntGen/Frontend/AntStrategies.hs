@@ -245,7 +245,7 @@ toLineStart =
 winnerStrategy1 :: AntImperative
 winnerStrategy1 = iList $
     [ highwayDetectAndBuild  -- if on a corner, go build highway
-    , iDelay 300  -- wait some turns to give the highway guys a headstart
+    , iDelay 800  -- wait some turns to give the highway guys a headstart
     , randomTurn  -- Divert in random directions, avoid a big group together
     , gatherFood sillyRandomStep -- then gather food
     ]
@@ -254,7 +254,7 @@ winnerStrategy1 = iList $
 winnerStrategy2 :: AntImperative
 winnerStrategy2 = iList $
     [ highwayDetectAndBuild  -- if on a corner, go build highway
-    , iDelay 300  -- wait some turns to give the highway guys a headstart
+    , iDelay 800  -- wait some turns to give the highway guys a headstart
     , randomTurn  -- Divert in random directions, avoid a big group together
     , gatherFood ricochet  -- then gather food
     ]
@@ -262,7 +262,7 @@ winnerStrategy2 = iList $
 
 -- Fallback simple strategy
 fallbackStrategy :: AntImperative
-fallbackStrategy = iList $
+fallbackStrategy = iList $ 
     [ findFood
     , pickup
     , turnAround

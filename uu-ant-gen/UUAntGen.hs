@@ -1,8 +1,5 @@
 module Main where
 
-import System.Environment (getArgs)
-import Control.Monad (liftM)
-
 import Game.UUAntGen.Backend.AntDeepEmbedded
 import Game.UUAntGen.Backend.AntInstruction
 import Game.UUAntGen.Backend.AntTransformation
@@ -12,14 +9,17 @@ import Game.UUAntGen.Frontend.AntStrategies
 
 
 main :: IO ()
-main = do
-    idx <- liftM (read . head) getArgs
-    putStr $ compileAndPrint (strategies !! idx)
+main = putStr $ compileAndPrint (head strategies)
 
 
 -- LIST OF STRATEGIES
 strategies :: [AntImperative]
-strategies = [fallbackStrategy, winnerStrategy1, winnerStrategy2]
+strategies = 
+    [
+      winnerStrategy1
+    , winnerStrategy2
+    , fallbackStrategy
+    ]
 
 
 

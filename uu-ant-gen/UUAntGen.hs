@@ -16,8 +16,8 @@ main = putStr $ compileAndPrint (head strategies)
 strategies :: [AntImperative]
 strategies = 
     [
-      winnerStrategy1
-    , winnerStrategy2
+      winnerStrategy2
+    , winnerStrategy1
     , fallbackStrategy
     ]
 

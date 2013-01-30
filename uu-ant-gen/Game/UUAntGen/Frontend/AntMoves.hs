@@ -41,15 +41,17 @@ move = iTest TryForward
 
 
 -- | Safe move. Works around friends or foes in front of it. Subject to RACE CONDITIONS
-safeMove :: AntImperative
-safeMove = iWhile (friendOrFoe Ahead) (iCase [tryLA, tryRA, (tautology, randDelay)]) `iSeq` move
+safeMoveLR :: AntImperative -> AntImperative
+safeMoveLR s = iWhile (friendOrFoe Ahead) (iCase [tryLA, tryRA, (tautology, s)]) `iSeq` move
     where
         tryLA                = (Not $ friendOrFoe LeftAhead,  detour (turn60L, turn120L))
         tryRA                = (Not $ friendOrFoe RightAhead, detour (turn60R, turn120R))
-        randDelay            = doWithChance 1 iEmpty
         detour (goIn, goOut) = iList [goIn, move, turnAround, waitForFreeCell, move, goOut]
         friendOrFoe d        = (senseFriend d `Or` senseFoe d)
         waitForFreeCell      = iWhile (friendOrFoe Ahead) iEmpty
+
+safeMove :: AntImperative
+safeMove = safeMoveLR iEmpty
 
 
 -- | Tries to move one step forward, uses the strategy passed as parameter if meets a wall

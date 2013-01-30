@@ -35,9 +35,14 @@ bounceOnAny conds = iCase [(l `And` r, rand), (l, turn120R), (r, turn120L), (tau
         rand = chooseUniformly [turn120L, turn120R]
 
 
+-- | Try to do a safe move, use disperse as a last resort (non-recoverable)
+safeMoveDisperse :: AntImperative
+safeMoveDisperse = safeMoveLR disperse
+
 ricochet :: AntImperative
-ricochet = handleWall `iSeq` safeMove
-    where handleWall = iIfThen (senseRock Ahead) (bounceOnAny [Rock])
+ricochet = handleWall `iSeq` safeMoveDisperse
+    where
+        handleWall = iIfThen (senseRock Ahead) (bounceOnAny [Rock])
 
 
 sillyRandomStepSized :: Int -> AntImperative
@@ -45,6 +50,10 @@ sillyRandomStepSized n = doWithChance n move `iSeq` chooseUniformly [turn60L, tu
 
 sillyRandomStep :: AntImperative
 sillyRandomStep = sillyRandomStepSized 1000
+
+
+disperse :: AntImperative
+disperse = iList (replicate 10 sillyRandomStep)
 
 
 
@@ -239,13 +248,13 @@ toLineStart =
 
 
 
-
 -- THE TOP LEVEL STRATEGIES
 
 winnerStrategy1 :: AntImperative
 winnerStrategy1 = iList $
     [ highwayDetectAndBuild  -- if on a corner, go build highway
     , iDelay 800  -- wait some turns to give the highway guys a headstart
+    , disperse
     , randomTurn  -- Divert in random directions, avoid a big group together
     , gatherFood sillyRandomStep -- then gather food
     ]
@@ -255,6 +264,7 @@ winnerStrategy2 :: AntImperative
 winnerStrategy2 = iList $
     [ highwayDetectAndBuild  -- if on a corner, go build highway
     , iDelay 800  -- wait some turns to give the highway guys a headstart
+    , disperse
     , randomTurn  -- Divert in random directions, avoid a big group together
     , gatherFood ricochet  -- then gather food
     ]

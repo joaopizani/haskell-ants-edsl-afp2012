@@ -37,7 +37,7 @@ winnerStrategy1 = iList $
 winnerStrategy2 :: AntImperative
 winnerStrategy2 = iList $
     [ highwayDetectAndBuild  -- if on a corner, go build highway
-    , iDelay 800  -- wait some turns to give the highway guys a headstart
+    , iDelay 200  -- wait some turns to give the highway guys a headstart
     , disperse
     , randomTurn  -- Divert in random directions, avoid a big group together
     , gatherFood ricochet  -- then gather food

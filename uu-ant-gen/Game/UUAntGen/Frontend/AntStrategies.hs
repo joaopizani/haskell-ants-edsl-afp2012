@@ -180,7 +180,8 @@ gatherFood step = iForever $ iList
     , pickup
     , untilOverAnyOfMarks highwayPs step
     , backOnTrackUntil highwayPs Home
-    , dropFood `iSeq` disperse
+    , dropAndStay
+    , disperse
     ]
 
 
@@ -191,7 +192,7 @@ dropAndStay = iList [dropFood, turnAround, findStay]
 
 findStay :: AntImperative
 findStay =
-    iIfThen (senseMarkerHere P1) $
+    iIfThen (senseMarkerHere P0) $
         iCase $
             [ (noFriendLA, left)
             , (noFriendRA, right)
@@ -199,7 +200,10 @@ findStay =
                   [ (noFriendLA, left)
                   , (noFriendRA, right)
                   , (noFriendAh, move `iSeq` stayUntil)
-                  , (tautology, iEmpty)
+                  , (tautology, iEmpty) 
+                        -- iList [iWhile (senseFriend Ahead) iTurnL
+                          --      , goFFNSteps 5
+                             --   , chooseUniformly [iTurnR, iTurnL]])
                   ]))
             ]
     where
@@ -213,7 +217,7 @@ findStay =
 -- stay until another one is trying to stay near this location
 stayUntil :: AntImperative
 stayUntil = iList $
-    [ iWhile (Not $ senseFriend Ahead `And` senseMarker Ahead P1)
+    [ iWhile (Not $ senseFriend Ahead `And` senseMarker Ahead P0)
           (turn60L `iSeq` iMark P5)
     , turnAround
     , safeGoFFNSteps 3
@@ -229,14 +233,14 @@ stay =
 
 
 protectLine :: AntImperative
-protectLine = iList $
+protectLine = iIfThen (senseHome Here) $ iList $
     [ randomTurn
     , iWhile (senseFriend Ahead) turnAround
     , toEdgeOfHome
     , toLineStart
     , turn60R  --assumes we travel counterclockwise around the home
     , findStay
-    , gatherFood sillyRandomStep ]
+    , gatherFood ricochet ]
 
 
 toEdgeOfHome :: AntImperative
@@ -248,7 +252,7 @@ toEdgeOfHome = iList $
 
 toLineStart :: AntImperative
 toLineStart =
-    iWhile (Not $ senseMarkerHere P1) $
+    iWhile (Not $ senseMarkerHere P0) $
         iIfThenElse (senseMarker Ahead P5 `And` senseFriend Ahead)
             (iList [turn60L, safeGoFFNSteps 2, turn60R, safeGoFFNSteps 2])
             (iList [iIfThen (Not $ senseHome Ahead) turn60L, move])

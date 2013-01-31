@@ -43,7 +43,7 @@ move = iTest TryForward
 -- | Safe move with last resort. Tries to work around friends or foes in front of it.
 -- Uses the passed strategy as "last resort" when it can't. Subject to RACE CONDITIONS
 safeMoveLR :: AntImperative -> AntImperative
-safeMoveLR s = iWhile (friendOrFoe Ahead) (iCase [tryLA, tryRA, (tautology, s)]) `iSeq` move
+safeMoveLR s = iIfThen (friendOrFoe Ahead) (iCase [tryLA, tryRA, (tautology, s)]) `iSeq` move
     where
         tryLA                = (Not $ friendOrFoe LeftAhead,  detour (turn60L, turn120L))
         tryRA                = (Not $ friendOrFoe RightAhead, detour (turn60R, turn120R))
@@ -160,9 +160,6 @@ interleaveStrategy s (IList l)          = iList $ intersperse s l
 -- | Interleaves a strategy with marking the ground using a pheromone
 withPheromone :: Pheromone -> AntImperative -> AntImperative
 withPheromone = interleaveStrategy . iMark
-
-
-
 
 -- RANDOM CHOICE
 

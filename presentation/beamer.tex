@@ -1,0 +1,190 @@
+\documentclass{beamer}
+\usetheme[style=plain]{uu}
+
+%% unicode support, for text and code :)
+\usepackage[utf8x]{inputenc}
+\usepackage{ucs}
+\usepackage{autofe}
+
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{color}
+
+
+%% imports, colors and other definitions for source code
+\usepackage{listingsutf8}
+
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+    language=Haskell,
+    extendedchars=\true,
+    basicstyle=\footnotesize,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{white},
+    showspaces=false,
+    showtabs=false,
+    tabsize=4,
+    captionpos=b,
+    breakatwhitespace=false,
+    title=\lstname,
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    morekeywords={*,...}
+}
+
+%% Metainformation
+\title[Ants]{AntGen EDSL}
+
+\date{\today}
+
+\author[Alpuim, Binsbergen, Pizani Flor]
+{
+    J.~Alpuim
+    \and L.T. van~Binsbergen
+    \and J.P.~Pizani Flor
+}
+
+\institute[Utrecht University]
+{
+    Department of Information and Computing Sciences,
+    Utrecht University
+}
+
+
+%% The document itself
+\begin{document}
+
+    \begin{frame}
+        \titlepage
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Table of Contents}
+        \tableofcontents
+    \end{frame}
+
+    \section{Application: Top-level strategy}
+
+    \subsection{How it works}
+    \begin{frame}
+    \frametitle{How it works}
+
+	   Our main strategy consists of
+	   \begin{itemize}
+	   \item Draw ``Highways'' from the corners of the nest;  
+	   \item Look for food using a ``ricochet'' movement;
+	   \item Use ``Highways'' to come back to the nest.
+	   \end{itemize} 
+
+    \end{frame}
+    
+    \subsection{How it should work}
+    \begin{frame}
+    \frametitle{How it should work}
+
+	    \begin{itemize}
+	    \item Protecting corners of the nest; 
+	    \item Drawing local roads;
+	    \item Avoiding congestions.
+	    \end{itemize}
+
+    \end{frame}
+    
+
+    \section{Library: AntStrategies, AntMoves}
+   
+    \begin{frame}
+    \frametitle{Ant strategies} 
+            Some examples of top-level strategies include:
+            \begin{itemize}
+            \item{Ricochet walk;}
+            \item{Random walk;}
+            \item{Follow any pheromone track;}
+            \item{Draw any pheromone track...}
+            \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+    \frametitle{Ant moves}
+            Some examples of simple moves include:
+            \begin{itemize}
+            \item{Safe move;}
+            \item{Random choices;}
+            \item{Interleaving strategies...}
+            \end{itemize}
+    \end{frame}   
+
+
+    \section{EDSL: AntImperative, AntInstruction}
+
+    \subsection{Imperative-ish constructs}
+    \begin{frame}
+    \frametitle{Imperative-ish constructs}
+
+            We have developed some imperative-like constructs, 
+            in order to get a well defined flow in each program:
+
+            \begin{itemize}
+            \item Sequence;
+            \item Loops (While,Forever);
+            \item Conditionals (IfThen,IfThenElse,Side-Effect test,case);
+            \item Boolean operators.
+            \end{itemize}
+
+    \end{frame}
+
+    \subsection{Translation to Ant assembly}
+    \begin{frame}
+    \frametitle{Translation to Ant assembly}
+
+            \begin{itemize}
+            \item EDSL datatypes;
+            \item Semantic functions;
+            \item Boolean algebra.
+            \end{itemize}
+            
+    \end{frame}
+
+    \section{Composing and transforming assembly blocks}
+
+    \subsection{Composing assembly blocks}
+    \begin{frame}
+    \frametitle{Composing assembly blocks}
+
+
+            \begin{itemize}
+            \item One composing function per imperative construct.
+            \item Using supply monad to get ant states;
+            \item Map AntState AntInstruction
+            \begin{itemize} 
+                \item with a initial and final state. 
+            \end{itemize}
+            \end{itemize}
+
+    \end{frame}
+   
+    \subsection{Program transformations} 
+    \begin{frame}
+    \frametitle{Program transformations}
+
+            We have used two functions to get a full-working ant assembly code:
+            \begin{itemize}
+            \item Ghost-busters;
+            \item Keys to line numbers. 
+            \end{itemize}
+
+    \end{frame}
+
+
+\end{document}

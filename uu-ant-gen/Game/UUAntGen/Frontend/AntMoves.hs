@@ -40,7 +40,8 @@ move :: AntImperative
 move = iTest TryForward
 
 
--- | Safe move. Works around friends or foes in front of it. Subject to RACE CONDITIONS
+-- | Safe move with last resort. Tries to work around friends or foes in front of it.
+-- Uses the passed strategy as "last resort" when it can't. Subject to RACE CONDITIONS
 safeMoveLR :: AntImperative -> AntImperative
 safeMoveLR s = iWhile (friendOrFoe Ahead) (iCase [tryLA, tryRA, (tautology, s)]) `iSeq` move
     where
@@ -50,6 +51,7 @@ safeMoveLR s = iWhile (friendOrFoe Ahead) (iCase [tryLA, tryRA, (tautology, s)])
         friendOrFoe d        = (senseFriend d `Or` senseFoe d)
         waitForFreeCell      = iWhile (friendOrFoe Ahead) iEmpty
 
+-- | Safe move. Works around friends or foes in front of it. Subject to RACE CONDITIONS
 safeMove :: AntImperative
 safeMove = safeMoveLR iEmpty
 
@@ -62,11 +64,23 @@ moveOrWall wi = iIfThen (Not TryForward) wi
 
 
 
--- SIMPLY ITERATED MOTIONS
+-- SIMPLE ITERATIONS
 
 -- | Performs a given strategy until a certain condition is met
 doUntil :: AntImperative -> AntTest -> AntImperative
 doUntil f t = iWhile (Not t) f
+
+
+-- | Performs an if a maximum amount of times, meanwhile executing a "modification" strategy.
+-- WARNING: Can cause code bloat, as the body of the if is REPEATED n times
+repeatedIfThen' :: AntImperative -> Int -> AntTest -> AntImperative -> AntImperative
+repeatedIfThen' _ 0 _ _ = iEmpty
+repeatedIfThen' b n c t = iIfThenElse c t (b `iSeq` repeatedIfThen' b (n-1) c t)
+
+-- | Performs an if a maximum amount of times, executing the given body when the test succeeds.
+-- WARNING: Can cause code bloat, as the body of the if is REPEATED n times
+repeatedIfThen :: Int -> AntTest -> AntImperative -> AntImperative
+repeatedIfThen = repeatedIfThen' iEmpty
 
 
 -- | Tries to go forward straight until a condition is met. Has a "recovery" strategy passed
@@ -93,21 +107,40 @@ safeGoFFNSteps :: Int -> AntImperative
 safeGoFFNSteps n = iList (replicate n safeMove)
 
 
+-- | Goes forward then turns to the desired direction. SAFE (collision-safe)
+safeGoMoveNTurn :: Dexterity -> Int -> AntImperative
+safeGoMoveNTurn d n = safeGoFFNSteps n `iSeq` iTurn d
+
+-- | Goes forward then turns to the desired direction. UNSAFE (collision-unsafe)
 goMoveNTurn :: Dexterity -> Int -> AntImperative
-goMoveNTurn d n = safeGoFFNSteps n `iSeq` iTurn d
+goMoveNTurn d n = goFFNSteps n `iSeq` iTurn d
 
 
+-- | Moves forward n steps, interleaved with some other strategy. SAFE (collision-safe)
+safeDoFFNStepsWith :: Int -> AntImperative -> AntImperative
+safeDoFFNStepsWith n other = interleaveStrategy other (safeGoFFNSteps n)
+
+-- | Moves forward n steps, interleaved with some other strategy. UNSAFE (collision-unsafe)
+doFFNStepsWith :: Int -> AntImperative -> AntImperative
+doFFNStepsWith n other = interleaveStrategy other (safeGoFFNSteps n)
+
+
+-- | Forward n steps then turn, interleaved with another strategy. SAFE (collision-safe)
+safeDoMoveNTurn :: Dexterity -> Int -> AntImperative -> AntImperative
+safeDoMoveNTurn d n s = doFFNStepsWith n s `iSeq` iTurn d
+
+-- | Forward n steps then turn, interleaved with another strategy. UNSAFE (collision-unsafe)
 doMoveNTurn :: Dexterity -> Int -> AntImperative -> AntImperative
 doMoveNTurn d n s = doFFNStepsWith n s `iSeq` iTurn d
 
 
 -- | Looks for the condition, and stops when it is found
 goSearch :: AntImperative -> Condition -> Direction -> AntImperative
-goSearch s c d = doUntil s (TrySense d c)
+goSearch s c d = doUntil s (sense d c)
 
 -- | Same as goSearch, but with a second strategy interleaved
 doSearch :: AntImperative -> Condition -> Direction -> AntImperative -> AntImperative
-doSearch s c d a = doUntil (s `iSeq` a) (TrySense d c)
+doSearch s c d a = doUntil (s `iSeq` a) (sense d c)
 
 
 
@@ -151,16 +184,9 @@ oneOfOrNothing :: [AntImperative] -> AntImperative
 oneOfOrNothing ss = doWithChance ((length ss) + 1) $ chooseUniformly ss
 
 
-
-
--- | Performs a random turn
+-- | Performs a random turn, can turn to any side, or not turn at all
 randomTurn :: AntImperative
 randomTurn = oneOfOrNothing [turn60L, turn120L, turn180L, turn60R, turn120R]
-
-
--- | Moves forward n steps, performing some other strategy meanwhile
-doFFNStepsWith :: Int -> AntImperative -> AntImperative
-doFFNStepsWith n other = interleaveStrategy other (safeGoFFNSteps n)
 
 
 
@@ -230,18 +256,18 @@ goSpiral = goSpiralR
 goSpiralD :: Dexterity -> Int -> AntImperative
 goSpiralD d = goSpiral' 1
     where                             -- Might be improved by using goForwardUntil
-        goSpiral' i n | i < n       = goMoveNTurn d i `iSeq` 
-                                      goMoveNTurn d i `iSeq` 
+        goSpiral' i n | i < n       = safeGoMoveNTurn d i `iSeq` 
+                                      safeGoMoveNTurn d i `iSeq` 
                                       goSpiral' (i+1) n
-                      | otherwise   = goMoveNTurn d n `iSeq` goMoveNTurn d n
+                      | otherwise   = safeGoMoveNTurn d n `iSeq` safeGoMoveNTurn d n
 
 doSpiralD :: Dexterity -> Int -> AntImperative -> AntImperative
 doSpiralD d n s = doSpiral' 1 n
     where                             -- Might be improved by using goForwardUntil
-        doSpiral' i k | i < k       = doMoveNTurn d i s `iSeq` 
-                                      doMoveNTurn d i s `iSeq` 
+        doSpiral' i k | i < k       = safeDoMoveNTurn d i s `iSeq` 
+                                      safeDoMoveNTurn d i s `iSeq` 
                                       doSpiral' (i+1) k
-                      | otherwise   = doMoveNTurn d k s `iSeq` doMoveNTurn d k s
+                      | otherwise   = safeDoMoveNTurn d k s `iSeq` safeDoMoveNTurn d k s
 
 
 

@@ -1,38 +1,38 @@
-Sense Here 16 15 Food
-Turn Left 0
-Turn Left 3
-Turn Left 0
+Sense Here 36 35 Food
+Turn Left 16
+Turn Left 16
+Turn Left 2
+Turn Left 16
+Turn Left 4
 Turn Left 5
-Turn Left 6
-Turn Left 0
-Turn Right 0
-Turn Right 9
-Turn Right 0
-Flip 2 7 8
-Flip 3 4 10
-Flip 4 2 11
+Turn Right 16
+Turn Right 16
+Turn Right 8
+Flip 2 7 9
+Flip 3 6 10
+Flip 4 3 11
 Flip 5 1 12
-Flip 6 0 13
-Move 0 14
-Sense Here 15 17 Home
-PickUp 18 18
-Turn Left 19
-Turn Left 20
-Turn Left 36
-Turn Left 36
-Turn Left 23
-Turn Left 36
+Flip 6 16 13
+Move 16 14
+Sense Here 37 15 Home
+Turn Left 16
+Turn Left 17
+Turn Left 18
+PickUp 19 19
+Turn Left 0
+Turn Left 0
+Turn Left 22
+Turn Left 0
+Turn Left 24
 Turn Left 25
-Turn Left 26
-Turn Left 36
-Turn Right 36
-Turn Right 29
-Turn Right 36
-Flip 2 27 28
-Flip 3 24 30
-Flip 4 22 31
+Turn Right 0
+Turn Right 0
+Turn Right 28
+Flip 2 27 29
+Flip 3 26 30
+Flip 4 23 31
 Flip 5 21 32
-Flip 6 36 33
-Move 36 34
-Sense Here 37 35 Home
+Flip 6 0 33
+Move 0 34
+Sense Here 35 20 Home
 Drop 0

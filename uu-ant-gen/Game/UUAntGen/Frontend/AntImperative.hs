@@ -1,14 +1,17 @@
 module Game.UUAntGen.Frontend.AntImperative where
 
-import           Control.Monad.Supply (supply)
-import           Data.Map             ((!))
-import qualified Data.Map             as M
+import           Control.Monad.Supply 
+import           Control.Monad        
+import           Control.Monad.Trans  
+import           Control.Monad.Trans.State  
+import           Control.Monad.Reader 
+import           Data.Map              ((!))
+import qualified Data.Map              as M
 
 import Game.UUAntGen.Backend.AntAssembly
 import Game.UUAntGen.Backend.AntDeepEmbedded
 import Game.UUAntGen.Backend.AntInstruction
 import Game.UUAntGen.Backend.AntTransformation
-
 
 
 -- Iterative programming-like constructs for building ant strategies. Sequencing, loop,
@@ -23,20 +26,16 @@ iSeq (IList s1) s2         = IList $ s1 ++ [s2]
 iSeq s1         (IList s2) = IList $ s1 : s2
 iSeq s1         s2         = IList [s1, s2]
 
-(>>-) :: AntStrategy -> AntStrategy -> AntStrategy
+(>>-) :: AntStrategy -> AntStrategy -> AntStrategy 
 s1 >>- s2 = do
-    s1' <- s1  -- extracting instruction blocks from within the Supply monad
-    s2' <- s2
-    let s1final = instructions s1' ! final s1'
-        s1new   = M.insert (final s1') 
-                           (replaceDefaultState (initial s2') s1final) 
-                           (instructions s1')
-    return $ AntStrategy' (s1new `M.union` (instructions s2')) (initial s1') (final s2')
+    (i2,f2,m2) <- s2 
+    (i1,_ ,m1) <- local (const i2) s1
+    return $ (i1, f2, m1 `M.union` m2) 
+
 
 -- Strategy made of a sequenced list of strategies
 iList :: [AntImperative] -> AntImperative
 iList = IList
-
 
 
 -- While block, is given a test and a strategy for the body
@@ -48,18 +47,16 @@ aWhile = aMkWhile . processAntTest
 
 -- Helper function to aWhile. Produces a conditional loop block, given a conditional
 -- assembly instruction and a strategies for the loop body
-aMkWhile :: (AntState -> AntState -> AntStrategy) -> AntStrategy -> AntStrategy
+aMkWhile :: (AntState -> AntState -> AntStrategy) 
+         -> AntStrategy 
+         -> AntStrategy
 aMkWhile cond b = do
-    gidx  <- supply  -- getting the unique id for the ghost instruction
-    b'    <- b  -- extracting the instruction blocks from the Supply monad
-    let bidx         = initial b'
-    AntStrategy' m i _ <- cond bidx gidx
-    let condInstrs = M.keys m
-        ghosti     = Ghost gidx condInstrs
-        bPlusG     = M.insert gidx ghosti (instructions $ replaceFinal i b')
-    return $ AntStrategy' (m `M.union` bPlusG) i gidx
-
-
+    nextState <- ask
+    (ib,fb,mb) <- b -- b is being linked to the next state 
+    (ic,fc,mc) <- cond ib nextState 
+    -- correcly linking b (TODO: could it be improved using fc?)
+    let mb' = M.map (replaceMatchingStates nextState ic) mb 
+    return $ (ic,fc,mc `M.union` mb') 
 
 -- IfThenElse, given a test and two strategies: one for the true branch and one for the false
 iIfThenElse :: AntTest -> AntImperative -> AntImperative -> AntImperative
@@ -70,17 +67,13 @@ aIfThenElse = aMkIfThenElse . processAntTest
 
 -- Helper function to aIfThenElse. Produces a conditional strategy given an assembly instruction
 -- and two strategies. Introduces a "Ghost" instruction to serve as return point from both branches
-aMkIfThenElse :: (AntState -> AntState -> AntStrategy) -> AntStrategy -> AntStrategy -> AntStrategy
+aMkIfThenElse :: (AntState -> AntState -> AntStrategy) -> AntStrategy -> AntStrategy 
+              -> AntStrategy
 aMkIfThenElse cond ts fs = do
-    g <- supply -- getting the unique id for the ghost instruction
-    ts' <- ts  -- extracting the instruction blocks from the Supply monad
-    fs' <- fs
-    let (tidx, fidx) = (initial ts', initial fs')
-    AntStrategy' m i _ <- cond tidx fidx
-    let ghosti = Ghost g [(final ts'),(final fs')]
-        fPlusT = (instructions $ replaceFinal g ts') `M.union` (instructions $ replaceFinal g fs')
-    return $ AntStrategy' (m `M.union` (M.insert g ghosti fPlusT)) i g
-
+    (iT,fT,mT) <- ts  
+    (iF,fF,mF) <- fs
+    (ic,fc,mc) <- cond iT iF
+    return $ (ic, fT ++ fF, mc `M.union` mT `M.union` mF)  
 
 
 -- IfThen, given a test and a strategy for the body
@@ -93,14 +86,10 @@ aIfThen = aMkIfThen . processAntTest
 -- Helper function to make a IfThen block.
 aMkIfThen :: (AntState -> AntState -> AntStrategy) -> AntStrategy -> AntStrategy
 aMkIfThen cond b = do
-    g  <- supply
-    b' <- b
-    AntStrategy' m i _ <- cond (initial b') g
-    let condInstrs = M.keys m
-        ghosti     = Ghost g ((final b') : condInstrs)
-        instrs     = (instructions $ replaceFinal g b')
-    return $ AntStrategy' (m `M.union` M.insert g ghosti instrs) i g
-
+    nextState <- ask 
+    (ib,fb,mb) <- b
+    (ic,fc,mc) <- cond ib nextState
+    return $ (ic, fc ++ fb , (mc `M.union` mb))
 
 
 -- Produces a block containing a side-effecting test instruction, but with no body
@@ -112,13 +101,7 @@ aTest = aMkTest . processAntTest
 
 -- Helper function to build a aTest block, given the condition for which to test
 aMkTest :: (AntState -> AntState -> AntStrategy) -> AntStrategy
-aMkTest cond = do
-    g <- supply
-    AntStrategy' m i _ <- cond g g
-    let condInstrs = M.keys m
-        allInstrs  = m `M.union` M.fromList [(g, Ghost g condInstrs)]
-    return $ AntStrategy' allInstrs i g
-
+aMkTest cond = ask >>= \nextState -> cond nextState nextState
 
 
 -- Produces a switch-case like block, analogous to nested if-elsif statements
@@ -129,27 +112,29 @@ aCase :: [(AntTest,AntStrategy)] -> AntStrategy
 aCase = aMkCase . mapFst processAntTest
     where mapFst f = map (\(x,y) -> (f x,y))
 
+
 aMkCase :: [(AntState -> AntState -> AntStrategy,AntStrategy)] -> AntStrategy
 aMkCase conds = do
-    g <- supply
-    ss' <- mapM (linkToGhost g . snd) conds
-    let (condsF, _) = unzip $ map linkTrue $ zip (map fst conds) ss'
+    nextState <- ask
+    ss <- sequence $ map snd conds
+    let condsF = map linkTrue $ zip (map fst conds) ss
         -- linking conditions
-        conds' = foldr (buildCondStrat g) (return $ AntStrategy' M.empty g g) condsF
-
-    AntStrategy' mc ic f <- conds'
-    let mss       = foldr M.union M.empty $ map instructions ss'
-        ghosti    = Ghost g (f : M.keys mss)
-        allInstrs = M.insert g ghosti (mc `M.union` mss)
-    return $ AntStrategy' allInstrs ic g
+        conds' = foldr (buildCondStrat nextState) 
+                       (return (nextState,[nextState],M.empty)) 
+                       condsF
+    (ic,fc,mc) <- conds'
+    let mss = foldr M.union M.empty (map third ss)
+        fss = concat (map second ss)
+    return $ (ic, fss, mss `M.union` mc)
    where
+        first  (x,_,_) = x
+        second (_,x,_) = x
+        third  (_,_,x) = x
         buildCondStrat g mkS1 s2 = do
-            AntStrategy' m2 i2 f2 <- s2
-            AntStrategy' m1 i1 f1 <- mkS1 i2
-            return $ AntStrategy' (m1 `M.union` m2) i1 (if f2 == g then f1 else f2)
-        linkToGhost g s = s >>= return . replaceFinal g
-        linkTrue (mkS,s) = (\fs -> flip mkS fs $ initial s, s)
-
+            (i2,f2,m2) <- s2
+            (i1,f1,m1) <- mkS1 i2
+            return $ (i1, if f2 == [g] then f1 else f2, (m1 `M.union` m2)) 
+        linkTrue (mkS,s) = \fs -> flip mkS fs $ first s 
 
 
 -- | Dealing with boolean operators
@@ -160,9 +145,9 @@ aMkCase conds = do
 aMkAnd :: (AntState -> AntState -> AntStrategy) -> (AntState -> AntState -> AntStrategy)
        -> AntState -> AntState -> AntStrategy
 aMkAnd mkS1 mkS2 st sf = do
-    AntStrategy' m2 i2 f2 <- mkS2 st sf
-    AntStrategy' m1 i1 _  <- mkS1 i2 sf
-    return $ AntStrategy' (m1 `M.union` m2) i1 f2
+    (i2,f2,m2) <- mkS2 st sf
+    (i1,_ ,m1) <- mkS1 i2 sf
+    return $ (i1, f2, (m1 `M.union` m2)) 
 
 
 -- | Procuces a block of disjunction of two conditional instructions given two functions
@@ -171,9 +156,9 @@ aMkAnd mkS1 mkS2 st sf = do
 aMkOr :: (AntState -> AntState -> AntStrategy) -> (AntState -> AntState -> AntStrategy)
       -> AntState -> AntState -> AntStrategy
 aMkOr mkS1 mkS2 st sf = do
-    AntStrategy' m2 i2 f2 <- mkS2 st sf
-    AntStrategy' m1 i1 _  <- mkS1 st i2
-    return $ AntStrategy' (m1 `M.union` m2) i1 f2
+    (i2,f2,m2) <- mkS2 st sf
+    (i1,_ ,m1) <- mkS1 st i2
+    return $ (i1,f2,(m1 `M.union` m2))
 
 
 -- | Consumes an AntTest and returns a function that produces a block of conditional
@@ -182,8 +167,8 @@ processAntTest :: AntTest -> (AntState -> AntState -> AntStrategy)
 processAntTest = foldAntTest (sense', random', forward', pickup', and', or', not')
     where
         aMkSingletonCondStrategy f id1 id2 = do
-            idx <- supply
-            return $ AntStrategy' (M.singleton idx (f id1 id2)) idx idx
+            idx <- lift $ supply
+            return $ (idx, [idx], M.singleton idx (f id1 id2)) 
         sense' d c = aMkSingletonCondStrategy (\t f -> Sense d t f c)
         random' p  = aMkSingletonCondStrategy (\t f -> Flip p t f)
         forward'   = aMkSingletonCondStrategy Move

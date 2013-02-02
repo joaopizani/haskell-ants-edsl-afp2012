@@ -65,7 +65,7 @@ translateToIL :: AntImperative -> AntStrategy'
 translateToIL = runAntStrategy . semanticsImp
 
 transformIL :: AntStrategy' -> IMap
-transformIL = keysToLineNumbers . ghostBuster . topLevelForever
+transformIL = setInitialAsZero  
 
 
 -- | TOP LEVEL compile function. Performs all program transformations and optimizations

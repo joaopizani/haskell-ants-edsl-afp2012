@@ -68,6 +68,5 @@ data AntInstruction
     | Turn Dexterity AntState
     | Move AntState AntState
     | Flip Int AntState AntState
-    | Ghost AntState [AntState] 
     deriving (Eq, Show)
 

@@ -67,4 +67,4 @@ executable uu-ant-gen
 
   -- Other library packages from which modules are imported.
   build-depends: base==4.*, containers, hashable, ghc-prim, monad-supply,
-                 HUnit, QuickCheck
+                 HUnit, QuickCheck, mtl, transformers

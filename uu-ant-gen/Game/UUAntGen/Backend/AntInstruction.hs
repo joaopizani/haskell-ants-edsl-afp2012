@@ -1,6 +1,9 @@
 module Game.UUAntGen.Backend.AntInstruction where
 
 import           Control.Monad.Supply (Supply, supply)
+import           Control.Monad.State  (StateT,put)
+import           Control.Monad.Reader (ReaderT,ask)
+import           Control.Monad.Trans  (lift)
 import qualified Data.Map             as M
 
 import Game.UUAntGen.Backend.AntAssembly
@@ -9,28 +12,26 @@ import Game.UUAntGen.Backend.AntDeepEmbedded
 
 type IMap = M.Map AntState AntInstruction
 
-data AntStrategy' = AntStrategy'
-    { instructions :: IMap
-    , initial      :: AntState
-    , final        :: AntState }
-    deriving Eq
+-- | The base type that includes a map, an initial state, a set of final states and a IMap
+type AntStrategy' = (AntState,[AntState],IMap)
 
-instance Show AntStrategy' where
-    show (AntStrategy' i s0 sf) = unlines ["initial = " ++ show s0, "final = " ++ show sf, show i]
-
-
--- | The AntStrategy' type, wrapped in the Supply monad for obtaining unique instruction ids
-type AntStrategy = Supply AntState AntStrategy'
+-- | The AntStrategy' type, wrapped in the Supply monad for obtaining unique instruction ids and wrapped into a Reader monad that supplies the next state available.
+type AntStrategy = ReaderT AntState (Supply AntState) AntStrategy' 
 
 
 -- Basic strategies, one function per assembly word. Each basic strategy has a "real assembly"
 -- version (of type AntStrategy), and a "deep embedded" EDSL version (of type AntImperative).
 -- The conversion AntBasic -> AntStrategy is done by the semanticsBasic function
-aMkSingletonStrategy' :: (AntState -> AntInstruction) -> AntState -> AntStrategy'
-aMkSingletonStrategy' instr idx = AntStrategy' (M.fromList [(idx, instr idx)]) idx idx
+aMkSingletonStrategy' :: (AntState -> AntInstruction) -> AntState -> AntState
+                      -> AntStrategy' 
+aMkSingletonStrategy' instr idx ns = (idx, [idx], M.fromList [(idx, instr ns)])
+
 
 aMkSingletonStrategy :: (AntState -> AntInstruction) -> AntStrategy
-aMkSingletonStrategy instr = supply >>= return . aMkSingletonStrategy' instr
+aMkSingletonStrategy instr = do 
+    idx <- supply
+    nextState <- ask
+    return $ aMkSingletonStrategy' instr idx nextState 
 
 
 aMark :: Pheromone -> AntStrategy
